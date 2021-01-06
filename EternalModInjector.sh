@@ -17,8 +17,8 @@ export ___VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
 
 export ___CERTUTIL_EXISTS=1
 export ___GAME_HAS_BEEN_PATCHED=""
-export ___OWNS_ANCIENT_GODS_ONE=""
-export ___OWNS_CAMPAIGN=""
+export ___OWNS_ANCIENT_GODS_ONE=false
+export ___OWNS_CAMPAIGN=false
  
 export ___CONFIGURATION_EXISTS=""
 export ___AUTO_LAUNCH_GAME=1
@@ -27,7 +27,5 @@ export ___HAS_CHECKED_RESOURCES=""
 export ___HAS_READ_FIRST_TIME=""
 export ___RESET_BACKUPS=""
 
-if [ -f base/game/sp/e1m1_intro/e1m1_intro.resources ]; then export $___OWNS_CAMPAIGN=1;     fi
-if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export $___OWNS_ANCIENT_GODS_ONE=1;     fi
-
-
+if [ -f base/game/sp/e1m1_intro/e1m1_intro.resources ]; then export $___OWNS_CAMPAIGN=true;     fi
+if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export $___OWNS_ANCIENT_GODS_ONE=true;     fi
