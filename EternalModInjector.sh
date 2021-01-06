@@ -30,4 +30,14 @@ export ___RESET_BACKUPS=""
 if [ -f base/game/sp/e1m1_intro/e1m1_intro.resources ]; then export $___OWNS_CAMPAIGN=1;     fi
 if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export $___OWNS_ANCIENT_GODS_ONE=1;     fi
 
+FunctionCallForResources FunctionInitializeBackupVariable
+FunctionCallForResources FunctionInitializeModdedVariable
 
+FunctionCallForResources(){ 
+} #initialize function
+
+FunctionInitializeBackupVariable(){
+} #initialize function
+
+FunctionInitializeModdedVariable(){
+} #initialize function
