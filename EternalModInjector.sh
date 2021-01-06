@@ -28,11 +28,13 @@ export ___HAS_READ_FIRST_TIME=""
 export ___RESET_BACKUPS=""
 
 
-FunctionCallForResources FunctionInitializeBackupVariable
-FunctionCallForResources FunctionInitializeModdedVariable
 
 if [ -f base/game/sp/e1m1_intro/e1m1_intro.resources ]; then export $___OWNS_CAMPAIGN=true;     fi
 if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export $___OWNS_ANCIENT_GODS_ONE=true;     fi
+
+
+FunctionCallForResources FunctionInitializeBackupVariable
+FunctionCallForResources FunctionInitializeModdedVariable
 
 
 FunctionCallForResources(){ 
@@ -43,3 +45,4 @@ FunctionInitializeBackupVariable(){
 
 FunctionInitializeModdedVariable(){
 } #initialize function
+
