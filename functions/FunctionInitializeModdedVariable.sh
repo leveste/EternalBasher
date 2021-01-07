@@ -1,3 +1,3 @@
-FunctionInitializeModdedVariable(){ 
-	 export "___MODDED_$2"=$2
+FunctionInitializeModdedVariable() { 
+	 export "___MODDED_$2"=0
 }
