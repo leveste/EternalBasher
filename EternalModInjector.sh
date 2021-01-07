@@ -15,7 +15,6 @@ export ___PATCHED_GAME_MD5="3238e7a9277efc6a607b1b1615ebe79f 4acdaf89f30f178ba95
 export ___VANILLA_GAME_MD5="1ef861b693cdaa45eba891d084e5f3a3 c2b429b2eb398f836dd10d22944b9c76"
 export ___VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
 
-export ___CERTUTIL_EXISTS=1
 export ___GAME_HAS_BEEN_PATCHED=""
 export ___OWNS_ANCIENT_GODS_ONE=false
 export ___OWNS_CAMPAIGN=false
