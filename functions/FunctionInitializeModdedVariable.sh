@@ -1,3 +1,3 @@
 FunctionInitializeModdedVariable(){ 
-	declare "___MODDED_$2=''"
+	 export "___MODDED_$2"=$2
 }
