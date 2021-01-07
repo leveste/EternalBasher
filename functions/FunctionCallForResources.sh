@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 FunctionCallForResources(){ 
 	if ( $___OWNS_CAMPAIGN = false ); then FunctionCallForResourcesPostCampaignA
 	fi
@@ -80,3 +81,8 @@ FunctionCallForResources(){
 	IF ERRORLEVEL 1 EXIT /B 1
 	
 }
+=======
+function FunctionCallForResources() {
+ if [ $___OWNS_CAMPAIGN = false ]; then
+ 
+>>>>>>> 5b5d34b6fb517174815f42c2e35f13877dc9d666
