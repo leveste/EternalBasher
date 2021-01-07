@@ -167,6 +167,4 @@ FunctionCallForResources() {
 	if ($? != 0); then return 1; fi
 	$1 warehouse                                                   warehouse
 	if ($? != 0); then return 1; fi
-
-	return 0
 }
