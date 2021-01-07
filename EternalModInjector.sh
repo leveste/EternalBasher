@@ -35,7 +35,6 @@ if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export $___OWNS_ANCIEN
 
 FunctionCallForResources FunctionInitializeBackupVariable
 
-IF EXIST ".\%___CONFIGURATION_FILE%" GOTO ConfigurationFile
 if [ -z ${___CONFIGURATION_FILE+x} ]; then (goto ConfigurationFile); fi
 if [ -z ${___CONFIGURATION_FILE_OLD+x} ]; then (goto ConfigurationFileOld); fi
 
