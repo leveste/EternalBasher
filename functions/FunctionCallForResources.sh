@@ -1,5 +1,5 @@
-: FunctionCallForResources
-	if ( $___OWNS_CAMPAIGN = false ); then goto "$FunctionCallForResourcesPostCampaignA"
+FunctionCallForResources() {
+	if ( $___OWNS_CAMPAIGN = false ); then FunctionCallForResourcesPostCampaignA
 	fi
 	
 	$1 game/sp/ge1m1_intro/ge1m1_intro                               e1m1_intro
