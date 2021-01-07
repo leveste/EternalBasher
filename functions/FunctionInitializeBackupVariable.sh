@@ -1,3 +1,3 @@
-FunctionInitializeBackupVariable(){
-	export "___BACKED_UP_$2"=$2
+FunctionInitializeBackupVariable() {
+	export "___BACKED_UP_$2"=0
 }
