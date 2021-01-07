@@ -1,6 +1,5 @@
 FunctionCallForResources(){ 
-	if ( $___OWNS_CAMPAIGN = false ); then goto "FunctionCallForResourcesPostCampaignA"
-	fi
+	if ( $___OWNS_CAMPAIGN = false ); then goto "FunctionCallForResourcesPostCampaignA"; fi
 	
 	$1 game/sp/e1m1_intro/e1m1_intro                               e1m1_intro
 	if ($? != 0); then return 1; fi
@@ -79,4 +78,94 @@ FunctionCallForResources(){
 	$1 game/sp/e3m4_boss/e3m4_boss_patch2                          e3m4_boss_patch2
 	if ($? != 0); then return 1; fi
 	
-}
+
+	: FunctionCallForResourcesPostCampaignA
+	if ( $___OWNS_ANCIENT_GODS_ONE = false ); then goto "FunctionCallForResourcesPostAncientGodsOneA"
+
+	$1 game/dlc/e4m1_rig/e4m1_rig                                  e4m1_rig
+	if ($? != 0); then return 1; fi
+	$1 game/dlc/e4m1_rig/e4m1_rig_patch1                           e4m1_rig_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/dlc/e4m1_rig/e4m1_rig_patch2                           e4m1_rig_patch2
+	if ($? != 0); then return 1; fi
+	$1 game/dlc/e4m2_swamp/e4m2_swamp                              e4m2_swamp
+	if ($? != 0); then return 1; fi
+	$1 game/dlc/e4m2_swamp/e4m2_swamp_patch1                       e4m2_swamp_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/dlc/e4m2_swamp/e4m2_swamp_patch2                       e4m2_swamp_patch2
+	if ($? != 0); then return 1; fi
+	$1 game/dlc/e4m3_mcity/e4m3_mcity                              e4m3_mcity
+	if ($? != 0); then return 1; fi
+	$1 game/dlc/e4m3_mcity/e4m3_mcity_patch1                       e4m3_mcity_patch1
+	if ($? != 0); then return 1; fi
+
+	: FunctionCallForResourcesPostAncientGodsOneA
+	$1 gameresources                                               gameresources
+	if ($? != 0); then return 1; fi
+	$1 gameresources_patch1                                        gameresources_patch1
+	if ($? != 0); then return 1; fi
+	$1 gameresources_patch2                                        gameresources_patch2
+	if ($? != 0); then return 1; fi
+	
+	if ( $___OWNS_ANCIENT_GODS_ONE = false ); then goto "FunctionCallForResourcesPostAncientGodsOneB"
+
+	$1 game/dlc/hub/hub                                            dlc_hub
+	if ($? != 0); then return 1; fi
+	$1 game/dlc/hub/hub_patch1                                     dlc_hub_patch1
+	if ($? != 0); then return 1; fi
+
+	: FunctionCallForResourcesPostAncientGodsOneB
+	if ( $___OWNS_CAMPAIGN = false ); then goto "FunctionCallForResourcesPostCampaignB"
+
+	$1 game/hub/hub                                                hub
+	if ($? != 0); then return 1; fi
+	$1 game/hub/hub_patch1                                         hub_patch1
+	if ($? != 0); then return 1; fi
+
+	: FunctionCallForResourcesPostCampaignB
+	$1 meta                                                        meta
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_bronco/pvp_bronco                              pvp_bronco
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_bronco/pvp_bronco_patch1                       pvp_bronco_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_deathvalley/pvp_deathvalley                    pvp_deathvalley
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_deathvalley/pvp_deathvalley_patch1             pvp_deathvalley_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_inferno/pvp_inferno                            pvp_inferno
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_inferno/pvp_inferno_patch1                     pvp_inferno_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_laser/pvp_laser                                pvp_laser
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_laser/pvp_laser_patch1                         pvp_laser_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_shrapnel/pvp_shrapnel                          pvp_shrapnel
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_shrapnel/pvp_shrapnel_patch1                   pvp_shrapnel_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_thunder/pvp_thunder                            pvp_thunder
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_thunder/pvp_thunder_patch1                     pvp_thunder_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_zap/pvp_zap                                    pvp_zap
+	if ($? != 0); then return 1; fi
+	$1 game/pvp/pvp_zap/pvp_zap_patch1                             pvp_zap_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/shell/shell                                            shell
+	if ($? != 0); then return 1; fi
+	$1 game/shell/shell_patch1                                     shell_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/tutorials/tutorial_demons                              tutorial_demons
+	if ($? != 0); then return 1; fi
+	$1 game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser        tutorial_pvp_laser
+	if ($? != 0); then return 1; fi
+	$1 game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser_patch1 tutorial_pvp_laser_patch1
+	if ($? != 0); then return 1; fi
+	$1 game/tutorials/tutorial_sp                                  tutorial_sp
+	if ($? != 0); then return 1; fi
+	$1 warehouse                                                   warehouse
+	if ($? != 0); then return 1; fi
+
+	return 0
