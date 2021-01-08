@@ -1,6 +1,6 @@
-printf "EternalModInjector Shell Script\n\n"
-printf "By Leveste and PowerBall253\n\n"
-printf "Based on original batch file by Zwip-Zwap Zapony\n\n\n"
+printf "EternalModInjector Shell Script\n\n
+		By Leveste and PowerBall253\n\n
+		Based on original batch file by Zwip-Zwap Zapony\n\n\n"
 
 
 export ___CONFIGURATION_FILE="EternalModInjector Settings.txt"
@@ -46,14 +46,3 @@ if [ -z ${___CONFIGURATION_FILE_OLD+x} ]; then goto ConfigurationFileOld; fi
 #    eval "$cmd"
 #    exit
 #}
-
-
-FunctionCallForResources(){ 
-} #initialize function
-
-FunctionInitializeBackupVariable(){
-} #initialize function
-
-FunctionInitializeModdedVariable(){
-} #initialize function
-
