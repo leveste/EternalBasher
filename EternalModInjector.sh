@@ -34,15 +34,5 @@ if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export ___OWNS_ANCIENT
 
 FunctionCallForResources FunctionInitializeBackupVariable
 
-if [ -z ${___CONFIGURATION_FILE+x} ]; then goto ConfigurationFile; fi
-if [ -z ${___CONFIGURATION_FILE_OLD+x} ]; then goto ConfigurationFileOld; fi
-
-#How are we going to replace goto? We could use this function I found that simulates it:
-#function goto
-#{
-#    label=$1
-#    cmd=$(sed -n "/^:[[:blank:]][[:blank:]]*${label}/{:a;n;p;ba};" $0 | 
-#          grep -v ':$')
-#    eval "$cmd"
-#    exit
-#}
+if [ -f ./$___CONFIGURATION_FILE ]; then goto ConfigurationFile; fi
+if [ -f ./$___CONFIGURATION_FILE_OLD ]; then goto ConfigurationFileOld; fi
