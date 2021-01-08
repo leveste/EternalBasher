@@ -82,8 +82,8 @@ FunctionCallForResources() {
 }
 
 
-	: FunctionCallForResourcesPostCampaignA
-	if ( $___OWNS_ANCIENT_GODS_ONE = false ); then goto "FunctionCallForResourcesPostAncientGodsOneA"
+FunctionCallForResourcesPostCampaignA(){
+	if [[ $___OWNS_ANCIENT_GODS_ONE = false ]]; then goto "FunctionCallForResourcesPostAncientGodsOneA"; fi
 
 	$1 game/dlc/e4m1_rig/e4m1_rig                                  e4m1_rig
 	if [[ $? != 0 ]]; then return 1; fi
@@ -101,8 +101,9 @@ FunctionCallForResources() {
 	if [[ $? != 0 ]]; then return 1; fi
 	$1 game/dlc/e4m3_mcity/e4m3_mcity_patch1                       e4m3_mcity_patch1
 	if [[ $? != 0 ]]; then return 1; fi
+}
 
-	: FunctionCallForResourcesPostAncientGodsOneA
+FunctionCallForResourcesPostAncientGodsOneA(){
 	$1 gameresources                                               gameresources
 	if [[ $? != 0 ]]; then return 1; fi
 	$1 gameresources_patch1                                        gameresources_patch1
@@ -110,22 +111,24 @@ FunctionCallForResources() {
 	$1 gameresources_patch2                                        gameresources_patch2
 	if [[ $? != 0 ]]; then return 1; fi
 	
-	if ( $___OWNS_ANCIENT_GODS_ONE = false ); then goto "FunctionCallForResourcesPostAncientGodsOneB"
+	if [[ $___OWNS_ANCIENT_GODS_ONE = false ]]; then goto "FunctionCallForResourcesPostAncientGodsOneB"; fi
 
 	$1 game/dlc/hub/hub                                            dlc_hub
 	if [[ $? != 0 ]]; then return 1; fi
 	$1 game/dlc/hub/hub_patch1                                     dlc_hub_patch1
 	if [[ $? != 0 ]]; then return 1; fi
+}
 
-	: FunctionCallForResourcesPostAncientGodsOneB
-	if ( $___OWNS_CAMPAIGN = false ); then goto "FunctionCallForResourcesPostCampaignB"
+FunctionCallForResourcesPostAncientGodsOneB(){
+	if [[ $___OWNS_CAMPAIGN = false ]]; then goto "FunctionCallForResourcesPostCampaignB"; fi
 
 	$1 game/hub/hub                                                hub
 	if [[ $? != 0 ]]; then return 1; fi
 	$1 game/hub/hub_patch1                                         hub_patch1
 	if [[ $? != 0 ]]; then return 1; fi
+}
 
-	: FunctionCallForResourcesPostCampaignB
+FunctionCallForResourcesPostCampaignB(){
 	$1 meta                                                        meta
 	if [[ $? != 0 ]]; then return 1; fi
 	$1 game/pvp/pvp_bronco/pvp_bronco                              pvp_bronco
@@ -170,3 +173,4 @@ FunctionCallForResources() {
 	if [[ $? != 0 ]]; then return 1; fi
 	$1 warehouse                                                   warehouse
 	if [[ $? != 0 ]]; then return 1; fi
+}
