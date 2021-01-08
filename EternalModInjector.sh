@@ -28,11 +28,30 @@ export ___RESET_BACKUPS=""
 
 
 
-if [ -f base/game/sp/e1m1_intro/e1m1_intro.resources ]; then export ___OWNS_CAMPAIGN=true;     fi
-if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export ___OWNS_ANCIENT_GODS_ONE=true;     fi
-
+if [ -f base/game/sp/e1m1_intro/e1m1_intro.resources ]; then export ___OWNS_CAMPAIGN=true; fi
+if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export ___OWNS_ANCIENT_GODS_ONE=true; fi
 
 FunctionCallForResources FunctionInitializeBackupVariable
 
 if [ -f ./$___CONFIGURATION_FILE ]; then goto ConfigurationFile; fi
 if [ -f ./$___CONFIGURATION_FILE_OLD ]; then goto ConfigurationFileOld; fi
+
+: PostConfigurationFile
+
+if ! [ -z ${___RESET_BACKUPS+x} ]; goto "ResetBackups"; fi
+
+: PostResetBackups
+
+goto "CheckForNeededFiles"
+
+: PostCheckForNeededFiles
+
+if [ -z ${___HAS_READ_FIRST_TIME+x} ]; goto "FirstTimeInformation"; fi
+
+: PostFirstTimeInformation
+
+if ! [ -z ${___CONFIGURATION_EXISTS+x} ]; goto "RestoreArchives"; fi
+
+: PostRestoreArchives
+
+goto "ModLoader"
