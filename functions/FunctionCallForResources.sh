@@ -1,4 +1,3 @@
-FunctionCallForResources(){ 
 FunctionCallForResources() { 
 	if ( $___OWNS_CAMPAIGN = false ); then goto "FunctionCallForResourcesPostCampaignA"; fi
 	
