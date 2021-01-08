@@ -39,7 +39,7 @@ if [ -f ./$___CONFIGURATION_FILE_OLD ]; then goto ConfigurationFileOld; fi
 
 : PostConfigurationFile
 
-if ! [ -z ${___RESET_BACKUPS+x} ]; goto "ResetBackups"; fi
+if ! [ -z ${___RESET_BACKUPS+x} ]; then goto "ResetBackups"; fi
 
 : PostResetBackups
 
@@ -47,11 +47,11 @@ goto "CheckForNeededFiles"
 
 : PostCheckForNeededFiles
 
-if [ -z ${___HAS_READ_FIRST_TIME+x} ]; goto "FirstTimeInformation"; fi
+if [ -z ${___HAS_READ_FIRST_TIME+x} ]; then goto "FirstTimeInformation"; fi
 
 : PostFirstTimeInformation
 
-if ! [ -z ${___CONFIGURATION_EXISTS+x} ]; goto "RestoreArchives"; fi
+if ! [ -z ${___CONFIGURATION_EXISTS+x} ]; then goto "RestoreArchives"; fi
 
 : PostRestoreArchives
 
