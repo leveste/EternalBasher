@@ -32,6 +32,7 @@ if [ -f base/game/sp/e1m1_intro/e1m1_intro.resources ]; then export ___OWNS_CAMP
 if [ -f base/game/dlc/e4m1_rig/e4m1_rig.resources ]; then export ___OWNS_ANCIENT_GODS_ONE=true; fi
 
 FunctionCallForResources FunctionInitializeBackupVariable
+FunctionCallForResources FunctionInitializeModdedVariable
 
 if [ -f ./$___CONFIGURATION_FILE ]; then goto ConfigurationFile; fi
 if [ -f ./$___CONFIGURATION_FILE_OLD ]; then goto ConfigurationFileOld; fi
