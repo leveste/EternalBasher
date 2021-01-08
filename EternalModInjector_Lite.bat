@@ -39,7 +39,7 @@ IF NOT CMDEXTVERSION 2 (
 
 IF NOT EXIST ".\DOOMEternalx64vk.exe" GOTO MissingGame
 IF NOT EXIST ".\DEternal_loadMods.exe" GOTO MissingDEternalLoadMods
-IF NOT EXIST ".\idRehash.exe" GOTO MissingIdRehash
+IF NOT EXIST ".\base\idRehash.exe" GOTO MissingIdRehash
 
 
 
