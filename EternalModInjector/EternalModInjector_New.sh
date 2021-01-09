@@ -72,7 +72,13 @@ then
 fi
 
 #Restore Backups
-
+while read filename; do
+	if [[ $filename == "*.resources" ]]
+	then
+		if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then NoBackupFound $filename ; fi
+		yes | cp -rf 'base/${filename}.backup' 'base/${filename}'
+	fi	
+done < 'EternalModInjector Settings.txt'
 	
 
 #Functions
@@ -124,4 +130,9 @@ case "$response" in
 		exit 1
 		;;
 esac
+}
+
+NoBackupFound() {
+read -p "Backup not found for "%1"! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again."
+exit 1
 }
