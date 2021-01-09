@@ -26,13 +26,23 @@ exit 1
 
 CreateConfigFile() {
 ASSET_VERSION="4.1"
-echo "ASSET_VERSION=4.1" >> 'EternalModInjector Settings.txt'
+echo ":ASSET_VERSION=4.1" >> 'EternalModInjector Settings.txt'
+
+echo ":AUTO_LAUNCH_GAME=1" >> 'EternalModInjector Settings.txt'
+
+echo ":GAME_PARAMETERS=" >> 'EternalModInjector Settings.txt'
+
 HAS_CHECKED_RESOURCES="0"
 echo "HAS_CHECKED_RESOURCES=0" >> 'EternalModInjector Settings.txt'
+
 HAS_READ_FIRST_TIME="0"
 echo "HAS_READ_FIRST_TIME=0" >> 'EternalModInjector Settings.txt'
+
 RESET_BACKUPS="0"
 echo "RESET_BACKUPS=0" >> 'EternalModInjector Settings.txt'
+
+echo """ >> 'EternalModInjector Settings.txt'
+
 find . -name "*.backup" -type f -delete
 }
 
@@ -100,12 +110,12 @@ fi
 #Config File check
 if ! [ -f 'EternalModInjector Settings.txt' ]; then CreateConfigFile; else
 	CONFIG_FILE='EternalModInjector Settings.txt'
-	if grep -q "ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
-	if grep -q "RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
-	if grep -q "HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
-	if grep -q "RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
-	if grep -q "HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="2"; else
-		if grep -q "HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
+	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
+	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
+	if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
+	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
+	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="2"; else
+		if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
 	fi
 fi
 
