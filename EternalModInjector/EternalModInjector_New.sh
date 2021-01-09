@@ -41,23 +41,25 @@ fi
 if ! [ -f 'EternalModInjector Settings.txt' ]; then CreateConfigFile; else
 	cat 'EternalModInjector Settings.txt'
 	TXT='EternalModInjector Settings.txt'
-	ASSET_VERSION_CFG=$(sed -n 1p $TXT); ASSET_VERSION_CFG=${ASSET_VERSION_CFG#$ASSET_VERSION=}
+	if grep -q "ASSET_VERSION=4.1" "$File"; then ASSET_VERSION="4.1" else ASSET_VERSION="0" fi
 	HAS_CHECKED_RESOURCES=$(sed -n 2p $TXT); HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES#$HAS_CHECKED_RESOURCES=}
-	HAS_READ_FIRST_TIME=$(sed -n 3p $TXT); HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME#$HAS_READ_FIRST_TIME=}
-	RESET_BACKUPS=$(sed -n 4p $TXT); RESET_BACKUPS=${RESET_BACKUPS#$RESET_BACKUPS}
+	if grep -q "RESET_BACKUPS=1" "$File"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
+	if grep -q "HAS_READ_FIRST_TIME=1" "$File"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
+	if grep -q "RESET_BACKUPS=1" "$File"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
 fi
 
+#Setup for ModLoader
 if [ $HAS_READ_FIRST_TIME == "0" ]
 then
 	read -p "Some first time message"
 	HAS_READ_FIRST_TIME="1"
 fi
 
-if ! [ $ASSET_VERSION == $ASSET_VERSION_CFG ]
+if [ $ASSET_VERSION == "0" ]
 then
 	read -p "Old Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups."
 	ResetBackups
-	ASSET_VERSION_CFG="$ASSET_VERSION"
+	ASSET_VERSION="4.1"
 fi
 
 if [ $RESET_BACKUPS == "1" ]
@@ -66,6 +68,9 @@ then
 	RESET_BACKUPS="0"
 fi
 
+#Restore Backups
+
+	
 
 #Functions
 MissingGame() {
