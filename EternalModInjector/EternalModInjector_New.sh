@@ -23,14 +23,15 @@ VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
 #Verify tool hashes
 DEternal_LoadModsMD5=($(md5sum DEternal_loadMods.exe))
 idRehashMD5=($(md5sum base/idRehash.exe))
-if ! [[ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]]; then MissingDEternalLoadMods; fi
-if ! [[ $IDREHASH_MD5 == $idRehashMD5 ]]; then MissingDEternalLoadMods; fi
+if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
+if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
 
 #Patch Game Executable
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
-if ! [[ $VANILLA_GAME_MD5 == $GameMD5 ]] || [[ $VANILLA_GAME_MD5 == $GameMD5 ]] ; then CorruptedGameExecutable; fi
+if ! [ $VANILLA_GAME_MD5 == $GameMD5 ] || [ $VANILLA_GAME_MD5 == $GameMD5 ] ; then CorruptedGameExecutable; fi
 
-if [[ $VANILLA_GAME_MD5 == $GameMD5 ]]; then
+if [ $VANILLA_GAME_MD5 == $GameMD5 ]
+then
   if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
   chmod +x EternalPatcher.exe
   wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
@@ -46,7 +47,41 @@ if ! [ -f 'EternalModInjector Settings.txt' ]; then CreateConfigFile; else
 	RESET_BACKUPS=$(sed -n 4p $TXT); RESET_BACKUPS=${RESET_BACKUPS#$RESET_BACKUPS}
 fi
 
+if [ $HAS_READ_FIRST_TIME == "0" ]
+then
+	read -p "Some first time message"
+	HAS_READ_FIRST_TIME="1"
+fi
+
+if ! [ $ASSET_VERSION == $ASSET_VERSION_CFG ]
+then
+	read -p "Old Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups."
+	ResetBackups
+	ASSET_VERSION_CFG="$ASSET_VERSION"
+fi
+
+if [ $RESET_BACKUPS == "1" ]
+then
+	ResetBackups
+	RESET_BACKUPS="0"
+fi
+
+
+#Functions
 MissingGame() {
 read -p "Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again."
 exit 1
+}
+
+ResetBackups() {
+read -r -p "Reset backups now? [y/N] " response
+case "$response" in
+	[yY][eE][sS]|[yY]) 
+       		find . -name "*.backup" -type f -delete
+		;;
+	*)
+		read -p "Backups have not been reset."
+		exit 1
+		;;
+esac
 }
