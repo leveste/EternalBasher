@@ -101,6 +101,18 @@ read -p "EternalPatcher not found or corrupted! Re-extract the tool to the DOOME
 exit 1
 }
 
+CreateConfigFile() {
+ASSET_VERSION="4.1"
+echo "ASSET_VERSION=4.1" >> 'EternalModInjector Settings.txt'
+HAS_CHECKED_RESOURCES="0"
+echo "HAS_CHECKED_RESOURCES=0" >> 'EternalModInjector Settings.txt'
+HAS_READ_FIRST_TIME="0"
+echo "HAS_READ_FIRST_TIME=0" >> 'EternalModInjector Settings.txt'
+RESET_BACKUPS="0"
+echo "RESET_BACKUPS=0" >> 'EternalModInjector Settings.txt'
+find . -name "*.backup" -type f -delete
+}
+
 ResetBackups() {
 read -r -p "Reset backups now? [y/N] " response
 case "$response" in
