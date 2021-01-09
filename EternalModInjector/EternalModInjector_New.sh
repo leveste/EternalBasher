@@ -30,7 +30,7 @@ if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
 
 #Patch Game Executable
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
-if ! [[ $VANILLA_GAME_MD5 == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]]; then CorruptedGameExecutable; fi
+if ! [[ $VANILLA_GAME_MD5__A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]]; then CorruptedGameExecutable; fi
 
 if [[ $VANILLA_GAME_MD5 == $GameMD5 ]]
 then
