@@ -100,7 +100,7 @@ fi
 #Config File check
 if ! [ -f 'EternalModInjector Settings.txt' ]; then CreateConfigFile; else
 	CONFIG_FILE='EternalModInjector Settings.txt'
-	if grep -q "ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0" fi
+	if grep -q "ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
 	if grep -q "RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
 	if grep -q "HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
 	if grep -q "RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
