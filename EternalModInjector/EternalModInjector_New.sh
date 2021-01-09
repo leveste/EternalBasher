@@ -221,7 +221,7 @@ while read filename; do
 	suffix=".resources"
 	if [[ $filename == "*.resources" ]]
 	then
-		filename=${filename//[[:cntrl:]]/}; filename_name=${filename%$suffix}; path=${filename_name}_path; backup_path=${!path%$suffix}; printf "Restoring ${backup_path}.backup"
+		filename=${filename//[[:cntrl:]]/}; filename_name=${filename%$suffix}; path=${filename_name}_path; backup_path=$(echo ${!path}); printf "Restoring ${backup_path}.backup"
 		if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources ; fi
 		yes | cp '${backup_path}.backup' '${!path}'
 	fi	
