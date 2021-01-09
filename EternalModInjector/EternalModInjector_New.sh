@@ -33,6 +33,8 @@ if ! [ $VANILLA_GAME_MD5 == $GameMD5 ] || [ $VANILLA_GAME_MD5 == $GameMD5 ] ; th
 if [ $VANILLA_GAME_MD5 == $GameMD5 ]
 then
   if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
+  EternalPatcherMD5=($(md5sum EternalPatcher.exe))
+  if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
   chmod +x EternalPatcher.exe
   wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
 fi
@@ -76,6 +78,26 @@ fi
 #Functions
 MissingGame() {
 read -p "Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again."
+exit 1
+}
+
+MissingDEternalLoadMods() {
+read -p "DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again."
+exit 1
+}
+
+MissingIdRehash() {
+read -p "idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again."
+exit 1
+}
+
+CorruptedGameExecutable() {
+read -p "The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again."
+exit 1
+}
+
+MissingEternalPatcher() {
+read -p "EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again."
 exit 1
 }
 
