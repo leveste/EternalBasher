@@ -7,6 +7,10 @@ if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
 if ! [ -f DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
 if ! [ -f base/idRehash.exe ]; then MissingIdRehash; fi
 
+#Give executable permissions to tools
+chmod +x DEternal_loadMods.exe
+chmod +x idRehash.exe
+
 #Assign game hashes to variables
 export ASSET_VERSION=4.1
 export DETERNAL_LOADMODS_MD5="43c54928c12d5d72c32f563f01dc7aef"
@@ -24,8 +28,9 @@ if ! [[ $IDREHASH_MD5 == $(md5sum base/idRehash.exe) ]]; then MissingDEternalLoa
 if ! [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]] || [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]] ; then CorruptedGameExecutable; fi
 
 if [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]]; then
-  #Verify if EternalPatcher is present
-  #Commands for EternalPatcher
+  if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
+  chmod +x EternalPatcher.exe
+  wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
 fi
 
 #Config File check
