@@ -1,3 +1,59 @@
+#Functions
+MissingGame() {
+read -p "Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again."
+exit 1
+}
+
+MissingDEternalLoadMods() {
+read -p "DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again."
+exit 1
+}
+
+MissingIdRehash() {
+read -p "idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again."
+exit 1
+}
+
+CorruptedGameExecutable() {
+read -p "The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again."
+exit 1
+}
+
+MissingEternalPatcher() {
+read -p "EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again."
+exit 1
+}
+
+CreateConfigFile() {
+ASSET_VERSION="4.1"
+echo "ASSET_VERSION=4.1" >> 'EternalModInjector Settings.txt'
+HAS_CHECKED_RESOURCES="0"
+echo "HAS_CHECKED_RESOURCES=0" >> 'EternalModInjector Settings.txt'
+HAS_READ_FIRST_TIME="0"
+echo "HAS_READ_FIRST_TIME=0" >> 'EternalModInjector Settings.txt'
+RESET_BACKUPS="0"
+echo "RESET_BACKUPS=0" >> 'EternalModInjector Settings.txt'
+find . -name "*.backup" -type f -delete
+}
+
+ResetBackups() {
+read -r -p "Reset backups now? [y/N] " response
+case "$response" in
+	[yY][eE][sS]|[yY]) 
+       		find . -name "*.backup" -type f -delete
+		;;
+	*)
+		read -p "Backups have not been reset."
+		exit 1
+		;;
+esac
+}
+
+NoBackupFound() {
+read -p "Backup not found for "%1"! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again."
+exit 1
+}
+
 printf "EternalModInjector Shell Script\n\n
 		By Leveste and PowerBall253\n\n
 		Based on original batch file by Zwip-Zwap Zapony\n\n\n"
@@ -83,60 +139,6 @@ while read filename; do
 		yes | cp -rf 'base/${filename}.backup' 'base/${filename}.resources'
 	fi	
 done < 'EternalModInjector Settings.txt'
-	
 
-#Functions
-MissingGame() {
-read -p "Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again."
+read -p "If you are seeing this, the script is working so far."
 exit 1
-}
-
-MissingDEternalLoadMods() {
-read -p "DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again."
-exit 1
-}
-
-MissingIdRehash() {
-read -p "idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again."
-exit 1
-}
-
-CorruptedGameExecutable() {
-read -p "The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again."
-exit 1
-}
-
-MissingEternalPatcher() {
-read -p "EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again."
-exit 1
-}
-
-CreateConfigFile() {
-ASSET_VERSION="4.1"
-echo "ASSET_VERSION=4.1" >> 'EternalModInjector Settings.txt'
-HAS_CHECKED_RESOURCES="0"
-echo "HAS_CHECKED_RESOURCES=0" >> 'EternalModInjector Settings.txt'
-HAS_READ_FIRST_TIME="0"
-echo "HAS_READ_FIRST_TIME=0" >> 'EternalModInjector Settings.txt'
-RESET_BACKUPS="0"
-echo "RESET_BACKUPS=0" >> 'EternalModInjector Settings.txt'
-find . -name "*.backup" -type f -delete
-}
-
-ResetBackups() {
-read -r -p "Reset backups now? [y/N] " response
-case "$response" in
-	[yY][eE][sS]|[yY]) 
-       		find . -name "*.backup" -type f -delete
-		;;
-	*)
-		read -p "Backups have not been reset."
-		exit 1
-		;;
-esac
-}
-
-NoBackupFound() {
-read -p "Backup not found for "%1"! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again."
-exit 1
-}
