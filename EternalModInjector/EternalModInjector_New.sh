@@ -21,12 +21,19 @@ if ! [[ $DETERNAL_LOADMODS_MD5 == $(md5sum DEternal_loadMods.exe) ]]; then Missi
 if ! [[ $IDREHASH_MD5 == $(md5sum base/idRehash.exe) ]]; then MissingDEternalLoadMods; fi
 
 #Patch Game Executable
+if ! [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]] || [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]] ; then CorruptedGameExecutable; fi
+
 if [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]]; then
   #Verify if EternalPatcher is present
   #Commands for EternalPatcher
 fi
 
-if ! [[ $PATCHED_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]]; then CorruptedGameExecutable; fi
-
 #Config File check
 if ! [ -f 'EternalModInjector Settings.txt' ]; then CreateConfigFile; fi
+
+
+
+MissingGame() {
+read -p "Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again."
+exit 1
+}
