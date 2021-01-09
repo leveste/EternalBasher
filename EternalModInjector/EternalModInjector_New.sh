@@ -9,7 +9,7 @@ if ! [ -f base/idRehash.exe ]; then MissingIdRehash; fi
 
 #Give executable permissions to tools
 chmod +x DEternal_loadMods.exe
-chmod +x idRehash.exe
+chmod +x base/idRehash.exe
 
 #Assign game hashes to variables
 ASSET_VERSION=4.1
@@ -28,9 +28,9 @@ if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
 
 #Patch Game Executable
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
-if ! [ $VANILLA_GAME_MD5 == $GameMD5 ] || [ $VANILLA_GAME_MD5 == $GameMD5 ] ; then CorruptedGameExecutable; fi
+if ! [[ $VANILLA_GAME_MD5 == $GameMD5 ]] || [[ $PATCHED_GAME_MD5 == $GameMD5 ]] ; then CorruptedGameExecutable; fi
 
-if [ $VANILLA_GAME_MD5 == $GameMD5 ]
+if [[ $VANILLA_GAME_MD5 == $GameMD5 ]]
 then
   if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
   EternalPatcherMD5=($(md5sum EternalPatcher.exe))
