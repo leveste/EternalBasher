@@ -136,7 +136,7 @@ while read filename; do
 	then
 		filename=${filename%$suffix}
 		if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources ; fi
-		yes | cp -rf 'base/${filename}.backup' 'base/${filename}.resources'
+		yes | cp 'base/${filename}.backup' 'base/${filename}.resources'
 	fi	
 done < 'EternalModInjector Settings.txt'
 
