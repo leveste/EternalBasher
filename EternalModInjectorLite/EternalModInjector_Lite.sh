@@ -5,4 +5,4 @@ printf "EternalModInjector Shell Script\n\n
 
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
 if ! [ -f DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
-if ! [ -f base/idRehash ]; then MissingIdRehash; fi
+if ! [ -f base/idRehash.exe ]; then MissingIdRehash; fi
