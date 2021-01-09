@@ -26,22 +26,22 @@ exit 1
 
 CreateConfigFile() {
 ASSET_VERSION="4.1"
-echo ":ASSET_VERSION=4.1" >> 'EternalModInjector Settings.txt'
+echo ":ASSET_VERSION=4.1" >> "EternalModInjector Settings.txt"
 
-echo ":AUTO_LAUNCH_GAME=1" >> 'EternalModInjector Settings.txt'
+echo ":AUTO_LAUNCH_GAME=1" >> "EternalModInjector Settings.txt"
 
-echo ":GAME_PARAMETERS=" >> 'EternalModInjector Settings.txt'
+echo ":GAME_PARAMETERS=" >> "EternalModInjector Settings.txt"
 
 HAS_CHECKED_RESOURCES="0"
-echo "HAS_CHECKED_RESOURCES=0" >> 'EternalModInjector Settings.txt'
+echo "HAS_CHECKED_RESOURCES=0" >> "EternalModInjector Settings.txt"
 
 HAS_READ_FIRST_TIME="0"
-echo "HAS_READ_FIRST_TIME=0" >> 'EternalModInjector Settings.txt'
+echo "HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
 
 RESET_BACKUPS="0"
-echo "RESET_BACKUPS=0" >> 'EternalModInjector Settings.txt'
+echo "RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
 
-echo "" >> 'EternalModInjector Settings.txt'
+echo "" >> "EternalModInjector Settings.txt"
 
 find . -name "*.backup" -type f -delete
 }
@@ -60,7 +60,7 @@ esac
 }
 
 NoBackupFound() {
-read -p "Backup not found for "%1"! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again."
+read -p "Backup not found for "%1"! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1 and try again."
 exit 1
 }
 
@@ -108,8 +108,8 @@ then
 fi
 
 #Config File check
-if ! [ -f 'EternalModInjector Settings.txt' ]; then CreateConfigFile; else
-	CONFIG_FILE='EternalModInjector Settings.txt'
+if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
+	CONFIG_FILE="EternalModInjector Settings.txt"
 	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
 	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
 	if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
@@ -219,13 +219,19 @@ gameresources_patch1_path="./base/gameresources_patch1.resources"
 #Restore Backups
 while read filename; do
 	suffix=".resources"
-	if [[ $filename == "*.resources" ]]
+	if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]
 	then
-		filename=${filename//[[:cntrl:]]/}; filename_name=${filename%$suffix}; path=${filename_name}_path; backup_path=$(echo ${!path}); printf "Restoring ${backup_path}.backup"
-		if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources ; fi
-		yes | cp '${backup_path}.backup' '${!path}'
+		filename=${filename//[[:cntrl:]]/}
+		filename_name=${filename%$suffix}
+		path=${filename_name}_path
+		backup_path=$(echo ${!path})
+		printf "
+                Restoring ${filename}.backup
+                "
+        if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources; fi
+		yes | cp "${backup_path}.backup" "${!path}"
 	fi	
-done < 'EternalModInjector Settings.txt'
+done < "EternalModInjector Settings.txt"
 
 read -p "If you are seeing this, the script is working so far."
 exit 1
