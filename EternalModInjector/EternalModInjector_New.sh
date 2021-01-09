@@ -41,7 +41,7 @@ echo "HAS_READ_FIRST_TIME=0" >> 'EternalModInjector Settings.txt'
 RESET_BACKUPS="0"
 echo "RESET_BACKUPS=0" >> 'EternalModInjector Settings.txt'
 
-echo """ >> 'EternalModInjector Settings.txt'
+echo "" >> 'EternalModInjector Settings.txt'
 
 find . -name "*.backup" -type f -delete
 }
@@ -139,14 +139,91 @@ then
 	RESET_BACKUPS="0"
 fi
 
+#Assign each .resources path to a variable
+hub_path="./base/game/hub/hub.resources"
+hub_patch1_path="./base/game/hub/hub_patch1.resources"
+e1m1_intro_patch2_path="./base/game/sp/e1m1_intro/e1m1_intro_patch2.resources"
+e1m1_intro_patch1_path="./base/game/sp/e1m1_intro/e1m1_intro_patch1.resources"
+e1m1_intro_path="./base/game/sp/e1m1_intro/e1m1_intro.resources"
+e2m2_base_patch1_path="./base/game/sp/e2m2_base/e2m2_base_patch1.resources"
+e2m2_base_path="./base/game/sp/e2m2_base/e2m2_base.resources"
+e2m2_base_patch2_path="./base/game/sp/e2m2_base/e2m2_base_patch2.resources"
+e1m3_cult_patch1_path="./base/game/sp/e1m3_cult/e1m3_cult_patch1.resources"
+e1m3_cult_path="./base/game/sp/e1m3_cult/e1m3_cult.resources"
+e1m3_cult_patch2_path="./base/game/sp/e1m3_cult/e1m3_cult_patch2.resources"
+e1m4_boss_path="./base/game/sp/e1m4_boss/e1m4_boss.resources"
+e1m4_boss_patch1_path="./base/game/sp/e1m4_boss/e1m4_boss_patch1.resources"
+e1m4_boss_patch2_path="./base/game/sp/e1m4_boss/e1m4_boss_patch2.resources"
+e3m2_hell_path="./base/game/sp/e3m2_hell/e3m2_hell.resources"
+e3m2_hell_patch2_path="./base/game/sp/e3m2_hell/e3m2_hell_patch2.resources"
+e3m2_hell_patch1_path="./base/game/sp/e3m2_hell/e3m2_hell_patch1.resources"
+e3m1_slayer_patch1_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch1.resources"
+e3m1_slayer_path="./base/game/sp/e3m1_slayer/e3m1_slayer.resources"
+e3m1_slayer_patch2_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch2.resources"
+e2m3_core_patch2_path="./base/game/sp/e2m3_core/e2m3_core_patch2.resources"
+e2m3_core_path="./base/game/sp/e2m3_core/e2m3_core.resources"
+e2m3_core_patch1_path="./base/game/sp/e2m3_core/e2m3_core_patch1.resources"
+e3m2_hell_b_patch2_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b_patch2.resources"
+e3m2_hell_b_patch1_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b_patch1.resources"
+e3m2_hell_b_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b.resources"
+e3m3_maykr_patch1_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch1.resources"
+e3m3_maykr_patch2_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch2.resources"
+e3m3_maykr_path="./base/game/sp/e3m3_maykr/e3m3_maykr.resources"
+e1m2_battle_patch1_path="./base/game/sp/e1m2_battle/e1m2_battle_patch1.resources"
+e1m2_battle_path="./base/game/sp/e1m2_battle/e1m2_battle.resources"
+e1m2_battle_patch2_path="./base/game/sp/e1m2_battle/e1m2_battle_patch2.resources"
+e3m4_boss_patch1_path="./base/game/sp/e3m4_boss/e3m4_boss_patch1.resources"
+e3m4_boss_path="./base/game/sp/e3m4_boss/e3m4_boss.resources"
+e3m4_boss_patch2_path="./base/game/sp/e3m4_boss/e3m4_boss_patch2.resources"
+e2m1_nest_patch1_path="./base/game/sp/e2m1_nest/e2m1_nest_patch1.resources"
+e2m1_nest_path="./base/game/sp/e2m1_nest/e2m1_nest.resources"
+e2m1_nest_patch2_path="./base/game/sp/e2m1_nest/e2m1_nest_patch2.resources"
+e2m4_boss_path="./base/game/sp/e2m4_boss/e2m4_boss.resources"
+e2m4_boss_patch1_path="./base/game/sp/e2m4_boss/e2m4_boss_patch1.resources"
+e4m1_rig_patch1_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch1.resources"
+e4m1_rig_patch2_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch2.resources"
+e4m1_rig_path="./base/game/dlc/e4m1_rig/e4m1_rig.resources"
+dlc_hub_path="./base/game/dlc/hub/hub.resources"
+dlc_hub_patch1_path="./base/game/dlc/hub/hub_patch1.resources"
+e4m3_mcity_patch1_path="./base/game/dlc/e4m3_mcity/e4m3_mcity_patch1.resources"
+e4m3_mcity_path="./base/game/dlc/e4m3_mcity/e4m3_mcity.resources"
+e4m2_swamp_patch2_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch2.resources"
+e4m2_swamp_patch1_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch1.resources"
+e4m2_swamp_path="./base/game/dlc/e4m2_swamp/e4m2_swamp.resources"
+tutorial_demons_path="./base/game/tutorials/tutorial_demons.resources"
+tutorial_sp_path="./base/game/tutorials/tutorial_sp.resources"
+tutorial_pvp_laser_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser.resources"
+tutorial_pvp_laser_patch1_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser_patch1.resources"
+pvp_bronco_patch1_path="./base/game/pvp/pvp_bronco/pvp_bronco_patch1.resources"
+pvp_bronco_path="./base/game/pvp/pvp_bronco/pvp_bronco.resources"
+pvp_shrapnel_patch1_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel_patch1.resources"
+pvp_shrapnel_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel.resources"
+pvp_zap_patch1_path="./base/game/pvp/pvp_zap/pvp_zap_patch1.resources"
+pvp_zap_path="./base/game/pvp/pvp_zap/pvp_zap.resources"
+pvp_thunder_patch1_path="./base/game/pvp/pvp_thunder/pvp_thunder_patch1.resources"
+pvp_thunder_path="./base/game/pvp/pvp_thunder/pvp_thunder.resources"
+pvp_inferno_patch1_path="./base/game/pvp/pvp_inferno/pvp_inferno_patch1.resources"
+pvp_inferno_path="./base/game/pvp/pvp_inferno/pvp_inferno.resources"
+pvp_deathvalley_patch1_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley_patch1.resources"
+pvp_deathvalley_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley.resources"
+pvp_laser_patch1_path="./base/game/pvp/pvp_laser/pvp_laser_patch1.resources"
+pvp_laser_path="./base/game/pvp/pvp_laser/pvp_laser.resources"
+shell_patch1_path="./base/game/shell/shell_patch1.resources"
+shell_path="./base/game/shell/shell.resources"
+warehouse_path="./base/warehouse.resources"
+gameresources_path="./base/gameresources.resources"
+meta_path="./base/meta.resources"
+gameresources_patch2_path="./base/gameresources_patch2.resources"
+gameresources_patch1_path="./base/gameresources_patch1.resources"
+
 #Restore Backups
 while read filename; do
 	suffix=".resources"
 	if [[ $filename == "*.resources" ]]
 	then
-		filename=${filename%$suffix}
+		filename=${filename//[[:cntrl:]]/}; filename_name=${filename%$suffix}; path=${filename_name}_path; backup_path=${!path%$suffix}; printf "Restoring ${backup_path}.backup"
 		if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources ; fi
-		yes | cp 'base/${filename}.backup' 'base/${filename}.resources'
+		yes | cp '${backup_path}.backup' '${!path}'
 	fi	
 done < 'EternalModInjector Settings.txt'
 
