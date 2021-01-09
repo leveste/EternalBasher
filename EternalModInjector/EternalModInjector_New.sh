@@ -12,31 +12,39 @@ chmod +x DEternal_loadMods.exe
 chmod +x idRehash.exe
 
 #Assign game hashes to variables
-export ASSET_VERSION=4.1
-export DETERNAL_LOADMODS_MD5="43c54928c12d5d72c32f563f01dc7aef"
-export ETERNALPATCHER_MD5="8033260ff14c2ee441b81bbf8d3b2de0"
-export IDREHASH_MD5="50747578b8e29c3da1aa5a3ac5d28cc7"
-export PATCHED_GAME_MD5="3238e7a9277efc6a607b1b1615ebe79f 4acdaf89f30f178ba9594c0364b35a30"
-export VANILLA_GAME_MD5="1ef861b693cdaa45eba891d084e5f3a3 c2b429b2eb398f836dd10d22944b9c76"
-export VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
+ASSET_VERSION=4.1
+DETERNAL_LOADMODS_MD5="43c54928c12d5d72c32f563f01dc7aef"
+ETERNALPATCHER_MD5="8033260ff14c2ee441b81bbf8d3b2de0"
+IDREHASH_MD5="50747578b8e29c3da1aa5a3ac5d28cc7"
+PATCHED_GAME_MD5="3238e7a9277efc6a607b1b1615ebe79f 4acdaf89f30f178ba9594c0364b35a30"
+VANILLA_GAME_MD5="1ef861b693cdaa45eba891d084e5f3a3 c2b429b2eb398f836dd10d22944b9c76"
+VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
 
 #Verify tool hashes
-if ! [[ $DETERNAL_LOADMODS_MD5 == $(md5sum DEternal_loadMods.exe) ]]; then MissingDEternalLoadMods; fi
-if ! [[ $IDREHASH_MD5 == $(md5sum base/idRehash.exe) ]]; then MissingDEternalLoadMods; fi
+DEternal_LoadModsMD5=($(md5sum DEternal_loadMods.exe))
+idRehashMD5=($(md5sum base/idRehash.exe))
+if ! [[ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]]; then MissingDEternalLoadMods; fi
+if ! [[ $IDREHASH_MD5 == $idRehashMD5 ]]; then MissingDEternalLoadMods; fi
 
 #Patch Game Executable
-if ! [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]] || [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]] ; then CorruptedGameExecutable; fi
+GameMD5=($(md5sum DOOMEternalx64vk.exe))
+if ! [[ $VANILLA_GAME_MD5 == $GameMD5 ]] || [[ $VANILLA_GAME_MD5 == $GameMD5 ]] ; then CorruptedGameExecutable; fi
 
-if [[ $VANILLA_GAME_MD5 == $(md5sum DOOMEternalx64vk.exe) ]]; then
+if [[ $VANILLA_GAME_MD5 == $GameMD5 ]]; then
   if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
   chmod +x EternalPatcher.exe
   wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
 fi
 
 #Config File check
-if ! [ -f 'EternalModInjector Settings.txt' ]; then CreateConfigFile; fi
-
-
+if ! [ -f 'EternalModInjector Settings.txt' ]; then CreateConfigFile; else
+	cat 'EternalModInjector Settings.txt'
+	TXT='EternalModInjector Settings.txt'
+	ASSET_VERSION_CFG=$(sed -n 1p $TXT); ASSET_VERSION_CFG=${ASSET_VERSION_CFG#$ASSET_VERSION=}
+	HAS_CHECKED_RESOURCES=$(sed -n 2p $TXT); HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES#$HAS_CHECKED_RESOURCES=}
+	HAS_READ_FIRST_TIME=$(sed -n 3p $TXT); HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME#$HAS_READ_FIRST_TIME=}
+	RESET_BACKUPS=$(sed -n 4p $TXT); RESET_BACKUPS=${RESET_BACKUPS#$RESET_BACKUPS}
+fi
 
 MissingGame() {
 read -p "Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again."
