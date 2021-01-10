@@ -144,16 +144,7 @@ if [ $RESET_BACKUPS == "1" ]; then
 	RESET_BACKUPS="0"
 fi
 
-#Check for all resources files
-if [ $HAS_CHECKED_RESOURCES == "0" ]
-then
-	
-	
-sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
-sed -i 's/:RESET_BACKUPS=./::RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
-sed -i 's/:HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
-
-#Assign each .resources path to a variable
+ResourceFilePaths=(
 hub_path="./base/game/hub/hub.resources"
 hub_patch1_path="./base/game/hub/hub_patch1.resources"
 e1m1_intro_patch2_path="./base/game/sp/e1m1_intro/e1m1_intro_patch2.resources"
@@ -229,13 +220,38 @@ gameresources_path="./base/gameresources.resources"
 meta_path="./base/meta.resources"
 gameresources_patch2_path="./base/gameresources_patch2.resources"
 gameresources_patch1_path="./base/gameresources_patch1.resources"
+)
+
+#Check for all resources files
+if [ $HAS_CHECKED_RESOURCES == "1" ]; then
+for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
+    line="${ResourceFilePaths[$i]#*=}"
+    if ! [ -f $line ]; then
+        echo "$line"
+        read -p "Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again."
+        exit 1
+    else
+        echo $line
+        echo ""
+        echo "${ResourceFilePaths[$i]}"
+        echo ""
+    fi
+done
+
+sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
+sed -i 's/:RESET_BACKUPS=./::RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
+sed -i 's/:HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
+
+#Execute each line of ResourceFilePaths
+for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
+	eval "${ResourceFilePaths[$i]}"
+done
 
 #Restore Backups
-while read filename; do
-	suffix=".resources"
+while IFS= read -r filename; do
 	if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
 		filename=${filename//[[:cntrl:]]/}
-		filename_name=${filename%$suffix}
+		filename_name=${filename%.resources}
 		path=${filename_name}_path
 		backup_path=$(echo ${!path})
 		if ! [[ "$filename" == dlc_* ]]; then
@@ -271,7 +287,6 @@ rm modloaderlistdos.txt
 sed 's/\\/\//g' modloaderlist.txt
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
-	suffix=".resources"
 	filename=${filename#*./}
 	if ! [ -f "${filename}.backup" ]; then cp "$filename" "${filename}.backup"; fi
 	filename=${filename##*/}
