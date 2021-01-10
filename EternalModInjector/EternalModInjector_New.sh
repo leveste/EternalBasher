@@ -292,13 +292,13 @@ while IFS= read -r filename; do
 		path=$(echo ${!path})
 		if ! [[ "$filename" == dlc_* ]]; then
 			printf "
-                	Restoring ${filename_name}.backup
+                	Restoring ${filename_name}.resources.backup
                 	"
         		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
 			yes | cp "${path}.backup" "$path"
 		else
 			printf "
-                	Restoring dlc_${filename_name}.backup
+                	Restoring dlc_${filename_name}.resources.backup
                 	"
 			if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
 			yes | cp "${path}.backup" "$path"
@@ -346,7 +346,7 @@ rm modloaderlist.txt
 if ! [ -f "base/meta.resources.backup" ]; then 
 	cp "base/meta.resources" "base/meta.resources.backup"
 	printf "
-	Backed up $name
+	Backed up meta.resources
 	"
 fi
 echo meta.backup >> "EternalModInjector Settings.txt"
