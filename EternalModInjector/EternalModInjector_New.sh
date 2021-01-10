@@ -128,7 +128,7 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 	EternalPatcherMD5=($(md5sum EternalPatcher.exe))
 	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 	chmod +x EternalPatcher.exe
-	wine EternalPatcher.exe --patch DOOMEternalx64vk.exe &> /dev/null
+	wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
 fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
@@ -319,7 +319,7 @@ Backing up .resources...
 "
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
-echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt &> /dev/null
+echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
 perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
 sed 's/\\/\//g' modloaderlist.txt
