@@ -285,7 +285,7 @@ Restoring backups...
 while IFS= read -r filename; do
 	if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
 		filename=${filename//[[:cntrl:]]/}
-		filename_name=${filename%.resources}
+		filename_name=${filename%.resources*}
 		path=${filename_name}_path
 		backup_path=$(echo ${!path})
 		if ! [[ "$filename" == dlc_* ]]; then
@@ -334,7 +334,7 @@ while IFS= read -r filename; do
 	printf "
 	Backed up $filename
 	"
-	filename={$filename%.resources*}
+	filename=${$filename%.resources*}
 	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
 	if ! grep -q "${filename}.resources" "$CONFIG_FILE"; then echo ${filename}.resources >> "EternalModInjector Settings.txt"; fi
 done < modloaderlist.txt
@@ -347,5 +347,3 @@ read -p "
 	If you are seeing this, the script is working so far.
 "
 exit 1
-
-#To do: Fix line 290 invalid filename error
