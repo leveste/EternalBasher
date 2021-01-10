@@ -93,9 +93,9 @@ ${red}meta.resources not found or corrupted! Verify game files through Steam/Bet
 exit 1
 }
 
-printf "%s\n" "${grn}EternalModInjector Shell Script\n\n
-By Leveste and PowerBall253\n\n
-Based on original batch file by Zwip-Zwap Zapony\n\n\n${end}"
+printf "%s\n" "${grn}EternalModInjector Shell Script
+By Leveste and PowerBall253
+Based on original batch file by Zwip-Zwap Zapony${end}"
 
 #Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
@@ -303,7 +303,7 @@ done
 
 #Restore Backups
 printf "
-${blue}Restoring backups...${end}
+${blu}Restoring backups...${end}
 "
 while IFS= read -r filename; do
 	if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
@@ -397,6 +397,6 @@ wine idRehash.exe
 cd ..
 
 printf "%s\n" "
-${grn}Mods have been loaded! You can now launch the game.{end}
+${grn}Mods have been loaded! You can now launch the game.${end}
 "
 exit 1
