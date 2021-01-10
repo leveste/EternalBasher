@@ -339,9 +339,9 @@ if [ $HAS_CHECKED_RESOURCES == "1" ]; then
 fi
 
 #Check if there are mods in "mods" folder
-if ! find "./mods" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
+if [ -z "$(ls -A "./mods")" ]; then
 	printf "
-${blue}No mods found! All .resources files have been restored to their vanilla state.${end}
+${blu}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
 	exit 1
 fi
