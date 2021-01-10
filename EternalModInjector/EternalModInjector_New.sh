@@ -359,8 +359,8 @@ while IFS= read -r filename; do
 	Backed up $name
 	"; fi
 	filename=${name%.resources}
-	grep -v "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
-	( if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi ) > /dev/null 2>&1
+	grep -v -q "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
+	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
 	echo ${filename}.resources >> "EternalModInjector Settings.txt"
 done < modloaderlist.txt
 rm modloaderlist.txt
