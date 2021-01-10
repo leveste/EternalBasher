@@ -400,5 +400,5 @@ cd ..
 
 printf "
 	Mods have been loaded! Now you can launch the game.
-	"
+"
 exit 1
