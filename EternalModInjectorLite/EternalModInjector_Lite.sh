@@ -1,3 +1,5 @@
+#!/bin/bash
+
 printf "EternalModInjector Shell Script\n\n
 		By Leveste and PowerBall253\n\n
 		Based on original batch file by Zwip-Zwap Zapony\n\n\n"
@@ -26,7 +28,7 @@ exit 1
 
 # FunctionBackUpOrRestoreArchive
 FunctionBackUpOrRestoreArchive(){
-
+	return
 }
 
 # FunctionCallForResources
@@ -189,13 +191,13 @@ ModLoader(){
 	if [[ $? != 0 ]];then exit 1;fi
 
 	printf "\nGetting Vanilla resource hash offsets... (idRehash)"
-	exec wine "./base/idRehash.exe" "--getoffsets"
+	wine "./base/idRehash.exe" "--getoffsets"
 
 	printf "Loading Mods... (DEternal_loadMods)"
-	exec wine "./DEternal_loadMods" "."
+	wine "./DEternal_loadMods" "."
 
 	printf "\n Rehashing resource hashes... (idRehash)"
-	exec wine "./base/idRehash.exe"
+	wine "./base/idRehash.exe"
 }
 
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
