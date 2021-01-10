@@ -33,6 +33,11 @@ ModLoader(){
 	printf "\nGetting Vanilla resource hash offsets... (idRehash)"
 	exec wine "./base/idRehash.exe" "--getoffsets"
 
+	printf "Loading Mods... (DEternal_loadMods)"
+	exec wine "./DEternal_loadMods" "."
+
+	printf "\n Rehashing resource hashes... (idRehash)"
+	exec wine "./base/idRehash.exe"
 }
 
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
@@ -52,7 +57,7 @@ printf "Please choose what you want to do.
 while read -p "Press key: " inp; do
 	case $inp in 
 		[lL])
-			echo "load mods"
+			ModLoader
 			;;
 		[dD])
 			DeleteBackups
