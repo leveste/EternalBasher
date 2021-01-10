@@ -339,7 +339,7 @@ if [ $HAS_CHECKED_RESOURCES == "1" ]; then
 fi
 
 #Check if there are mods in "mods" folder
-if [ -z "$(ls -A "./mods")" ]; then
+if [ -z "$(ls -A "Mods")" ]; then
 	printf "
 ${blu}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
