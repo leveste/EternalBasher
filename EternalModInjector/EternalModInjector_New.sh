@@ -103,8 +103,7 @@ if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then CorruptedGameExecutable; fi
 
-if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]
-then
+if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]; then
 	if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
 	EternalPatcherMD5=($(md5sum EternalPatcher.exe))
 	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
@@ -129,21 +128,18 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
 fi
 
 #Setup for ModLoader
-if [ $HAS_READ_FIRST_TIME == "0" ]
-then
+if [ $HAS_READ_FIRST_TIME == "0" ]; then
 	read -p "Some first time message"
 	HAS_READ_FIRST_TIME="1"
 fi
 
-if [ $ASSET_VERSION == "0" ]
-then
+if [ $ASSET_VERSION == "0" ]; then
 	read -p "Old Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups."
 	ResetBackups
 	ASSET_VERSION="4.1"
 fi
 
-if [ $RESET_BACKUPS == "1" ]
-then
+if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
 	RESET_BACKUPS="0"
 fi
@@ -237,8 +233,7 @@ gameresources_patch1_path="./base/gameresources_patch1.resources"
 #Restore Backups
 while read filename; do
 	suffix=".resources"
-	if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]
-	then
+	if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
 		filename=${filename//[[:cntrl:]]/}
 		filename_name=${filename%$suffix}
 		path=${filename_name}_path
