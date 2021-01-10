@@ -24,6 +24,17 @@ read -p "
 exit 1
 }
 
+# ModLoader function
+ModLoader(){
+	echo "Restoring .resources archives..."
+	FunctionCallForResources FunctionBackUpOrRestoreArchive
+	if [[ $? != 0 ]];then exit 1;fi
+
+	printf "\nGetting Vanilla resource hash offsets... (idRehash)"
+	exec wine "./base/idRehash.exe" "--getoffsets"
+
+}
+
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
 if ! [ -f DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
 if ! [ -f base/idRehash.exe ]; then MissingIdRehash; fi
