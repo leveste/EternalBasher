@@ -353,12 +353,12 @@ fi
 echo meta.backup >> "EternalModInjector Settings.txt"
 echo meta.resources >> "EternalModInjector Settings.txt"
 
-#Get vanilla resource hashes (idRehash)
-printf "
+#Get vanilla resource hash offsets (idRehash)
+if ! [ $HAS_CHECKED_RESOURCES == "2" ]; then
+	printf "
 	Getting vanilla resource hash offsets... (idRehash)
 	"
-if ! [ $HAS_CHECKED_RESOURCES == "2" ]; then
-	wine base\idRehash.exe --getoffsets
+	wine base/idRehash.exe --getoffsets
 	HAS_CHECKED_RESOURCES="2"
 fi
 sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=2/' "EternalModInjector Settings.txt"
@@ -369,7 +369,10 @@ printf "
 	"
 wine DEternal_loadMods.exe "."
 
+#Rehash resource hashes (idRehash)
+wine base/idRehash.exe
+
 read -p "
-	If you are seeing this, the script is working so far.
-"
+	Mods have been loaded! Now you can launch the game.
+	"
 exit 1
