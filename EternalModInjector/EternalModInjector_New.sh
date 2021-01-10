@@ -165,7 +165,7 @@ This batch file automatically...
 - Runs DEternal_loadMods to load all mods in -/DOOMEternal/Mods/.
 - Runs idRehash to rehash the modified resources' hashes.
 - Runs EternalPatcher to apply EXE patches to DOOM Eternal's game executable.
-	"
+"
 	
 	read -p "
 We take no credit for the tools used in the mod loading, credits go to:
@@ -173,14 +173,14 @@ DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
 idRehash: infogram for making it, and proteh for updating it
 DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
-	"
+"
 	read -p "
 If any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
 Don't worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal's installation through Steam or the Bethesda.net Launcher, open 'EternalModInjector Settings.txt' in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
-	"
+"
 read -p "
 Now, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
-	"
+"
 	HAS_READ_FIRST_TIME="1"
 fi
 
@@ -195,7 +195,7 @@ fi
 if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
 	RESET_BACKUPS="0"
-	read -p "Press Enter to continue with mod loading. "	
+	read -p "Press Enter to continue with mod loading."	
 fi
 
 ResourceFilePaths=(
