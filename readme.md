@@ -1,8 +1,8 @@
 Tool for installing mods for Doom Eternal on Linux.
 
-Made by Leveste and PowerBall253.
+Made by **Leveste** and **PowerBall253**.
 
-Based on the original batch file by Zwip-Zwap Zapony.
+Based on the original batch file by **Zwip-Zwap Zapony**.
 
 Instructions:
 -------------
