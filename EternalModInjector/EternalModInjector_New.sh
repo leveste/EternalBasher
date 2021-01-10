@@ -100,11 +100,16 @@ if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameM
 
 if [[ $VANILLA_GAME_MD5 == $GameMD5 ]]
 then
-  if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
-  EternalPatcherMD5=($(md5sum EternalPatcher.exe))
-  if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
-  chmod +x EternalPatcher.exe
-  wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
+	if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
+	EternalPatcherMD5=($(md5sum EternalPatcher.exe))
+	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
+	chmod +x EternalPatcher.exe
+	wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
+fi
+GameMD5=($(md5sum DOOMEternalx64vk.exe))
+if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
+	read -p "Game patching failed! Verify game files from Steam/Bethesda.net then try again."
+	exit 1
 fi
 
 #Config File check
@@ -113,7 +118,6 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
 	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
 	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
 	if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
-	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
 	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="2"; else
 		if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
 	fi
@@ -138,6 +142,14 @@ then
 	ResetBackups
 	RESET_BACKUPS="0"
 fi
+
+if [ $HAS_CHECKED_RESOURCES == "0" ]
+then
+	
+	
+sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
+sed -i 's/:RESET_BACKUPS=./::RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
+sed -i 's/:HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
 
 #Assign each .resources path to a variable
 hub_path="./base/game/hub/hub.resources"
@@ -225,13 +237,42 @@ while read filename; do
 		filename_name=${filename%$suffix}
 		path=${filename_name}_path
 		backup_path=$(echo ${!path})
-		printf "
-                Restoring ${filename}.backup
-                "
-        if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources; fi
-		yes | cp "${backup_path}.backup" "${!path}"
+		if ! [ "$filename" == dlc_* ]; then
+			printf "
+                	Restoring ${filename}.backup
+                	"
+        		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources; fi
+			yes | cp "${backup_path}.backup" "${!path}"
+			rm 
+		else
+			printf "
+                	Restoring dlc_${filename}.backup
+                	"
+			if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound dlc_${filename}.resources; fi
+			yes | cp "${backup_path}.backup" "${!path}"
+
+		fi		
 	fi	
 done < "EternalModInjector Settings.txt"
+
+#Backup .resources
+if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
+echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlist.txt
+while read filename; do
+	suffix=".resources"
+	filename=${filename%$suffix}
+	filename=${filename#*.}
+	if ! [ -f "${filename}.backup" ]; then cp "$filename" "${filename}.backup"; fi
+	filename=${filename#*/}
+	printf "
+	Backed up $filename
+	"
+	echo ${filename}.backup >> "EternalModInjector Settings.txt"
+done < modloaderlist.txt
+rm modloaderlist.txt
+
+#Check for hashes
+
 
 read -p "If you are seeing this, the script is working so far."
 exit 1
