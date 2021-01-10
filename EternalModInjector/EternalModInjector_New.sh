@@ -401,6 +401,6 @@ wine idRehash.exe
 cd ..
 
 printf "
-Mods have been loaded! Now you can launch the game.
+Mods have been loaded! You can now launch the game.
 "
 exit 1
