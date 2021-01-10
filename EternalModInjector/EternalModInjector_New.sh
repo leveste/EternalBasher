@@ -170,16 +170,16 @@ This batch file automatically...
 - Runs DEternal_loadMods to load all mods in -/DOOMEternal/Mods/.
 - Runs idRehash to rehash the modified resources hashes.
 - Runs EternalPatcher to apply EXE patches to the DOOM Eternal game executable.\e[0m:'
-	
+echo	
 	read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
 DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
 idRehash: infogram for making it, and proteh for updating it
 DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.$\e[0m:'
-
+echo
 	read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
-Don't worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal's installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.$\e[0m:'
-
+Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.$\e[0m:'
+echo
 read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.\e[0m:'
 "
 	HAS_READ_FIRST_TIME="1"
