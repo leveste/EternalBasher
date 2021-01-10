@@ -334,7 +334,7 @@ done < "EternalModInjector Settings.txt"
 printf "
 Checking meta.resources...
 "
-if ! [ $HAS_CHECKED_RESOURCES == "0" ]; then
+if [ $HAS_CHECKED_RESOURCES == "1" ]; then
 	if ! [ -f base/meta.resources ]; then MissingMeta; fi
 	MetaMD5=($(md5sum base/meta.resources))
 	if ! [[ $VANILLA_META_MD5 == $MetaMD5 ]]; then MissingMeta; fi
@@ -399,6 +399,6 @@ wine idRehash.exe
 cd ..
 
 printf "
-	Mods have been loaded! Now you can launch the game.
+Mods have been loaded! Now you can launch the game.
 "
 exit 1
