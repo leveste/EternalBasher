@@ -231,6 +231,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
         exit 1
     fi
 done
+fi
 
 sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
 sed -i 's/:RESET_BACKUPS=./::RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
