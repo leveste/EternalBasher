@@ -17,4 +17,4 @@ Instructions:
 
 * Run the file. If you have the zip file for a mod in your **Mods** folder, it will install the mod. To remove all mods, just empty you **Mods** folder and run the file again.
 
-You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or [DoomEternalMods.com](http://www.doometernalmods.com/)
+You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or check the [Doom 2016+ modding discord](https://discord.com/channels/570112501853978624/614488711572357120)
