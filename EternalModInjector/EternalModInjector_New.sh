@@ -60,7 +60,7 @@ esac
 }
 
 NoBackupFound() {
-read -p "Backup not found for "$1"! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1 and try again."
+read -p "Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1 and try again."
 exit 1
 }
 
