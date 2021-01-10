@@ -51,7 +51,7 @@ echo "HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
 RESET_BACKUPS="0"
 echo "RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
 
-echo "" >> "EternalModInjector Settings.txt"
+echo >> "EternalModInjector Settings.txt"
 
 find . -name "*.backup" -type f -delete
 }
@@ -155,7 +155,7 @@ fi
 #Setup for ModLoader
 if [ $HAS_READ_FIRST_TIME == "0" ]; then
 	read -p "
-	Some first time message
+Some first time message
 	"
 	HAS_READ_FIRST_TIME="1"
 fi
@@ -331,11 +331,14 @@ while IFS= read -r filename; do
 	printf "
 	Backed up $filename
 	"
+	if grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
 done < modloaderlist.txt
 rm modloaderlist.txt
 
 #Check for hashes
 
 
-read -p "If you are seeing this, the script is working so far."
+read -p "
+If you are seeing this, the script is working so far.
+"
 exit 1
