@@ -337,7 +337,7 @@ while IFS= read -r filename; do
 	"
 	filename=${filename%.resources}
 	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
-	echo ${filename}.resources >> "EternalModInjector Settings.txt"; fi
+	echo ${filename}.resources >> "EternalModInjector Settings.txt"
 done < modloaderlist.txt
 rm modloaderlist.txt
 
