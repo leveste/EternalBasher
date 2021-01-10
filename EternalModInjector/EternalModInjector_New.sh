@@ -82,7 +82,7 @@ exit 1
 
 MissingMeta() {
 read -p "
-	meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net,then try again.
+	meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1, then try again.
 "
 exit 1
 }
@@ -173,6 +173,7 @@ fi
 if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
 	RESET_BACKUPS="0"
+	read -p "Press Enter to continue with mod loading. "	
 fi
 
 ResourceFilePaths=(
@@ -325,7 +326,7 @@ echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
 perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
 sed 's/\\/\//g' modloaderlist.txt
-grep -v ".resources" "EternalModInjector Settings.txt" > noresources.txt; mv file.txt "EternalModInjector Settings.txt"
+grep -v ".resources" "EternalModInjector Settings.txt" > noresources.txt; mv noresources.txt "EternalModInjector Settings.txt"
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
 	filename=${filename#*./}
@@ -334,7 +335,7 @@ while IFS= read -r filename; do
 	printf "
 	Backed up $filename
 	"
-	filename=${$filename%.resources*}
+	filename=${$filename%.resources}
 	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
 	if ! grep -q "${filename}.resources" "$CONFIG_FILE"; then echo ${filename}.resources >> "EternalModInjector Settings.txt"; fi
 done < modloaderlist.txt
