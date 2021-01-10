@@ -181,13 +181,11 @@ echo
 Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.\e[0m'
 echo
 read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.\e[0m'
-"
-	HAS_READ_FIRST_TIME="1"
+HAS_READ_FIRST_TIME="1"
 fi
 
 if [ $ASSET_VERSION == "0" ]; then
 	read -p $'\e[34mOld Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.\e[0m:'
-"
 	ResetBackups
 	ASSET_VERSION="4.1"
 fi
