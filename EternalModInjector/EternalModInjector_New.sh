@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Functions
 MissingGame() {
 read -p "
@@ -73,7 +75,7 @@ esac
 
 NoBackupFound() {
 read -p "
-	Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1 and try again.
+	Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.
 	"
 exit 1
 }
@@ -267,7 +269,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 fi
 
-sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
+sed -i ':ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
 sed -i 's/:RESET_BACKUPS=./:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
 sed -i 's/:HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
 
@@ -343,4 +345,4 @@ read -p "
 "
 exit 1
 
-#To do: Fix 4.1 glitch, add names of to-mod .resources, silence some outputs
+#To do: Fix line 290 invalid filename error
