@@ -258,7 +258,7 @@ gameresources_patch1_path="./base/gameresources_patch1.resources"
 printf "
 Checking resources files...
 "
-if [ $HAS_CHECKED_RESOURCES == "1" ]; then
+if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
     line="${ResourceFilePaths[$i]#*=}"
     if ! [ -f $line ]; then
@@ -268,6 +268,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
         exit 1
     fi
 done
+HAS_CHECKED_RESOURCES="1"
 fi
 
 #Set new values in config file
@@ -292,13 +293,13 @@ while IFS= read -r filename; do
 		path=$(echo ${!path})
 		if ! [[ "$filename" == dlc_* ]]; then
 			printf "
-                	Restoring ${filename_name}.backup
+                	Restoring ${filename_name}.resources.backup
                 	"
         		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
 			yes | cp "${path}.backup" "$path"
 		else
 			printf "
-                	Restoring dlc_${filename_name}.backup
+                	Restoring dlc_${filename_name}.resources.backup
                 	"
 			if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
 			yes | cp "${path}.backup" "$path"
@@ -331,11 +332,11 @@ grep -v ".resources" "EternalModInjector Settings.txt" > noresources.txt; mv nor
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
 	if ! [ -f "${filename}.backup" ]; then cp "$filename" "${filename}.backup"; fi
-	filename=${filename##*/}
-	printf "
-	Backed up $filename
-	"
-	filename=${filename%.resources}
+	name=${filename##*/}
+	if ! [ -f "${filename}.backup" ]; then	printf "
+	Backed up $name
+	"; fi
+	filename=${name%.resources}
 	grep -v "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
 	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
 	echo ${filename}.resources >> "EternalModInjector Settings.txt"
@@ -343,12 +344,21 @@ done < modloaderlist.txt
 rm modloaderlist.txt
 
 #Backup meta.resources and add to the list
-if ! [ -f "base/meta.resources.backup" ]; then cp "base/meta.resources" "base/meta.resources.backup"; fi
+if ! [ -f "base/meta.resources.backup" ]; then 
+	cp "base/meta.resources" "base/meta.resources.backup"
+	printf "
+	Backed up meta.resources
+	"
+fi
 echo meta.backup >> "EternalModInjector Settings.txt"
 echo meta.resources >> "EternalModInjector Settings.txt"
 
-#Check for hashes
-
+#Check for hashes (idRehash)
+if ! [ $HAS_CHECKED_RESOURCES == "2" ]; then
+	wine base\idRehash.exe --getoffsets
+	HAS_CHECKED_RESOURCES="2"
+fi
+sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=2/' "EternalModInjector Settings.txt"
 
 read -p "
 	If you are seeing this, the script is working so far.
