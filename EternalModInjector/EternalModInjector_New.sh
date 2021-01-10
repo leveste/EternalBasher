@@ -268,6 +268,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
         exit 1
     fi
 done
+HAS_CHECKED_RESOURCES="1"
 fi
 
 #Set new values in config file
@@ -352,8 +353,12 @@ fi
 echo meta.backup >> "EternalModInjector Settings.txt"
 echo meta.resources >> "EternalModInjector Settings.txt"
 
-#Check for hashes
-
+#Check for hashes (idRehash)
+if ! [ $HAS_CHECKED_RESOURCES == "2" ]; then
+	wine base\idRehash.exe --getoffsets
+	HAS_CHECKED_RESOURCES="2"
+fi
+sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=2/' "EternalModInjector Settings.txt"
 
 read -p "
 	If you are seeing this, the script is working so far.
