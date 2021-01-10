@@ -82,7 +82,7 @@ exit 1
 
 MissingMeta() {
 read -p "
-	meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1, then try again.
+	meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.
 "
 exit 1
 }
