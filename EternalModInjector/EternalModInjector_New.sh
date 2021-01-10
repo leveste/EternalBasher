@@ -157,7 +157,30 @@ fi
 #Setup for ModLoader
 if [ $HAS_READ_FIRST_TIME == "0" ]; then
 	read -p "
-	Some first time message
+First-time information:
+
+This batch file automatically...
+- Makes backups of DOOM Eternal's .resources archives the first time that they will be modified.
+- Restores ones that were modified last time (to prevent uninstalled mods from lingering around) on subsequent uses.
+- Runs DEternal_loadMods to load all mods in -/DOOMEternal/Mods/.
+- Runs idRehash to rehash the modified resources' hashes.
+- Runs EternalPatcher to apply EXE patches to DOOM Eternal's game executable.
+	"
+	
+	read -p "
+We take no credit for the tools used in the mod loading, credits go to:
+Full credits go to...
+DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infogram's friends), and proteh for remaking it in C#
+EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
+idRehash: infogram for making it, and proteh for updating it
+DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
+	"
+	read -p "
+If any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
+Don't worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal's installation through Steam or the Bethesda.net Launcher, open 'EternalModInjector Settings.txt' in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
+	"
+read -p "
+Now, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
 	"
 	HAS_READ_FIRST_TIME="1"
 fi
