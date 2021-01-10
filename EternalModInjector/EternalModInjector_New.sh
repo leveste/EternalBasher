@@ -332,6 +332,7 @@ while IFS= read -r filename; do
 	Backed up $filename
 	"
 done < modloaderlist.txt
+rm modloaderlist.txt
 
 #Check for hashes
 
