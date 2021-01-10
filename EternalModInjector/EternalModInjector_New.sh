@@ -325,6 +325,7 @@ echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
 perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
 sed 's/\\/\//g' modloaderlist.txt
+grep -v ".resources" "EternalModInjector Settings.txt" > noresources.txt; mv file.txt "EternalModInjector Settings.txt"
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
 	filename=${filename#*./}
@@ -335,7 +336,7 @@ while IFS= read -r filename; do
 	"
 	filename={$filename%.resources*}
 	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
-	
+	if ! grep -q "${filename}.resources" "$CONFIG_FILE"; then echo ${filename}.resources >> "EternalModInjector Settings.txt"; fi
 done < modloaderlist.txt
 rm modloaderlist.txt
 
