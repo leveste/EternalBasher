@@ -341,7 +341,7 @@ fi
 #Check if there are mods in "mods" folder
 if [ -z "$(ls -A "Mods")" ]; then
 	printf "
-${blu}No mods found! All .resources files have been restored to their vanilla state.${end}
+${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
 	exit 1
 fi
