@@ -193,8 +193,7 @@ fi
 if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
 	RESET_BACKUPS="0"
-	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
-"	
+	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'	
 fi
 
 ResourceFilePaths=(
