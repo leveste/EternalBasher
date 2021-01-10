@@ -119,7 +119,7 @@ VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
 
 #Verify tool hashes
 printf "%s\n" "
-${blu}Checking tools...{end}
+${blu}Checking tools...${end}
 "
 
 DEternal_LoadModsMD5=($(md5sum DEternal_loadMods.exe))
