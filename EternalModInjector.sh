@@ -369,9 +369,11 @@ if ! [ -f "base/meta.resources.backup" ]; then
 	printf "%s\n" "
 	${blu}Backed up meta.resources${end}
 	"
-	echo meta.backup >> "EternalModInjector Settings.txt"
 fi
+sed -i '/meta.backup$/d' "EternalModInjector Settings.txt"
+echo meta.backup >> "EternalModInjector Settings.txt"
 echo meta.resources >> "EternalModInjector Settings.txt"
+
 
 #Get vanilla resource hash offsets (idRehash)
 if ! [ $HAS_CHECKED_RESOURCES == "2" ]; then
