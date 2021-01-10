@@ -288,19 +288,19 @@ while IFS= read -r filename; do
 		filename=${filename//[[:cntrl:]]/}
 		filename_name=${filename%.resources*}
 		path=${filename_name}_path
-		backup_path=$(echo ${!path})
+		path=$(echo ${!path})
 		if ! [[ "$filename" == dlc_* ]]; then
 			printf "
-                	Restoring ${filename}.backup
+                	Restoring ${filename_name}.backup
                 	"
         		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
-			yes | cp "${backup_path}.backup" "${!path}"
+			yes | cp "${path}.backup" "$path"
 		else
 			printf "
-                	Restoring dlc_${filename}.backup
+                	Restoring dlc_${filename_name}.backup
                 	"
 			if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
-			yes | cp "${backup_path}.backup" "${!path}"
+			yes | cp "${path}.backup" "$path"
 
 		fi		
 	fi	
