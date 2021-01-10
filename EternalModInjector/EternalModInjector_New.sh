@@ -130,7 +130,7 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 	EternalPatcherMD5=($(md5sum EternalPatcher.exe))
 	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 	chmod +x EternalPatcher.exe
-	wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
+	( wine EternalPatcher.exe --patch DOOMEternalx64vk.exe ) > /dev/null 2>&1
 fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
@@ -323,7 +323,7 @@ while IFS= read -r filename; do
 			printf "
                 	Restoring dlc_${filename_name}.resources.backup
                 	"
-			( if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi ) ) > /dev/null 2>&1
+			( if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi ) > /dev/null 2>&1
 			yes | cp "${path}.backup" "$path"
 
 		fi		
