@@ -293,13 +293,13 @@ while IFS= read -r filename; do
 			printf "
                 	Restoring ${filename}.backup
                 	"
-        		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources; fi
+        		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
 			yes | cp "${backup_path}.backup" "${!path}"
 		else
 			printf "
                 	Restoring dlc_${filename}.backup
                 	"
-			if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound dlc_${filename}.resources; fi
+			if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
 			yes | cp "${backup_path}.backup" "${!path}"
 
 		fi		
