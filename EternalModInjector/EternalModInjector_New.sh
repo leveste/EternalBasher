@@ -267,8 +267,8 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 fi
 
-sed -i 's/:ASSET_VERSION=./":ASSET_VERSION=4.1"/' "EternalModInjector Settings.txt"
-sed -i 's/:RESET_BACKUPS=./::RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
+sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
+sed -i 's/:RESET_BACKUPS=./:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
 sed -i 's/:HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
 
 #Execute each line of ResourceFilePaths
@@ -342,3 +342,5 @@ read -p "
 	If you are seeing this, the script is working so far.
 "
 exit 1
+
+#To do: Fix 4.1 glitch, add names of to-mod .resources, silence some outputs
