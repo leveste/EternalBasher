@@ -258,21 +258,19 @@ done < "EternalModInjector Settings.txt"
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
 echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
-sed -e 's/\r$//' modloaderlistdos.txt > modloaderlist.txt
+perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
-while read filename; do
+sed 's/\\/\//g' modloaderlist.txt
+while IFS= read -r filename; do
+    filename=$(echo $filename | sed 's/\\/\//g')
 	suffix=".resources"
-	filename=${filename//[[:cntrl:]]/}
-	filename=${filename%$suffix}
-	filename=${filename#*.}
+	filename=${filename#*./}
 	if ! [ -f "${filename}.backup" ]; then cp "$filename" "${filename}.backup"; fi
 	filename=${filename##*/}
 	printf "
 	Backed up $filename
 	"
-	echo ${filename}.backup >> "EternalModInjector Settings.txt"
 done < modloaderlist.txt
-rm modloaderlist.txt
 
 #Check for hashes
 
