@@ -270,9 +270,10 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 fi
 
-sed '0,/:ASSET_VERSION=./s//:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt" 
-sed '0,/:RESET_BACKUPS=./s//:RESET_BACKUPS=0/' "EternalModInjector Settings.txt" 
-sed '0,/:HAS_READ_FIRST_TIME=./s//:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
+#Set new values in config file
+sed -i 's/:ASSET_VERSION=.*/:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt" 
+sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt" 
+sed -i 's/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
 
 #Execute each line of ResourceFilePaths
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
@@ -341,6 +342,8 @@ while IFS= read -r filename; do
 done < modloaderlist.txt
 rm modloaderlist.txt
 
+#Backup meta.resources and add to the list
+if ! [ -f "base/meta.resources.backup" ]; then cp "base/meta.resources" "base/meta.resources.backup"; fi
 echo meta.backup >> "EternalModInjector Settings.txt"
 echo meta.resources >> "EternalModInjector Settings.txt"
 
