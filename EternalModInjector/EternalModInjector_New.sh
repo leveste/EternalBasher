@@ -269,7 +269,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 fi
 
-sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/g' "EternalModInjector Settings.txt"
+#sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/g' "EternalModInjector Settings.txt"
 sed -i 's/:RESET_BACKUPS=./:RESET_BACKUPS=0/g' "EternalModInjector Settings.txt"
 sed -i 's/:HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1/g' "EternalModInjector Settings.txt"
 
