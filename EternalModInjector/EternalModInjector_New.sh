@@ -237,13 +237,12 @@ while read filename; do
 		filename_name=${filename%$suffix}
 		path=${filename_name}_path
 		backup_path=$(echo ${!path})
-		if ! [ "$filename" == dlc_* ]; then
+		if ! [[ "$filename" == dlc_* ]]; then
 			printf "
                 	Restoring ${filename}.backup
                 	"
         		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ${filename}.resources; fi
 			yes | cp "${backup_path}.backup" "${!path}"
-			rm 
 		else
 			printf "
                 	Restoring dlc_${filename}.backup
@@ -260,10 +259,11 @@ if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
 echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlist.txt
 while read filename; do
 	suffix=".resources"
+	filename=${filename//[[:cntrl:]]/}
 	filename=${filename%$suffix}
 	filename=${filename#*.}
 	if ! [ -f "${filename}.backup" ]; then cp "$filename" "${filename}.backup"; fi
-	filename=${filename#*/}
+	filename=${filename##*/}
 	printf "
 	Backed up $filename
 	"
