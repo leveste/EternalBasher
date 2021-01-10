@@ -64,6 +64,11 @@ read -p "Backup not found for "$1"! Verify game files through Steam/Bethesda.net
 exit 1
 }
 
+MissingMeta() {
+read -p "meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net,then try again."
+exit 1
+}
+
 printf "EternalModInjector Shell Script\n\n
 		By Leveste and PowerBall253\n\n
 		Based on original batch file by Zwip-Zwap Zapony\n\n\n"
@@ -143,6 +148,7 @@ then
 	RESET_BACKUPS="0"
 fi
 
+#Check for all resources files
 if [ $HAS_CHECKED_RESOURCES == "0" ]
 then
 	
@@ -253,6 +259,13 @@ while read filename; do
 		fi		
 	fi	
 done < "EternalModInjector Settings.txt"
+
+#Check meta.resources
+if ! [ $HAS_CHECKED_RESOURCES == "0" ]; then
+	if ! [ -f DOOMEternalx64vk.exe ]; then MissingMeta; fi
+	MetaMD5=($(md5sum base/meta.resources))
+	if ! [[ $VANILLA_META_MD5 == $GameMD5 ]]; then MissingMeta; fi
+fi
 
 #Backup .resources
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
