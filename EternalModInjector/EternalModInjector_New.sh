@@ -2,35 +2,35 @@
 
 #Functions
 MissingGame() {
-read -p "
+printf "
 	Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.
 	"
 exit 1
 }
 
 MissingDEternalLoadMods() {
-read -p "
+printf "
 	DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
 	"
 exit 1
 }
 
 MissingIdRehash() {
-read -p "
+printf "
 	idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again.
 	"
 exit 1
 }
 
 CorruptedGameExecutable() {
-read -p "
+printf "
 	The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again.
 	"
 exit 1
 }
 
 MissingEternalPatcher() {
-read -p "
+printf "
 	EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
 	"
 exit 1
@@ -65,7 +65,7 @@ case "$response" in
        		find . -name "*.backup" -type f -delete
 		;;
 	*)
-		read -p "
+		printf "
 	Backups have not been reset.
 			"
 		exit 1
@@ -74,14 +74,14 @@ esac
 }
 
 NoBackupFound() {
-read -p "
+printf "
 	Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.
 	"
 exit 1
 }
 
 MissingMeta() {
-read -p "
+printf "
 	meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.
 "
 exit 1
@@ -134,7 +134,7 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
-	read -p "
+	printf "
 	Game patching failed! Verify game files from Steam/Bethesda.net then try again.
 	"
 	exit 1
@@ -285,7 +285,7 @@ if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
     line="${ResourceFilePaths[$i]#*=}"
     if ! [ -f $line ]; then
-        read -p "
+        printf "
 	Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again.
 	"
         exit 1
@@ -395,7 +395,7 @@ wine DEternal_loadMods.exe "."
 #Rehash resource hashes (idRehash)
 wine base/idRehash.exe
 
-read -p "
+printf "
 	Mods have been loaded! Now you can launch the game.
 	"
 exit 1
