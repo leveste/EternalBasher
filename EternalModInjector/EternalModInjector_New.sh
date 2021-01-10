@@ -1,26 +1,36 @@
 #Functions
 MissingGame() {
-read -p "Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again."
+read -p "
+Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.
+	"
 exit 1
 }
 
 MissingDEternalLoadMods() {
-read -p "DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again."
+read -p "
+DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
+	"
 exit 1
 }
 
 MissingIdRehash() {
-read -p "idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again."
+read -p "
+idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again.
+	"
 exit 1
 }
 
 CorruptedGameExecutable() {
-read -p "The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again."
+read -p "
+The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again.
+	"
 exit 1
 }
 
 MissingEternalPatcher() {
-read -p "EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again."
+read -p "
+EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
+	"
 exit 1
 }
 
@@ -53,25 +63,31 @@ case "$response" in
        		find . -name "*.backup" -type f -delete
 		;;
 	*)
-		read -p "Backups have not been reset."
+		read -p "
+			Backups have not been reset.
+			"
 		exit 1
 		;;
 esac
 }
 
 NoBackupFound() {
-read -p "Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1 and try again."
+read -p "
+Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1 and try again.
+	"
 exit 1
 }
 
 MissingMeta() {
-read -p "meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net,then try again."
+read -p "
+meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net,then try again.
+"
 exit 1
 }
 
 printf "EternalModInjector Shell Script\n\n
-		By Leveste and PowerBall253\n\n
-		Based on original batch file by Zwip-Zwap Zapony\n\n\n"
+	By Leveste and PowerBall253\n\n
+	Based on original batch file by Zwip-Zwap Zapony\n\n\n"
 
 #Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
@@ -94,6 +110,10 @@ VANILLA_GAME_MD5_B="c2b429b2eb398f836dd10d22944b9c76"
 VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
 
 #Verify tool hashes
+printf "
+Checking tools...
+"
+
 DEternal_LoadModsMD5=($(md5sum DEternal_loadMods.exe))
 idRehashMD5=($(md5sum base/idRehash.exe))
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
@@ -108,15 +128,20 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 	EternalPatcherMD5=($(md5sum EternalPatcher.exe))
 	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 	chmod +x EternalPatcher.exe
-	wine EternalPatcher.exe --patch DOOMEternalx64vk.exe
+	wine EternalPatcher.exe --patch DOOMEternalx64vk.exe &> /dev/null
 fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
-	read -p "Game patching failed! Verify game files from Steam/Bethesda.net then try again."
+	read -p "
+	Game patching failed! Verify game files from Steam/Bethesda.net then try again.
+	"
 	exit 1
 fi
 
 #Config File check
+printf "
+Loading config file...
+"
 if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
 	CONFIG_FILE="EternalModInjector Settings.txt"
 	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
@@ -129,12 +154,16 @@ fi
 
 #Setup for ModLoader
 if [ $HAS_READ_FIRST_TIME == "0" ]; then
-	read -p "Some first time message"
+	read -p "
+	Some first time message
+	"
 	HAS_READ_FIRST_TIME="1"
 fi
 
 if [ $ASSET_VERSION == "0" ]; then
-	read -p "Old Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups."
+	read -p "
+	Old Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+	"
 	ResetBackups
 	ASSET_VERSION="4.1"
 fi
@@ -223,11 +252,16 @@ gameresources_patch1_path="./base/gameresources_patch1.resources"
 )
 
 #Check for all resources files
+printf "
+Checking resources files...
+"
 if [ $HAS_CHECKED_RESOURCES == "1" ]; then
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
     line="${ResourceFilePaths[$i]#*=}"
     if ! [ -f $line ]; then
-        read -p "Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again."
+        read -p "
+	Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again.
+	"
         exit 1
     fi
 done
@@ -243,6 +277,9 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 
 #Restore Backups
+printf "
+Restoring backups...
+"
 while IFS= read -r filename; do
 	if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
 		filename=${filename//[[:cntrl:]]/}
@@ -267,6 +304,9 @@ while IFS= read -r filename; do
 done < "EternalModInjector Settings.txt"
 
 #Check meta.resources
+printf "
+Checking meta.resources...
+"
 if ! [ $HAS_CHECKED_RESOURCES == "0" ]; then
 	if ! [ -f base/meta.resources ]; then MissingMeta; fi
 	MetaMD5=($(md5sum base/meta.resources))
@@ -274,9 +314,12 @@ if ! [ $HAS_CHECKED_RESOURCES == "0" ]; then
 fi
 
 #Backup .resources
+printf "
+Backing up .resources...
+"
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
-echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
+echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt &> /dev/null
 perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
 sed 's/\\/\//g' modloaderlist.txt
