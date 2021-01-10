@@ -268,9 +268,9 @@ done < "EternalModInjector Settings.txt"
 
 #Check meta.resources
 if ! [ $HAS_CHECKED_RESOURCES == "0" ]; then
-	if ! [ -f DOOMEternalx64vk.exe ]; then MissingMeta; fi
+	if ! [ -f base/meta.resources ]; then MissingMeta; fi
 	MetaMD5=($(md5sum base/meta.resources))
-	if ! [[ $VANILLA_META_MD5 == $GameMD5 ]]; then MissingMeta; fi
+	if ! [[ $VANILLA_META_MD5 == $MetaMD5 ]]; then MissingMeta; fi
 fi
 
 #Backup .resources
