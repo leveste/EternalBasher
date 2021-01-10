@@ -338,6 +338,14 @@ if [ $HAS_CHECKED_RESOURCES == "1" ]; then
 	if ! [[ $VANILLA_META_MD5 == $MetaMD5 ]]; then MissingMeta; fi
 fi
 
+#Check if there are mods in "mods" folder
+if ! find "./mods" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
+	printf "
+${blue}No mods found! All .resources files have been restored to their vanilla state.${end}
+"
+	exit 1
+fi
+
 #Backup .resources
 printf "%s\n" "
 ${blu}Backing up .resources...${end}
