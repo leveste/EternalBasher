@@ -258,7 +258,7 @@ gameresources_patch1_path="./base/gameresources_patch1.resources"
 printf "
 Checking resources files...
 "
-if [ $HAS_CHECKED_RESOURCES == "1" ]; then
+if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
     line="${ResourceFilePaths[$i]#*=}"
     if ! [ -f $line ]; then
