@@ -331,11 +331,11 @@ grep -v ".resources" "EternalModInjector Settings.txt" > noresources.txt; mv nor
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
 	if ! [ -f "${filename}.backup" ]; then cp "$filename" "${filename}.backup"; fi
-	filename=${filename##*/}
-	printf "
-	Backed up $filename
-	"
-	filename=${filename%.resources}
+	name=${filename##*/}
+	if ! [ -f "${filename}.backup" ]; then	printf "
+	Backed up $name
+	"; fi
+	filename=${name%.resources}
 	grep -v "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
 	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
 	echo ${filename}.resources >> "EternalModInjector Settings.txt"
@@ -343,7 +343,12 @@ done < modloaderlist.txt
 rm modloaderlist.txt
 
 #Backup meta.resources and add to the list
-if ! [ -f "base/meta.resources.backup" ]; then cp "base/meta.resources" "base/meta.resources.backup"; fi
+if ! [ -f "base/meta.resources.backup" ]; then 
+	cp "base/meta.resources" "base/meta.resources.backup"
+	printf "
+	Backed up $name
+	"
+fi
 echo meta.backup >> "EternalModInjector Settings.txt"
 echo meta.resources >> "EternalModInjector Settings.txt"
 
