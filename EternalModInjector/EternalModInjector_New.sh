@@ -270,9 +270,9 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 fi
 
-sed -i ':ASSET_VERSION=./:ASSET_VERSION=4.1' "EternalModInjector Settings.txt"
-sed -i ':RESET_BACKUPS=./:RESET_BACKUPS=0' "EternalModInjector Settings.txt"
-sed -i ':HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1' "EternalModInjector Settings.txt"
+perl -pi 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
+perl -pi 's/:RESET_BACKUPS=./:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
+perl -pi 's/:HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
 
 #Execute each line of ResourceFilePaths
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
