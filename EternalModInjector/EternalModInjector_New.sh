@@ -255,8 +255,11 @@ while read filename; do
 done < "EternalModInjector Settings.txt"
 
 #Backup .resources
+if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
-echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlist.txt
+echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
+sed -e 's/\r$//' modloaderlistdos.txt > modloaderlist.txt
+rm modloaderlistdos.txt
 while read filename; do
 	suffix=".resources"
 	filename=${filename//[[:cntrl:]]/}
