@@ -169,7 +169,6 @@ This batch file automatically...
 	
 	read -p "
 We take no credit for the tools used in the mod loading, credits go to:
-Full credits go to...
 DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infogram's friends), and proteh for remaking it in C#
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
 idRehash: infogram for making it, and proteh for updating it
@@ -318,13 +317,13 @@ while IFS= read -r filename; do
 			printf "
                 	Restoring ${filename_name}.resources.backup
                 	"
-        		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
+        		( if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi ) > /dev/null 2>&1
 			yes | cp "${path}.backup" "$path"
 		else
 			printf "
                 	Restoring dlc_${filename_name}.resources.backup
                 	"
-			if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
+			( if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi ) ) > /dev/null 2>&1
 			yes | cp "${path}.backup" "$path"
 
 		fi		
@@ -350,7 +349,7 @@ if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
 echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
 perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
-sed 's/\\/\//g' modloaderlist.txt
+( sed 's/\\/\//g' modloaderlist.txt ) > /dev/null 2>&1
 grep -v ".resources" "EternalModInjector Settings.txt" > noresources.txt; mv noresources.txt "EternalModInjector Settings.txt"
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
@@ -361,7 +360,7 @@ while IFS= read -r filename; do
 	"; fi
 	filename=${name%.resources}
 	grep -v "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
-	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
+	( if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi ) > /dev/null 2>&1
 	echo ${filename}.resources >> "EternalModInjector Settings.txt"
 done < modloaderlist.txt
 rm modloaderlist.txt
@@ -381,7 +380,9 @@ if ! [ $HAS_CHECKED_RESOURCES == "2" ]; then
 	printf "
 	Getting vanilla resource hash offsets... (idRehash)
 	"
-	wine base/idRehash.exe --getoffsets
+	cd base
+	wine idRehash.exe --getoffsets
+	cd ..
 	HAS_CHECKED_RESOURCES="2"
 fi
 sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=2/' "EternalModInjector Settings.txt"
@@ -393,7 +394,9 @@ printf "
 wine DEternal_loadMods.exe "."
 
 #Rehash resource hashes (idRehash)
+cd base
 wine base/idRehash.exe
+cd ..
 
 printf "
 	Mods have been loaded! Now you can launch the game.
