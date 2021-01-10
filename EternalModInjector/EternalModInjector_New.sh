@@ -65,7 +65,7 @@ find . -name "*.backup" -type f -delete
 }
 
 ResetBackups() {
-read -r -p "Reset backups now? [y/N] " response
+read -r -p $'\e[34mReset backups now? [y/N] \e[0m:' response
 case "$response" in
 	[yY][eE][sS]|[yY]) 
        		find . -name "*.backup" -type f -delete
@@ -162,37 +162,31 @@ fi
 
 #Setup for ModLoader
 if [ $HAS_READ_FIRST_TIME == "0" ]; then
-	read -p "
-First-time information:
+	read -p $'\e[34mFirst-time information:
 
 This batch file automatically...
-- Makes backups of DOOM Eternal's .resources archives the first time that they will be modified.
+- Makes backups of DOOM Eternal .resources archives the first time that they will be modified.
 - Restores ones that were modified last time (to prevent uninstalled mods from lingering around) on subsequent uses.
 - Runs DEternal_loadMods to load all mods in -/DOOMEternal/Mods/.
-- Runs idRehash to rehash the modified resources' hashes.
-- Runs EternalPatcher to apply EXE patches to DOOM Eternal's game executable.
-"
+- Runs idRehash to rehash the modified resources hashes.
+- Runs EternalPatcher to apply EXE patches to the DOOM Eternal game executable.\e[0m:'
 	
-	read -p "
-We take no credit for the tools used in the mod loading, credits go to:
-DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infogram's friends), and proteh for remaking it in C#
+	read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
+DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
 idRehash: infogram for making it, and proteh for updating it
-DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
-"
-	read -p "
-If any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
-Don't worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal's installation through Steam or the Bethesda.net Launcher, open 'EternalModInjector Settings.txt' in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
-"
-read -p "
-Now, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
+DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.$\e[0m:'
+
+	read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
+Don't worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal's installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.$\e[0m:'
+
+read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.\e[0m:'
 "
 	HAS_READ_FIRST_TIME="1"
 fi
 
 if [ $ASSET_VERSION == "0" ]; then
-	read -p "
-Old Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+	read -p $'\e[34mOld Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.\e[0m:'
 "
 	ResetBackups
 	ASSET_VERSION="4.1"
@@ -201,8 +195,7 @@ fi
 if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
 	RESET_BACKUPS="0"
-	read -p "
-Press Enter to continue with mod loading.
+	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
 "	
 fi
 
