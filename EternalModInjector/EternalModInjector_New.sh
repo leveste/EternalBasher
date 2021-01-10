@@ -317,13 +317,13 @@ while IFS= read -r filename; do
 			printf "
                 	Restoring ${filename_name}.resources.backup
                 	"
-        		( if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi ) > /dev/null 2>&1
+        		if ! ( grep -q "${filename_name}.backup" "$CONFIG_FILE" ) > /dev/null 2>&1; then NoBackupFound ; fi
 			yes | cp "${path}.backup" "$path"
 		else
 			printf "
                 	Restoring dlc_${filename_name}.resources.backup
                 	"
-			( if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi ) > /dev/null 2>&1
+			if ! ( grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE" ) > /dev/null 2>&1; then NoBackupFound ; fi
 			yes | cp "${path}.backup" "$path"
 
 		fi		
@@ -395,7 +395,7 @@ wine DEternal_loadMods.exe "."
 
 #Rehash resource hashes (idRehash)
 cd base
-wine base/idRehash.exe
+wine idRehash.exe
 cd ..
 
 printf "
