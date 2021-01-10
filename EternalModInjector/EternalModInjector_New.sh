@@ -1,35 +1,35 @@
 #Functions
 MissingGame() {
 read -p "
-Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.
+	Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.
 	"
 exit 1
 }
 
 MissingDEternalLoadMods() {
 read -p "
-DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
+	DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
 	"
 exit 1
 }
 
 MissingIdRehash() {
 read -p "
-idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again.
+	idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again.
 	"
 exit 1
 }
 
 CorruptedGameExecutable() {
 read -p "
-The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again.
+	The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again.
 	"
 exit 1
 }
 
 MissingEternalPatcher() {
 read -p "
-EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
+	EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
 	"
 exit 1
 }
@@ -64,7 +64,7 @@ case "$response" in
 		;;
 	*)
 		read -p "
-			Backups have not been reset.
+	Backups have not been reset.
 			"
 		exit 1
 		;;
@@ -73,14 +73,14 @@ esac
 
 NoBackupFound() {
 read -p "
-Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1 and try again.
+	Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open "EternalModInjector Settings.txt" with a text editor and change RESET_BACKUPS value to 1 and try again.
 	"
 exit 1
 }
 
 MissingMeta() {
 read -p "
-meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net,then try again.
+	meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net,then try again.
 "
 exit 1
 }
@@ -155,7 +155,7 @@ fi
 #Setup for ModLoader
 if [ $HAS_READ_FIRST_TIME == "0" ]; then
 	read -p "
-Some first time message
+	Some first time message
 	"
 	HAS_READ_FIRST_TIME="1"
 fi
@@ -267,7 +267,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 fi
 
-sed -i 's/:ASSET_VERSION=./:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
+sed -i 's/:ASSET_VERSION=./":ASSET_VERSION=4.1"/' "EternalModInjector Settings.txt"
 sed -i 's/:RESET_BACKUPS=./::RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
 sed -i 's/:HAS_READ_FIRST_TIME=./:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
 
@@ -315,7 +315,7 @@ fi
 
 #Backup .resources
 printf "
-Backing up .resources...
+	Backing up .resources...
 "
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
@@ -331,7 +331,7 @@ while IFS= read -r filename; do
 	printf "
 	Backed up $filename
 	"
-	if grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
+	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
 done < modloaderlist.txt
 rm modloaderlist.txt
 
@@ -339,6 +339,6 @@ rm modloaderlist.txt
 
 
 read -p "
-If you are seeing this, the script is working so far.
+	If you are seeing this, the script is working so far.
 "
 exit 1
