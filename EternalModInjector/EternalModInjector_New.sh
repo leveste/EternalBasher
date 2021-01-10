@@ -3,22 +3,22 @@
 #Functions
 MissingGame() {
 printf "
-	Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.
-	"
+Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.
+"
 exit 1
 }
 
 MissingDEternalLoadMods() {
 printf "
-	DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
-	"
+DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
+"
 exit 1
 }
 
 MissingIdRehash() {
 printf "
-	idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again.
-	"
+idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again.
+"
 exit 1
 }
 
@@ -31,8 +31,8 @@ exit 1
 
 MissingEternalPatcher() {
 printf "
-	EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
-	"
+EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.
+"
 exit 1
 }
 
@@ -66,8 +66,8 @@ case "$response" in
 		;;
 	*)
 		printf "
-	Backups have not been reset.
-			"
+Backups have not been reset.
+"
 		exit 1
 		;;
 esac
@@ -82,14 +82,14 @@ exit 1
 
 MissingMeta() {
 printf "
-	meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.
+meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.
 "
 exit 1
 }
 
 printf "EternalModInjector Shell Script\n\n
-	By Leveste and PowerBall253\n\n
-	Based on original batch file by Zwip-Zwap Zapony\n\n\n"
+By Leveste and PowerBall253\n\n
+Based on original batch file by Zwip-Zwap Zapony\n\n\n"
 
 #Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
@@ -135,8 +135,8 @@ fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
 	printf "
-	Game patching failed! Verify game files from Steam/Bethesda.net then try again.
-	"
+Game patching failed! Verify game files from Steam/Bethesda.net then try again.
+"
 	exit 1
 fi
 
@@ -186,8 +186,8 @@ fi
 
 if [ $ASSET_VERSION == "0" ]; then
 	read -p "
-	Old Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
-	"
+Old Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+"
 	ResetBackups
 	ASSET_VERSION="4.1"
 fi
@@ -195,7 +195,9 @@ fi
 if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
 	RESET_BACKUPS="0"
-	read -p "Press Enter to continue with mod loading."	
+	read -p "
+Press Enter to continue with mod loading.
+"	
 fi
 
 ResourceFilePaths=(
@@ -285,8 +287,8 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
     line="${ResourceFilePaths[$i]#*=}"
     if ! [ -f $line ]; then
         printf "
-	Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again.
-	"
+Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again.
+"
         exit 1
     fi
 done
@@ -342,7 +344,7 @@ fi
 
 #Backup .resources
 printf "
-	Backing up .resources...
+Backing up .resources...
 "
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
@@ -378,8 +380,8 @@ echo meta.resources >> "EternalModInjector Settings.txt"
 #Get vanilla resource hash offsets (idRehash)
 if ! [ $HAS_CHECKED_RESOURCES == "2" ]; then
 	printf "
-	Getting vanilla resource hash offsets... (idRehash)
-	"
+Getting vanilla resource hash offsets... (idRehash)
+"
 	cd base
 	wine idRehash.exe --getoffsets
 	cd ..
