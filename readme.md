@@ -9,7 +9,7 @@ Instructions:
 
 * Validate you game files. **Right click on Doom Eternal in your Steam Library** -> **Properties** -> **Local files** -> **View integrity of game files...**
 
-* Download the modding tools. You can get them from [here.](https://discord.com/channels/570112501853978624/693113846688383029/791336903424213002)
+* Download the modding tools. You can get them from [here.](https://discord.com/channels/570112501853978624/693113846688383029/791336903424213002) You'll also need to have Wine installed.
 
 * Place the modding tools and shell script in your Doom Eternal folder. **Right click on Doom Eternal** -> **Manage** -> **Browse local files**
 
