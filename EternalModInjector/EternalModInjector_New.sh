@@ -227,14 +227,8 @@ if [ $HAS_CHECKED_RESOURCES == "1" ]; then
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
     line="${ResourceFilePaths[$i]#*=}"
     if ! [ -f $line ]; then
-        echo "$line"
         read -p "Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again."
         exit 1
-    else
-        echo $line
-        echo ""
-        echo "${ResourceFilePaths[$i]}"
-        echo ""
     fi
 done
 
