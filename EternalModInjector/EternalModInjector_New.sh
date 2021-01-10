@@ -45,13 +45,13 @@ echo ":AUTO_LAUNCH_GAME=1" >> "EternalModInjector Settings.txt"
 echo ":GAME_PARAMETERS=" >> "EternalModInjector Settings.txt"
 
 HAS_CHECKED_RESOURCES="0"
-echo "HAS_CHECKED_RESOURCES=0" >> "EternalModInjector Settings.txt"
+echo ":HAS_CHECKED_RESOURCES=0" >> "EternalModInjector Settings.txt"
 
 HAS_READ_FIRST_TIME="0"
-echo "HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
+echo ":HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
 
 RESET_BACKUPS="0"
-echo "RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
+echo ":RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
 
 echo >> "EternalModInjector Settings.txt"
 
