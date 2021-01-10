@@ -289,19 +289,18 @@ while IFS= read -r filename; do
 		filename_name=${filename%.resources*}
 		path=${filename_name}_path
 		path=$(echo ${!path})
-		path=${path%.resources*}
 		if ! [[ "$filename" == dlc_* ]]; then
 			printf "
                 	Restoring ${filename_name}.backup
                 	"
         		if ! grep -q "${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
-			yes | cp "${path}.backup" "${path}.resources"
+			yes | cp "${path}.backup" "$path"
 		else
 			printf "
                 	Restoring dlc_${filename_name}.backup
                 	"
 			if ! grep -q "dlc_${filename_name}.backup" "$CONFIG_FILE"; then NoBackupFound ; fi
-			yes | cp "${path}.backup" "${path}.resources"
+			yes | cp "${path}.backup" "$path"
 
 		fi		
 	fi	
@@ -330,7 +329,6 @@ sed 's/\\/\//g' modloaderlist.txt
 grep -v ".resources" "EternalModInjector Settings.txt" > noresources.txt; mv noresources.txt "EternalModInjector Settings.txt"
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
-	filename=${filename#*./}
 	if ! [ -f "${filename}.backup" ]; then cp "$filename" "${filename}.backup"; fi
 	filename=${filename##*/}
 	printf "
