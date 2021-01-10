@@ -341,8 +341,8 @@ while IFS= read -r filename; do
 done < modloaderlist.txt
 rm modloaderlist.txt
 
-echo meta.backup >> "EternalModInjector Settings.txt"; fi
-echo meta.resources >> "EternalModInjector Settings.txt"; fi
+echo meta.backup >> "EternalModInjector Settings.txt"
+echo meta.resources >> "EternalModInjector Settings.txt"
 
 #Check for hashes
 
