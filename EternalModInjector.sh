@@ -169,23 +169,30 @@ This batch file automatically...
 - Restores ones that were modified last time (to prevent uninstalled mods from lingering around) on subsequent uses.
 - Runs DEternal_loadMods to load all mods in -/DOOMEternal/Mods/.
 - Runs idRehash to rehash the modified resources hashes.
-- Runs EternalPatcher to apply EXE patches to the DOOM Eternal game executable.\e[0m'
+- Runs EternalPatcher to apply EXE patches to the DOOM Eternal game executable.
+
+Press any key to continue...\e[0m'
 echo	
 	read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
 DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
 idRehash: infogram for making it, and proteh for updating it
-DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.\e[0m'
+DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
+
+Press any key to continue...\e[0m'
 echo
 	read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
 Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.\e[0m'
 echo
-read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.\e[0m'
+read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
+
+Press any key to continue...\e[0m'
 HAS_READ_FIRST_TIME="1"
 fi
 
 if [ $ASSET_VERSION == "0" ]; then
-	read -p $'\e[34mOld Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.\e[0m:'
+	read -p $'\e[34mOld Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+If you have already done so, press Enter to continue.\e[0m:'
 	ResetBackups
 	ASSET_VERSION="4.1"
 fi
