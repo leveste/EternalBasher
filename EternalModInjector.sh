@@ -305,24 +305,32 @@ if grep -q ":ASSET_VERSION=" "$CONFIG_FILE"; then
 	sed -i 's/:ASSET_VERSION=.*/:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
 else
 	echo ":ASSET_VERSION=4.1" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 if grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
 	sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=1/' "EternalModInjector Settings.txt"
 else
 	echo ":HAS_CHECKED_RESOURCES=1" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 if grep -q ":HAS_READ_FIRST_TIME=" "$CONFIG_FILE"; then
 	sed -i 's/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
 else
 	echo ":HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 if grep -q ":RESET_BACKUPS=" "$CONFIG_FILE"; then
 	sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
 else
 	echo ":RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 #Execute each line of ResourceFilePaths
