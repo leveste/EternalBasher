@@ -182,7 +182,9 @@ DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for m
 Press any key to continue...\e[0m'
 echo
 	read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
-Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.\e[0m'
+Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
+
+Press any key to continue...\e[0m'
 echo
 read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
 
