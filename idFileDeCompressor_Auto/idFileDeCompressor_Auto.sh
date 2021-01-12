@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export first_line
+first_line=""
 
 while [[ $# -gt 0 ]]
 do
