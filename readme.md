@@ -1,4 +1,5 @@
 Collection of bash scripts for different aspects of Doom Eternal modding. Further instructions can be found in the readme file of each one.
+------------------------
 
 **EternalModInjector**
 
