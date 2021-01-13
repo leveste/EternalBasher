@@ -5,7 +5,7 @@ MissingDoomEternal(){
 	
 	Is your DOOM Eternal installation incomplete, or did you use a wrong path?
 	DOOMEternalx64vk.exe should be located at -/DOOMEternal/DOOMEternalx64vk.exe
-	The path that you gave to -/DOOMEternal/ was $___GAMEDIR"
+	The path that you gave to -/DOOMEternal/ was %s" $___GAMEDIR
 	exit
 }
 
@@ -13,14 +13,14 @@ MissingResources(){
 	printf "gameresources.resources not found!
 	Is your DOOM Eternal installation incomplete, or did you use a wrong path?
 	gameresources.resources should be located at -/DOOMEternal/base/gameresources.resources
-	The path that you gave to -/DOOMEternal/ was $___GAMEDIR"
+	The path that you gave to -/DOOMEternal/ was %s" $___GAMEDIR
 	exit
 }
 
 MissingQuickBMS(){
 	printf "quickbms not found!
 	Is your QuickBMS installation incomplete, or did you use a wrong path?
-	The path that you gave was $___QUICKBMS_DIR"
+	The path that you gave was %s" $___QUICKBMS_DIR
 	exit
 }
 
@@ -34,7 +34,7 @@ MissingScript(){
 
 OutputIsntEmpty(){
 	printf "To avoid inconveniencing you, this batch file won't extract to an output directory that already has files and/or folders in it.
-	The output directory path that you gave was $___OUTPUT_DIR"
+	The output directory path that you gave was %s" $___OUTPUT_DIR
 	exit
 }
 
