@@ -9,6 +9,8 @@ ___OUTPUT_DIRECTORY=""
 ___QUICKBMS_DIRECTORY=""
 ___QUICKBMS_SCRIPT=""
 
+___QUICKBMS_INST=""
+
 CD=""
 
 
@@ -38,10 +40,12 @@ do
 	case "$quickbms_source" in
 		"1")
 			read -p "Please type the path to your QuickBMS directory: " quickbmsdir
+			___QUICKBMS_INST=0
 			break
 			;;
 		"2")
 			quickbmsdir="/usr/bin/"
+			___QUICKBMS_INST=1
 			break
 			;;
 		"3")
