@@ -15,7 +15,7 @@ If you are using Debian or a Debian based distro(Ubuntu, Mint, Pop\_OS, etc), yo
 
 In case of problems on 64-bit versions of Linux, you can also run the command below:
 
-   sudo apt install libssl-dev:i386
+    sudo apt install libssl-dev:i386
 
 You should now have in your **src** folder a file named **quickbms** that you can run from terminal with:
 
