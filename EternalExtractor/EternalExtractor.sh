@@ -67,6 +67,9 @@ if [ -z ${___QUICKBMS_DIR_script+x} ]; then MissingScript; fi
 
 #Ask for output path
 
+printf "Please input the full filepath to where you want to extract resources to.
+Make sure that this filepath leads to a folder that's either empty or nonexistent:\n"
+
 read ___OUTPUT_DIR
 
 if ! [[ "$___OUTPUT_DIR" == */ ]]; then ___OUTPUT_DIR="${___OUTPUT_DIR}/";fi
