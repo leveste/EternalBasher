@@ -36,6 +36,7 @@ do
 	read quickbms_source
 	case "$quickbms_source" in
 		"1")
+			printf "This script assumes that you have placed the 'doometernal.bms' file in your game directory. If you haven't, please move or copy it over."
 			read -p "Please type the path to your QuickBMS directory: " quickbmsdir
 			break
 			;;
