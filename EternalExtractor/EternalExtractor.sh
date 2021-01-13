@@ -40,7 +40,7 @@ do
 			break
 			;;
 		"2")
-			quickbmsdir="/usr/bin"
+			quickbmsdir="/usr/bin/"
 			break
 			;;
 		"3")
@@ -54,7 +54,7 @@ do
 done
 if ! [ $quickbmsdir == */ ]; then quickbmsdir="${quickbmsdir}/"
 
-if ! [ -f "${quickbmsdir}quickbms_4gb_files.exe" ]; then MissingQuickBMS; fi #This is for Windows, how do we check for quickbms on Linux? Should we just use Windows version?
+if ! [ -f "${quickbmsdir}quickbms" ]; then MissingQuickBMS; fi
 if [ -f "${quickbmsdir}doometernal.txt" ]; then quickbms_script="doometernal.txt"; fi
 if [ -f "${quickbmsdir}doometernal.bms.txt" ]; then quickbms_script="doometernal.bms.txt"; fi
 if [ -f "${quickbmsdir}doometernal.bms" ]; then quickbms_script="doometernal.bms"; fi
