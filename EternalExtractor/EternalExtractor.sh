@@ -28,10 +28,24 @@ if ! [ -f "${gamedir}base/gameresources.resources" ]; then MissingResources; fi
 
 read quickbmsdir
 
-if ! [ $quickbmsdir == */ ]; then gamedir="${gamedir}/"
+if ! [ $quickbmsdir == */ ]; then quickbmsdir="${quickbmsdir}/"
 
-if ! [ -f "${quickbmsdir}quickbms_4gb_files.exe" ]; then MissingQuickBMS; fi
+if ! [ -f "${quickbmsdir}quickbms_4gb_files.exe" ]; then MissingQuickBMS; fi #This is for Windows, how do we check for quickbms on Linux? Should we just use Windows version?
 if [ -f "${quickbmsdir}doometernal.txt" ]; then quickbms_script="doometernal.txt"; fi
 if [ -f "${quickbmsdir}doometernal.bms.txt" ]; then quickbms_script="doometernal.bms.txt"; fi
 if [ -f "${quickbmsdir}doometernal.bms" ]; then quickbms_script="doometernal.bms"; fi
 if [ -z ${quickbms_script+x} ]; then MissingScript; fi
+
+#Ask for output path
+
+read outputdir
+
+if ! [ $outputdir == */ ]; then outputdir="${outputdir}/"
+if ! ls -1qA "$outputdir" | grep -q .
+then  OutputIsntEmpty
+
+#Prompt to start extraction
+
+
+find .  -name '*.resources' -exec sh -c 'quickbms' sh {} \;
+
