@@ -20,12 +20,12 @@ Otherwise, please input the full filepath to your DOOM Eternal installation:\n\n
 			This script assumes that you have placed the 'doometernal.bms' file in your game directory. If you haven't, please move or copy it over."
 
 
-read gamedir
+read ___GAMEDIR
 
-if ! [[ "$gamedir" == */ ]]; then gamedir="${gamedir}/"; fi
+if ! [[ "$___GAMEDIR" == */ ]]; then ___GAMEDIR="${___GAMEDIR}/"; fi
 
-if ! [ -f "${gamedir}DOOMEternalx64vk.exe" ]; then MissingDoomEternal; fi
-if ! [ -f "${gamedir}base/gameresources.resources" ]; then MissingResources; fi
+if ! [ -f "${___GAMEDIR}DOOMEternalx64vk.exe" ]; then MissingDoomEternal; fi
+if ! [ -f "${___GAMEDIR}base/gameresources.resources" ]; then MissingResources; fi
 
 #Ask for QuickBMS path
 
@@ -36,15 +36,15 @@ printf "How did you install QuickBMS?\n
 
 while true
 do
-	read quickbms_source
-	case "$quickbms_source" in
+	read ___QUICKBMS_SOURCE
+	case "$___QUICKBMS_SOURCE" in
 		"1")
-			read -p "Please type the path to your QuickBMS directory: " quickbmsdir
+			read -p "Please type the path to your QuickBMS directory: " ___QUICKBMS_DIRdir
 			___QUICKBMS_INST=0
 			break
 			;;
 		"2")
-			quickbmsdir="/usr/bin/"
+			___QUICKBMS_DIRdir="/usr/bin/"
 			___QUICKBMS_INST=1
 			break
 			;;
@@ -53,29 +53,29 @@ do
 			exit 1
 			;;
 		*)
-			read -p "Not a valid option. Please try again." quickbms_source
+			read -p "Not a valid option. Please try again." ___QUICKBMS_SOURCE
 			;;
 	esac
 done
-if ! [[ "$quickbmsdir" == */ ]]; then quickbmsdir="${quickbmsdir}/"; fi
+if ! [[ "$___QUICKBMS_DIRdir" == */ ]]; then ___QUICKBMS_DIRdir="${___QUICKBMS_DIRdir}/"; fi
 
-if ! [ -f "${quickbmsdir}quickbms" ]; then MissingQuickBMS; fi
-if [ -f "${gamedir}doometernal.txt" ]; then quickbms_script="doometernal.txt"; fi
-if [ -f "${gamedir}doometernal.bms.txt" ]; then quickbms_script="doometernal.bms.txt"; fi
-if [ -f "${gamedir}doometernal.bms" ]; then quickbms_script="doometernal.bms"; fi
-if [ -z ${quickbms_script+x} ]; then MissingScript; fi
+if ! [ -f "${___QUICKBMS_DIRdir}___QUICKBMS_DIR" ]; then MissingQuickBMS; fi
+if [ -f "${___GAMEDIR}doometernal.txt" ]; then ___QUICKBMS_DIR_script="doometernal.txt"; fi
+if [ -f "${___GAMEDIR}doometernal.bms.txt" ]; then ___QUICKBMS_DIR_script="doometernal.bms.txt"; fi
+if [ -f "${___GAMEDIR}doometernal.bms" ]; then ___QUICKBMS_DIR_script="doometernal.bms"; fi
+if [ -z ${___QUICKBMS_DIR_script+x} ]; then MissingScript; fi
 
 #Ask for output path
 
-read outputdir
+read ___OUTPUT_DIR
 
-if ! [[ "$outputdir" == */ ]]; then outputdir="${outputdir}/";fi
-if ! ls -1qA "$outputdir" | grep -q .
+if ! [[ "$___OUTPUT_DIR" == */ ]]; then ___OUTPUT_DIR="${___OUTPUT_DIR}/";fi
+if ! ls -1qA "$___OUTPUT_DIR" | grep -q .
 then  OutputIsntEmpty
 fi
 
 #Prompt to start extraction
 
 
-find .  -name '*.resources' -exec sh -c 'quickbms' sh {} \;
+find .  -name '*.resources' -exec sh -c '___QUICKBMS_DIR' sh {} \;
 
