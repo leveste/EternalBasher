@@ -23,3 +23,15 @@ if ! [ $gamedir == */ ]; then gamedir="${gamedir}/"
 
 if ! [ -f "${gamedir}DOOMEternalx64vk.exe" ]; then MissingDoomEternal; fi
 if ! [ -f "${gamedir}base/gameresources.resources" ]; then MissingResources; fi
+
+#Ask for QuickBMS path
+
+read quickbmsdir
+
+if ! [ $quickbmsdir == */ ]; then gamedir="${gamedir}/"
+
+if ! [ -f "${quickbmsdir}quickbms_4gb_files.exe" ]; then MissingQuickBMS; fi
+if [ -f "${quickbmsdir}doometernal.txt" ]; then quickbms_script = "doometernal.txt"; fi
+if [ -f "${quickbmsdir}doometernal.txt" ]; then quickbms_script = "doometernal.bms.txt"; fi
+if [ -f "${quickbmsdir}doometernal.txt" ]; then quickbms_script = "doometernal.bms"; fi
+if [ -z ${quickbms_script+x} ]; then MissingScript; fi
