@@ -15,7 +15,8 @@ CD=""
 printf "This batch file runs QuickBMS to extract the contents of all of DOOM Eternal's *.resources archives in one go.\n\n
 If you only want to use others' DOOM Eternal mods, not make your own, this isn't useful for you; simply close this window now.\n\n
 Otherwise, please input the full filepath to your DOOM Eternal installation:\n\n
-"
+			This script assumes that you have placed the 'doometernal.bms' file in your game directory. If you haven't, please move or copy it over."
+
 
 read gamedir
 
@@ -36,7 +37,6 @@ do
 	read quickbms_source
 	case "$quickbms_source" in
 		"1")
-			printf "This script assumes that you have placed the 'doometernal.bms' file in your game directory. If you haven't, please move or copy it over."
 			read -p "Please type the path to your QuickBMS directory: " quickbmsdir
 			break
 			;;
