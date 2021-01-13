@@ -26,8 +26,32 @@ if ! [ -f "${gamedir}base/gameresources.resources" ]; then MissingResources; fi
 
 #Ask for QuickBMS path
 
-read quickbmsdir
+printf "How did you install QuickBMS?\n
+		1 - Compiled the source code with 'make'\n
+		2 - Installed from the Arch User Repository(AUR)\n
+		3 - Exit\n\n"
 
+while true
+do
+	read quickbms_source
+	case "$quickbms_source" in
+		"1")
+			read -p "Please type the path to your QuickBMS directory: " quickbmsdir
+			break
+			;;
+		"2")
+			quickbmsdir="/usr/bin"
+			break
+			;;
+		"3")
+			echo "Exiting script."
+			exit 1
+			;;
+		*)
+			read -p "Not a valid option. Please try again." quickbms_source
+			;;
+	esac
+done
 if ! [ $quickbmsdir == */ ]; then quickbmsdir="${quickbmsdir}/"
 
 if ! [ -f "${quickbmsdir}quickbms_4gb_files.exe" ]; then MissingQuickBMS; fi #This is for Windows, how do we check for quickbms on Linux? Should we just use Windows version?
