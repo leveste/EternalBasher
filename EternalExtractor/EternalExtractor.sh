@@ -19,7 +19,7 @@ Otherwise, please input the full filepath to your DOOM Eternal installation:\n\n
 
 read gamedir
 
-if ! [ $gamedir == */ ]; then gamedir="${gamedir}/"
+if ! [ $gamedir == */ ]; then gamedir="${gamedir}/"; fi
 
 if ! [ -f "${gamedir}DOOMEternalx64vk.exe" ]; then MissingDoomEternal; fi
 if ! [ -f "${gamedir}base/gameresources.resources" ]; then MissingResources; fi
