@@ -52,7 +52,7 @@ do
 			;;
 	esac
 done
-if ! [ $quickbmsdir == */ ]; then quickbmsdir="${quickbmsdir}/"
+if ! [ $quickbmsdir == */ ]; then quickbmsdir="${quickbmsdir}/"; fi
 
 if ! [ -f "${quickbmsdir}quickbms" ]; then MissingQuickBMS; fi
 if [ -f "${quickbmsdir}doometernal.txt" ]; then quickbms_script="doometernal.txt"; fi
@@ -64,7 +64,7 @@ if [ -z ${quickbms_script+x} ]; then MissingScript; fi
 
 read outputdir
 
-if ! [ $outputdir == */ ]; then outputdir="${outputdir}/"
+if ! [ $outputdir == */ ]; then outputdir="${outputdir}/";fi
 if ! ls -1qA "$outputdir" | grep -q .
 then  OutputIsntEmpty
 fi
