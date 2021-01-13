@@ -1,5 +1,43 @@
 #!/bin/bash
 
+MissingDoomEternal(){
+	printf "'DOOMEternalx64vk.exe' not found!
+	
+	Is your DOOM Eternal installation incomplete, or did you use a wrong path?
+	DOOMEternalx64vk.exe should be located at -/DOOMEternal/DOOMEternalx64vk.exe
+	The path that you gave to -/DOOMEternal/ was $___GAMEDIR"
+	exit
+}
+
+MissingResources(){
+	printf "gameresources.resources not found!
+	Is your DOOM Eternal installation incomplete, or did you use a wrong path?
+	gameresources.resources should be located at -/DOOMEternal/base/gameresources.resources
+	The path that you gave to -/DOOMEternal/ was $___GAMEDIR"
+	exit
+}
+
+MissingQuickBMS(){
+	printf "quickbms not found!
+	Is your QuickBMS installation incomplete, or did you use a wrong path?
+	The path that you gave was $___QUICKBMS_DIR"
+	exit
+}
+
+MissingScript(){
+	printf "doometernal.bms not found
+	Did you forget to make and save it manually?
+	You can find doometernal.bms at https://zenhax.com/viewtopic.php?p=54753&sid=3f95e61ed0a5ad86088eb53e66bbfbd2#p54753
+ 	You must copy and paste it into a raw text editor, then save it as 'doometernal.bms' in your DOOM Eternal folder."
+	exit
+}
+
+OutputIsntEmpty(){
+	printf "To avoid inconveniencing you, this batch file won't extract to an output directory that already has files and/or folders in it.
+	The output directory path that you gave was $___OUTPUT_DIR"
+	exit
+}
+
 printf "Eternal Extractor Bash script\n
 			by Leveste and PowerBall253\n
 			based on the original file by Zwip-Zwap Zapony\n\n\n"
