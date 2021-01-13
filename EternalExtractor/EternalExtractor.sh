@@ -16,3 +16,10 @@ printf "This batch file runs QuickBMS to extract the contents of all of DOOM Ete
 If you only want to use others' DOOM Eternal mods, not make your own, this isn't useful for you; simply close this window now.\n\n
 Otherwise, please input the full filepath to your DOOM Eternal installation:\n\n
 "
+
+read gamedir
+
+if ! [ $gamedir == */ ]; then gamedir="${gamedir}/"
+
+if ! [ -f "${gamedir}DOOMEternalx64vk.exe" ]; then MissingDoomEternal; fi
+if ! [ -f "${gamedir}base/gameresources.resources" ]; then MissingResources; fi
