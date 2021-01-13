@@ -56,9 +56,9 @@ done
 if ! [[ "$quickbmsdir" == */ ]]; then quickbmsdir="${quickbmsdir}/"; fi
 
 if ! [ -f "${quickbmsdir}quickbms" ]; then MissingQuickBMS; fi
-if [ -f "${quickbmsdir}doometernal.txt" ]; then quickbms_script="doometernal.txt"; fi
-if [ -f "${quickbmsdir}doometernal.bms.txt" ]; then quickbms_script="doometernal.bms.txt"; fi
-if [ -f "${quickbmsdir}doometernal.bms" ]; then quickbms_script="doometernal.bms"; fi
+if [ -f "${gamedir}doometernal.txt" ]; then quickbms_script="doometernal.txt"; fi
+if [ -f "${gamedir}doometernal.bms.txt" ]; then quickbms_script="doometernal.bms.txt"; fi
+if [ -f "${gamedir}doometernal.bms" ]; then quickbms_script="doometernal.bms"; fi
 if [ -z ${quickbms_script+x} ]; then MissingScript; fi
 
 #Ask for output path
