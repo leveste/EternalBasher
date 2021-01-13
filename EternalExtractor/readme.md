@@ -42,4 +42,5 @@ Alternatively, if you use an AUR helper like yay, you can install the package an
     yay -S quickbms
 
 The path you'll need to type when prompet should be:
+
     /usr/bin/quickbms
