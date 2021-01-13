@@ -56,8 +56,8 @@ printf "This batch file runs QuickBMS to extract the contents of all of DOOM Ete
 If you only want to use others' DOOM Eternal mods, not make your own, this isn't useful for you; simply close this window now.\n\n
 Otherwise, please input the full filepath to your DOOM Eternal installation:\n\n
 			This script assumes that you have placed the 'doometernal.bms' file in your game directory. If you haven't, please move or copy it over.\n\n
-			The default location for your game directory is set to $___GAMEDIR.\n
-			Press 'Y' if you wish to change it. Press any other key to continue with this setting."
+			The default location for your game directory is set to %s.\n
+			Press 'Y' if you wish to change it. Press any other key to continue with this setting." "$___GAMEDIR"
 
 read y
 
@@ -125,9 +125,9 @@ printf "The expected filesize required to extract DOOM Eternal v3.1's resources 
 	Please note that extracting all *.resources archives might take hours, depending on your CPU and storage speed!\n\n
 	And, just to make sure, does this look correct?
 
-	DOOM Eternal: $___GAMEDIR
-	QuickBMS: $___QUICKBMS_DIR
-	Output: $___OUTPUT_DIR"
+	DOOM Eternal: %s
+	QuickBMS: %s
+	Output: %s" "$___GAMEDIR" "$___QUICKBMS_DIR" "$___OUTPUT_DIR"
 
 #Prompt to start extraction
 
