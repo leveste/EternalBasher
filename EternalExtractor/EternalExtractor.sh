@@ -4,7 +4,7 @@ printf "Eternal Extractor Bash script\n
 			by Leveste and PowerBall253\n
 			based on the original file by Zwip-Zwap Zapony\n\n\n"
 
-___GAMEDIR=""
+___GAMEDIR="~/.local/share/Steam/steamapps/common/DOOMEternal/"
 ___OUTPUT_DIR=""
 ___QUICKBMS_DIR=""
 ___QUICKBMS_SCRIPT=""
@@ -17,10 +17,16 @@ CD=""
 printf "This batch file runs QuickBMS to extract the contents of all of DOOM Eternal's *.resources archives in one go.\n\n
 If you only want to use others' DOOM Eternal mods, not make your own, this isn't useful for you; simply close this window now.\n\n
 Otherwise, please input the full filepath to your DOOM Eternal installation:\n\n
-			This script assumes that you have placed the 'doometernal.bms' file in your game directory. If you haven't, please move or copy it over."
+			This script assumes that you have placed the 'doometernal.bms' file in your game directory. If you haven't, please move or copy it over.\n\n
+			The default location for your game directory is set to $___GAMEDIR.\n
+			Press 'Y' if you wish to change it. Press any other key to continue with this setting."
 
+read y
 
-read ___GAMEDIR
+if [[ $y == [yY] ]]
+then
+	read -p "Please type the path for your game directory: " ___GAMEDIR
+fi
 
 if ! [[ "$___GAMEDIR" == */ ]]; then ___GAMEDIR="${___GAMEDIR}/"; fi
 
