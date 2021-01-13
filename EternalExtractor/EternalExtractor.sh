@@ -67,6 +67,7 @@ read outputdir
 if ! [ $outputdir == */ ]; then outputdir="${outputdir}/"
 if ! ls -1qA "$outputdir" | grep -q .
 then  OutputIsntEmpty
+fi
 
 #Prompt to start extraction
 
