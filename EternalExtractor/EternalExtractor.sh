@@ -19,7 +19,7 @@ Otherwise, please input the full filepath to your DOOM Eternal installation:\n\n
 
 read gamedir
 
-if ! [ "$gamedir" == */ ]; then gamedir="${gamedir}/"; fi
+if ! [[ "$gamedir" == */ ]]; then gamedir="${gamedir}/"; fi
 
 if ! [ -f "${gamedir}DOOMEternalx64vk.exe" ]; then MissingDoomEternal; fi
 if ! [ -f "${gamedir}base/gameresources.resources" ]; then MissingResources; fi
@@ -52,7 +52,7 @@ do
 			;;
 	esac
 done
-if ! [ "$quickbmsdir" == */ ]; then quickbmsdir="${quickbmsdir}/"; fi
+if ! [[ "$quickbmsdir" == */ ]]; then quickbmsdir="${quickbmsdir}/"; fi
 
 if ! [ -f "${quickbmsdir}quickbms" ]; then MissingQuickBMS; fi
 if [ -f "${quickbmsdir}doometernal.txt" ]; then quickbms_script="doometernal.txt"; fi
@@ -64,7 +64,7 @@ if [ -z ${quickbms_script+x} ]; then MissingScript; fi
 
 read outputdir
 
-if ! [ "$outputdir" == */ ]; then outputdir="${outputdir}/";fi
+if ! [[ "$outputdir" == */ ]]; then outputdir="${outputdir}/";fi
 if ! ls -1qA "$outputdir" | grep -q .
 then  OutputIsntEmpty
 fi
