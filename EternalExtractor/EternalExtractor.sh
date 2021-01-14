@@ -132,5 +132,9 @@ printf "The expected filesize required to extract DOOM Eternal v3.1's resources 
 #Prompt to start extraction
 
 
-find .  -name '*.resources' -exec sh -c '___QUICKBMS_DIR' sh {} \;
-
+if [[ "$___QUICKBMS_INST" -eq 1 ]]
+then
+	find .  -name '*.resources' -exec sh -c 'quickbms' sh {} \;
+else
+	#alt command
+fi
