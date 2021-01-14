@@ -42,14 +42,13 @@ printf "Eternal Extractor Bash script\n
 			by Leveste and PowerBall253\n
 			based on the original file by Zwip-Zwap Zapony\n\n\n"
 
-___GAMEDIR="~/.local/share/Steam/steamapps/common/DOOMEternal/"
+___GAMEDIR="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
 ___OUTPUT_DIR=""
 ___QUICKBMS_DIR=""
 ___QUICKBMS_SCRIPT=""
 
 ___QUICKBMS_INST=""
 
-CD=""
 
 
 printf "This batch file runs QuickBMS to extract the contents of all of DOOM Eternal's *.resources archives in one go.\n\n
@@ -59,11 +58,11 @@ Otherwise, please input the full filepath to your DOOM Eternal installation:\n\n
 			The default location for your game directory is set to %s.\n
 			Press 'Y' if you wish to change it. Press any other key to continue with this setting." "$___GAMEDIR"
 
-read y
+read -r y
 
 if [[ $y == [yY] ]]
 then
-	read -p "Please type the path for your game directory: " ___GAMEDIR
+	read -rp "Please type the path for your game directory: " ___GAMEDIR
 fi
 
 if ! [[ "$___GAMEDIR" == */ ]]; then ___GAMEDIR="${___GAMEDIR}/"; fi
@@ -80,10 +79,10 @@ printf "How did you install QuickBMS?\n
 
 while true
 do
-	read ___QUICKBMS_SOURCE
+	read -r ___QUICKBMS_SOURCE
 	case "$___QUICKBMS_SOURCE" in
 		"1")
-			read -p "Please type the path to your QuickBMS directory: " ___QUICKBMS_DIR
+			read -rp "Please type the path to your QuickBMS directory: " ___QUICKBMS_DIR
 			___QUICKBMS_INST=0
 			break
 			;;
@@ -97,7 +96,7 @@ do
 			exit 1
 			;;
 		*)
-			read -p "Not a valid option. Please try again." ___QUICKBMS_SOURCE
+			read -rp "Not a valid option. Please try again." ___QUICKBMS_SOURCE
 			;;
 	esac
 done
@@ -114,7 +113,7 @@ if [ -z ${___QUICKBMS_DIR_SCRIPT+x} ]; then MissingScript; fi
 printf "Please input the full filepath to where you want to extract resources to.
 Make sure that this filepath leads to a folder that's either empty or nonexistent:\n"
 
-read ___OUTPUT_DIR
+read -r ___OUTPUT_DIR
 
 if ! [[ "$___OUTPUT_DIR" == */ ]]; then ___OUTPUT_DIR="${___OUTPUT_DIR}/";fi
 if [ -n "$(ls -A "$___OUTPUT_DIR")" ] 
