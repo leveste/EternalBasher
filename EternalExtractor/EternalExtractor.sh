@@ -137,4 +137,5 @@ then
 	find .  -name "*.resources" -exec sh -c "quickbms -o -Y "$___GAMEDIR/$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"" sh {} \;
 else
 	#alt command
+	true
 fi
