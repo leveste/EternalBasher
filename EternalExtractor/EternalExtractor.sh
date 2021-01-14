@@ -104,9 +104,9 @@ done
 if ! [[ "$___QUICKBMS_DIR" == */ ]]; then ___QUICKBMS_DIR="${___QUICKBMS_DIR}/"; fi
 
 if ! [ -f "${___QUICKBMS_DIR}___QUICKBMS_DIR" ]; then MissingQuickBMS; fi
-if [ -f "${___GAMEDIR}doometernal.txt" ]; then ___QUICKBMS_DIR_SCRIPT="doometernal.txt"; fi
-if [ -f "${___GAMEDIR}doometernal.bms.txt" ]; then ___QUICKBMS_DIR_SCRIPT="doometernal.bms.txt"; fi
-if [ -f "${___GAMEDIR}doometernal.bms" ]; then ___QUICKBMS_DIR_SCRIPT="doometernal.bms"; fi
+if [ -f "${___GAMEDIR}doometernal.txt" ]; then ___QUICKBMS_SCRIPT="doometernal.txt"; fi
+if [ -f "${___GAMEDIR}doometernal.bms.txt" ]; then ___QUICKBMS_SCRIPT="doometernal.bms.txt"; fi
+if [ -f "${___GAMEDIR}doometernal.bms" ]; then ___QUICKBMS_SCRIPT="doometernal.bms"; fi
 if [ -z ${___QUICKBMS_DIR_SCRIPT+x} ]; then MissingScript; fi
 
 #Ask for output path
@@ -134,7 +134,7 @@ printf "The expected filesize required to extract DOOM Eternal v3.1's resources 
 
 if [[ "$___QUICKBMS_INST" -eq 1 ]]
 then
-	find .  -name '*.resources' -exec sh -c 'quickbms' sh {} \;
+	find .  -name "*.resources" -exec sh -c "quickbms -o -Y "$___GAMEDIR/$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"" sh {} \;
 else
 	#alt command
 fi
