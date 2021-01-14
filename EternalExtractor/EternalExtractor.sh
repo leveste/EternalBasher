@@ -117,7 +117,7 @@ Make sure that this filepath leads to a folder that's either empty or nonexisten
 read ___OUTPUT_DIR
 
 if ! [[ "$___OUTPUT_DIR" == */ ]]; then ___OUTPUT_DIR="${___OUTPUT_DIR}/";fi
-if ! ls -1qA "$___OUTPUT_DIR" | grep -q .
+if ! [ -z "$(ls -A $___OUTPUT_DIR)" ] 
 then  OutputIsntEmpty
 fi
 
