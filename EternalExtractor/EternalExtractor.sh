@@ -42,10 +42,10 @@ printf "Eternal Extractor Bash script\n
 			by Leveste and PowerBall253\n
 			based on the original file by Zwip-Zwap Zapony\n\n\n"
 
-___GAMEDIR="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
-___OUTPUT_DIR=""
-___QUICKBMS_DIR=""
-___QUICKBMS_SCRIPT=""
+export ___GAMEDIR="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
+export ___OUTPUT_DIR=""
+export ___QUICKBMS_DIR=""
+export ___QUICKBMS_SCRIPT=""
 
 
 
@@ -82,15 +82,17 @@ do
 	read -r ___QUICKBMS_SOURCE
 	case "$___QUICKBMS_SOURCE" in
 		"1")
-			read -rp "Please type the path to your QuickBMS directory: " ___QUICKBMS_DIR
+			read -rp "Please type the path to your QuickBMS directory: " inp
+			export ___QUICKBMS_DIR="$inp"
 			break
 			;;
 		"2")
-			___QUICKBMS_DIR="/usr/bin/"
+			export ___QUICKBMS_DIR="/usr/bin/"
 			break
 			;;
 		"3")
-			read -rp "Please type the path to your QuickBMS directory: " ___QUICKBMS_DIR
+			read -rp "Please type the path to your QuickBMS directory: " inp
+			export ___QUICKBMS_DIR="$inp"
 			break
 			;;
 		"4")
@@ -105,9 +107,9 @@ done
 if ! [[ "$___QUICKBMS_DIR" == */ ]]; then ___QUICKBMS_DIR="${___QUICKBMS_DIR}/"; fi
 
 if ! ([ -f "${___QUICKBMS_DIR}quickbms" ] || [ -f "${___QUICKBMS_DIR}quickbms_4gb_files.exe" ]); then MissingQuickBMS; fi
-if [ -f "${___GAMEDIR}doometernal.txt" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.txt"; fi
-if [ -f "${___GAMEDIR}doometernal.bms.txt" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.bms.txt"; fi
-if [ -f "${___GAMEDIR}doometernal.bms" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.bms"; fi
+if [ -f "${___GAMEDIR}doometernal.txt" ]; then export ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.txt"; fi
+if [ -f "${___GAMEDIR}doometernal.bms.txt" ]; then export ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.bms.txt"; fi
+if [ -f "${___GAMEDIR}doometernal.bms" ]; then export ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.bms"; fi
 if [ -z ${___QUICKBMS_SCRIPT+x} ]; then MissingScript; fi
 
 #Ask for output path
@@ -115,9 +117,10 @@ if [ -z ${___QUICKBMS_SCRIPT+x} ]; then MissingScript; fi
 printf "Please input the full filepath to where you want to extract resources to.
 Make sure that this filepath leads to a folder that's either empty or nonexistent:\n"
 
-read -r ___OUTPUT_DIR
+read -r inp
+export ___OUTPUT_DIR="$inp"
 
-if ! [[ "$___OUTPUT_DIR" == */ ]]; then ___OUTPUT_DIR="${___OUTPUT_DIR}/";fi
+if ! [[ "$___OUTPUT_DIR" == */ ]]; then export ___OUTPUT_DIR="${___OUTPUT_DIR}/";fi
 if [ -n "$(ls -A "$___OUTPUT_DIR")" ] 
 then  OutputIsntEmpty
 fi
