@@ -74,7 +74,8 @@ if ! [ -f "${___GAMEDIR}base/gameresources.resources" ]; then MissingResources; 
 printf "How did you install QuickBMS?\n
 		1 - Compiled the source code with 'make'\n
 		2 - Installed from the Arch User Repository(AUR)\n
-		3 - Exit\n\n"
+		3 - WINE version\n
+		4 - Exit\n\n"
 
 while true
 do
@@ -89,6 +90,10 @@ do
 			break
 			;;
 		"3")
+			read -rp "Please type the path to your QuickBMS directory: " ___QUICKBMS_DIR
+			break
+			;;
+		"4")
 			echo "Exiting script."
 			exit 1
 			;;
@@ -99,7 +104,7 @@ do
 done
 if ! [[ "$___QUICKBMS_DIR" == */ ]]; then ___QUICKBMS_DIR="${___QUICKBMS_DIR}/"; fi
 
-if ! [ -f "${___QUICKBMS_DIR}quickbms" ]; then MissingQuickBMS; fi
+if ! ([ -f "${___QUICKBMS_DIR}quickbms" ] || [ -f "${___QUICKBMS_DIR}quickbms_4gb_files.exe" ]); then MissingQuickBMS; fi
 if [ -f "${___GAMEDIR}doometernal.txt" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.txt"; fi
 if [ -f "${___GAMEDIR}doometernal.bms.txt" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.bms.txt"; fi
 if [ -f "${___GAMEDIR}doometernal.bms" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.bms"; fi
@@ -129,9 +134,13 @@ printf "The expected filesize required to extract DOOM Eternal v3.1's resources 
 #Prompt to start extraction
 
 
-if [[ "$___QUICKBMS_SOURCE" == "2" ]]
-then
-	find .  -name "*.resources" -exec sh -c 'quickbms -o -Y "$___GAMEDIR/$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
-else
-	find .  -name "*.resources" -exec sh -c './${___QUICKBMS_DIR}quickbms -o -Y "$___GAMEDIR/$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
-fi
+case "$___QUICKBMS_SOURCE" in
+	"1")
+		find .  -name "*.resources" -exec sh -c 'quickbms -o -Y "${___GAMEDIR}$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
+		;;
+	"2")
+		find .  -name "*.resources" -exec sh -c './${___QUICKBMS_DIR}quickbms -o -Y "${___GAMEDIR}$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
+		;;
+	"3")
+		find .  -name "*.resources" -exec sh -c 'wine ${___QUICKBMS_DIR}quickbms_4gb_files.exe -o -Y "${___GAMEDIR}$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
+esac
