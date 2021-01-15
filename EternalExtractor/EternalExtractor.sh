@@ -133,5 +133,5 @@ if [[ "$___QUICKBMS_SOURCE" == "2" ]]
 then
 	find .  -name "*.resources" -exec sh -c "quickbms -o -Y '$___GAMEDIR/$___QUICKBMS_SCRIPT' '$1' '$___OUTPUT_DIR'" sh {} \;
 else
-	find .  -name "*.resources" -exec sh -c "${___QUICKBMS_DIR}quickbms -o -Y '$___GAMEDIR/$___QUICKBMS_SCRIPT' '$1' '$___OUTPUT_DIR'" sh {} \;
+	find .  -name "*.resources" -exec sh -c "./${___QUICKBMS_DIR}quickbms -o -Y '$___GAMEDIR/$___QUICKBMS_SCRIPT' '$1' '$___OUTPUT_DIR'" sh {} \;
 fi
