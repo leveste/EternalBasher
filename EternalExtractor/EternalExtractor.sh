@@ -83,12 +83,10 @@ do
 	case "$___QUICKBMS_SOURCE" in
 		"1")
 			read -rp "Please type the path to your QuickBMS directory: " ___QUICKBMS_DIR
-			___QUICKBMS_INST=0
 			break
 			;;
 		"2")
 			___QUICKBMS_DIR="/usr/bin/"
-			___QUICKBMS_INST=1
 			break
 			;;
 		"3")
@@ -126,12 +124,13 @@ printf "The expected filesize required to extract DOOM Eternal v3.1's resources 
 
 	DOOM Eternal: %s
 	QuickBMS: %s
-	Output: %s" "$___GAMEDIR" "$___QUICKBMS_DIR" "$___OUTPUT_DIR"
+	Output: %s
+	" "$___GAMEDIR" "$___QUICKBMS_DIR" "$___OUTPUT_DIR"
 
 #Prompt to start extraction
 
 
-if [[ "$___QUICKBMS_INST" -eq 1 ]]
+if [[ "$___QUICKBMS_SOURCE" == "2" ]]
 then
 	find .  -name "*.resources" -exec sh -c "quickbms -o -Y '$___GAMEDIR/$___QUICKBMS_SCRIPT' '$1' '$___OUTPUT_DIR'" sh {} \;
 else
