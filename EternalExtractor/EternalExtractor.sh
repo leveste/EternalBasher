@@ -102,11 +102,11 @@ do
 done
 if ! [[ "$___QUICKBMS_DIR" == */ ]]; then ___QUICKBMS_DIR="${___QUICKBMS_DIR}/"; fi
 
-if ! [ -f "${___QUICKBMS_DIR}___QUICKBMS_DIR" ]; then MissingQuickBMS; fi
-if [ -f "${___GAMEDIR}doometernal.txt" ]; then ___QUICKBMS_SCRIPT="doometernal.txt"; fi
-if [ -f "${___GAMEDIR}doometernal.bms.txt" ]; then ___QUICKBMS_SCRIPT="doometernal.bms.txt"; fi
-if [ -f "${___GAMEDIR}doometernal.bms" ]; then ___QUICKBMS_SCRIPT="doometernal.bms"; fi
-if [ -z ${___QUICKBMS_DIR_SCRIPT+x} ]; then MissingScript; fi
+if ! [ -f "${___QUICKBMS_DIR}quickbms" ]; then MissingQuickBMS; fi
+if [ -f "${___GAMEDIR}doometernal.txt" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.txt"; fi
+if [ -f "${___GAMEDIR}doometernal.bms.txt" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.bms.txt"; fi
+if [ -f "${___GAMEDIR}doometernal.bms" ]; then ___QUICKBMS_SCRIPT="${___GAMEDIR}doometernal.bms"; fi
+if [ -z ${___QUICKBMS_SCRIPT+x} ]; then MissingScript; fi
 
 #Ask for output path
 
