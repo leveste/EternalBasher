@@ -47,7 +47,6 @@ ___OUTPUT_DIR=""
 ___QUICKBMS_DIR=""
 ___QUICKBMS_SCRIPT=""
 
-___QUICKBMS_INST=""
 
 
 
