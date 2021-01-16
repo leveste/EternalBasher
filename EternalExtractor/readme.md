@@ -44,3 +44,7 @@ Alternatively, if you use an AUR helper like yay, you can install the package an
 The path you'll need to type when prompet should be:
 
     /usr/bin/quickbms
+
+## WINE
+
+You can download the [Windows version of QuickBMS](https://aluigi.altervista.org/quickbms.htm)(first link). Simply extract the files from the zip and, when prompted by the script, add the full path to the folder containing **quickbms_4gb_files.exe**
