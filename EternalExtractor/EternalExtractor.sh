@@ -139,7 +139,9 @@ printf "The expected filesize required to extract DOOM Eternal v3.1's resources 
 
 case "$___QUICKBMS_SOURCE" in
 	"1")
-		find "$___GAMEDIR" -name "*.resources" -exec sh -c './${___QUICKBMS_DIR}quickbms -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
+		cp "${___QUICKBMS_DIR}quickbms" .
+		find "$___GAMEDIR" -name "*.resources" -exec sh -c './quickbms -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
+		rm quickbms
 		;;
 	"2")
 		find "$___GAMEDIR" -name "*.resources" -exec sh -c 'quickbms -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
