@@ -132,7 +132,10 @@ printf "The expected filesize required to extract DOOM Eternal v3.1's resources 
 	DOOM Eternal: %s
 	QuickBMS: %s
 	Output: %s
-	\n\n" "$___GAMEDIR" "$___QUICKBMS_DIR" "$___OUTPUT_DIR"
+	\n\n
+	Press any key to continue. To exit the script, use Ctrl-C to cancel." "$___GAMEDIR" "$___QUICKBMS_DIR" "$___OUTPUT_DIR"
+
+read -n 1 -s
 
 #Prompt to start extraction
 
