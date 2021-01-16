@@ -396,11 +396,15 @@ rm modloaderlistdos.txt
 sed -i '/.resources$/d' "EternalModInjector Settings.txt"
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
-	if ! [ -f "${filename}.backup" ]; then cp "$filename" "${filename}.backup"; fi
-	name=${filename##*/}
-	if ! [ -f "${filename}.backup" ]; then	printf "%s\n" "
-	${blu}Backed up $name${end}
-	"; fi
+	if ! [ -f "${filename}.backup" ]; then
+		cp "$filename" "${filename}.backup"
+		name=${filename##*/}
+		printf "%s\n" "
+			${blu}Backed up $name${end}
+		"
+	else
+		name=${filename##*/}
+	fi
 	filename=${name%.resources}
 	grep -v "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
 	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
