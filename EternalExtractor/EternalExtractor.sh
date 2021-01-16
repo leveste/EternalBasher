@@ -42,10 +42,10 @@ printf "Eternal Extractor Bash script\n
 			by Leveste and PowerBall253\n
 			based on the original file by Zwip-Zwap Zapony\n\n\n"
 
-___GAMEDIR="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
-___OUTPUT_DIR=""
-___QUICKBMS_DIR=""
-___QUICKBMS_SCRIPT=""
+export ___GAMEDIR="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
+export ___OUTPUT_DIR=""
+export ___QUICKBMS_DIR=""
+export ___QUICKBMS_SCRIPT=""
 
 
 
@@ -145,5 +145,7 @@ case "$___QUICKBMS_SOURCE" in
 		find "$___GAMEDIR" -name "*.resources" -exec sh -c 'quickbms -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
 		;;
 	"3")
-		find "$___GAMEDIR" -name "*.resources" -exec sh -c 'wine "${___QUICKBMS_DIR}quickbms_4gb_files.exe" -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} +;
+		cp "${___QUICKBMS_DIR}quickbms_4gb_files.exe" .
+		find "$___GAMEDIR" -name "*.resources" -exec sh -c 'wine quickbms_4gb_files.exe -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} +;
+		rm quickbms_4gb_files.exe
 esac
