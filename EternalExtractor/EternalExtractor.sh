@@ -142,9 +142,10 @@ read -n 1 -s # Wait for user keypress
 
 case "$___QUICKBMS_SOURCE" in
 	[12])
-		cp "${___QUICKBMS_DIR}quickbms" .
-		find "$___GAMEDIR" -name "*.resources" -exec sh -c './quickbms -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
-		rm quickbms
+		print "Linux version of quickbms does not work with the current 'doometernal.bms' script. Issue is being looked into. Please use the WINE version instead"
+		#cp "${___QUICKBMS_DIR}quickbms" .
+		#find "$___GAMEDIR" -name "*.resources" -exec sh -c './quickbms -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
+		#rm quickbms
 		;;
 	"3")
 		cp "${___QUICKBMS_DIR}quickbms_4gb_files.exe" .
