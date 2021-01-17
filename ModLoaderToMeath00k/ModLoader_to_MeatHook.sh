@@ -28,9 +28,9 @@ moveOverrides(){
 
 	if [[ "$response" -eq 1 ]]
 	then
-		yes | cp -r "${scriptdir}overrides"
+		yes | cp -r "${scriptdir}overrides" "$gamedir"
 	else
-		cp -ir "${scriptdir}overrides"
+		cp -ir "${scriptdir}overrides" "$gamedir"
 	fi
 
 	rm -rf "${scriptdir}overrides"
