@@ -26,7 +26,7 @@ moveOverrides(){
 	# Backup previous overrides folder
 	mv "${gamedir}overrides" "${gamedir}overrides_backup"
 
-	if [[ "$response" -eq 1 ]]
+	if [[ "$replace" -eq 1 ]]
 	then
 		yes | cp -r "${scriptdir}overrides" "$gamedir"
 	else
