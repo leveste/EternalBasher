@@ -23,8 +23,8 @@ CreateConfig(){
 }
 
 
-scriptdir=""
-gamedir="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
+export scriptdir=""
+export gamedir="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
 
 # Set scriptdir and make sure it ends with \
 if ! [[ $scriptdir == "*/" ]]; then scriptdir="${scriptdir}/"; fi
@@ -57,4 +57,15 @@ do
 	shift
 done
 
+# Delete non-directory contents from overrides. Folders and their respective contents remain intact.
+find "${scriptdir}overrides" -maxdepth 1 -type f -exec rm -fv {} \;
 
+# Move all folders up one level and delete original parent
+(
+cd "${scriptdir}overrides"
+mkdir ../temp/
+mv ./*/* ../temp/
+rm -rf *
+mv ../temp/* .
+rm -rf ../temp/
+)
