@@ -28,7 +28,7 @@ moveOverrides(){
 
 	if [[ "$replace" -eq 1 ]]
 	then
-		yes | cp -r "${scriptdir}overrides" "$gamedir"
+		cp -r "${scriptdir}overrides" "$gamedir"
 	else
 		cp -ir "${scriptdir}overrides" "$gamedir"
 	fi
