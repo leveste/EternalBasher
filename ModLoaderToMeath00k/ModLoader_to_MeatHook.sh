@@ -28,12 +28,12 @@ moveOverrides(){
 
 	if [[ "$replace" -eq 1 ]]
 	then
-		cp -r "${scriptdir}overrides" "$gamedir"
+		cp -r "./overrides" "$gamedir"
 	else
-		cp -ir "${scriptdir}overrides" "$gamedir"
+		cp -ir "./overrides" "$gamedir"
 	fi
 
-	rm -rf "${scriptdir}overrides"
+	rm -rf "./overrides"
 
 	printf "\nThe overrides folder has been created and moved successfully.\n"
 
@@ -42,11 +42,7 @@ moveOverrides(){
 
 
 
-export scriptdir=""
 export gamedir="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
-
-# Set scriptdir and make sure it ends with \
-if ! [[ $scriptdir == "*/" ]]; then scriptdir="${scriptdir}/"; fi
 
 # Check for config file
 if ! [ -f ModLoader_to_Meathook.cfg ]; then CreateConfig; else
@@ -55,33 +51,33 @@ if ! [ -f ModLoader_to_Meathook.cfg ]; then CreateConfig; else
 fi
 
 # Check for idFileDecompressor
-if ! [ -f "${scriptdir}idFileDeCompressor.exe" ]
+if ! [ -f "./idFileDeCompressor.exe" ]
 then
 	printf "idFileDeCompressor was not found! Put idFileDecompressor.exe in the same folder as this batch, then try again."
 fi
 
 # Check for oo2core_8_win64.dll
-if ! [ -f "${scriptdir}oo2core_8_win64.dll" ]
+if ! [ -f "./oo2core_8_win64.dll" ]
 then
 	printf "oo2core_8_win64.dll was not found! Put oo2core_8_win64.dll in the same folder as this batch, then try again."
 fi
 
 # Remove previous overrides folder
-rm -rf "${scriptdir}overrides"
+rm -rf "./overrides"
 
 # Unzip mods to overrides folder
 while [[ "$#" -gt 0 ]]
 do
-	unzip "$1" -d "${scriptdir}overrides"
+	unzip "$1" -d "./overrides"
 	shift
 done
 
 # Delete non-directory contents from overrides. Folders and their respective contents remain intact.
-find "${scriptdir}overrides" -maxdepth 1 -type f -exec rm -fv {} \;
+find "./overrides" -maxdepth 1 -type f -exec rm -fv {} \;
 
 # Move all folders up one level and delete original parent
 (
-cd "${scriptdir}overrides" || return
+cd "./overrides" || return
 mkdir ../temp/
 cp -r ./*/* ../temp/
 rm -rf ./*
@@ -90,7 +86,7 @@ rm -rf ../temp/
 )
 
 # Decompress .entities
-find "${scriptdir}overrides/maps/game" -name "*.entities" -exec wine "${scriptdir}idFileDecompressor" -d {} \;
+find "./overrides/maps/game" -name "*.entities" -exec wine "./idFileDecompressor" -d {} \;
 
 # Ask user if he wishes to move overrides folder
 read -rp "Would you like to move the overrides folder to the DOOMEternal folder? Press 'Y' to accept, press any other key to continue." response
@@ -99,5 +95,5 @@ if [[ "$response" == [yY] ]]
 then
 	moveOverrides
 else
-	printf "Overrides folder was created succesfully, you can find it on %s." "$scriptdir"
+	printf "Overrides folder was created succesfully, you can find it on %s." "$PWD"
 fi
