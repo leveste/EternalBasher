@@ -22,6 +22,25 @@ CreateConfig(){
     esac
 }
 
+moveOverrides(){
+	# Backup previous overrides folder
+	mv "${gamedir}overrides" "${gamedir}overrides_backup"
+
+	if [[ "$response" -eq 1 ]]
+	then
+		yes | cp -r "${scriptdir}overrides"
+	else
+		cp -ir "${scriptdir}overrides"
+	fi
+
+	rm -rf "${scriptdir}overrides"
+
+	printf "\nThe overrides folder has been created and moved successfully.\n"
+
+	exit
+}
+
+
 
 export scriptdir=""
 export gamedir="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
@@ -69,3 +88,16 @@ rm -rf ./*
 mv ../temp/* .
 rm -rf ../temp/
 )
+
+# Decompress .entities
+find "${scriptdir}overrides/maps/game" -name "*.entities" -exec wine "${scriptdir}idFileDecompressor" -d {} \;
+
+# Ask user if he wishes to move overrides folder
+read -rp "Would you like to move the overrides folder to the DOOMEternal folder? Press 'Y' to accept, press any other key to continue." response
+
+if [[ "$response" == [yY] ]]
+then
+	moveOverrides
+else
+	printf "Overrides folder was created succesfully, you can find it on %s." "$scriptdir"
+fi
