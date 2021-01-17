@@ -83,7 +83,7 @@ find "${scriptdir}overrides" -maxdepth 1 -type f -exec rm -fv {} \;
 (
 cd "${scriptdir}overrides" || return
 mkdir ../temp/
-mv ./*/* ../temp/
+cp -r ./*/* ../temp/
 rm -rf ./*
 mv ../temp/* .
 rm -rf ../temp/
