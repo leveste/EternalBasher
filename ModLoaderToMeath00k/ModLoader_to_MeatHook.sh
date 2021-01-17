@@ -49,3 +49,12 @@ fi
 
 # Remove previous overrides folder
 rm -rf "${scriptdir}overrides"
+
+# Unzip mods to overrides folder
+while [[ "$#" -gt 0 ]]
+do
+	unzip "$1" -d "${scriptdir}overrides"
+	shift
+done
+
+
