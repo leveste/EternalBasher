@@ -62,10 +62,10 @@ find "${scriptdir}overrides" -maxdepth 1 -type f -exec rm -fv {} \;
 
 # Move all folders up one level and delete original parent
 (
-cd "${scriptdir}overrides"
+cd "${scriptdir}overrides" || return
 mkdir ../temp/
 mv ./*/* ../temp/
-rm -rf *
+rm -rf ./*
 mv ../temp/* .
 rm -rf ../temp/
 )
