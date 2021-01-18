@@ -7,7 +7,7 @@ To install QuickBMS on Linux, you can download the source code. Once downloaded,
 
 Go into the *src* folder and, from terminal, run the "make" command. You might be required to install additional packages beforehand. You can look into the distro specific section for further information.
 
-You will also need [this script](https://zenhax.com/viewtopic.php?p=54753#p54753). Simply paste the code into a text file, save it under the name **quickbms.exe** and place the file in your DOOM Eternal folder.
+You will also need [this script](https://zenhax.com/viewtopic.php?p=54753#p54753). Simply paste the code into a text file, save it under the name **doometernal.bms** and place the file in your DOOM Eternal folder.
 
 **Note:** The Linux of QuickBMS doesn't appear to work with the current script. The issue is being looked into. The Windows version works though Wine, so make sure to have it installed on your system.
 
