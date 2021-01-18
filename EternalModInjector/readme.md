@@ -17,7 +17,7 @@ Instructions:
 
 * Run the file. If you have the zip file for a mod in your **Mods** folder, it will install the mod. To remove all mods, just empty you **Mods** folder and run the file again.
 
-You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or check the [Doom 2016+ modding discord](https://discord.com/channels/570112501853978624/614488711572357120)
+You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or check the [Doom 2016+ Modding Discord](https://discord.com/channels/570112501853978624/614488711572357120).
 
 ------------------------------
 
@@ -32,6 +32,6 @@ On Ubuntu-based systems(like Mint), we recommend that you install Wine from the 
 
 to confirm the package was installed.
 
-If you are having issues with missing dlls, install the [Microsof Visual C++ 2015-2019 Redistributable](https://support.microsoft.com/en-gb/help/2977003/the-latest-supported-visual-c-downloads) for x86. Simply download the file and run it through Wine.
+If you are having issues with missing dlls, install the [Microsoft Visual C++ 2015-2019 Redistributable](https://support.microsoft.com/en-gb/help/2977003/the-latest-supported-visual-c-downloads) for x86. Simply download the file and run it through Wine.
 
     wine VC_redist.x86.exe
