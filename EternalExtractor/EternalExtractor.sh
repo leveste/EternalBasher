@@ -149,6 +149,6 @@ case "$___QUICKBMS_SOURCE" in
 		;;
 	"3")
 		cp "${___QUICKBMS_DIR}quickbms_4gb_files.exe" .
-		find "$___GAMEDIR" -name "*.resources" -exec sh -c 'wine quickbms_4gb_files.exe -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} +;
+		find "$___GAMEDIR" -name "*.resources" -exec sh -c 'wine quickbms_4gb_files.exe -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
 		rm quickbms_4gb_files.exe
 esac
