@@ -6,10 +6,10 @@ Collection of bash scripts for different aspects of Doom Eternal modding. Furthe
 
 Helps with installing Doom Eternal mods.
 
-**EternalExtractor**(Work in progress)
+**EternalExtractor** (Work in progress)
 
 Script for automating the process of running QuickBMS to extract all of DOOM Eternal's \*.resources archives.
 
-**idFileDecompressore_Auto**
+**idFileDeCompressor_Auto**
 
 Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entities files
