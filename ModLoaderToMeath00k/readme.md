@@ -3,9 +3,9 @@ Meath00k is a dll that allows the user to override "\*.entities" files with your
 Prerequisites
 ===============
 
-Before running the tool, you'll need to make sure to have [idFileDeCompressor](https://discord.com/channels/570112501853978624/693113846688383029/747181445092605973) and oo2core\_8\_win64.dll(found in the DOOM Eternal folder) in the same directory as the script.
+Before running the tool, you'll need to make sure to have [idFileDeCompressor](https://discord.com/channels/570112501853978624/693113846688383029/747181445092605973) and oo2core\_8\_win64.dll (found in the DOOM Eternal folder) in the same directory as the script.
 
-To get Meath00k, simply download the latest [Entity Hero release](https://github.com/nopjne/EntityHero). You can find the dll in the *meathook_interface* folder(under the name **XINPUT1_3.dll**). Simply paste it in your DOOM Eternal folder.
+To get Meath00k, simply download the latest [EntityHero release](https://github.com/nopjne/EntityHero). You can find the dll in the *meathook_interface* folder(under the name **XINPUT1_3.dll**). Simply paste it in your DOOM Eternal folder.
 
 Wine is also a prerequisite.
 
@@ -24,7 +24,7 @@ To run the script, type:
 
 ##Meath00k Wine prefix
 
-You will need to set the wine prefix to pfx and launch *winecfg*. Simply type the following in the terminal(replace "user" with your username)
+You will need to set the wine prefix to pfx and launch *winecfg*. Simply type the following in the terminal (replace "user" with your username)
 
     WINEPREFIX=/home/user/.local/share/Steam/steamapps/compatdata/782330/pfx/ winecfg
 
