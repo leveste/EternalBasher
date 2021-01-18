@@ -26,7 +26,7 @@ Issues
 
 If you are having issues with Wine, you will need to make sure **wine-mono** is installed.
 
-On Ubuntu-based systems(like Mint), we recommend that you install Wine from the [winehq website](https://wiki.winehq.org/Ubuntu) and run
+On Ubuntu-based systems (like Mint), we recommend that you install Wine from the [winehq website](https://wiki.winehq.org/Ubuntu) and run
 
     wine uninstaller
 
