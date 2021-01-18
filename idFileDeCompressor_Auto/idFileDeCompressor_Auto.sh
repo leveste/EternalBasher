@@ -1,7 +1,5 @@
 #!/bin/bash
 
-first_line=""
-
 while [[ $# -gt 0 ]]
 do
 	first_line=$(head -n 1 "$1")
