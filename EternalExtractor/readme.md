@@ -1,4 +1,4 @@
-Currently work in progress
+.Currently work in progress
 
 Instructions
 =========
@@ -13,7 +13,7 @@ You will also need [this script](https://zenhax.com/viewtopic.php?p=54753#p54753
 
 ## Debian systems
 
-If you are using Debian or a Debian based distro(Ubuntu, Mint, Pop\_OS, etc), you'll need to install the following packages beforehand:
+If you are using Debian or a Debian based distro (Ubuntu, Mint, Pop\_OS, etc), you'll need to install the following packages beforehand:
 
     sudo apt install gcc g++ zlib1g-dev libssl-dev unicode gcc-multilib g++-multilib
 
