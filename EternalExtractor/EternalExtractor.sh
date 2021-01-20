@@ -72,7 +72,7 @@ if ! [ -f "${___GAMEDIR}base/gameresources.resources" ]; then MissingResources; 
 #Ask for QuickBMS path
 
 printf "How did you install QuickBMS?\n
-		1 - Compiled the source code with 'make'\n
+		1 - Compiled the source code with 'make'/Downloaded the Linux standalone binaries.\n
 		2 - Installed from the Arch User Repository(AUR)\n
 		3 - WINE version\n
 		4 - Exit\n\n"
@@ -142,7 +142,7 @@ read -n 1 -s # Wait for user keypress
 
 case "$___QUICKBMS_SOURCE" in
 	[12])
-		print "Linux version of quickbms does not work with the current 'doometernal.bms' script. Issue is being looked into. Please use the WINE version instead"
+		print "Linux version of quickbms does not work with the current 'doometernal.bms' script due to the 'oodle' library's open source alternative not being implemented yet. Please use the WINE version instead. The script will be updated when it's been implemented."
 		#cp "${___QUICKBMS_DIR}quickbms" .
 		#find "$___GAMEDIR" -name "*.resources" -exec sh -c './quickbms -o -Y "$___QUICKBMS_SCRIPT" "$1" "$___OUTPUT_DIR"' sh {} \;
 		#rm quickbms
