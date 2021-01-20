@@ -1,5 +1,3 @@
-.Currently work in progress
-
 Instructions
 =========
 
