@@ -201,7 +201,6 @@ fi
 
 if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
-	RESET_BACKUPS="0"
 	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'	
 fi
 
@@ -339,6 +338,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 
 #Restore Backups
+if ! [ $RESET_BACKUPS == "1" ]; then
 printf "
 ${blu}Restoring backups...${end}
 "
@@ -364,6 +364,8 @@ while IFS= read -r filename; do
 		fi		
 	fi	
 done < "EternalModInjector Settings.txt"
+fi
+RESET_BACKUPS="0"
 
 #Check meta.resources
 printf "%s\n" "
