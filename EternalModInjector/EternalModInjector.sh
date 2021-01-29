@@ -356,7 +356,7 @@ while IFS= read -r filename; do
 		filename=${filename//[[:cntrl:]]/}
 		filename_name=${filename%.resources*}
 		path=${filename_name}_path
-		path=$(echo ${!path})
+		path=${!path}
 		if ! [[ "$filename" == dlc_* ]]; then
 			printf "%s\n" "
                 	${blu}Restoring ${filename_name}.resources.backup${end}
