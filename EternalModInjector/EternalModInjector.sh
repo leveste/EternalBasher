@@ -100,6 +100,7 @@ Based on original batch file by Zwip-Zwap Zapony${end}"
 #Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
 if ! [ -f DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
+#if ! [ -f base/DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
 if ! [ -f base/idRehash.exe ]; then MissingIdRehash; fi
 
 #Give executable permissions to tools
@@ -123,6 +124,7 @@ ${blu}Checking tools...${end}
 "
 
 DEternal_LoadModsMD5=($(md5sum DEternal_loadMods.exe))
+#DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods.exe))
 idRehashMD5=($(md5sum base/idRehash.exe))
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
 if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
@@ -133,10 +135,17 @@ if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameM
 
 if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]; then
 	if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
+#	if ! [ -f base/EternalPatcher.exe ]; then MissingEternalPatcher; fi
 	EternalPatcherMD5=($(md5sum EternalPatcher.exe))
+#	EternalPatcherMD5=($(md5sum base/EternalPatcher.exe))
 	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 	chmod +x EternalPatcher.exe
+#	chmod +x base/EternalPatcher.exe
 	( wine EternalPatcher.exe --patch DOOMEternalx64vk.exe ) > /dev/null 2>&1
+#	cd base
+#	( wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe ) > /dev/null 2>&1
+#	cd ..
+
 fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
@@ -392,6 +401,7 @@ ${blu}Backing up .resources...${end}
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
 echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
+#echo $(wine base/DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
 perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
 ( sed 's/\\/\//g' modloaderlist.txt ) > /dev/null 2>&1
@@ -443,6 +453,7 @@ printf "%s\n" "
 	${blu}Loading mods... (DEternal_loadMods)${end}
 	"
 wine DEternal_loadMods.exe "."
+#wine base/DEternal_loadMods.exe "."
 
 #Rehash resource hashes (idRehash)
 cd base
