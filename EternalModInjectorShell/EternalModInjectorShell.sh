@@ -173,9 +173,11 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 	chmod +x EternalPatcher.exe
 #	chmod +x base/EternalPatcher.exe
-	( wine EternalPatcher.exe --patch DOOMEternalx64vk.exe ) > /dev/null 2>&1
+	wine EternalPatcher.exe --update > /dev/null 2>&1
+	wine EternalPatcher.exe --patch DOOMEternalx64vk.exe > /dev/null 2>&1
 #	cd base
-#	( wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe ) > /dev/null 2>&1
+#	wine EternalPatcher.exe --update > /dev/null 2>&1
+#	wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe > /dev/null 2>&1
 #	cd ..
 
 fi
@@ -234,7 +236,7 @@ HAS_READ_FIRST_TIME="1"
 fi
 
 if [ $ASSET_VERSION == "0" ]; then
-	read -p $'\e[34mOld Doom Eternal backups detected! Verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+	read -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
 If you have already done so, press Enter to continue.\e[0m:'
 	ResetBackups
 	ASSET_VERSION="4.1"
