@@ -59,6 +59,9 @@ echo ":HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
 RESET_BACKUPS="0"
 echo ":RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
 
+AskforAutoUpdate
+echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
+
 echo >> "EternalModInjector Settings.txt"
 
 find . -name "*.backup" -type f -delete
@@ -93,6 +96,18 @@ ${red}meta.resources not found or corrupted! Verify game files through Steam/Bet
 exit 1
 }
 
+AskforAutoUpdate() {
+read -r -p $'\e[34mDo you want this script to be automatically updated every time a new version comes out? [Y/n] \e[0m' response
+case "$response" in
+    [nN][oO]|[nN]) 
+        AUTO_UPDATE="0"
+        ;;
+    *)
+        AUTO_UPDATE="1"
+        ;;
+esac
+}
+
 SelfUpdate() {
 link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
@@ -121,10 +136,28 @@ Based on original batch file by Zwip-Zwap Zapony${end}
 "
 
 #Remove misnamed version if present
-rm EternalModInjector.sh
+if [ -f EternalModInjector.sh ]; then rm EternalModInjector.sh; fi
+
+#Config File check
+printf "%s\n" "
+${blu}Loading config file...${end}
+"
+CONFIG_FILE="EternalModInjector Settings.txt"
+if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
+	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
+	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
+	if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
+	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="2"; else
+		if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
+	fi
+	if grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
+		if grep -q ":AUTO_UPDATE=1" "$CONFIG_FILE"; then AUTO_UPDATE="1"; else AUTO_UPDATE="0"; fi
+	else AskforAutoUpdate
+	fi
+fi
 
 #Check for script updates
-if ! [[ $skip == "1" ]]; then
+if ! [[ $skip == "1" ]] && [[ $AUTO_UPDATE == "1" ]]; then
 	SelfUpdate
 	export skip=""
 fi
@@ -187,20 +220,6 @@ if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameM
 ${red}Game patching failed! Verify game files from Steam/Bethesda.net then try again.${end}
 "
 	exit 1
-fi
-
-#Config File check
-printf "%s\n" "
-${blu}Loading config file...${end}
-"
-if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
-	CONFIG_FILE="EternalModInjector Settings.txt"
-	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
-	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
-	if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
-	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="2"; else
-		if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
-	fi
 fi
 
 #Setup for ModLoader
@@ -376,6 +395,12 @@ else
 	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
+if ! grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
+	echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
 #Execute each line of ResourceFilePaths
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 	eval "${ResourceFilePaths[$i]}"
@@ -441,20 +466,21 @@ perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
 ( sed 's/\\/\//g' modloaderlist.txt ) > /dev/null 2>&1
 sed -i '/.resources$/d' "EternalModInjector Settings.txt"
+sed -i '/.backup$/d' "EternalModInjector Settings.txt"
 while IFS= read -r filename; do
     filename=$(echo $filename | sed 's/\\/\//g')
 	if ! [ -f "${filename}.backup" ]; then
 		cp "$filename" "${filename}.backup"
 		name=${filename##*/}
 		printf "%s\n" "
-			${blu}Backed up $name${end}
+                	${blu}Backed up $name${end}
 		"
 	else
 		name=${filename##*/}
 	fi
 	filename=${name%.resources}
 	grep -v "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
-	if ! grep -q "${filename}.backup" "$CONFIG_FILE"; then echo ${filename}.backup >> "EternalModInjector Settings.txt"; fi
+	echo ${filename}.backup >> "EternalModInjector Settings.txt"
 	echo ${filename}.resources >> "EternalModInjector Settings.txt"
 done < modloaderlist.txt
 rm modloaderlist.txt
@@ -463,7 +489,7 @@ rm modloaderlist.txt
 if ! [ -f "base/meta.resources.backup" ]; then 
 	cp "base/meta.resources" "base/meta.resources.backup"
 	printf "%s\n" "
-	${blu}Backed up meta.resources${end}
+                	${blu}Backed up meta.resources${end}
 	"
 fi
 sed -i '/meta.backup$/d' "EternalModInjector Settings.txt"
@@ -485,7 +511,7 @@ sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=2/' "EternalModInject
 
 #Load Mods (DEternal_loadMods)
 printf "%s\n" "
-	${blu}Loading mods... (DEternal_loadMods)${end}
+${blu}Loading mods... (DEternal_loadMods)${end}
 	"
 wine DEternal_loadMods.exe "."
 #wine base/DEternal_loadMods.exe "."
