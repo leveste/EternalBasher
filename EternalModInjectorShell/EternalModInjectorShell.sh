@@ -96,7 +96,7 @@ exit 1
 SelfUpdate() {
 link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
-if [[ $version == "v4.1" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+if [[ $version == "v4.1.2" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
     printf "%s\n" "
@@ -121,8 +121,7 @@ Based on original batch file by Zwip-Zwap Zapony${end}
 "
 
 #Remove misnamed version if present
-#rm EternalModInjector.sh
-#rm EternalModInjectorShell.sh
+rm EternalModInjector.sh
 
 #Check for script updates
 if ! [[ $skip == "1" ]]; then
