@@ -103,14 +103,14 @@ if [ "$OUTDATED" == "1" ]; then
 ${blu}Updating script...${end}
 "
     export skip="1"
-    (rm EternalModInjector.sh
+    (rm EternalModInjectorShell.sh
     curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
       | grep browser_download_url \
-      | grep "EternalModInjector.sh" \
+      | grep "EternalModInjectorShell.sh" \
       | cut -d '"' -f 4 \
       | wget -qi -
-    chmod +x EternalModInjector.sh
-    ./EternalModInjector.sh)
+    chmod +x EternalModInjectorShell.sh
+    ./EternalModInjectorShell.sh)
     exit 1
 fi
 }
