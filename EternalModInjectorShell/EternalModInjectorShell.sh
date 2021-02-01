@@ -93,13 +93,47 @@ ${red}meta.resources not found or corrupted! Verify game files through Steam/Bet
 exit 1
 }
 
+SelfUpdate() {
+link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
+version=$(basename "$link")
+if [[ $version == "v4.1" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+
+if [ "$OUTDATED" == "1" ]; then
+    printf "%s\n" "
+${blu}Updating script...${end}
+"
+    export skip="1"
+    (rm EternalModInjector.sh
+    curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
+      | grep browser_download_url \
+      | grep "EternalModInjector.sh" \
+      | cut -d '"' -f 4 \
+      | wget -qi -
+    chmod +x EternalModInjector.sh
+    ./EternalModInjector.sh)
+    exit 1
+fi
+}
+
 printf "%s\n" "${grn}EternalModInjector Shell Script
 By Leveste and PowerBall253
-Based on original batch file by Zwip-Zwap Zapony${end}"
+Based on original batch file by Zwip-Zwap Zapony${end}
+"
+
+#Remove misnamed version if present
+#rm EternalModInjector.sh
+#rm EternalModInjectorShell.sh
+
+#Check for script updates
+if ! [[ $skip == "1" ]]; then
+	SelfUpdate
+	export skip=""
+fi
 
 #Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
 if ! [ -f DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
+#if ! [ -f base/DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
 if ! [ -f base/idRehash.exe ]; then MissingIdRehash; fi
 
 #Give executable permissions to tools
@@ -123,6 +157,7 @@ ${blu}Checking tools...${end}
 "
 
 DEternal_LoadModsMD5=($(md5sum DEternal_loadMods.exe))
+#DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods.exe))
 idRehashMD5=($(md5sum base/idRehash.exe))
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
 if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
@@ -133,10 +168,17 @@ if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameM
 
 if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]; then
 	if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
+#	if ! [ -f base/EternalPatcher.exe ]; then MissingEternalPatcher; fi
 	EternalPatcherMD5=($(md5sum EternalPatcher.exe))
+#	EternalPatcherMD5=($(md5sum base/EternalPatcher.exe))
 	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 	chmod +x EternalPatcher.exe
+#	chmod +x base/EternalPatcher.exe
 	( wine EternalPatcher.exe --patch DOOMEternalx64vk.exe ) > /dev/null 2>&1
+#	cd base
+#	( wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe ) > /dev/null 2>&1
+#	cd ..
+
 fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
@@ -197,11 +239,11 @@ if [ $ASSET_VERSION == "0" ]; then
 If you have already done so, press Enter to continue.\e[0m:'
 	ResetBackups
 	ASSET_VERSION="4.1"
+	HAS_CHECKED_RESOURCES="1"
 fi
 
 if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
-	RESET_BACKUPS="0"
 	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'	
 fi
 
@@ -339,6 +381,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 
 #Restore Backups
+if ! [ $RESET_BACKUPS == "1" ]; then
 printf "
 ${blu}Restoring backups...${end}
 "
@@ -347,7 +390,7 @@ while IFS= read -r filename; do
 		filename=${filename//[[:cntrl:]]/}
 		filename_name=${filename%.resources*}
 		path=${filename_name}_path
-		path=$(echo ${!path})
+		path=${!path}
 		if ! [[ "$filename" == dlc_* ]]; then
 			printf "%s\n" "
                 	${blu}Restoring ${filename_name}.resources.backup${end}
@@ -364,6 +407,8 @@ while IFS= read -r filename; do
 		fi		
 	fi	
 done < "EternalModInjector Settings.txt"
+fi
+RESET_BACKUPS="0"
 
 #Check meta.resources
 printf "%s\n" "
@@ -390,6 +435,7 @@ ${blu}Backing up .resources...${end}
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
 echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
+#echo $(wine base/DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
 perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
 ( sed 's/\\/\//g' modloaderlist.txt ) > /dev/null 2>&1
@@ -441,6 +487,7 @@ printf "%s\n" "
 	${blu}Loading mods... (DEternal_loadMods)${end}
 	"
 wine DEternal_loadMods.exe "."
+#wine base/DEternal_loadMods.exe "."
 
 #Rehash resource hashes (idRehash)
 cd base
