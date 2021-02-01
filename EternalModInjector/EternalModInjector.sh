@@ -93,30 +93,6 @@ ${red}meta.resources not found or corrupted! Verify game files through Steam/Bet
 exit 1
 }
 
-SCRIPT="$(readlink -f "$0")"
-SCRIPTFILE="$(basename "$SCRIPT")"
-SCRIPTPATH="$(dirname "$SCRIPT")"
-SCRIPTNAME="$0"
-ARGS=( "$@" )
-BRANCH="master"
-
-self_update() {
-    cd "$SCRIPTPATH"
-    git fetch
-    [ -n "$(git diff --name-only "origin/$BRANCH" "$SCRIPTFILE")" ] && {
-        echo "Found a new version of me, updating myself..."
-        git pull --force
-        git checkout "$BRANCH"
-        git pull --force
-        echo "Running the new version..."
-        cd -
-        exec "$SCRIPTNAME" "${ARGS[@]}"
-        exit 1
-    }
-    echo "Already the latest version."
-}
-self_update
-
 printf "%s\n" "${grn}EternalModInjector Shell Script
 By Leveste and PowerBall253
 Based on original batch file by Zwip-Zwap Zapony${end}"
