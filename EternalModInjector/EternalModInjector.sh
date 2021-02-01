@@ -93,9 +93,35 @@ ${red}meta.resources not found or corrupted! Verify game files through Steam/Bet
 exit 1
 }
 
+SelfUpdate() {
+link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
+version=$(basename "$link")
+if [[ $version == "v4.1" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+
+if [ "$OUTDATED" == "1" ]; then
+    echo "Updating script..."
+    export skip="1"
+    (rm EternalModInjector.sh
+    curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
+      | grep browser_download_url \
+      | grep "EternalModInjector.sh" \
+      | cut -d '"' -f 4 \
+      | wget -qi -
+    chmod +x EternalModInjector.sh
+    ./EternalModInjector.sh)
+    exit 1
+fi
+}
+
 printf "%s\n" "${grn}EternalModInjector Shell Script
 By Leveste and PowerBall253
 Based on original batch file by Zwip-Zwap Zapony${end}"
+
+#Check for script updates
+if ! [[ $skip == "1" ]]; then
+	SelfUpdate
+	export skip=""
+fi
 
 #Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
