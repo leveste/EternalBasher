@@ -206,6 +206,7 @@ if [ $ASSET_VERSION == "0" ]; then
 If you have already done so, press Enter to continue.\e[0m:'
 	ResetBackups
 	ASSET_VERSION="4.1"
+	HAS_CHECKED_RESOURCES="1"
 fi
 
 if [ $RESET_BACKUPS == "1" ]; then
