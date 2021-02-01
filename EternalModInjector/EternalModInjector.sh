@@ -99,7 +99,9 @@ version=$(basename "$link")
 if [[ $version == "v4.1" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
-    echo "Updating script..."
+    printf "%s\n" "
+${blu}Updating script...${end}
+"
     export skip="1"
     (rm EternalModInjector.sh
     curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
@@ -115,7 +117,8 @@ fi
 
 printf "%s\n" "${grn}EternalModInjector Shell Script
 By Leveste and PowerBall253
-Based on original batch file by Zwip-Zwap Zapony${end}"
+Based on original batch file by Zwip-Zwap Zapony${end}
+"
 
 #Check for script updates
 if ! [[ $skip == "1" ]]; then
