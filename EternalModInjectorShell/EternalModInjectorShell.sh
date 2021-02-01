@@ -147,9 +147,7 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
 	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
 	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
 	if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
-	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="2"; else
-		if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
-	fi
+	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="2"; else HAS_CHECKED_RESOURCES="0"; fi
 	if grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
 		if grep -q ":AUTO_UPDATE=1" "$CONFIG_FILE"; then AUTO_UPDATE="1"; else AUTO_UPDATE="0"; fi
 	else AskforAutoUpdate
@@ -277,12 +275,13 @@ if [ $ASSET_VERSION == "0" ]; then
 If you have already done so, press Enter to continue.\e[0m:'
 	ResetBackups
 	ASSET_VERSION="4.1"
-	HAS_CHECKED_RESOURCES="1"
+	HAS_CHECKED_RESOURCES="0"
 fi
 
 if [ $RESET_BACKUPS == "1" ]; then
 	ResetBackups
-	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'	
+	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
+	HAS_CHECKED_RESOURCES="0"
 fi
 
 ResourceFilePaths=(
@@ -388,10 +387,8 @@ else
 	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
-if grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
-	sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=1/' "EternalModInjector Settings.txt"
-else
-	echo ":HAS_CHECKED_RESOURCES=1" >> "EternalModInjector Settings.txt"
+if ! grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
+	echo ":HAS_CHECKED_RESOURCES=0" >> "EternalModInjector Settings.txt"
 	echo >> "EternalModInjector Settings.txt"
 	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
