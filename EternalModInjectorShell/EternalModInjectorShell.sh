@@ -234,7 +234,7 @@ fi
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
 	printf "%s\n" "
-${red}Game patching failed! Verify game files from Steam/Bethesda.net then try again.
+${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.
 Alternatively, you can open EternalPatcher.exe using Wine and manually patch DOOMEternalx64vk.exe, then try again.${end}
 "
 	exit 1
