@@ -120,6 +120,10 @@ By Leveste and PowerBall253
 Based on original batch file by Zwip-Zwap Zapony${end}
 "
 
+#Remove misnamed version if present
+#rm EternalModInjector.sh
+#rm EternalModInjectorShell.sh
+
 #Check for script updates
 if ! [[ $skip == "1" ]]; then
 	SelfUpdate
