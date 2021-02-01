@@ -16,7 +16,7 @@ exit 1
 
 MissingDEternalLoadMods() {
 printf "%s\n" "
-${red}DEternal_loadMods not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.${end}
+${red}DEternal_loadMods not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}
 "
 exit 1
 }
@@ -37,7 +37,7 @@ exit 1
 
 MissingEternalPatcher() {
 printf "%s\n" "
-${red}EternalPatcher not found or corrupted! Re-extract the tool to the DOOMEternal folder and try again.${end}
+${red}EternalPatcher not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}
 "
 exit 1
 }
@@ -164,12 +164,32 @@ fi
 
 #Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
-if ! [ -f DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
-#if ! [ -f base/DEternal_loadMods.exe ]; then MissingDEternalLoadMods; fi
+
+if ! [ -f base/DEternal_loadMods.exe ]; then
+	if [ -f DEternal_loadMods.exe ]; then cp DEternal_loadMods.exe base/DEternal_loadMods.exe; else MissingDEternalLoadMods; fi
+fi
+
 if ! [ -f base/idRehash.exe ]; then MissingIdRehash; fi
 
+if ! [ -f base/EternalPatcher.exe ]; then
+	if [ -f EternalPatcher.exe ]; then cp EternalPatcher.exe base/EternalPatcher.exe; else MissingEternalPatcher; fi
+fi
+if ! [ -f base/EternalPatcher.exe.config ]; then
+	if [ -f EternalPatcher.exe.config ]; then cp EternalPatcher.exe.config base/EternalPatcher.exe.config; else
+		printf "%s\n" "
+${red}EternalPatcher Config file (EternalPatcher.exe.config) not found! Re-extract the file to the 'base' folder and try again.${end}
+"
+	fi
+fi
+
+#Delete old tool location
+if [ -f DEternal_loadMods.exe ]; then rm DEternal_loadMods.exe; fi
+if [ -f EternalPatcher.exe ]; then rm EternalPatcher.exe; fi
+if [ -f EternalPatcher.def ]; then rm EternalPatcher.def; fi
+if [ -f EternalPatcher.exe.config ]; then rm EternalPatcher.exe.config; fi
+
 #Give executable permissions to tools
-chmod +x DEternal_loadMods.exe
+chmod +x base/DEternal_loadMods.exe
 chmod +x base/idRehash.exe
 
 #Assign game hashes to variables
@@ -188,36 +208,34 @@ printf "%s\n" "
 ${blu}Checking tools...${end}
 "
 
-DEternal_LoadModsMD5=($(md5sum DEternal_loadMods.exe))
-#DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods.exe))
+DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods.exe))
 idRehashMD5=($(md5sum base/idRehash.exe))
+EternalPatcherMD5=($(md5sum base/EternalPatcher.exe))
+
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
 if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
+if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 
 #Patch Game Executable
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then CorruptedGameExecutable; fi
 
 if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]; then
-	if ! [ -f EternalPatcher.exe ]; then MissingEternalPatcher; fi
-#	if ! [ -f base/EternalPatcher.exe ]; then MissingEternalPatcher; fi
-	EternalPatcherMD5=($(md5sum EternalPatcher.exe))
-#	EternalPatcherMD5=($(md5sum base/EternalPatcher.exe))
-	if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
-	chmod +x EternalPatcher.exe
-#	chmod +x base/EternalPatcher.exe
+	printf "%s\n" "
+${blu}Patching game executable...${end}
+"
+	chmod +x base/EternalPatcher.exe
+	cd base
 	wine EternalPatcher.exe --update > /dev/null 2>&1
-	wine EternalPatcher.exe --patch DOOMEternalx64vk.exe > /dev/null 2>&1
-#	cd base
-#	wine EternalPatcher.exe --update > /dev/null 2>&1
-#	wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe > /dev/null 2>&1
-#	cd ..
-
+	wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe > /dev/null 2>&1
+	cd ..
 fi
+
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
 	printf "%s\n" "
-${red}Game patching failed! Verify game files from Steam/Bethesda.net then try again.${end}
+${red}Game patching failed! Verify game files from Steam/Bethesda.net then try again.
+Alternatively, you can open EternalPatcher.exe using Wine and manually patch DOOMEternalx64vk.exe, then try again.${end}
 "
 	exit 1
 fi
@@ -359,7 +377,6 @@ ${red}Some .resources files are missing! Verify game files through Steam/Bethesd
         exit 1
     fi
 done
-HAS_CHECKED_RESOURCES="1"
 fi
 
 #Set new values in config file
@@ -440,7 +457,7 @@ RESET_BACKUPS="0"
 printf "%s\n" "
 ${blu}Checking meta.resources...${end}
 "
-if [ $HAS_CHECKED_RESOURCES == "1" ]; then
+if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 	if ! [ -f base/meta.resources ]; then MissingMeta; fi
 	MetaMD5=($(md5sum base/meta.resources))
 	if ! [[ $VANILLA_META_MD5 == $MetaMD5 ]]; then MissingMeta; fi
@@ -460,8 +477,7 @@ ${blu}Backing up .resources...${end}
 "
 if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
 if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
-echo $(wine DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
-#echo $(wine base/DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
+echo $(wine base/DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
 perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
 rm modloaderlistdos.txt
 ( sed 's/\\/\//g' modloaderlist.txt ) > /dev/null 2>&1
@@ -498,7 +514,7 @@ echo meta.resources >> "EternalModInjector Settings.txt"
 
 
 #Get vanilla resource hash offsets (idRehash)
-if ! [ $HAS_CHECKED_RESOURCES == "2" ]; then
+if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 	printf "%s\n" "
 ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
@@ -512,9 +528,8 @@ sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=2/' "EternalModInject
 #Load Mods (DEternal_loadMods)
 printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
-	"
-wine DEternal_loadMods.exe "."
-#wine base/DEternal_loadMods.exe "."
+"
+wine base/DEternal_loadMods.exe "."
 
 #Rehash resource hashes (idRehash)
 cd base
