@@ -214,6 +214,15 @@ if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLo
 if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
 if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 
+#Check for Asset Version
+if [ $ASSET_VERSION == "0" ]; then
+	read -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+If you have already done so, press Enter to continue.\e[0m:'
+	ResetBackups
+	ASSET_VERSION="4.1"
+	HAS_CHECKED_RESOURCES="0"
+fi
+
 #Patch Game Executable
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then CorruptedGameExecutable; fi
@@ -268,14 +277,6 @@ read -p $'\e[34mNow, without further ado, press any key to continue one last tim
 
 Press any key to continue...\e[0m'
 HAS_READ_FIRST_TIME="1"
-fi
-
-if [ $ASSET_VERSION == "0" ]; then
-	read -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
-If you have already done so, press Enter to continue.\e[0m:'
-	ResetBackups
-	ASSET_VERSION="4.1"
-	HAS_CHECKED_RESOURCES="0"
 fi
 
 if [ $RESET_BACKUPS == "1" ]; then
