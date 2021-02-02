@@ -147,7 +147,8 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
 	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
 	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
 	if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
-	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="2"; else HAS_CHECKED_RESOURCES="0"; fi
+	if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
+	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; fi
 	if grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
 		if grep -q ":AUTO_UPDATE=1" "$CONFIG_FILE"; then AUTO_UPDATE="1"; else AUTO_UPDATE="0"; fi
 	else AskforAutoUpdate
@@ -379,43 +380,6 @@ ${red}Some .resources files are missing! Verify game files through Steam/Bethesd
 done
 fi
 
-#Set new values in config file
-if grep -q ":ASSET_VERSION=" "$CONFIG_FILE"; then
-	sed -i 's/:ASSET_VERSION=.*/:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
-else
-	echo ":ASSET_VERSION=4.1" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
-if ! grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
-	echo ":HAS_CHECKED_RESOURCES=0" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
-if grep -q ":HAS_READ_FIRST_TIME=" "$CONFIG_FILE"; then
-	sed -i 's/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
-else
-	echo ":HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
-if grep -q ":RESET_BACKUPS=" "$CONFIG_FILE"; then
-	sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
-else
-	echo ":RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
-if ! grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
-	echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
 #Execute each line of ResourceFilePaths
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 	eval "${ResourceFilePaths[$i]}"
@@ -519,9 +483,47 @@ ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 	cd base
 	wine idRehash.exe --getoffsets
 	cd ..
-	HAS_CHECKED_RESOURCES="2"
+	HAS_CHECKED_RESOURCES="1"
 fi
-sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=2/' "EternalModInjector Settings.txt"
+
+#Set new values in config file
+if grep -q ":ASSET_VERSION=" "$CONFIG_FILE"; then
+	sed -i 's/:ASSET_VERSION=.*/:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
+else
+	echo ":ASSET_VERSION=4.1" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
+	sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=1/' "EternalModInjector Settings.txt"
+else
+	echo ":HAS_CHECKED_RESOURCES=1" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if grep -q ":HAS_READ_FIRST_TIME=" "$CONFIG_FILE"; then
+	sed -i 's/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
+else
+	echo ":HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if grep -q ":RESET_BACKUPS=" "$CONFIG_FILE"; then
+	sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
+else
+	echo ":RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if ! grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
+	echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
 
 #Load Mods (DEternal_loadMods)
 printf "%s\n" "
