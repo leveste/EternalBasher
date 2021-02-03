@@ -37,7 +37,7 @@ The path to the src folder is the one you'll need to type when prompted by the s
 
 ## Arch Linux
 
-If you are using Arch or an Arch-based distro(like Manjaro), you can find quickbms on [AUR.](https://aur.archlinux.org/packages/quickbms/)
+If you are using Arch or an Arch-based distro (like Manjaro), you can find quickbms on [AUR.](https://aur.archlinux.org/packages/quickbms/)
 
 You might have to manually install dependencies with pacman.
 
