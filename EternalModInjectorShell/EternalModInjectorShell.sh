@@ -71,10 +71,14 @@ ResetBackups() {
 read -r -p $'\e[34mReset backups now? [y/N] \e[0m' response
 case "$response" in
 	[yY][eE][sS]|[yY]) 
-       		find base -name "*.resources.backup" -type f -delete
+       		for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
+			line="${ResourceFilePaths[$i]#*=}"
+			if [ -f ${line}.backup ]; then rm ${line}.backup; fi
+		done
 		;;
 	*)
-		printf "%s\n" "
+sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
+printf "%s\n" "
 ${blu}Backups have not been reset.${end}
 "
 		exit 1
@@ -202,90 +206,6 @@ VANILLA_GAME_MD5_A="1ef861b693cdaa45eba891d084e5f3a3"
 VANILLA_GAME_MD5_B="c2b429b2eb398f836dd10d22944b9c76"
 VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
 
-#Verify tool hashes
-printf "%s\n" "
-${blu}Checking tools...${end}
-"
-
-DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods.exe))
-idRehashMD5=($(md5sum base/idRehash.exe))
-EternalPatcherMD5=($(md5sum base/EternalPatcher.exe))
-
-if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
-if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
-if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
-
-#Check for Asset Version
-if [ $ASSET_VERSION == "0" ]; then
-	read -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
-If you have already done so, press Enter to continue.\e[0m:'
-	ResetBackups
-	ASSET_VERSION="4.1"
-	HAS_CHECKED_RESOURCES="0"
-fi
-
-#Patch Game Executable
-GameMD5=($(md5sum DOOMEternalx64vk.exe))
-if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then CorruptedGameExecutable; fi
-
-if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]; then
-	printf "%s\n" "
-${blu}Patching game executable...${end}
-"
-	chmod +x base/EternalPatcher.exe
-	cd base
-	wine EternalPatcher.exe --update > /dev/null 2>&1
-	wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe > /dev/null 2>&1
-	cd ..
-fi
-
-GameMD5=($(md5sum DOOMEternalx64vk.exe))
-if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
-	printf "%s\n" "
-${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.
-Alternatively, you can open EternalPatcher.exe using Wine and manually patch DOOMEternalx64vk.exe, then try again.${end}
-"
-	exit 1
-fi
-
-#Setup for ModLoader
-if [ $HAS_READ_FIRST_TIME == "0" ]; then
-	read -p $'\e[34mFirst-time information:
-
-This batch file automatically...
-- Makes backups of DOOM Eternal .resources archives the first time that they will be modified.
-- Restores ones that were modified last time (to prevent uninstalled mods from lingering around) on subsequent uses.
-- Runs DEternal_loadMods to load all mods in -/DOOMEternal/Mods/.
-- Runs idRehash to rehash the modified resources hashes.
-- Runs EternalPatcher to apply EXE patches to the DOOM Eternal game executable.
-
-Press any key to continue...\e[0m'
-echo	
-	read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
-DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#
-EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
-idRehash: infogram for making it, and proteh for updating it
-DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
-
-Press any key to continue...\e[0m'
-echo
-	read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
-Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
-
-Press any key to continue...\e[0m'
-echo
-read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
-
-Press any key to continue...\e[0m'
-HAS_READ_FIRST_TIME="1"
-fi
-
-if [ $RESET_BACKUPS == "1" ]; then
-	ResetBackups
-	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
-	HAS_CHECKED_RESOURCES="0"
-fi
-
 ResourceFilePaths=(
 hub_path="./base/game/hub/hub.resources"
 hub_patch1_path="./base/game/hub/hub_patch1.resources"
@@ -363,6 +283,90 @@ meta_path="./base/meta.resources"
 gameresources_patch2_path="./base/gameresources_patch2.resources"
 gameresources_patch1_path="./base/gameresources_patch1.resources"
 )
+
+#Verify tool hashes
+printf "%s\n" "
+${blu}Checking tools...${end}
+"
+
+DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods.exe))
+idRehashMD5=($(md5sum base/idRehash.exe))
+EternalPatcherMD5=($(md5sum base/EternalPatcher.exe))
+
+if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
+if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
+if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
+
+#Check for Asset Version
+if [ $ASSET_VERSION == "0" ]; then
+	read -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+If you have already done so, press Enter to continue.\e[0m:'
+	ResetBackups
+	ASSET_VERSION="4.1"
+	HAS_CHECKED_RESOURCES="0"
+fi
+
+#Setup for ModLoader
+if [ $HAS_READ_FIRST_TIME == "0" ]; then
+	read -p $'\e[34mFirst-time information:
+
+This batch file automatically...
+- Makes backups of DOOM Eternal .resources archives the first time that they will be modified.
+- Restores ones that were modified last time (to prevent uninstalled mods from lingering around) on subsequent uses.
+- Runs DEternal_loadMods to load all mods in -/DOOMEternal/Mods/.
+- Runs idRehash to rehash the modified resources hashes.
+- Runs EternalPatcher to apply EXE patches to the DOOM Eternal game executable.
+
+Press any key to continue...\e[0m'
+echo	
+	read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
+DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#
+EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
+idRehash: infogram for making it, and proteh for updating it
+DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
+
+Press any key to continue...\e[0m'
+echo
+	read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
+Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
+
+Press any key to continue...\e[0m'
+echo
+read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
+
+Press any key to continue...\e[0m'
+HAS_READ_FIRST_TIME="1"
+fi
+
+if [ $RESET_BACKUPS == "1" ]; then
+	ResetBackups
+	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
+	HAS_CHECKED_RESOURCES="0"
+fi
+
+#Patch Game Executable
+GameMD5=($(md5sum DOOMEternalx64vk.exe))
+if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then CorruptedGameExecutable; fi
+
+if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]; then
+	printf "%s\n" "
+${blu}Patching game executable...${end}
+"
+	chmod +x base/EternalPatcher.exe
+	cd base
+	wine EternalPatcher.exe --update > /dev/null 2>&1
+	wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe > /dev/null 2>&1
+	cd ..
+fi
+
+GameMD5=($(md5sum DOOMEternalx64vk.exe))
+if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
+	printf "%s\n" "
+${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.
+Alternatively, you can open EternalPatcher.exe using Wine and manually patch DOOMEternalx64vk.exe, then try again.${end}
+"
+	exit 1
+fi
 
 #Check for all resources files
 printf "%s\n" "
