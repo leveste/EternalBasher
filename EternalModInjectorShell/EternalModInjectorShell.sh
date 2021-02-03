@@ -71,7 +71,7 @@ ResetBackups() {
 read -r -p $'\e[34mReset backups now? [y/N] \e[0m' response
 case "$response" in
 	[yY][eE][sS]|[yY]) 
-       		find . -name "*.backup" -type f -delete
+       		find base -name "*.resources.backup" -type f -delete
 		;;
 	*)
 		printf "%s\n" "
