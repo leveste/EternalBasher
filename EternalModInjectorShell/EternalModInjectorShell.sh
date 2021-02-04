@@ -506,7 +506,6 @@ for (( i = 0; i < ${#modloaderlist[@]} ; i++ )); do
 		name=${filename##*/}
 	fi
 	filename=${name%.resources}
-	grep -v "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
 	echo ${filename}.backup >> "EternalModInjector Settings.txt"
 	echo ${filename}.resources >> "EternalModInjector Settings.txt"
 done
