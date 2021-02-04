@@ -67,6 +67,46 @@ echo >> "EternalModInjector Settings.txt"
 find . -name "*.backup" -type f -delete
 }
 
+WriteIntoConfig() {
+if grep -q ":ASSET_VERSION=" "$CONFIG_FILE"; then
+	sed -i "s/:ASSET_VERSION=.*/:ASSET_VERSION=${ASSET_VERSION}/" "EternalModInjector Settings.txt"
+else
+	echo ":ASSET_VERSION=${ASSET_VERSION}" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
+	sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}/" "EternalModInjector Settings.txt"
+else
+	echo ":HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if grep -q ":HAS_READ_FIRST_TIME=" "$CONFIG_FILE"; then
+	sed -i "s/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}/" "EternalModInjector Settings.txt"
+else
+	echo ":HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if grep -q ":RESET_BACKUPS=" "$CONFIG_FILE"; then
+	sed -i "s/:RESET_BACKUPS=.*/:RESET_BACKUPS=${RESET_BACKUPS}/" "EternalModInjector Settings.txt"
+else
+	echo ":RESET_BACKUPS=${RESET_BACKUPS}" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if ! grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
+	echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
+	echo >> "EternalModInjector Settings.txt"
+	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+}
+
 ResetBackups() {
 read -r -p $'\e[34mReset backups now? [y/N] \e[0m' response
 case "$response" in
@@ -115,7 +155,7 @@ esac
 SelfUpdate() {
 link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
-if [[ $version == "v4.1.5" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+if [[ $version == "v4.1.6" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
     printf "%s\n" "
@@ -429,6 +469,15 @@ if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 	if ! [[ $VANILLA_META_MD5 == $MetaMD5 ]]; then MissingMeta; fi
 fi
 
+#Set new values in config file
+if [ $HAS_CHECKED_RESOURCES == "0" ]; then
+	HAS_CHECKED_RESOURCES == "1"
+	WriteIntoConfig
+	HAS_CHECKED_RESOURCES == "0"
+else
+	WriteIntoConfig
+fi
+
 #Check if there are mods in "mods" folder
 if [ -z "$(ls -A "Mods")" ]; then
 	printf "
@@ -446,6 +495,7 @@ sed -i '/.backup$/d' "EternalModInjector Settings.txt"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( wine base/DEternal_loadMods.exe "." --list-res | sed 's/\\/\//g' && printf '\0' )
 for (( i = 0; i < ${#modloaderlist[@]} ; i++ )); do
     filename="${modloaderlist[$i]#*=}"
+    filename="${filename/$'\r'/}"
 	if ! [ -f "${filename}.backup" ]; then
 		cp "$filename" "${filename}.backup"
 		name=${filename##*/}
@@ -482,45 +532,6 @@ ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 	wine idRehash.exe --getoffsets
 	cd ..
 	HAS_CHECKED_RESOURCES="1"
-fi
-
-#Set new values in config file
-if grep -q ":ASSET_VERSION=" "$CONFIG_FILE"; then
-	sed -i 's/:ASSET_VERSION=.*/:ASSET_VERSION=4.1/' "EternalModInjector Settings.txt"
-else
-	echo ":ASSET_VERSION=4.1" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
-if grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
-	sed -i 's/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=1/' "EternalModInjector Settings.txt"
-else
-	echo ":HAS_CHECKED_RESOURCES=1" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
-if grep -q ":HAS_READ_FIRST_TIME=" "$CONFIG_FILE"; then
-	sed -i 's/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=1/' "EternalModInjector Settings.txt"
-else
-	echo ":HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
-if grep -q ":RESET_BACKUPS=" "$CONFIG_FILE"; then
-	sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
-else
-	echo ":RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
-fi
-
-if ! grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
-	echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 #Load Mods (DEternal_loadMods)
