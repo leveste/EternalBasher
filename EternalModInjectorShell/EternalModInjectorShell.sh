@@ -115,7 +115,7 @@ esac
 SelfUpdate() {
 link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
-if [[ $version == "v4.1.4" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+if [[ $version == "v4.1.5" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
     printf "%s\n" "
@@ -441,16 +441,11 @@ fi
 printf "%s\n" "
 ${blu}Backing up .resources...${end}
 "
-if [ -f modloaderlistdos.txt ]; then rm modloaderlistdos.txt; fi
-if [ -f modloaderlist.txt ]; then rm modloaderlist.txt; fi
-echo $(wine base/DEternal_loadMods.exe "." --list-res) >> modloaderlistdos.txt
-perl -pe 's/\r\n|\n|\r/\n/g'   modloaderlistdos.txt > modloaderlist.txt
-rm modloaderlistdos.txt
-( sed 's/\\/\//g' modloaderlist.txt ) > /dev/null 2>&1
 sed -i '/.resources$/d' "EternalModInjector Settings.txt"
 sed -i '/.backup$/d' "EternalModInjector Settings.txt"
-while IFS= read -r filename; do
-    filename=$(echo $filename | sed 's/\\/\//g')
+IFS=$'\n' read -r -d '' -a modloaderlist < <( wine base/DEternal_loadMods.exe "." --list-res | sed 's/\\/\//g' && printf '\0' )
+for (( i = 0; i < ${#modloaderlist[@]} ; i++ )); do
+    filename="${modloaderlist[$i]#*=}"
 	if ! [ -f "${filename}.backup" ]; then
 		cp "$filename" "${filename}.backup"
 		name=${filename##*/}
@@ -464,8 +459,7 @@ while IFS= read -r filename; do
 	grep -v "${filename}.backup" "EternalModInjector Settings.txt" > nobackups.txt; mv nobackups.txt "EternalModInjector Settings.txt"
 	echo ${filename}.backup >> "EternalModInjector Settings.txt"
 	echo ${filename}.resources >> "EternalModInjector Settings.txt"
-done < modloaderlist.txt
-rm modloaderlist.txt
+done
 
 #Backup meta.resources and add to the list
 if ! [ -f "base/meta.resources.backup" ]; then 
