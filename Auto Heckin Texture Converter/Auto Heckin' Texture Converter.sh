@@ -9,8 +9,8 @@ do
 	if [[ ! -f $i ]]
 	then
 		echo "'$i' not found! Did you extract everything in the tools folder?"
+		exit
 	fi
-	exit
 done
 
 
@@ -27,10 +27,11 @@ while [ $# -ne 0 ]
 do
 	echo "Converting '$1'..."
 
+	path=$(readlink -f "$1")
 	#use subshell for cd operation
 	(
 	cd tools
-	wine nvcompress.exe -bcla -fast "../$1" "$../{1}.dds" > /dev/null
+	wine nvcompress.exe -bcla -fast "$path" "${path}.dds" > /dev/null
 	)
 	wine ./tools/DivinityMashine.exe "${1}.dds" > /dev/null
 
