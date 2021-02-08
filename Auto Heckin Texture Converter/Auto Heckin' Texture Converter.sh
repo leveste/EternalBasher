@@ -10,6 +10,7 @@ do
 	then
 		echo "'$i' not found! Did you extract everything in the tools folder?"
 	fi
+	exit
 done
 
 
@@ -29,7 +30,7 @@ do
 	#use subshell for cd operation
 	(
 	cd tools
-	wine nvcompress.exe -bcla -fast "$1" "${1}.dds" > /dev/null
+	wine nvcompress.exe -bcla -fast "../$1" "$../{1}.dds" > /dev/null
 	)
 	wine ./tools/DivinityMashine.exe "${1}.dds" > /dev/null
 
