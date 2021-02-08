@@ -31,14 +31,6 @@ if not exist ".\tools\nvcompress.exe" (
 	exit /b
 )
 
-if not exist ".\tools\cudart64_30_14.dll" (
-	echo.
-	echo 'cudart64_30_14.dll' not found! Did you extract everything in the tools folder?
-	echo.
-	pause
-	exit /b
-)
-
 if not exist ".\tools\nvtt.dll" (
 	echo.
 	echo 'nvtt.dll' not found! Did you extract everything in the tools folder?
@@ -58,7 +50,7 @@ if not exist ".\tools\DivinityMashine.exe" (
 if not "%~1" == "" goto StartLoop
 echo.
 echo Usage:
-echo   "~nx0" [texture1] [texture2] [...]
+echo   "%~nx0" [texture1] [texture2] [...]
 echo.
 echo Alternatively, drag files onto this batch.
 echo.
