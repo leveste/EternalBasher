@@ -26,13 +26,15 @@ while [ $# -ne 0 ]
 do
 	echo "Converting '$1'..."
 
+	#use subshell for cd operation
+	(
 	cd tools
 	wine nvcompress.exe -bcla -fast "$1" "${1}.dds" > /dev/null
-	cd ..
+	)
 	wine ./tools/DivinityMashine.exe "${1}.dds" > /dev/null
 
 	# remove file extensions
-	filename="${$i}"
+	filename="${i}"
 	filename="${filename%%.*}" > /dev/null
 
 	name="${1}.dds"
