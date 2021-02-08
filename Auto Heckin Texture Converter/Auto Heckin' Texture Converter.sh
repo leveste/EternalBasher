@@ -16,7 +16,7 @@ done
 # Check for arguments
 if [ "$#" -eq 0 ]
 then
-	print "No arguments found. Please pass the files you wish to convert as arguments, as shown below.\n\n
+	printf "\n\nNo arguments found. Please pass the files you wish to convert as arguments, as shown below.\n
 	./\"Auto Heckin' Texture Converter.sh\" [texture1] [texture2] [...]\n\n"
 fi
 
