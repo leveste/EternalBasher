@@ -163,7 +163,7 @@ ${blu}Updating script...${end}
 "
     export skip="1"
     (rm EternalModInjectorShell.sh
-    curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
+    curl -s h	HAS_CHECKED_RESOURCES == "1"ttps://api.github.com/repos/leveste/EternalBasher/releases/latest \
       | grep browser_download_url \
       | grep "EternalModInjectorShell.sh" \
       | cut -d '"' -f 4 \
@@ -467,9 +467,9 @@ fi
 
 #Set new values in config file
 if [ $HAS_CHECKED_RESOURCES == "0" ]; then
-	HAS_CHECKED_RESOURCES == "1"
+	HAS_CHECKED_RESOURCES="1"
 	WriteIntoConfig
-	HAS_CHECKED_RESOURCES == "0"
+	HAS_CHECKED_RESOURCES="0"
 else
 	WriteIntoConfig
 fi
