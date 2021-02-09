@@ -388,7 +388,6 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 	printf "%s\n" "
 ${blu}Patching game executable...${end}
 "
-	chmod +x base/EternalPatcher.exe
 	cd base
 	wine EternalPatcher.exe --update > /dev/null 2>&1
 	wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe > /dev/null 2>&1
