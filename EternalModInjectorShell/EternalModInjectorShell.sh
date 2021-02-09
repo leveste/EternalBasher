@@ -231,10 +231,6 @@ if [ -f EternalPatcher.exe ]; then rm EternalPatcher.exe; fi
 if [ -f EternalPatcher.def ]; then rm EternalPatcher.def; fi
 if [ -f EternalPatcher.exe.config ]; then rm EternalPatcher.exe.config; fi
 
-#Give executable permissions to tools
-chmod +x base/DEternal_loadMods.exe
-chmod +x base/idRehash.exe
-
 #Assign game hashes to variables
 ASSET_VERSION="4.1"
 DETERNAL_LOADMODS_MD5="43c54928c12d5d72c32f563f01dc7aef"
