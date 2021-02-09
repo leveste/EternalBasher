@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 MissingDoomEternal(){
 	printf "'DOOMEternalx64vk.exe' not found!
