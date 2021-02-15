@@ -8,9 +8,12 @@ Binary file of the python script by SutandoTsukai181. Required for using texture
 
 * Make the file executable with the following command:
 
-    ```chmod +x DEternal_patchManifest```
+```
+chmod +x DEternal_patchManifest
+```
 
 * Run the file:
 	
-	```./DEternal_patchManifest```
-	
+```
+./DEternal_patchManifest
+```	
