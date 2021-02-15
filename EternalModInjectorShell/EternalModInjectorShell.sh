@@ -208,39 +208,32 @@ fi
 #Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
 
-if ! [ -f base/DEternal_loadMods.exe ]; then
-	if [ -f DEternal_loadMods.exe ]; then cp DEternal_loadMods.exe base/DEternal_loadMods.exe; else MissingDEternalLoadMods; fi
-fi
+if ! [ -f base/DEternal_loadMods ]; then MissingDEternalLoadMods; fi
 
-if ! [ -f base/idRehash.exe ]; then MissingIdRehash; fi
+if ! [ -f base/idRehash ]; then MissingIdRehash; fi
 
-if ! [ -f base/EternalPatcher.exe ]; then
-	if [ -f EternalPatcher.exe ]; then cp EternalPatcher.exe base/EternalPatcher.exe; else MissingEternalPatcher; fi
-fi
-if ! [ -f base/EternalPatcher.exe.config ]; then
-	if [ -f EternalPatcher.exe.config ]; then cp EternalPatcher.exe.config base/EternalPatcher.exe.config; else
-		printf "%s\n" "
-${red}EternalPatcher Config file (EternalPatcher.exe.config) not found! Re-extract the file to the 'base' folder and try again.${end}
+if ! [ -f base/EternalPatcher ]; then MissingEternalPatcher; fi
+
+if ! [ -f base/EternalPatcher.config ]; then
+	printf "%s\n" "
+${red}EternalPatcher Config file (EternalPatcher.config) not found! Re-extract the file to the 'base' folder and try again.${end}
 "
-	fi
 fi
 
-#Delete old tool location
-if [ -f DEternal_loadMods.exe ]; then rm DEternal_loadMods.exe; fi
-if [ -f EternalPatcher.exe ]; then rm EternalPatcher.exe; fi
-if [ -f EternalPatcher.def ]; then rm EternalPatcher.def; fi
-if [ -f EternalPatcher.exe.config ]; then rm EternalPatcher.exe.config; fi
+#Give executable permissions to idRehash
+chmod +x base/idRehash
 
 #Assign game hashes to variables
 ASSET_VERSION="4.1"
 DETERNAL_LOADMODS_MD5="a140bb1a2b3b5b11c114fd8bde6d26dd"
-ETERNALPATCHER_MD5="8033260ff14c2ee441b81bbf8d3b2de0"
-IDREHASH_MD5="50747578b8e29c3da1aa5a3ac5d28cc7"
+ETERNALPATCHER_MD5="665dd28ddedf13069f286b7b12c53476"
+IDREHASH_MD5="4b86f5c05f6b9f6e6309c6c13314ebbd"
 PATCHED_GAME_MD5_A="3238e7a9277efc6a607b1b1615ebe79f"
 PATCHED_GAME_MD5_B="4acdaf89f30f178ba9594c0364b35a30"
 VANILLA_GAME_MD5_A="1ef861b693cdaa45eba891d084e5f3a3"
 VANILLA_GAME_MD5_B="c2b429b2eb398f836dd10d22944b9c76"
 VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
+BUILD_MANIFEST_MD5="455df4bfd17bd078e5ddbcb117094869"
 
 ResourceFilePaths=(
 hub_path="./base/game/hub/hub.resources"
@@ -325,9 +318,9 @@ printf "%s\n" "
 ${blu}Checking tools...${end}
 "
 
-DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods.exe))
-idRehashMD5=($(md5sum base/idRehash.exe))
-EternalPatcherMD5=($(md5sum base/EternalPatcher.exe))
+DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods))
+idRehashMD5=($(md5sum base/idRehash))
+EternalPatcherMD5=($(md5sum base/EternalPatcher))
 
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
 if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
@@ -356,9 +349,9 @@ This batch file automatically...
 Press any key to continue...\e[0m'
 echo	
 	read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
-DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#
-EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio)
-idRehash: infogram for making it, and proteh for updating it
+DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#.
+EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio) and PowerBall253 for porting it to work on Linux.
+idRehash: infogram for making it, proteh for updating it, and PowerBall253 for porting it for Linux.
 DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
 
 Press any key to continue...\e[0m'
@@ -388,17 +381,14 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 	printf "%s\n" "
 ${blu}Patching game executable...${end}
 "
-	cd base
-	wine EternalPatcher.exe --update > /dev/null 2>&1
-	wine EternalPatcher.exe --patch ../DOOMEternalx64vk.exe > /dev/null 2>&1
-	cd ..
+	mono base/EternalPatcher --update
+	mono base/EternalPatcher --patch "DOOMEternalx64vk.exe"
 fi
 
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
 	printf "%s\n" "
-${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.
-Alternatively, you can open EternalPatcher.exe using Wine and manually patch DOOMEternalx64vk.exe, then try again.${end}
+${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.${end}
 "
 	exit 1
 fi
@@ -487,7 +477,7 @@ ${blu}Backing up .resources...${end}
 "
 sed -i '/.resources$/d' "EternalModInjector Settings.txt"
 sed -i '/.backup$/d' "EternalModInjector Settings.txt"
-IFS=$'\n' read -r -d '' -a modloaderlist < <( wine base/DEternal_loadMods.exe "." --list-res | sed 's/\\/\//g' && printf '\0' )
+IFS=$'\n' read -r -d '' -a modloaderlist < <( mono base/DEternal_loadMods "." --list-res )
 for (( i = 0; i < ${#modloaderlist[@]} ; i++ )); do
     filename="${modloaderlist[$i]#*=}"
     filename="${filename/$'\r'/}"
@@ -523,7 +513,7 @@ if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
 	cd base
-	wine idRehash.exe --getoffsets
+	./idRehash --getoffsets
 	cd ..
 	HAS_CHECKED_RESOURCES="1"
 fi
@@ -532,12 +522,25 @@ fi
 printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
-wine base/DEternal_loadMods.exe "."
+mono base/DEternal_loadMods "."
 
 #Rehash resource hashes (idRehash)
 cd base
-wine idRehash.exe
+./idRehash
 cd ..
+
+#Patch build manifest
+BuildManifestMD5 = $(md5sum base/build-manifest.bin)
+if [ $BUILD_MANIFEST_MD5 == $BuildManifestMD5 ]; then
+	printf "%s\n" "
+${blu}Patching build manifest... (DEternal_patchManifest)${end}
+"
+	cd base
+	if [ -f "build-manifest.bin.bck" ]; then rm "build-manifest.bin.bck"; fi
+	chmod +x DEternal_patchManifest
+	./DEternal_patchManifest
+	cd ..
+fi
 
 printf "%s\n" "
 ${grn}Mods have been loaded! You can now launch the game.${end}
