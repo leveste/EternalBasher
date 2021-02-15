@@ -233,7 +233,7 @@ if [ -f EternalPatcher.exe.config ]; then rm EternalPatcher.exe.config; fi
 
 #Assign game hashes to variables
 ASSET_VERSION="4.1"
-DETERNAL_LOADMODS_MD5="43c54928c12d5d72c32f563f01dc7aef"
+DETERNAL_LOADMODS_MD5="a140bb1a2b3b5b11c114fd8bde6d26dd"
 ETERNALPATCHER_MD5="8033260ff14c2ee441b81bbf8d3b2de0"
 IDREHASH_MD5="50747578b8e29c3da1aa5a3ac5d28cc7"
 PATCHED_GAME_MD5_A="3238e7a9277efc6a607b1b1615ebe79f"
@@ -330,7 +330,7 @@ idRehashMD5=($(md5sum base/idRehash.exe))
 EternalPatcherMD5=($(md5sum base/EternalPatcher.exe))
 
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
-if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingDEternalLoadMods; fi
+if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
 if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 
 #Check for Asset Version
