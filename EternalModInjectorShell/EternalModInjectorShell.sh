@@ -162,14 +162,19 @@ if [ "$OUTDATED" == "1" ]; then
 ${blu}Updating script...${end}
 "
     export skip="1"
-    if [ -f EternalModInjectorShell.zip ]; then rm EternalModInjectorShell.zip; fi
-    curl -s h	HAS_CHECKED_RESOURCES == "1"ttps://api.github.com/repos/leveste/EternalBasher/releases/latest \
+    if [ -f EternalModInjectorShell.tar.gz ]; then rm EternalModInjectorShell.tar.gz; fi
+    curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
       | grep browser_download_url \
       | grep "EternalModInjectorShell.tar.gz" \
       | cut -d '"' -f 4 \
       | wget -qi -
+    if [ -d "tmp" ]; then
+    	rm -r "tmp"
+	mkdir "tmp"
+    else mkdir "tmp"; fi
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
-    (mv -f "tmp" "."
+    (cp -r -f tmp/* .
+    rm -r tmp
     chmod +x EternalModInjectorShell.sh
     ./EternalModInjectorShell.sh)
     exit 1
@@ -327,6 +332,18 @@ EternalPatcherMD5=($(md5sum base/EternalPatcher))
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
 if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
 if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
+
+#Delete old tools
+if [ -f base/EternalPatcher.exe]; then rm base/EternalPatcher.exe; fi
+if [ -f base/EternalPatcher.exe.config]; then rm base/EternalPatcher.exe.config; fi
+if [ -f base/DEternal_loadMods.exe]; then rm base/DEternal_loadMods.exe; fi
+if [ -f base/idRehash.exe]; then rm base/idRehash.exe; fi
+if [ -f base/DEternal_patchManifest.py]; then rm base/DEternal_patchManifest.py; fi
+
+if [ -f EternalPatcher.exe]; then rm EternalPatcher.exe; fi
+if [ -f EternalPatcher.exe.config]; then rm EternalPatcher.exe.config; fi
+if [ -f DEternal_loadMods.exe]; then rm DEternal_loadMods.exe; fi
+if [ -f DEternal_patchManifest.py]; then rm DEternal_patchManifest.py; fi
 
 #Check for Asset Version
 if [ $ASSET_VERSION == "0" ]; then
