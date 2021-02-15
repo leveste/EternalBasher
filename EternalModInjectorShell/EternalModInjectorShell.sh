@@ -552,7 +552,7 @@ cd base
 cd ..
 
 #Patch build manifest
-BuildManifestMD5 = $(md5sum base/build-manifest.bin)
+BuildManifestMD5=$(md5sum base/build-manifest.bin)
 if [ $BUILD_MANIFEST_MD5 == $BuildManifestMD5 ]; then
 	printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
