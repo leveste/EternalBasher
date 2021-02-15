@@ -9,8 +9,7 @@ Instructions:
 
 * Validate you game files. **Right click on Doom Eternal in your Steam Library** -> **Properties** -> **Local files** -> **View integrity of game files...**
 
-* Download the modding tools. You can get them from [here.](https://discord.com/channels/570112501853978624/693113846688383029/806920688950575104) You'll also need to have Wine installed.
-
+* Download the modding tools. You can get the tools from the latest release. The tools have been updated to run natively on Linux, though you will need to have Mono installed. Refer to [this page](https://www.mono-project.com/download/stable/) for information for your specific distro. For Arch users, please refer to the [Arch Wiki](https://wiki.archlinux.org/index.php/Mono)
 * Place the modding tools and shell script in your Doom Eternal folder. **Right click on Doom Eternal** -> **Manage** -> **Browse local files**
 
 * Make the file executable. You can do so with the following command: **chmod +x EternalModInjectorShell.sh**. Depending on your desktop environment, you can also right click on the file and change the permissions from properties.
@@ -24,7 +23,7 @@ You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or
 Issues
 ------------------------------
 
-If you are having issues with Wine, you will need to make sure **wine-mono** is installed.
+If you are using the older version that still uses the Windows tools through Wine, you will need to make sure **wine-mono** is installed.
 
 On Ubuntu-based systems (like Mint), we recommend that you install Wine from the [winehq website](https://wiki.winehq.org/Ubuntu) and run
 
