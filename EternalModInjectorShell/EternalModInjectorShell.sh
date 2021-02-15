@@ -155,19 +155,21 @@ esac
 SelfUpdate() {
 link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
-if [[ $version == "v4.1.8" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+if [[ $version == "v4.1.9" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
     printf "%s\n" "
 ${blu}Updating script...${end}
 "
     export skip="1"
-    (rm EternalModInjectorShell.sh
+    if [ -f EternalModInjectorShell.zip ]; then rm EternalModInjectorShell.zip; fi
     curl -s h	HAS_CHECKED_RESOURCES == "1"ttps://api.github.com/repos/leveste/EternalBasher/releases/latest \
       | grep browser_download_url \
-      | grep "EternalModInjectorShell.sh" \
+      | grep "EternalModInjectorShell.zip" \
       | cut -d '"' -f 4 \
       | wget -qi -
+    tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
+    (mv -f "tmp" "."
     chmod +x EternalModInjectorShell.sh
     ./EternalModInjectorShell.sh)
     exit 1
@@ -381,8 +383,10 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 	printf "%s\n" "
 ${blu}Patching game executable...${end}
 "
-	mono base/EternalPatcher --update
-	mono base/EternalPatcher --patch "DOOMEternalx64vk.exe"
+	cd base
+	mono EternalPatcher --update
+	mono EternalPatcher --patch "../DOOMEternalx64vk.exe"
+	cd ..
 fi
 
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
