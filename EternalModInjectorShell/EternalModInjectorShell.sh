@@ -175,7 +175,6 @@ ${blu}Updating script...${end}
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
     (cp -r -f tmp/* .
     rm -r tmp
-    rm EternalModInjectorShell.tar.gz
     chmod +x EternalModInjectorShell.sh
     ./EternalModInjectorShell.sh)
     exit 1
@@ -330,9 +329,9 @@ DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods))
 idRehashMD5=($(md5sum base/idRehash))
 EternalPatcherMD5=($(md5sum base/EternalPatcher))
 
-if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
-if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
-if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
+if ! [ "$DETERNAL_LOADMODS_MD5" == "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
+if ! [ "$IDREHASH_MD5" == "$idRehashMD5" ]; then MissingIdRehash; fi
+if ! [ "$ETERNALPATCHER_MD5" == "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
 
 #Delete old tools
 if [ -f base/EternalPatcher.exe ]; then rm base/EternalPatcher.exe; fi
@@ -553,7 +552,7 @@ cd ..
 
 #Patch build manifest
 BuildManifestMD5=$(md5sum base/build-manifest.bin)
-if [ $BUILD_MANIFEST_MD5 == $BuildManifestMD5 ]; then
+if [ "$BUILD_MANIFEST_MD5" == "$BuildManifestMD5" ]; then
 	printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
