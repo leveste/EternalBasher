@@ -165,7 +165,7 @@ ${blu}Updating script...${end}
     if [ -f EternalModInjectorShell.zip ]; then rm EternalModInjectorShell.zip; fi
     curl -s h	HAS_CHECKED_RESOURCES == "1"ttps://api.github.com/repos/leveste/EternalBasher/releases/latest \
       | grep browser_download_url \
-      | grep "EternalModInjectorShell.zip" \
+      | grep "EternalModInjectorShell.tar.gz" \
       | cut -d '"' -f 4 \
       | wget -qi -
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
