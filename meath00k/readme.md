@@ -1,6 +1,6 @@
 ## Meath00k setup
 
-First, you can get meath00k from the latest EntityHero[https://github.com/nopjne/EntityHero "EntityHero"] release. Extract the XINPUT1\_3.dll file in the "meathook_interface" folder to your DOOMEternal folder.
+First, you can get meath00k from the latest [EntityHero](https://github.com/nopjne/EntityHero "EntityHero") release. Extract the XINPUT1\_3.dll file in the "meathook_interface" folder to your DOOMEternal folder.
 
 You will need to set the wine prefix to pfx and launch *winecfg*. Simply type the following in the terminal (replace "user" with your username)
 
@@ -10,7 +10,7 @@ Once you have winecfg open, go into the "Libraries" tab and add XINPUT1\_3.dll s
 
 ## EntityHero Setup
 
-EntityHero[https://github.com/nopjne/EntityHero "EntityHero"] is a tool to edit Doom Eternal's .entities files. To use all of its features, like the meath00k integration, first make sure you got meath00k working.
+[EntityHero](https://github.com/nopjne/EntityHero "EntityHero") is a tool to edit Doom Eternal's .entities files. To use all of its features, like the meath00k integration, first make sure you got meath00k working.
 
 Then, create a script called "EntityHero.sh" with the following commands:
 ```
