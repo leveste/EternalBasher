@@ -1,4 +1,6 @@
-Meath00k is a dll that allows the user to override "\*.entities" files with your own decompressed and modified files. You don't need to restart the game after editing the file. Loading a checkpoint should be enough. This script converts mods made for the ModLoader to an "overrides" to use with meath00k, and then moves it to the Doom Eternal folder.
+# ModLoaderToMeath00k
+
+Script that converts mods made for the ModLoader to an "overrides" to use with meath00k, and then moves it to the DOOMEternal folder.
 
 ## Prerequisites
 
