@@ -1,5 +1,7 @@
-Instructions
-=========
+# EternalExtractor
+Shell script to automatically extract all Doom Eternal's .resources files using QuickBMS.
+
+## Instructions
 
 To install QuickBMS on Linux, you can download the source code. Once downloaded, unzip the file.
 
