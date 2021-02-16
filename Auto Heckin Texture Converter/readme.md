@@ -1,3 +1,5 @@
+# Auto Heckin' Texture Converter
+
 Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine manually.
 
 **Note:** The bash script will currently crash due to an issue with running DivinityMashine through Wine. The issue is being looked into.
