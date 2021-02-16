@@ -1,5 +1,7 @@
 Binary file of the python script by SutandoTsukai181. Required for using texture mods.
 
+NOTE: EternalModInjectorShell runs tool this automatically. No need for running it manually.
+
 ## Instructions
 
 * Download the binary file.
