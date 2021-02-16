@@ -1,11 +1,12 @@
+# EternalModInjector Shell
+
 Tool for installing mods for Doom Eternal on Linux.
 
 Made by **Leveste** and **PowerBall253**.
 
 Based on the original batch file by **Zwip-Zwap Zapony**.
 
-Instructions:
--------------
+## Instructions:
 
 * Validate you game files. **Right click on Doom Eternal in your Steam Library** -> **Properties** -> **Local files** -> **View integrity of game files...**
 
@@ -18,10 +19,7 @@ Instructions:
 
 You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or check the [Doom 2016+ Modding Discord](https://discord.com/channels/570112501853978624/614488711572357120).
 
-------------------------------
-
-Issues
-------------------------------
+## Issues
 
 If you are using the older version that still uses the Windows tools through Wine, you will need to make sure **wine-mono** is installed.
 
