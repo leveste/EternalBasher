@@ -1,0 +1,6 @@
+[submodule "EternalPatcherCLI"]
+	path = EternalPatcherCLI
+	url = https://github.com/PowerBall253/EternalPatcherCLI.git
+[submodule "idRehashLinux"]
+	path = idRehashLinux
+	url = https://github.com/PowerBall253/idRehashLinux.git
