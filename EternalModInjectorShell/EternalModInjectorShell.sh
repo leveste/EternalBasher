@@ -31,7 +31,7 @@ exit 1
 CorruptedGameExecutable() {
 printf "%s\n" "
 ${red}The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again.${end}
-	"
+    "
 exit 1
 }
 
@@ -69,67 +69,67 @@ find . -name "*.backup" -type f -delete
 
 WriteIntoConfig() {
 if grep -q ":ASSET_VERSION=" "$CONFIG_FILE"; then
-	sed -i "s/:ASSET_VERSION=.*/:ASSET_VERSION=${ASSET_VERSION}/" "EternalModInjector Settings.txt"
+    sed -i "s/:ASSET_VERSION=.*/:ASSET_VERSION=${ASSET_VERSION}/" "EternalModInjector Settings.txt"
 else
-	echo ":ASSET_VERSION=${ASSET_VERSION}" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":ASSET_VERSION=${ASSET_VERSION}" >> "EternalModInjector Settings.txt"
+    echo >> "EternalModInjector Settings.txt"
+    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 if grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
-	sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}/" "EternalModInjector Settings.txt"
+    sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}/" "EternalModInjector Settings.txt"
 else
-	echo ":HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}" >> "EternalModInjector Settings.txt"
+    echo >> "EternalModInjector Settings.txt"
+    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 if grep -q ":HAS_READ_FIRST_TIME=" "$CONFIG_FILE"; then
-	sed -i "s/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}/" "EternalModInjector Settings.txt"
+    sed -i "s/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}/" "EternalModInjector Settings.txt"
 else
-	echo ":HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}" >> "EternalModInjector Settings.txt"
+    echo >> "EternalModInjector Settings.txt"
+    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 if grep -q ":RESET_BACKUPS=" "$CONFIG_FILE"; then
-	sed -i "s/:RESET_BACKUPS=.*/:RESET_BACKUPS=${RESET_BACKUPS}/" "EternalModInjector Settings.txt"
+    sed -i "s/:RESET_BACKUPS=.*/:RESET_BACKUPS=${RESET_BACKUPS}/" "EternalModInjector Settings.txt"
 else
-	echo ":RESET_BACKUPS=${RESET_BACKUPS}" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":RESET_BACKUPS=${RESET_BACKUPS}" >> "EternalModInjector Settings.txt"
+    echo >> "EternalModInjector Settings.txt"
+    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 
 if ! grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
-	echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
-	echo >> "EternalModInjector Settings.txt"
-	sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
+    echo >> "EternalModInjector Settings.txt"
+    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
 }
 
 ResetBackups() {
 read -r -p $'\e[34mReset backups now? [y/N] \e[0m' response
 case "$response" in
-	[yY][eE][sS]|[yY]) 
-       		for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
-			line="${ResourceFilePaths[$i]#*=}"
-			if [ -f ${line}.backup ]; then rm ${line}.backup; fi
-		done
-		;;
-	*)
+    [yY][eE][sS]|[yY]) 
+            for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
+            line="${ResourceFilePaths[$i]#*=}"
+            if [ -f ${line}.backup ]; then rm ${line}.backup; fi
+        done
+        ;;
+    *)
 sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
 printf "%s\n" "
 ${blu}Backups have not been reset.${end}
 "
-		exit 1
-		;;
+        exit 1
+        ;;
 esac
 }
 
 NoBackupFound() {
 printf "%s\n" "
 ${red}Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.${end}
-	"
+    "
 exit 1
 }
 
@@ -164,13 +164,13 @@ ${blu}Updating script...${end}
     export skip="1"
     if [ -f EternalModInjectorShell.tar.gz ]; then rm EternalModInjectorShell.tar.gz; fi
     curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
-      | grep browser_download_url \
-      | grep "EternalModInjectorShell.tar.gz" \
-      | cut -d '"' -f 4 \
-      | wget -qi -
+    | grep browser_download_url \
+    | grep "EternalModInjectorShell.tar.gz" \
+    | cut -d '"' -f 4 \
+    | wget -qi -
     if [ -d "tmp" ]; then
-    	rm -r "tmp"
-	mkdir "tmp"
+        rm -r "tmp"
+    mkdir "tmp"
     else mkdir "tmp"; fi
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
     (cp -r -f tmp/* .
@@ -196,21 +196,21 @@ ${blu}Loading config file...${end}
 "
 CONFIG_FILE="EternalModInjector Settings.txt"
 if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
-	if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
-	if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
-	if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
-	if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
-	if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; fi
-	if grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
-		if grep -q ":AUTO_UPDATE=1" "$CONFIG_FILE"; then AUTO_UPDATE="1"; else AUTO_UPDATE="0"; fi
-	else AskforAutoUpdate
-	fi
+    if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
+    if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
+    if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
+    if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
+    if grep -q ":HAS_CHECKED_RESOURCES=2" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; fi
+    if grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
+        if grep -q ":AUTO_UPDATE=1" "$CONFIG_FILE"; then AUTO_UPDATE="1"; else AUTO_UPDATE="0"; fi
+    else AskforAutoUpdate
+    fi
 fi
 
 #Check for script updates
 if ! [[ $skip == "1" ]] && [[ $AUTO_UPDATE == "1" ]]; then
-	SelfUpdate
-	export skip=""
+    SelfUpdate
+    export skip=""
 fi
 
 #Verify if tools exist
@@ -223,7 +223,7 @@ if ! [ -f base/idRehash ]; then MissingIdRehash; fi
 if ! [ -f base/EternalPatcher ]; then MissingEternalPatcher; fi
 
 if ! [ -f base/EternalPatcher.config ]; then
-	printf "%s\n" "
+    printf "%s\n" "
 ${red}EternalPatcher Config file (EternalPatcher.config) not found! Re-extract the file to the 'base' folder and try again.${end}
 "
 fi
@@ -235,8 +235,8 @@ chmod +x base/idRehash
 
 #Assign game hashes to variables
 ASSET_VERSION="4.1"
-DETERNAL_LOADMODS_MD5="ea29eda5195d763bf202db8f64cba6ec"
-ETERNALPATCHER_MD5="32259716ac37996b5cda3955f82b5811"
+DETERNAL_LOADMODS_MD5="cfd2b36967a2ba37f4d595cb7ac53c18"
+ETERNALPATCHER_MD5="1f3fd2dc84ef3b4b0250c7b17b2edc86"
 IDREHASH_MD5="4b86f5c05f6b9f6e6309c6c13314ebbd"
 PATCHED_GAME_MD5_A="3238e7a9277efc6a607b1b1615ebe79f"
 PATCHED_GAME_MD5_B="4acdaf89f30f178ba9594c0364b35a30"
@@ -350,16 +350,16 @@ if [ -f DEternal_patchManifest.py ]; then rm DEternal_patchManifest.py; fi
 
 #Check for Asset Version
 if [ $ASSET_VERSION == "0" ]; then
-	read -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+    read -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
 If you have already done so, press Enter to continue.\e[0m:'
-	ResetBackups
-	ASSET_VERSION="4.1"
-	HAS_CHECKED_RESOURCES="0"
+    ResetBackups
+    ASSET_VERSION="4.1"
+    HAS_CHECKED_RESOURCES="0"
 fi
 
 #Setup for ModLoader
 if [ $HAS_READ_FIRST_TIME == "0" ]; then
-	read -p $'\e[34mFirst-time information:
+    read -p $'\e[34mFirst-time information:
 
 This batch file automatically...
 - Makes backups of DOOM Eternal .resources archives the first time that they will be modified.
@@ -370,7 +370,7 @@ This batch file automatically...
 
 Press any key to continue...\e[0m'
 echo	
-	read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
+    read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
 DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#.
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio) and PowerBall253 for porting it to work on Linux.
 idRehash: infogram for making it, proteh for updating it, and PowerBall253 for porting it for Linux.
@@ -378,7 +378,7 @@ DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for m
 
 Press any key to continue...\e[0m'
 echo
-	read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
+    read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
 Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
 
 Press any key to continue...\e[0m'
@@ -390,9 +390,9 @@ HAS_READ_FIRST_TIME="1"
 fi
 
 if [ $RESET_BACKUPS == "1" ]; then
-	ResetBackups
-	read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
-	HAS_CHECKED_RESOURCES="0"
+    ResetBackups
+    read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
+    HAS_CHECKED_RESOURCES="0"
 fi
 
 #Patch Game Executable
@@ -400,21 +400,21 @@ GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then CorruptedGameExecutable; fi
 
 if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]; then
-	printf "%s\n" "
+    printf "%s\n" "
 ${blu}Patching game executable...${end}
 "
-	cd base
-	./EternalPatcher --update
-	./EternalPatcher --patch "../DOOMEternalx64vk.exe"
-	cd ..
+    cd base
+    ./EternalPatcher --update
+    ./EternalPatcher --patch "../DOOMEternalx64vk.exe"
+    cd ..
 fi
 
 GameMD5=($(md5sum DOOMEternalx64vk.exe))
 if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
-	printf "%s\n" "
+    printf "%s\n" "
 ${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.${end}
 "
-	exit 1
+    exit 1
 fi
 
 #Check for all resources files
@@ -435,7 +435,7 @@ fi
 
 #Execute each line of ResourceFilePaths
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
-	eval "${ResourceFilePaths[$i]}"
+    eval "${ResourceFilePaths[$i]}"
 done
 
 #Restore Backups
@@ -444,26 +444,26 @@ printf "
 ${blu}Restoring backups...${end}
 "
 while IFS= read -r filename; do
-	if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
-		filename=${filename//[[:cntrl:]]/}
-		filename_name=${filename%.resources*}
-		path=${filename_name}_path
-		path=${!path}
-		if ! [[ "$filename" == dlc_* ]]; then
-			printf "%s\n" "
-                	${blu}Restoring ${filename_name}.resources.backup${end}
-                	"
-        		if ! [ -f "$path" ]; then NoBackupFound ; fi
-			yes | cp "${path}.backup" "$path"
-		else
-			printf "%s\n" "
-                	${blu}Restoring dlc_${filename_name}.resources.backup${end}
-                	"
-			if ! [ -f "$path" ]; then NoBackupFound ; fi
-			yes | cp "${path}.backup" "$path"
+    if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
+        filename=${filename//[[:cntrl:]]/}
+        filename_name=${filename%.resources*}
+        path=${filename_name}_path
+        path=${!path}
+        if ! [[ "$filename" == dlc_* ]]; then
+            printf "%s\n" "
+                    ${blu}Restoring ${filename_name}.resources.backup...${end}
+                    "
+                if ! [ -f "$path" ]; then NoBackupFound ; fi
+            yes | cp "${path}.backup" "$path"
+        else
+            printf "%s\n" "
+                    ${blu}Restoring dlc_${filename_name}.resources.backup...${end}
+                    "
+            if ! [ -f "$path" ]; then NoBackupFound ; fi
+            yes | cp "${path}.backup" "$path"
 
-		fi		
-	fi	
+        fi		
+    fi	
 done < "EternalModInjector Settings.txt"
 fi
 RESET_BACKUPS="0"
@@ -473,26 +473,26 @@ printf "%s\n" "
 ${blu}Checking meta.resources...${end}
 "
 if [ $HAS_CHECKED_RESOURCES == "0" ]; then
-	if ! [ -f base/meta.resources ]; then MissingMeta; fi
-	MetaMD5=($(md5sum base/meta.resources))
-	if ! [[ $VANILLA_META_MD5 == $MetaMD5 ]]; then MissingMeta; fi
+    if ! [ -f base/meta.resources ]; then MissingMeta; fi
+    MetaMD5=($(md5sum base/meta.resources))
+    if ! [[ $VANILLA_META_MD5 == $MetaMD5 ]]; then MissingMeta; fi
 fi
 
 #Set new values in config file
 if [ $HAS_CHECKED_RESOURCES == "0" ]; then
-	HAS_CHECKED_RESOURCES="1"
-	WriteIntoConfig
-	HAS_CHECKED_RESOURCES="0"
+    HAS_CHECKED_RESOURCES="1"
+    WriteIntoConfig
+    HAS_CHECKED_RESOURCES="0"
 else
-	WriteIntoConfig
+    WriteIntoConfig
 fi
 
 #Check if there are mods in "mods" folder
 if [ -z "$(ls -A "Mods")" ]; then
-	printf "
+    printf "
 ${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
-	exit 1
+    exit 1
 fi
 
 #Backup .resources
@@ -505,26 +505,26 @@ IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods "." --list-
 for (( i = 0; i < ${#modloaderlist[@]} ; i++ )); do
     filename="${modloaderlist[$i]#*=}"
     filename="${filename/$'\r'/}"
-	if ! [ -f "${filename}.backup" ]; then
-		cp "$filename" "${filename}.backup"
-		name=${filename##*/}
-		printf "%s\n" "
-                	${blu}Backed up $name${end}
-		"
-	else
-		name=${filename##*/}
-	fi
-	filename=${name%.resources}
-	echo ${filename}.backup >> "EternalModInjector Settings.txt"
-	echo ${filename}.resources >> "EternalModInjector Settings.txt"
+    if ! [ -f "${filename}.backup" ]; then
+        cp "$filename" "${filename}.backup"
+        name=${filename##*/}
+        printf "%s\n" "
+                    ${blu}Backed up $name${end}
+        "
+    else
+        name=${filename##*/}
+    fi
+    filename=${name%.resources}
+    echo ${filename}.backup >> "EternalModInjector Settings.txt"
+    echo ${filename}.resources >> "EternalModInjector Settings.txt"
 done
 
 #Backup meta.resources and add to the list
 if ! [ -f "base/meta.resources.backup" ]; then 
-	cp "base/meta.resources" "base/meta.resources.backup"
-	printf "%s\n" "
-                	${blu}Backed up meta.resources${end}
-	"
+    cp "base/meta.resources" "base/meta.resources.backup"
+    printf "%s\n" "
+                    ${blu}Backed up meta.resources${end}
+    "
 fi
 sed -i '/meta.backup$/d' "EternalModInjector Settings.txt"
 echo meta.backup >> "EternalModInjector Settings.txt"
@@ -533,13 +533,13 @@ echo meta.resources >> "EternalModInjector Settings.txt"
 
 #Get vanilla resource hash offsets (idRehash)
 if [ $HAS_CHECKED_RESOURCES == "0" ]; then
-	printf "%s\n" "
+    printf "%s\n" "
 ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
-	cd base
-	./idRehash --getoffsets
-	cd ..
-	HAS_CHECKED_RESOURCES="1"
+    cd base
+    ./idRehash --getoffsets
+    cd ..
+    HAS_CHECKED_RESOURCES="1"
 fi
 
 #Load Mods (DEternal_loadMods)
@@ -556,14 +556,14 @@ cd ..
 #Patch build manifest
 BuildManifestMD5=($(md5sum base/build-manifest.bin))
 if [ "$BUILD_MANIFEST_MD5" == "$BuildManifestMD5" ]; then
-	printf "%s\n" "
+    printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
-	cd base
-	if [ -f "build-manifest.bin.bck" ]; then rm "build-manifest.bin.bck"; fi
-	chmod +x DEternal_patchManifest
-	./DEternal_patchManifest
-	cd ..
+    cd base
+    if [ -f "build-manifest.bin.bck" ]; then rm "build-manifest.bin.bck"; fi
+    chmod +x DEternal_patchManifest
+    ./DEternal_patchManifest
+    cd ..
 fi
 
 printf "%s\n" "
