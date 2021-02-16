@@ -1,3 +1,5 @@
+# idFileDeCompressor_Auto
+
 Script for automating the use of proteh's [idFileDeCompressor](https://discord.com/channels/570112501853978624/693113846688383029/747181445092605973). The tool allows the user to easily decompress "\*.entities" files.
 
 To extract the "\*.entities" files from the "\*.resources" files, you will need to use a tool like QuickBMS (check EternalExtractor for more info).
