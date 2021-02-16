@@ -175,6 +175,7 @@ ${blu}Updating script...${end}
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
     (cp -r -f tmp/* .
     rm -r tmp
+    rm EternalModInjectorShell.tar.gz
     chmod +x EternalModInjectorShell.sh
     ./EternalModInjectorShell.sh)
     exit 1
@@ -227,13 +228,15 @@ ${red}EternalPatcher Config file (EternalPatcher.config) not found! Re-extract t
 "
 fi
 
-#Give executable permissions to idRehash
+#Give executable permissions to the binaries
+chmod +x base/EternalPatcher
+chmod +x base/DEternal_loadMods
 chmod +x base/idRehash
 
 #Assign game hashes to variables
 ASSET_VERSION="4.1"
-DETERNAL_LOADMODS_MD5="a140bb1a2b3b5b11c114fd8bde6d26dd"
-ETERNALPATCHER_MD5="665dd28ddedf13069f286b7b12c53476"
+DETERNAL_LOADMODS_MD5="ea29eda5195d763bf202db8f64cba6ec"
+ETERNALPATCHER_MD5="32259716ac37996b5cda3955f82b5811"
 IDREHASH_MD5="4b86f5c05f6b9f6e6309c6c13314ebbd"
 PATCHED_GAME_MD5_A="3238e7a9277efc6a607b1b1615ebe79f"
 PATCHED_GAME_MD5_B="4acdaf89f30f178ba9594c0364b35a30"
@@ -329,9 +332,9 @@ DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods))
 idRehashMD5=($(md5sum base/idRehash))
 EternalPatcherMD5=($(md5sum base/EternalPatcher))
 
-if ! [ "$DETERNAL_LOADMODS_MD5" == "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
-if ! [ "$IDREHASH_MD5" == "$idRehashMD5" ]; then MissingIdRehash; fi
-if ! [ "$ETERNALPATCHER_MD5" == "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
+if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
+if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
+if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 
 #Delete old tools
 if [ -f base/EternalPatcher.exe ]; then rm base/EternalPatcher.exe; fi
@@ -401,8 +404,8 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 ${blu}Patching game executable...${end}
 "
 	cd base
-	mono EternalPatcher --update
-	mono EternalPatcher --patch "../DOOMEternalx64vk.exe"
+	./EternalPatcher --update
+	./EternalPatcher --patch "../DOOMEternalx64vk.exe"
 	cd ..
 fi
 
@@ -498,7 +501,7 @@ ${blu}Backing up .resources...${end}
 "
 sed -i '/.resources$/d' "EternalModInjector Settings.txt"
 sed -i '/.backup$/d' "EternalModInjector Settings.txt"
-IFS=$'\n' read -r -d '' -a modloaderlist < <( mono base/DEternal_loadMods "." --list-res )
+IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods "." --list-res )
 for (( i = 0; i < ${#modloaderlist[@]} ; i++ )); do
     filename="${modloaderlist[$i]#*=}"
     filename="${filename/$'\r'/}"
@@ -543,7 +546,7 @@ fi
 printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
-mono base/DEternal_loadMods "."
+base/DEternal_loadMods "."
 
 #Rehash resource hashes (idRehash)
 cd base
@@ -551,7 +554,7 @@ cd base
 cd ..
 
 #Patch build manifest
-BuildManifestMD5=$(md5sum base/build-manifest.bin)
+BuildManifestMD5=($(md5sum base/build-manifest.bin))
 if [ "$BUILD_MANIFEST_MD5" == "$BuildManifestMD5" ]; then
 	printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
