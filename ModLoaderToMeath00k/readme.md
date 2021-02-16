@@ -1,7 +1,6 @@
 Meath00k is a dll that allows the user to override "\*.entities" files with your own decompressed and modified files. You don't need to restart the game after editing the file. Loading a checkpoint should be enough. This script converts mods made for the ModLoader to an "overrides" to use with meath00k, and then moves it to the Doom Eternal folder.
 
-Prerequisites
-===============
+## Prerequisites
 
 Before running the tool, you'll need to make sure to have [idFileDeCompressor](https://discord.com/channels/570112501853978624/693113846688383029/747181445092605973) and oo2core\_8\_win64.dll (found in the DOOM Eternal folder) in the same directory as the script.
 
@@ -9,8 +8,7 @@ To get Meath00k, simply download the latest [EntityHero release](https://github.
 
 Wine is also a prerequisite.
 
-Instructions
-============
+## Instructions
 
 First make the file executable
 
