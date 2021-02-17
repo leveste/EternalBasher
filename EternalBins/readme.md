@@ -1,4 +1,4 @@
-# EternalBins
+# Eternal Bins
 
 This is a collection of the native binaries bundled with our latest releases. They are made using mkbundle, with the compiled executables for Mono.
 
