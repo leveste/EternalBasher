@@ -10,6 +10,10 @@ Automatically converts any texture file(s) to the TGA format required by the gam
 
 Patches the build-manifest.bin file for modding purposes. Compiled for Linux from SutandoTsukai's script using PyInstaller.
 
+**EternalBins**
+
+Collection of modding tools compiled as native binaries using mkbundle.
+
 **EternalExtractor**
 
 Script for automating the process of running QuickBMS to extract all of DOOM Eternal's \*.resources archives.
