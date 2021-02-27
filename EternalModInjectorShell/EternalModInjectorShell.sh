@@ -155,7 +155,7 @@ esac
 SelfUpdate() {
 link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
-if [[ $version == "v4.1.11" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+if [[ $version == "v4.1.12" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
     printf "%s\n" "
@@ -232,6 +232,7 @@ fi
 chmod +x base/EternalPatcher
 chmod +x base/DEternal_loadMods
 chmod +x base/idRehash
+chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
 ASSET_VERSION="4.1"
@@ -243,7 +244,6 @@ PATCHED_GAME_MD5_B="4acdaf89f30f178ba9594c0364b35a30"
 VANILLA_GAME_MD5_A="1ef861b693cdaa45eba891d084e5f3a3"
 VANILLA_GAME_MD5_B="c2b429b2eb398f836dd10d22944b9c76"
 VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
-BUILD_MANIFEST_MD5="455df4bfd17bd078e5ddbcb117094869"
 
 ResourceFilePaths=(
 hub_path="./base/game/hub/hub.resources"
@@ -554,17 +554,12 @@ cd base
 cd ..
 
 #Patch build manifest
-BuildManifestMD5=($(md5sum base/build-manifest.bin))
-if [ "$BUILD_MANIFEST_MD5" == "$BuildManifestMD5" ]; then
-    printf "%s\n" "
+printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
-    cd base
-    if [ -f "build-manifest.bin.bck" ]; then rm "build-manifest.bin.bck"; fi
-    chmod +x DEternal_patchManifest
-    ./DEternal_patchManifest
-    cd ..
-fi
+cd base
+./DEternal_patchManifest
+cd ..
 
 printf "%s\n" "
 ${grn}Mods have been loaded! You can now launch the game.${end}
