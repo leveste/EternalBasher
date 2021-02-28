@@ -155,7 +155,7 @@ esac
 SelfUpdate() {
 link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
-if [[ $version == "v4.1.12" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+if [[ $version == "v4.1.13" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
     printf "%s\n" "
@@ -228,6 +228,12 @@ ${red}EternalPatcher Config file (EternalPatcher.config) not found! Re-extract t
 "
 fi
 
+if ! [ -f base/liblinoodle.so ]; then 
+    printf "%s\n" "
+${red}liblinoodle.so not found! Re-extract the file to the 'base' folder and try again.${end}
+"
+fi
+
 #Give executable permissions to the binaries
 chmod +x base/EternalPatcher
 chmod +x base/DEternal_loadMods
@@ -238,7 +244,7 @@ chmod +x base/DEternal_patchManifest
 ASSET_VERSION="4.1"
 DETERNAL_LOADMODS_MD5="cfd2b36967a2ba37f4d595cb7ac53c18"
 ETERNALPATCHER_MD5="1f3fd2dc84ef3b4b0250c7b17b2edc86"
-IDREHASH_MD5="4b86f5c05f6b9f6e6309c6c13314ebbd"
+IDREHASH_MD5="01f16adb15b6a880a66ae894cd3451df"
 PATCHED_GAME_MD5_A="3238e7a9277efc6a607b1b1615ebe79f"
 PATCHED_GAME_MD5_B="4acdaf89f30f178ba9594c0364b35a30"
 VANILLA_GAME_MD5_A="1ef861b693cdaa45eba891d084e5f3a3"
@@ -404,8 +410,8 @@ if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]
 ${blu}Patching game executable...${end}
 "
     cd base
-    ./EternalPatcher --update
-    ./EternalPatcher --patch "../DOOMEternalx64vk.exe"
+    ./EternalPatcher --update > /dev/null
+    ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null
     cd ..
 fi
 
@@ -537,7 +543,7 @@ if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
     cd base
-    ./idRehash --getoffsets
+    ./idRehash --getoffsets > /dev/null
     cd ..
     HAS_CHECKED_RESOURCES="1"
 fi
@@ -549,8 +555,11 @@ ${blu}Loading mods... (DEternal_loadMods)${end}
 base/DEternal_loadMods "."
 
 #Rehash resource hashes (idRehash)
+printf "%s\n" "
+${blu}Rehashing resource offsets... (idRehash)${end}
+"
 cd base
-./idRehash
+./idRehash > /dev/null
 cd ..
 
 #Patch build manifest
