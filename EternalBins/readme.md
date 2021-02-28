@@ -17,3 +17,9 @@ EternalPatcher:
 ```
 mkbundle --simple --static --deps -o EternalPatcher EternalPatcher.exe --machine-config /usr/etc/mono/4.5/machine.config --config ./config --library /usr/lib/libmono-native.so --library /usr/lib/libmono-btls-shared.so
 ```
+idRehashCSharp:
+```
+mkbundle --simple --static --deps -o idRehash idRehash.exe --machine-config /usr/etc/mono/4.5/machine.config --config ./config --library /usr/lib/libmono-native.so
+```
+
+NOTE: idRehashCSharp requires [linoodle](https://github.com/PowerBall253/linoodle "linoodle").

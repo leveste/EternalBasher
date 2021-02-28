@@ -4,3 +4,6 @@
 [submodule "idRehashLinux"]
 	path = idRehashLinux
 	url = https://github.com/PowerBall253/idRehashLinux.git
+[submodule "idRehashCSharp"]
+	path = idRehashCSharp
+	url = https://github.com/PowerBall253/idRehashCSharp.git
