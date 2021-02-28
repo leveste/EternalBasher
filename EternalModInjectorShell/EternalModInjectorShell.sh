@@ -244,7 +244,8 @@ chmod +x base/DEternal_patchManifest
 ASSET_VERSION="4.1"
 DETERNAL_LOADMODS_MD5="cfd2b36967a2ba37f4d595cb7ac53c18"
 ETERNALPATCHER_MD5="1f3fd2dc84ef3b4b0250c7b17b2edc86"
-IDREHASH_MD5="01f16adb15b6a880a66ae894cd3451df"
+IDREHASH_CSHARP_MD5="01f16adb15b6a880a66ae894cd3451df"
+IDREHASH_CPP_MD5="e63bda0e5282f1b73f912c3c711459fe"
 PATCHED_GAME_MD5_A="3238e7a9277efc6a607b1b1615ebe79f"
 PATCHED_GAME_MD5_B="4acdaf89f30f178ba9594c0364b35a30"
 VANILLA_GAME_MD5_A="1ef861b693cdaa45eba891d084e5f3a3"
@@ -339,7 +340,7 @@ idRehashMD5=($(md5sum base/idRehash))
 EternalPatcherMD5=($(md5sum base/EternalPatcher))
 
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
-if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
+if ! [ $IDREHASH_CSHARP_MD5 == $idRehashMD5 ] || [ $IDREHASH_CPP_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
 if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 
 #Delete old tools

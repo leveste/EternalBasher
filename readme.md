@@ -38,6 +38,10 @@ Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entitie
 
 Modified version of infogram and proteh's idRehash (a tool to hash the resource offsets and store them in meta.resources to allow loading of custom .resources) to work natively on Linux.
 
+**idRehashCSharp**
+
+infogram and proteh's idRehashrewritten on C# to work natively on Linux through Mono, alternative to idRehashLinux.
+
 **meath00k**
 
 Readme explaining how to use chrispy's meath00k and Scorp's EntityHero on Linux.
