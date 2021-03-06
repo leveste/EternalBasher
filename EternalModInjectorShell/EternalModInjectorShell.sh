@@ -556,6 +556,7 @@ ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
     printf "%s\n" "
 ${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
 "
+    fi
 
     cd ..
     HAS_CHECKED_RESOURCES="1"
@@ -571,6 +572,7 @@ if [ $? == "1" ]; then
     printf "%s\n" "
 ${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
 "
+fi
 
 #Rehash resource hashes (idRehash)
 printf "%s\n" "
@@ -583,6 +585,7 @@ if [ $? == "1" ]; then
     printf "%s\n" "
 ${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
 "
+fi
 
 cd ..
 
@@ -597,6 +600,7 @@ if [ $? == "1" ]; then
     printf "%s\n" "
 ${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
 "
+fi
 
 cd ..
 
