@@ -340,7 +340,7 @@ idRehashMD5=($(md5sum base/idRehash))
 EternalPatcherMD5=($(md5sum base/EternalPatcher))
 
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
-if ! [ $IDREHASH_CSHARP_MD5 == $idRehashMD5 ] || [ $IDREHASH_CPP_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
+if ! ( [ $IDREHASH_CSHARP_MD5 == $idRehashMD5 ] || [ $IDREHASH_CPP_MD5 == $idRehashMD5 ] ); then MissingIdRehash; fi
 if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
 
 #Delete old tools
