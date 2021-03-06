@@ -242,7 +242,7 @@ chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
 ASSET_VERSION="4.1"
-DETERNAL_LOADMODS_MD5="cfd2b36967a2ba37f4d595cb7ac53c18"
+DETERNAL_LOADMODS_MD5="59c7b430714fde0b954ac7c68a4ce64b"
 ETERNALPATCHER_MD5="1f3fd2dc84ef3b4b0250c7b17b2edc86"
 IDREHASH_CSHARP_MD5="01f16adb15b6a880a66ae894cd3451df"
 IDREHASH_CPP_MD5="e63bda0e5282f1b73f912c3c711459fe"
@@ -509,7 +509,13 @@ ${blu}Backing up .resources...${end}
 sed -i '/.resources$/d' "EternalModInjector Settings.txt"
 sed -i '/.backup$/d' "EternalModInjector Settings.txt"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods "." --list-res )
-for (( i = 0; i < ${#modloaderlist[@]} ; i++ )); do
+for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
+    if [ "${modloaderlist[$i]}" == "" ]; then 
+            printf "
+${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
+"
+        break
+    fi
     filename="${modloaderlist[$i]#*=}"
     filename="${filename/$'\r'/}"
     if ! [ -f "${filename}.backup" ]; then
@@ -545,6 +551,12 @@ ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
     cd base
     ./idRehash --getoffsets > /dev/null
+    
+    if [ $? == "1" ]; then
+    printf "%s\n" "
+${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
+"
+
     cd ..
     HAS_CHECKED_RESOURCES="1"
 fi
@@ -555,12 +567,23 @@ ${blu}Loading mods... (DEternal_loadMods)${end}
 "
 base/DEternal_loadMods "."
 
+if [ $? == "1" ]; then
+    printf "%s\n" "
+${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
+"
+
 #Rehash resource hashes (idRehash)
 printf "%s\n" "
 ${blu}Rehashing resource offsets... (idRehash)${end}
 "
 cd base
 ./idRehash > /dev/null
+
+if [ $? == "1" ]; then
+    printf "%s\n" "
+${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
+"
+
 cd ..
 
 #Patch build manifest
@@ -569,6 +592,12 @@ ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
 cd base
 ./DEternal_patchManifest
+
+if [ $? == "1" ]; then
+    printf "%s\n" "
+${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
+"
+
 cd ..
 
 printf "%s\n" "
