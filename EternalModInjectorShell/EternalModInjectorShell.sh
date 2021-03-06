@@ -554,8 +554,9 @@ ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
     
     if [ $? == "1" ]; then
     printf "%s\n" "
-${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
+${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
+    exit 1
     fi
 
     cd ..
@@ -570,8 +571,9 @@ base/DEternal_loadMods "."
 
 if [ $? == "1" ]; then
     printf "%s\n" "
-${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
+${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
+    exit 1
 fi
 
 #Rehash resource hashes (idRehash)
@@ -583,8 +585,9 @@ cd base
 
 if [ $? == "1" ]; then
     printf "%s\n" "
-${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
+${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
+    exit 1
 fi
 
 cd ..
@@ -598,8 +601,9 @@ cd base
 
 if [ $? == "1" ]; then
     printf "%s\n" "
-${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again${end}
+${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
+    exit 1
 fi
 
 cd ..
@@ -607,4 +611,4 @@ cd ..
 printf "%s\n" "
 ${grn}Mods have been loaded! You can now launch the game.${end}
 "
-exit 1
+exit 0
