@@ -7,3 +7,6 @@
 [submodule "idRehashCSharp"]
 	path = idRehashCSharp
 	url = https://github.com/PowerBall253/idRehashCSharp.git
+[submodule "EternalModLoaderCpp"]
+	path = EternalModLoaderCpp
+	url = https://github.com/PowerBall253/EternalModLoaderCpp.git
