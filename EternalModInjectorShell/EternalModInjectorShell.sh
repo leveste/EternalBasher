@@ -389,9 +389,10 @@ This batch file automatically...
 Press any key to continue...\e[0m'
 echo	
     read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
-DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), and proteh for remaking it in C#.
+DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), proteh for remaking it in C#, and PowerBall253 for rewriting it on C++ for Linux users.
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio) and PowerBall253 for porting it to work on Linux.
-idRehash: infogram for making it, proteh for updating it, and PowerBall253 for porting it for Linux.
+idRehash: infogram for making it, proteh for updating it, and PowerBall253 for porting it to Linux.
+DEternal_patchManifest: Visual Studio and SutandoTsukai181 for making it on Python, and PowerBall253 for rewriting it on Rust for Linux users.
 DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
 
 Press any key to continue...\e[0m'
