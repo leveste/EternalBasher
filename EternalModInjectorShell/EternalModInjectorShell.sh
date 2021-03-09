@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#Script version
+script_version="v4.1.15"
+
 #Colors
 red=$'\e[1;31m'
 grn=$'\e[1;32m'
@@ -162,7 +165,7 @@ esac
 SelfUpdate() {
 link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
-if [[ $version == "v4.1.14" ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+if [[ $version == $script_version ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
     printf "%s\n" "
