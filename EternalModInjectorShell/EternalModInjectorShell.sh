@@ -42,6 +42,13 @@ ${red}EternalPatcher not found or corrupted! Re-extract the tool to the 'base' f
 exit 1
 }
 
+MissingDEternalPatchManifest() {
+printf "%s\n" "
+${red}DEternal_patchManifest not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}
+"
+exit 1
+}
+
 CreateConfigFile() {
 ASSET_VERSION="4.1"
 echo ":ASSET_VERSION=4.1" >> "EternalModInjector Settings.txt"
@@ -234,6 +241,8 @@ ${red}liblinoodle.so not found! Re-extract the file to the 'base' folder and try
 "
 fi
 
+if ! [ -f base/DEternal_patchManifest ]; then MissingDEternalPatchManifest; fi
+
 #Give executable permissions to the binaries
 chmod +x base/EternalPatcher
 chmod +x base/DEternal_loadMods
@@ -245,6 +254,7 @@ ASSET_VERSION="4.1"
 DETERNAL_LOADMODS_MD5="59c7b430714fde0b954ac7c68a4ce64b"
 ETERNALPATCHER_MD5="1f3fd2dc84ef3b4b0250c7b17b2edc86"
 IDREHASH_MD5="e63bda0e5282f1b73f912c3c711459fe"
+DETERNAL_PATCHMANIFEST_MD5="900aa4efa0bc5df8a2b54add0a401360"
 PATCHED_GAME_MD5_A="3238e7a9277efc6a607b1b1615ebe79f"
 PATCHED_GAME_MD5_B="4acdaf89f30f178ba9594c0364b35a30"
 VANILLA_GAME_MD5_A="1ef861b693cdaa45eba891d084e5f3a3"
@@ -337,10 +347,12 @@ ${blu}Checking tools...${end}
 DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods))
 idRehashMD5=($(md5sum base/idRehash))
 EternalPatcherMD5=($(md5sum base/EternalPatcher))
+DEternal_patchManifestMD5=($(md5sum base/DEternal_patchManifest))
 
 if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
 if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
 if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
+if ! [ $DETERNAL_PATCHMANIFEST_MD5 == $DEternal_patchManifestMD5 ]; then MissingDEternalPatchManifest; fi
 
 #Delete old tools
 if [ -f base/EternalPatcher.exe ]; then rm base/EternalPatcher.exe; fi
@@ -564,7 +576,7 @@ fi
 
 #Load Mods (DEternal_loadMods)
 printf "%s\n" "
-${blu}Loading mods... (DEternal_loadMods)${end}
+${blu}Loading mods... (DEternal_loadMods)${end}y8GTE3
 "
 base/DEternal_loadMods "."
 
@@ -596,7 +608,7 @@ printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
 cd base
-./DEternal_patchManifest
+./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9
 
 if [ $? == "1" ]; then
     printf "%s\n" "
