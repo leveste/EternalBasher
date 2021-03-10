@@ -10,7 +10,8 @@ Based on the original batch file by **Zwip-Zwap Zapony**.
 
 * Validate you game files. **Right click on Doom Eternal in your Steam Library** -> **Properties** -> **Local files** -> **View integrity of game files...**
 
-* Download the modding tools. You can get the tools from the latest release. The tools have been updated to run natively on Linux, though you will need to have Mono installed. Refer to [this page](https://www.mono-project.com/download/stable/) for information for your specific distro. For Arch users, please refer to the [Arch Wiki](https://wiki.archlinux.org/index.php/Mono)
+* Download the modding tools. You can get the tools from the latest release. The tools have been updated to run natively on Linux.
+
 * Place the modding tools and shell script in your Doom Eternal folder. **Right click on Doom Eternal** -> **Manage** -> **Browse local files**
 
 * Make the file executable. You can do so with the following command: **chmod +x EternalModInjectorShell.sh**. Depending on your desktop environment, you can also right click on the file and change the permissions from properties.
