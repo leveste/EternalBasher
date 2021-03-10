@@ -6,13 +6,9 @@ Collection of bash scripts for different aspects of Doom Eternal modding. Furthe
 
 Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine. manually.
 
-**DEternal_patchManifest**
-
-Patches the build-manifest.bin file for modding purposes. Compiled for Linux from SutandoTsukai's script using PyInstaller.
-
 **EternalBins**
 
-Collection of modding tools compiled as native binaries using mkbundle.
+Collection of compiled native binaries of modding tools.
 
 **EternalExtractor**
 
@@ -20,11 +16,19 @@ Script for automating the process of running QuickBMS to extract all of DOOM Ete
 
 **EternalModInjector Shell**
 
-Helps with installing Doom Eternal mods.
+Script that automatically installs mods using the rest of the tools.
 
-**EternalPatcherCLI**
+**EternalModLoaderCpp**
 
-Modified version of proteh's EternalPatcher (a tool to apply various patches to the game executable for modding purposes), removing the GUI to make it compatible with Mono.
+Tool to load mods into Doom Eternal's .resources files, rewritten on C++ for Linux.
+
+**EternalPatchManifest Rust**
+
+Tool that patches the build-manifest.bin file for modding purposes, based SutandoTsukai and Visual Studio's script.
+
+**EternalPatcherCpp**
+
+Tool that patches the DOOM Eternal executable for modding purposes, rewritten on C++ for Linux.
 
 **ModLoader_to_MeatHook**
 
@@ -33,10 +37,6 @@ Meath00k is a dll that allows the user to override "\*.entities" files with your
 **idFileDeCompressor_Auto**
 
 Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entities files.
-
-**idRehashCSharp**
-
-infogram and proteh's idRehash rewritten on C# to work natively on Linux through Mono, alternative to idRehashLinux.
 
 **idRehashLinux**
 
