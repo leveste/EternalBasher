@@ -24,7 +24,7 @@ Tool to load mods into Doom Eternal's .resources files, rewritten on C++ for Lin
 
 **EternalPatchManifest Rust**
 
-Tool that patches the build-manifest.bin file for modding purposes, based SutandoTsukai and Visual Studio's script.
+Tool that patches the build-manifest.bin file for modding purposes, rewritten on Rust for Linux.
 
 **EternalPatcherCpp**
 
