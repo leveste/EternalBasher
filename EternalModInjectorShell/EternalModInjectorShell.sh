@@ -75,6 +75,8 @@ echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
 echo >> "EternalModInjector Settings.txt"
 
 find . -name "*.backup" -type f -delete
+
+first_time="1"
 }
 
 WriteIntoConfig() {
@@ -197,8 +199,7 @@ By Leveste and PowerBall253
 Based on original batch file by Zwip-Zwap Zapony${end}
 "
 
-#Remove misnamed version if present
-if [ -f EternalModInjector.sh ]; then rm EternalModInjector.sh; fi
+first_time="0"
 
 #Config File check
 printf "%s\n" "
@@ -467,7 +468,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 
 #Restore Backups
-if ! [ $RESET_BACKUPS == "1" ]; then
+if ! ( [ $RESET_BACKUPS == "1" ] || [ $first_time == "1" ] ); then
 printf "
 ${blu}Restoring backups...${end}
 "
@@ -618,7 +619,7 @@ printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
 cd base
-./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9
+./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null
 
 if [ $? == "1" ]; then
     printf "%s\n" "
