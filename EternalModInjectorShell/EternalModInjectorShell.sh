@@ -621,7 +621,7 @@ ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 cd base
 ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null
 
-if [ $? == "1" ]; then
+if [ $? == "101" ]; then
     printf "%s\n" "
 ${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
