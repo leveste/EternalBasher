@@ -219,7 +219,7 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
 fi
 
 #Check for script updates
-if [ $skip != "1" ] && [ $AUTO_UPDATE == "1" ]; then
+if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
     SelfUpdate
     export skip=""
 fi
@@ -371,7 +371,7 @@ if [ -f DEternal_loadMods.exe ]; then rm DEternal_loadMods.exe; fi
 if [ -f DEternal_patchManifest.py ]; then rm DEternal_patchManifest.py; fi
 
 #Check for Asset Version
-if [ $ASSET_VERSION == "0" ]; then
+if [ "$ASSET_VERSION" == "0" ]; then
     read -r -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
 If you have already done so, press Enter to continue.\e[0m:'
     ResetBackups
@@ -380,7 +380,7 @@ If you have already done so, press Enter to continue.\e[0m:'
 fi
 
 #Setup for ModLoader
-if [ $HAS_READ_FIRST_TIME == "0" ]; then
+if [ "$HAS_READ_FIRST_TIME" == "0" ]; then
     read -r -p $'\e[34mFirst-time information:
 
 This batch file automatically...
@@ -412,7 +412,7 @@ Press any key to continue...\e[0m'
 HAS_READ_FIRST_TIME="1"
 fi
 
-if [ $RESET_BACKUPS == "1" ]; then
+if [ "$RESET_BACKUPS" == "1" ]; then
     ResetBackups
     read -r -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
     HAS_CHECKED_RESOURCES="0"
@@ -430,7 +430,7 @@ ${blu}Patching game executable...${end}
     ./EternalPatcher --update > /dev/null
     ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null )
 
-    if [ $? == "1" ]; then
+    if [ "$?" == "1" ]; then
         printf "%s\n" "
 ${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
@@ -450,7 +450,7 @@ fi
 printf "%s\n" "
 ${blu}Checking resources files...${end}
 "
-if [ $HAS_CHECKED_RESOURCES == "0" ]; then
+if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
     line="${ResourceFilePaths[$i]#*=}"
     if ! [ -f "$line" ]; then
@@ -468,7 +468,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 
 #Restore Backups
-if [ $RESET_BACKUPS != "1" ] && [ $first_time != "1" ]; then
+if [ "$RESET_BACKUPS" != "1" ] && [ "$first_time" != "1" ]; then
 printf "%s\n" "
 ${blu}Restoring backups...${end}
 "
@@ -501,14 +501,14 @@ RESET_BACKUPS="0"
 printf "%s\n" "
 ${blu}Checking meta.resources...${end}
 "
-if [ $HAS_CHECKED_RESOURCES == "0" ]; then
+if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     if ! [ -f base/meta.resources ]; then MissingMeta; fi
     MetaMD5=$(md5sum "base/meta.resources" | awk '{ print $1 }')
     if [ "$VANILLA_META_MD5" != "$MetaMD5" ]; then MissingMeta; fi
 fi
 
 #Set new values in config file
-if [ $HAS_CHECKED_RESOURCES == "0" ]; then
+if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     HAS_CHECKED_RESOURCES="1"
     WriteIntoConfig
     HAS_CHECKED_RESOURCES="0"
@@ -567,14 +567,14 @@ echo meta.resources >> "EternalModInjector Settings.txt"
 
 
 #Get vanilla resource hash offsets (idRehash)
-if [ $HAS_CHECKED_RESOURCES == "0" ]; then
+if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     printf "%s\n" "
 ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
     ( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
     ./idRehash --getoffsets > /dev/null )
     
-    if [ $? == "1" ]; then
+    if [ "$?" == "1" ]; then
     printf "%s\n" "
 ${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
@@ -586,11 +586,11 @@ fi
 
 #Load Mods (DEternal_loadMods)
 printf "%s\n" "
-${blu}Loading mods... (DEternal_loadMods)${end}y8GTE3
+${blu}Loading mods... (DEternal_loadMods)${end}
 "
 base/DEternal_loadMods "."
 
-if [ $? == "1" ]; then
+if [ "$?" == "1" ]; then
     printf "%s\n" "
 ${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
@@ -604,7 +604,7 @@ ${blu}Rehashing resource offsets... (idRehash)${end}
 ( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
 ./idRehash > /dev/null )
 
-if [ $? == "1" ]; then
+if [ "$? == "1" ]; then
     printf "%s\n" "
 ${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
@@ -618,7 +618,7 @@ ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 ( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
 ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null )
 
-if [ $? == "101" ]; then
+if [ "$?"" == "101" ]; then
     printf "%s\n" "
 ${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
