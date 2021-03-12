@@ -125,7 +125,7 @@ case "$response" in
     [yY][eE][sS]|[yY]) 
             for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
             line="${ResourceFilePaths[$i]#*=}"
-            if [ -f ${line}.backup ]; then rm ${line}.backup; fi
+            if [ -f "${line}.backup" ]; then rm "${line}.backup"; fi
         done
         ;;
     *)
@@ -219,7 +219,7 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
 fi
 
 #Check for script updates
-if ! [[ $skip == "1" ]] && [[ $AUTO_UPDATE == "1" ]]; then
+if [ $skip != "1" ] && [ $AUTO_UPDATE == "1" ]; then
     SelfUpdate
     export skip=""
 fi
@@ -353,10 +353,10 @@ idRehashMD5=$(md5sum "base/idRehash" | awk '{ print $1 }')
 EternalPatcherMD5=$(md5sum "base/EternalPatcher" | awk '{ print $1 }')
 DEternal_patchManifestMD5=$(md5sum "base/DEternal_patchManifest" | awk '{ print $1 }')
 
-if ! [ "$DETERNAL_LOADMODS_MD5" == "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
-if ! [ "$IDREHASH_MD5" == "$idRehashMD5" ]; then MissingIdRehash; fi
-if ! [ "$ETERNALPATCHER_MD5" == "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
-if ! [ "$DETERNAL_PATCHMANIFEST_MD5" == "$DEternal_patchManifestMD5" ]; then MissingDEternalPatchManifest; fi
+if [ "$DETERNAL_LOADMODS_MD5" != "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
+if [ "$IDREHASH_MD5" != "$idRehashMD5" ]; then MissingIdRehash; fi
+if [ "$ETERNALPATCHER_MD5" != "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
+if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then MissingDEternalPatchManifest; fi
 
 #Delete old tools
 if [ -f base/EternalPatcher.exe ]; then rm base/EternalPatcher.exe; fi
@@ -420,26 +420,26 @@ fi
 
 #Patch Game Executable
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
-if ! ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] || [ "$PATCHED_GAME_MD5_A" == "$GameMD5" ] || [ "$PATCHED_GAME_MD5_B" == "$GameMD5" ] ); then CorruptedGameExecutable; fi
+if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then CorruptedGameExecutable; fi
 
 if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ]; then
     printf "%s\n" "
 ${blu}Patching game executable...${end}
 "
-    cd base
+    ( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
     ./EternalPatcher --update > /dev/null
-    ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null
+    ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null )
+
     if [ $? == "1" ]; then
         printf "%s\n" "
 ${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
         exit 1
     fi
-    cd ..
 fi
 
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
-if ! ( [ "$PATCHED_GAME_MD5_A" == "$GameMD5" ] || [ "$PATCHED_GAME_MD5_B" == "$GameMD5" ] ); then
+if [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then
     printf "%s\n" "
 ${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.${end}
 "
@@ -468,7 +468,7 @@ for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
 done
 
 #Restore Backups
-if ! ( [ $RESET_BACKUPS == "1" ] || [ $first_time == "1" ] ); then
+if [ $RESET_BACKUPS != "1" ] && [ $first_time != "1" ]; then
 printf "
 ${blu}Restoring backups...${end}
 "
@@ -478,7 +478,7 @@ while IFS= read -r filename; do
         filename_name=${filename%.resources*}
         path=${filename_name}_path
         path=${!path}
-        if ! [[ "$filename" == dlc_* ]]; then
+        if [[ "$filename" != dlc_* ]]; then
             printf "%s\n" "
                     ${blu}Restoring ${filename_name}.resources.backup...${end}
                     "
@@ -504,7 +504,7 @@ ${blu}Checking meta.resources...${end}
 if [ $HAS_CHECKED_RESOURCES == "0" ]; then
     if ! [ -f base/meta.resources ]; then MissingMeta; fi
     MetaMD5=$(md5sum "base/meta.resources" | awk '{ print $1 }')
-    if ! [[ "$VANILLA_META_MD5" == "$MetaMD5" ]]; then MissingMeta; fi
+    if [ "$VANILLA_META_MD5" != "$MetaMD5" ]; then MissingMeta; fi
 fi
 
 #Set new values in config file
@@ -550,8 +550,8 @@ ${grn}No mods found! All .resources files have been restored to their vanilla st
         name=${filename##*/}
     fi
     filename=${name%.resources}
-    echo ${filename}.backup >> "EternalModInjector Settings.txt"
-    echo ${filename}.resources >> "EternalModInjector Settings.txt"
+    echo "${filename}.backup" >> "EternalModInjector Settings.txt"
+    echo "${filename}.resources" >> "EternalModInjector Settings.txt"
 done
 
 #Backup meta.resources and add to the list
@@ -571,8 +571,8 @@ if [ $HAS_CHECKED_RESOURCES == "0" ]; then
     printf "%s\n" "
 ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
-    cd base
-    ./idRehash --getoffsets > /dev/null
+    ( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
+    ./idRehash --getoffsets > /dev/null )
     
     if [ $? == "1" ]; then
     printf "%s\n" "
@@ -581,7 +581,6 @@ ${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then op
     exit 1
     fi
 
-    cd ..
     HAS_CHECKED_RESOURCES="1"
 fi
 
@@ -602,8 +601,8 @@ fi
 printf "%s\n" "
 ${blu}Rehashing resource offsets... (idRehash)${end}
 "
-cd base
-./idRehash > /dev/null
+( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
+./idRehash > /dev/null )
 
 if [ $? == "1" ]; then
     printf "%s\n" "
@@ -612,14 +611,12 @@ ${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then op
     exit 1
 fi
 
-cd ..
-
 #Patch build manifest
 printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
-cd base
-./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null
+( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
+./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null )
 
 if [ $? == "101" ]; then
     printf "%s\n" "
@@ -627,8 +624,6 @@ ${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesd
 "
     exit 1
 fi
-
-cd ..
 
 printf "%s\n" "
 ${grn}Mods have been loaded! You can now launch the game.${end}
