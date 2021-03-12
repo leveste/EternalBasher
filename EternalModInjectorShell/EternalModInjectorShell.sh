@@ -426,7 +426,7 @@ if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameM
     printf "%s\n" "
 ${blu}Patching game executable...${end}
 "
-    ( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
+    ( cd base || return
     ./EternalPatcher --update > /dev/null
     ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null )
 
@@ -571,7 +571,7 @@ if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     printf "%s\n" "
 ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
-    ( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
+    ( cd base || return
     ./idRehash --getoffsets > /dev/null )
     
     if [ "$?" == "1" ]; then
@@ -601,7 +601,7 @@ fi
 printf "%s\n" "
 ${blu}Rehashing resource offsets... (idRehash)${end}
 "
-( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
+( cd base || return
 ./idRehash > /dev/null )
 
 if [ "$?" == "1" ]; then
@@ -615,7 +615,7 @@ fi
 printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
-( cd base || printf "%s\n" "${red}Failed to open ${1} folder!${end}" && exit 1
+( cd base || return
 ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null )
 
 if [ "$?" == "101" ]; then
