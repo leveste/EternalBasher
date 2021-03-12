@@ -185,7 +185,7 @@ ${blu}Updating script...${end}
     mkdir "tmp"
     else mkdir "tmp"; fi
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
-    (cp -r -f tmp/* .
+    (\cp -r -f tmp/* .
     rm -r tmp
     rm EternalModInjectorShell.tar.gz
     chmod +x EternalModInjectorShell.sh
@@ -372,7 +372,7 @@ if [ -f DEternal_patchManifest.py ]; then rm DEternal_patchManifest.py; fi
 
 #Check for Asset Version
 if [ $ASSET_VERSION == "0" ]; then
-    read -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+    read -r -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
 If you have already done so, press Enter to continue.\e[0m:'
     ResetBackups
     ASSET_VERSION="4.1"
@@ -381,7 +381,7 @@ fi
 
 #Setup for ModLoader
 if [ $HAS_READ_FIRST_TIME == "0" ]; then
-    read -p $'\e[34mFirst-time information:
+    read -r -p $'\e[34mFirst-time information:
 
 This batch file automatically...
 - Makes backups of DOOM Eternal .resources archives the first time that they will be modified.
@@ -392,7 +392,7 @@ This batch file automatically...
 
 Press any key to continue...\e[0m'
 echo	
-    read -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
+    read -r -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
 DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), proteh for remaking it in C#, and PowerBall253 for rewriting it on C++ for Linux users.
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio) and PowerBall253 for porting it to work on Linux.
 idRehash: infogram for making it, proteh for updating it, and PowerBall253 for porting it to Linux.
@@ -401,12 +401,12 @@ DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for m
 
 Press any key to continue...\e[0m'
 echo
-    read -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
+    read -r -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
 Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
 
 Press any key to continue...\e[0m'
 echo
-read -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
+read -r -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
 
 Press any key to continue...\e[0m'
 HAS_READ_FIRST_TIME="1"
@@ -414,7 +414,7 @@ fi
 
 if [ $RESET_BACKUPS == "1" ]; then
     ResetBackups
-    read -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
+    read -r -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
     HAS_CHECKED_RESOURCES="0"
 fi
 
@@ -453,7 +453,7 @@ ${blu}Checking resources files...${end}
 if [ $HAS_CHECKED_RESOURCES == "0" ]; then
 for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
     line="${ResourceFilePaths[$i]#*=}"
-    if ! [ -f $line ]; then
+    if ! [ -f "$line" ]; then
         printf "%s\n" "
 ${red}Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again.${end}
 "
@@ -469,7 +469,7 @@ done
 
 #Restore Backups
 if [ $RESET_BACKUPS != "1" ] && [ $first_time != "1" ]; then
-printf "
+printf "%s\n" "
 ${blu}Restoring backups...${end}
 "
 while IFS= read -r filename; do
@@ -483,13 +483,13 @@ while IFS= read -r filename; do
                     ${blu}Restoring ${filename_name}.resources.backup...${end}
                     "
                 if ! [ -f "$path" ]; then NoBackupFound ; fi
-            yes | cp "${path}.backup" "$path"
+            \cp "${path}.backup" "$path"
         else
             printf "%s\n" "
                     ${blu}Restoring dlc_${filename_name}.resources.backup...${end}
                     "
             if ! [ -f "$path" ]; then NoBackupFound ; fi
-            yes | cp "${path}.backup" "$path"
+            \cp "${path}.backup" "$path"
 
         fi		
     fi	
@@ -518,7 +518,7 @@ fi
 
 #Check if there are mods in "mods" folder
 if [ -z "$(ls -A "Mods")" ]; then
-    printf "
+    printf "%s\n" "
 ${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
     exit 1
@@ -533,7 +533,7 @@ sed -i '/.backup$/d' "EternalModInjector Settings.txt"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods "." --list-res )
 for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
     if [ "${modloaderlist[$i]}" == "" ]; then 
-            printf "
+            printf "%s\n" "
 ${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
         break
@@ -541,7 +541,7 @@ ${grn}No mods found! All .resources files have been restored to their vanilla st
     filename="${modloaderlist[$i]#*=}"
     filename="${filename/$'\r'/}"
     if ! [ -f "${filename}.backup" ]; then
-        cp "$filename" "${filename}.backup"
+        \cp "$filename" "${filename}.backup"
         name=${filename##*/}
         printf "%s\n" "
                     ${blu}Backed up $name${end}
@@ -556,7 +556,7 @@ done
 
 #Backup meta.resources and add to the list
 if ! [ -f "base/meta.resources.backup" ]; then 
-    cp "base/meta.resources" "base/meta.resources.backup"
+    \cp "base/meta.resources" "base/meta.resources.backup"
     printf "%s\n" "
                     ${blu}Backed up meta.resources${end}
     "
