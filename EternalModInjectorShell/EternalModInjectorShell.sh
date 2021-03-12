@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Script version
-script_version="v4.1.16"
+script_version="v4.1.18"
 
 #Colors
 red=$'\e[1;31m'
