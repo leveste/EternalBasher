@@ -165,9 +165,9 @@ esac
 }
 
 SelfUpdate() {
-link=$(curl -L -o /dev/null -w %{url_effective} https://github.com/leveste/EternalBasher/releases/latest)
+link=$(curl -L -o /dev/null -w '%{url_effective}' https://github.com/leveste/EternalBasher/releases/latest)
 version=$(basename "$link")
-if [[ $version == $script_version ]] || [[ $version == "latest" ]]; then OUTDATED="0"; else OUTDATED="1"; fi
+if [ "$version" == "$script_version" ] || [ "$version" == "latest" ]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
     printf "%s\n" "
@@ -348,15 +348,15 @@ printf "%s\n" "
 ${blu}Checking tools...${end}
 "
 
-DEternal_LoadModsMD5=($(md5sum base/DEternal_loadMods))
-idRehashMD5=($(md5sum base/idRehash))
-EternalPatcherMD5=($(md5sum base/EternalPatcher))
-DEternal_patchManifestMD5=($(md5sum base/DEternal_patchManifest))
+DEternal_LoadModsMD5=$(md5sum "base/DEternal_loadMods" | awk '{ print $1 }')
+idRehashMD5=$(md5sum "base/idRehash" | awk '{ print $1 }')
+EternalPatcherMD5=$(md5sum "base/EternalPatcher" | awk '{ print $1 }')
+DEternal_patchManifestMD5=$(md5sum "base/DEternal_patchManifest" | awk '{ print $1 }')
 
-if ! [ $DETERNAL_LOADMODS_MD5 == $DEternal_LoadModsMD5 ]; then MissingDEternalLoadMods; fi
-if ! [ $IDREHASH_MD5 == $idRehashMD5 ]; then MissingIdRehash; fi
-if ! [ $ETERNALPATCHER_MD5 == $EternalPatcherMD5 ]; then MissingEternalPatcher; fi
-if ! [ $DETERNAL_PATCHMANIFEST_MD5 == $DEternal_patchManifestMD5 ]; then MissingDEternalPatchManifest; fi
+if ! [ "$DETERNAL_LOADMODS_MD5" == "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
+if ! [ "$IDREHASH_MD5" == "$idRehashMD5" ]; then MissingIdRehash; fi
+if ! [ "$ETERNALPATCHER_MD5" == "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
+if ! [ "$DETERNAL_PATCHMANIFEST_MD5" == "$DEternal_patchManifestMD5" ]; then MissingDEternalPatchManifest; fi
 
 #Delete old tools
 if [ -f base/EternalPatcher.exe ]; then rm base/EternalPatcher.exe; fi
@@ -419,10 +419,10 @@ if [ $RESET_BACKUPS == "1" ]; then
 fi
 
 #Patch Game Executable
-GameMD5=($(md5sum DOOMEternalx64vk.exe))
-if ! ( [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then CorruptedGameExecutable; fi
+GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
+if ! ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] || [ "$PATCHED_GAME_MD5_A" == "$GameMD5" ] || [ "$PATCHED_GAME_MD5_B" == "$GameMD5" ] ); then CorruptedGameExecutable; fi
 
-if [[ $VANILLA_GAME_MD5_A == $GameMD5 ]] || [[ $VANILLA_GAME_MD5_B == $GameMD5 ]]; then
+if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ]; then
     printf "%s\n" "
 ${blu}Patching game executable...${end}
 "
@@ -438,8 +438,8 @@ ${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, t
     cd ..
 fi
 
-GameMD5=($(md5sum DOOMEternalx64vk.exe))
-if ! ( [[ $PATCHED_GAME_MD5_A == $GameMD5 ]] || [[ $PATCHED_GAME_MD5_B == $GameMD5 ]] ); then
+GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
+if ! ( [ "$PATCHED_GAME_MD5_A" == "$GameMD5" ] || [ "$PATCHED_GAME_MD5_B" == "$GameMD5" ] ); then
     printf "%s\n" "
 ${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.${end}
 "
@@ -503,8 +503,8 @@ ${blu}Checking meta.resources...${end}
 "
 if [ $HAS_CHECKED_RESOURCES == "0" ]; then
     if ! [ -f base/meta.resources ]; then MissingMeta; fi
-    MetaMD5=($(md5sum base/meta.resources))
-    if ! [[ $VANILLA_META_MD5 == $MetaMD5 ]]; then MissingMeta; fi
+    MetaMD5=$(md5sum "base/meta.resources" | awk '{ print $1 }')
+    if ! [[ "$VANILLA_META_MD5" == "$MetaMD5" ]]; then MissingMeta; fi
 fi
 
 #Set new values in config file
