@@ -202,6 +202,7 @@ Based on original batch file by Zwip-Zwap Zapony${end}
 
 first_time="0"
 
+#Debug mode
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; then
     read -r -p $'\e[34mETERNALMODINJECTOR_DEBUG variable set to 1. Continue in debug mode? In this mode, full output for all tools will be shown and written to EternalModInjectorShell_log.txt. [y/N] \e[0m' response
     case "$response" in
