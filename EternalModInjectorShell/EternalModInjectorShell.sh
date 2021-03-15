@@ -185,12 +185,13 @@ ${blu}Updating script...${end}
     mkdir "tmp"
     else mkdir "tmp"; fi
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
+    clear
     (\cp -r -f tmp/* .
     rm -r tmp
     rm EternalModInjectorShell.tar.gz
     chmod +x EternalModInjectorShell.sh
     ./EternalModInjectorShell.sh)
-    exit 1
+    exit $?
 fi
 }
 
@@ -200,6 +201,21 @@ Based on original batch file by Zwip-Zwap Zapony${end}
 "
 
 first_time="0"
+
+if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; then
+    read -r -p $'\e[34mETERNALMODINJECTOR_DEBUG variable set to 1. Continue in debug mode? In this mode, full output for all tools will be shown and written to EternalModInjectorShell_log.txt.[y/N] \e[0m' response
+    case "$response" in
+        [yY][eE][sS]|[yY]) 
+              export ETERNALMODINJECTOR_DEBUG="1"
+              export skip_debug_check="1"
+              clear
+              (if [ -f "EternalModInjectorShell_log.txt" ]; then rm "EternalModInjector_log.txt"; fi
+              ./EternalModInjectorShell.sh 2>&1 | tee "EternalModInjectorShell_log.txt")
+              exit $?
+          ;;
+        *)
+     esac
+ fi
 
 #Config File check
 printf "%s\n" "
@@ -426,9 +442,9 @@ if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameM
     printf "%s\n" "
 ${blu}Patching game executable...${end}
 "
-    ( cd base || return
-    ./EternalPatcher --update > /dev/null
-    ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null )
+    (cd base || return
+    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
+    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
 
     if [ "$?" == "1" ]; then
         printf "%s\n" "
@@ -571,8 +587,8 @@ if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     printf "%s\n" "
 ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
 "
-    ( cd base || return
-    ./idRehash --getoffsets > /dev/null )
+    (cd base || return
+    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash --getoffsets; else ./idRehash --getoffsets > /dev/null; fi)
     
     if [ "$?" == "1" ]; then
     printf "%s\n" "
@@ -601,8 +617,8 @@ fi
 printf "%s\n" "
 ${blu}Rehashing resource offsets... (idRehash)${end}
 "
-( cd base || return
-./idRehash > /dev/null )
+(cd base || return
+if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash; else ./idRehash > /dev/null; fi)
 
 if [ "$?" == "1" ]; then
     printf "%s\n" "
@@ -615,8 +631,8 @@ fi
 printf "%s\n" "
 ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 "
-( cd base || return
-./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null )
+(cd base || return
+if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9; else ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null; fi)
 
 if [ "$?" == "101" ]; then
     printf "%s\n" "
