@@ -185,11 +185,11 @@ ${blu}Updating script...${end}
     mkdir "tmp"
     else mkdir "tmp"; fi
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
-    clear
     (\cp -r -f tmp/* .
     rm -r tmp
     rm EternalModInjectorShell.tar.gz
     chmod +x EternalModInjectorShell.sh
+    clear
     ./EternalModInjectorShell.sh)
     exit $?
 fi
@@ -208,8 +208,8 @@ if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; the
         [yY][eE][sS]|[yY]) 
               export ETERNALMODINJECTOR_DEBUG="1"
               export skip_debug_check="1"
-              clear
               (if [ -f "EternalModInjectorShell_log.txt" ]; then rm "EternalModInjector_log.txt"; fi
+              clear
               ./EternalModInjectorShell.sh 2>&1 | tee "EternalModInjectorShell_log.txt")
               exit $?
           ;;
