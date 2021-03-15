@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Script version
-script_version="v4.1.18"
+script_version="v4.1.19"
 
 #Colors
 red=$'\e[1;31m'
@@ -203,7 +203,7 @@ Based on original batch file by Zwip-Zwap Zapony${end}
 first_time="0"
 
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; then
-    read -r -p $'\e[34mETERNALMODINJECTOR_DEBUG variable set to 1. Continue in debug mode? In this mode, full output for all tools will be shown and written to EternalModInjectorShell_log.txt.[y/N] \e[0m' response
+    read -r -p $'\e[34mETERNALMODINJECTOR_DEBUG variable set to 1. Continue in debug mode? In this mode, full output for all tools will be shown and written to EternalModInjectorShell_log.txt. [y/N] \e[0m' response
     case "$response" in
         [yY][eE][sS]|[yY]) 
               export ETERNALMODINJECTOR_DEBUG="1"
