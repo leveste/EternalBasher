@@ -22,14 +22,10 @@ You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or
 
 ## Issues
 
-If you are using the older version that still uses the Windows tools through Wine, you will need to make sure **wine-mono** is installed.
+You can use the debug mode to get full output from all tools by setting the ETERNALMODINJECTOR_DEBUG environment variable to 1, like this:
+```
+ETERNALMODINJECTOR_DEBUG=1 ./EternalModInjectorShell.sh
+```
+When prompted, press y to confirm you wanna run in debug mode. This will show full output for all tools and also write it to a EternalModInjector_log.txt file.
 
-On Ubuntu-based systems (like Mint), we recommend that you install Wine from the [winehq website](https://wiki.winehq.org/Ubuntu) and run
-
-    wine uninstaller
-
-to confirm the package was installed.
-
-If you are having issues with missing dlls, install the [Microsoft Visual C++ 2015-2019 Redistributable](https://support.microsoft.com/en-gb/help/2977003/the-latest-supported-visual-c-downloads) for x86. Simply download the file and run it through Wine.
-
-    wine VC_redist.x86.exe
+Then, you can open an issue on this repo, providing info on your OS and other relevant conditions, and your log file.
