@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Script version
-script_version="v4.1.19"
+script_version="v4.1.20"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
