@@ -20,7 +20,7 @@ Based on the original batch file by **Zwip-Zwap Zapony**.
 
 You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or check the [Doom 2016+ Modding Discord](https://discord.com/channels/570112501853978624/614488711572357120).
 
-## Issues
+## Reporting issues
 
 You can use the debug mode to get full output from all tools by setting the ETERNALMODINJECTOR_DEBUG environment variable to 1, like this:
 ```
@@ -28,4 +28,4 @@ ETERNALMODINJECTOR_DEBUG=1 ./EternalModInjectorShell.sh
 ```
 When prompted, press y to confirm you wanna run in debug mode. This will show full output for all tools and also write it to a EternalModInjector_log.txt file.
 
-Then, you can open an issue on this repo, providing info on your OS and other relevant conditions, and your log file.
+Then, you can open an issue on this repo, providing your log file, and whatever information you consider relevant to the issue.

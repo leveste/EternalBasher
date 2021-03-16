@@ -218,6 +218,13 @@ if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; the
      esac
  fi
 
+ if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then
+    printf "%s\n" "
+${red}System info:${end}
+"
+    inxi -Fxz
+fi
+
 #Config File check
 printf "%s\n" "
 ${blu}Loading config file...${end}
