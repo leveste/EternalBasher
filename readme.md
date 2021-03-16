@@ -18,7 +18,7 @@ Collection of compiled native binaries of modding tools.
 
 Script for automating the process of running QuickBMS to extract all of DOOM Eternal's \*.resources archives.
 
-**EternalModInjector Shell**
+**EternalModInjectorShell**
 
 Script that automatically installs mods using the rest of the tools.
 
@@ -26,7 +26,7 @@ Script that automatically installs mods using the rest of the tools.
 
 Tool to load mods into Doom Eternal's .resources files, rewritten on C++ for Linux.
 
-**EternalPatchManifest Rust**
+**EternalPatchManifestRust**
 
 Tool that patches the build-manifest.bin file for modding purposes, rewritten on Rust for Linux.
 
