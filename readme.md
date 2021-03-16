@@ -2,7 +2,7 @@ Collection of bash scripts for different aspects of Doom Eternal modding. Furthe
 
 ------------------------
 
-**Auto Heckin' Textrure Converter**
+**Auto Heckin' Texture Converter (WIP)**
 
 Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine. manually.
 
