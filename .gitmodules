@@ -10,3 +10,9 @@
 [submodule "EternalPatcherCpp"]
 	path = EternalPatcherCpp
 	url = https://github.com/PowerBall253/EternalPatcherCpp.git
+[submodule "DOOMSaveManagerLinux"]
+	path = DOOMSaveManagerLinux
+	url = https://github.com/PowerBall253/DOOMSaveManagerLinux.git
+[submodule "idSaveDecompressorLinux"]
+	path = idSaveDecompressorLinux
+	url = https://github.com/PowerBall253/idSaveDecompressorLinux.git
