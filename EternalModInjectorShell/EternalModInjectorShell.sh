@@ -218,6 +218,7 @@ if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; the
      esac
  fi
 
+#Log system info
  if [ "$skip_debug_check" == "1" ]; then
     if [ -n "$(command -v inxi)" ]; then
         printf "%s\n" "
