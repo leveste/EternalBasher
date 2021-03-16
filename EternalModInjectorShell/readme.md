@@ -22,10 +22,15 @@ You can download mods from [NexusMods](https://www.nexusmods.com/doometernal) or
 
 ## Reporting issues
 
+First, make sure you have the [inxi](https://github.com/smxi/inxi) utility installed. You can check this by running:
+```
+inxi --version
+```
+
 You can use the debug mode to get full output from all tools by setting the ETERNALMODINJECTOR_DEBUG environment variable to 1, like this:
 ```
 ETERNALMODINJECTOR_DEBUG=1 ./EternalModInjectorShell.sh
 ```
-When prompted, press y to confirm you wanna run in debug mode. This will show full output for all tools and also write it to a EternalModInjector_log.txt file.
+When prompted, press y to confirm you wanna run in debug mode. This will show full output for all tools and also write it to a EternalModInjector_log.txt file, alongside some system info.
 
 Then, you can open an issue on this repo, providing your log file, and whatever information you consider relevant to the issue.

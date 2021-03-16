@@ -4,10 +4,10 @@
 script_version="v4.1.19"
 
 #Colors
-red=$'\e[1;31m'
-grn=$'\e[1;32m'
-blu=$'\e[1;34m'
-end=$'\e[0m'
+if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
+if [ "$skip_debug_check" != "1" ]; then grn=$'\e[1;32m'; fi
+if [ "$skip_debug_check" != "1" ]; then blu=$'\e[1;34m'; fi
+if [ "$skip_debug_check" != "1" ]; then end=$'\e[0m'; fi
 
 #Functions
 MissingGame() {
@@ -218,11 +218,18 @@ if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; the
      esac
  fi
 
- if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then
-    printf "%s\n" "
-${red}System info:${end}
+ if [ "$skip_debug_check" == "1" ]; then
+    if [ -n "$(command -v inxi)" ]; then
+        printf "%s\n" "
+System info:
 "
-    inxi -Fxz
+        inxi -Fxz
+    fi
+
+    printf "%s\n" "
+glibc version:
+"
+    ldd --version
 fi
 
 #Config File check
