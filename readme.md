@@ -6,6 +6,10 @@ Collection of bash scripts for different aspects of Doom Eternal modding. Furthe
 
 Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine. manually.
 
+**DOOMSaveManagerLinux**
+
+A program to make importing and exporting DOOM saves easier, modified to work for Linux using Mono.
+
 **EternalBins**
 
 Collection of compiled native binaries of modding tools.
@@ -41,6 +45,10 @@ Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entitie
 **idRehashLinux**
 
 Modified version of infogram and proteh's idRehash (a tool to hash the resource offsets and store them in meta.resources to allow loading of custom .resources) to work natively on Linux.
+
+**idSaveDecompressorLinux**
+
+Tool for decompressing DOOM Eternal saved games (game_duration.dat) adapted to work on Linux using Mono.
 
 **meath00k**
 
