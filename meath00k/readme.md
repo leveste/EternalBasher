@@ -24,7 +24,7 @@ if [ $openEntityHero == "1" ]; then
 "${protonPath}" run EntityHero\ v0.7.exe &>/dev/null &
 fi
 
-"${launchOptions}" "${protonPath}" run DOOMEternalx64vk.exe "${gameArguments}" &>/dev/null &
+[your env variables] "${protonPath}" run DOOMEternalx64vk.exe "${gameArguments}" &>/dev/null &
 ```
 
 Change the protonPath variable to match the proton binary you are using. Make sure to make the script executable by running 
@@ -35,7 +35,7 @@ in the current dir.
 
 Then, set the following as your Steam launch options:
 ```
-openEntityHero=0 launchOptions="" gameArguments="" ./EntityHero.sh %command% >/dev/null
+openEntityHero=0 gameArguments="" ./EntityHero.sh %command% >/dev/null
 ```
 Change the launchOptions and gameArguments to whatever you use before the %command% normally, and gameArguments to the other part. For example if you normally have the following Steam launch options:
 ```
@@ -43,6 +43,20 @@ _GL_SHADER_DISK_CACHE=1 __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1 _GL_SHADER_DISK_CA
 ```
 Then you would put:
 ```
-openEntityHero=0 launchOptions="_GL_SHADER_DISK_CACHE=1 __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1 _GL_SHADER_DISK_CACHE_PATH=/home/user/shaders" gameArguments="+in_terminal 1 +com_skipIntroVideo 1 +com_skipKeyPressOnLoadScreens 1 +com_skipSignInManager 1" ./EntityHero.sh %command% >/dev/null
+openEntityHero=0 gameArguments="+in_terminal 1 +com_skipIntroVideo 1 +com_skipKeyPressOnLoadScreens 1 +com_skipSignInManager 1" ./EntityHero.sh %command% >/dev/null
 ```
+And modify the script like this:
+
+```
+#!/usr/bin/env bash
+
+protonPath="/home/user/.steam/root/compatibilitytools.d/ProtonGE/proton"
+
+if [ $openEntityHero == "1" ]; then
+"${protonPath}" run EntityHero\ v0.7.exe &>/dev/null &
+fi
+
+_GL_SHADER_DISK_CACHE=1 __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1 _GL_SHADER_DISK_CACHE_PATH=/home/user/shaders "${protonPath}" run DOOMEternalx64vk.exe "${gameArguments}" &>/dev/null &
+```
+
 Now, if you ever want to launch EntityHero alongside the game, just change openEntityHero value from 0 to 1 in the launch options.
