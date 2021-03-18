@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Script version
-script_version="v4.1.20"
+script_version="v5.0.1"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -53,8 +53,8 @@ exit 1
 }
 
 CreateConfigFile() {
-ASSET_VERSION="4.1"
-echo ":ASSET_VERSION=4.1" >> "EternalModInjector Settings.txt"
+ASSET_VERSION="5.0"
+echo ":ASSET_VERSION=5.0" >> "EternalModInjector Settings.txt"
 
 echo ":AUTO_LAUNCH_GAME=1" >> "EternalModInjector Settings.txt"
 
@@ -239,7 +239,7 @@ ${blu}Loading config file...${end}
 "
 CONFIG_FILE="EternalModInjector Settings.txt"
 if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
-    if grep -q ":ASSET_VERSION=4.1" "$CONFIG_FILE"; then ASSET_VERSION="4.1"; else ASSET_VERSION="0"; fi
+    if grep -q ":ASSET_VERSION=5.0" "$CONFIG_FILE"; then ASSET_VERSION="5.0"; else ASSET_VERSION="0"; fi
     if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
     if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
     if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
@@ -286,15 +286,15 @@ chmod +x base/idRehash
 chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
-ASSET_VERSION="4.1"
+ASSET_VERSION="5.0"
 DETERNAL_LOADMODS_MD5="59c7b430714fde0b954ac7c68a4ce64b"
 ETERNALPATCHER_MD5="df04bd35aa8cbd071a2cb6fc81891f05"
 IDREHASH_MD5="e63bda0e5282f1b73f912c3c711459fe"
 DETERNAL_PATCHMANIFEST_MD5="76214a4d5f73aa8c96ba3713f71296bf"
-PATCHED_GAME_MD5_A="3238e7a9277efc6a607b1b1615ebe79f"
-PATCHED_GAME_MD5_B="4acdaf89f30f178ba9594c0364b35a30"
-VANILLA_GAME_MD5_A="1ef861b693cdaa45eba891d084e5f3a3"
-VANILLA_GAME_MD5_B="c2b429b2eb398f836dd10d22944b9c76"
+PATCHED_GAME_MD5_A="6f295c4e8ca29d4054dae59b0f3fe3cb"
+PATCHED_GAME_MD5_B="ff3e7af75e8a38165fc69e5302a7a6fc"
+VANILLA_GAME_MD5_A="96556f8b0dfc56111090a6b663969b86"
+VANILLA_GAME_MD5_B="b4eef9284826e5ffaedbcd73fe6d2ae6"
 VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
 
 ResourceFilePaths=(
@@ -373,6 +373,10 @@ gameresources_path="./base/gameresources.resources"
 meta_path="./base/meta.resources"
 gameresources_patch2_path="./base/gameresources_patch2.resources"
 gameresources_patch1_path="./base/gameresources_patch1.resources"
+e5m1_spear_path="./base/game/dlc2/e5m1_spear/e5m1_spear.resources"
+e5m2_earth_path="./base/game/dlc2/e5m2_earth/e5m2_earth.resources"
+e5m3_hell_path="./base/game/dlc2/e5m3_hell/e5m3_hell.resources"
+e5m4_boss_path="./base/game/dlc2/e5m4_boss/e5m4_boss.resources"
 )
 
 #Verify tool hashes
@@ -407,7 +411,7 @@ if [ "$ASSET_VERSION" == "0" ]; then
     read -r -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
 If you have already done so, press Enter to continue.\e[0m:'
     ResetBackups
-    ASSET_VERSION="4.1"
+    ASSET_VERSION="5.0"
     HAS_CHECKED_RESOURCES="0"
 fi
 
