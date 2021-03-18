@@ -286,7 +286,6 @@ chmod +x base/idRehash
 chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
-ASSET_VERSION="5.0"
 DETERNAL_LOADMODS_MD5="59c7b430714fde0b954ac7c68a4ce64b"
 ETERNALPATCHER_MD5="df04bd35aa8cbd071a2cb6fc81891f05"
 IDREHASH_MD5="0e2925626c9923d63f1275b6776ea6b1"
