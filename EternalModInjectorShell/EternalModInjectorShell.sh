@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Script version
-script_version="v5.0.1"
+script_version="v5.0.2"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -288,7 +288,7 @@ chmod +x base/DEternal_patchManifest
 #Assign game hashes to variables
 DETERNAL_LOADMODS_MD5="59c7b430714fde0b954ac7c68a4ce64b"
 ETERNALPATCHER_MD5="df04bd35aa8cbd071a2cb6fc81891f05"
-IDREHASH_MD5="0e2925626c9923d63f1275b6776ea6b1"
+IDREHASH_MD5="2c0f2b828269f8a685a53ba403db7ce4"
 DETERNAL_PATCHMANIFEST_MD5="76214a4d5f73aa8c96ba3713f71296bf"
 PATCHED_GAME_MD5_A="6f295c4e8ca29d4054dae59b0f3fe3cb"
 PATCHED_GAME_MD5_B="ff3e7af75e8a38165fc69e5302a7a6fc"
