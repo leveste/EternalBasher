@@ -294,7 +294,7 @@ PATCHED_GAME_MD5_A="6f295c4e8ca29d4054dae59b0f3fe3cb"
 PATCHED_GAME_MD5_B="ff3e7af75e8a38165fc69e5302a7a6fc"
 VANILLA_GAME_MD5_A="96556f8b0dfc56111090a6b663969b86"
 VANILLA_GAME_MD5_B="b4eef9284826e5ffaedbcd73fe6d2ae6"
-VANILLA_META_MD5="4f4deb1df8761dc8fd2d3b25a12d8d91"
+VANILLA_META_MD5="58cc7bf26726fe0cb8cd021e2c34be99"
 
 ResourceFilePaths=(
 hub_path="./base/game/hub/hub.resources"
@@ -412,6 +412,8 @@ If you have already done so, press Enter to continue.\e[0m:'
     ResetBackups
     ASSET_VERSION="5.0"
     HAS_CHECKED_RESOURCES="0"
+    RESET_BACKUPS="1"
+    skip_resetbackups="1"
 fi
 
 #Setup for ModLoader
@@ -447,7 +449,7 @@ Press any key to continue...\e[0m'
 HAS_READ_FIRST_TIME="1"
 fi
 
-if [ "$RESET_BACKUPS" == "1" ]; then
+if [ "$RESET_BACKUPS" == "1" ] && [ "$skip_resetbackups" != "1" ]; then
     ResetBackups
     read -r -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
     HAS_CHECKED_RESOURCES="0"
@@ -462,7 +464,9 @@ if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameM
 ${blu}Patching game executable...${end}
 "
     (cd base || return
+    if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
+    if [ "$?" == 1 ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
 
     if [ "$?" == "1" ]; then
