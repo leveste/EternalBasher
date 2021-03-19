@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Script version
-script_version="v5.0.2"
+script_version="v5.0.3"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -291,7 +291,7 @@ ETERNALPATCHER_MD5="df04bd35aa8cbd071a2cb6fc81891f05"
 IDREHASH_MD5="2c0f2b828269f8a685a53ba403db7ce4"
 DETERNAL_PATCHMANIFEST_MD5="76214a4d5f73aa8c96ba3713f71296bf"
 PATCHED_GAME_MD5_A="df4f2b19c111d231160ee806e95f791e"
-PATCHED_GAME_MD5_B="ff3e7af75e8a38165fc69e5302a7a6fc"
+PATCHED_GAME_MD5_B="c85289162ff5052a134e29972bf36b78"
 VANILLA_GAME_MD5_A="96556f8b0dfc56111090a6b663969b86"
 VANILLA_GAME_MD5_B="b4eef9284826e5ffaedbcd73fe6d2ae6"
 VANILLA_META_MD5="58cc7bf26726fe0cb8cd021e2c34be99"
@@ -457,6 +457,14 @@ fi
 
 #Patch Game Executable
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
+
+if [ "$GameMD5" == "6f295c4e8ca29d4054dae59b0f3fe3cb" ] || [ "$GameMD5" == "ff3e7af75e8a38165fc69e5302a7a6fc" ]; then
+    printf "%s\n" "
+${red}Patch definitions for the exe have changed. Please verify files through Steam/Bethesda.net, then run this script again.${end}
+"
+    exit 1
+fi
+
 if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then CorruptedGameExecutable; fi
 
 if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ]; then
