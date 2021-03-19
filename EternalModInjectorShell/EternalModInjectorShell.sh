@@ -472,9 +472,9 @@ if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameM
 ${blu}Patching game executable...${end}
 "
     (cd base || return
-    if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
+    if [ -f "EternalPatcher.def" ]; then \cp EternalPatcher.def EternalPatcher.def.bck; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
-    if [ "$?" == 1 ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
+    if [ "$?" == 1 ]; then \cp EternalPatcher.def.bck EternalPatcher.def; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
 
     if [ "$?" == "1" ]; then
