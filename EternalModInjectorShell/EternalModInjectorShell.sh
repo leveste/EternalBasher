@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Script version
-script_version="v5.0.3"
+script_version="v5.0.4"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -393,18 +393,6 @@ if [ "$IDREHASH_MD5" != "$idRehashMD5" ]; then MissingIdRehash; fi
 if [ "$ETERNALPATCHER_MD5" != "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
 if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then MissingDEternalPatchManifest; fi
 
-#Delete old tools
-if [ -f base/EternalPatcher.exe ]; then rm base/EternalPatcher.exe; fi
-if [ -f base/EternalPatcher.exe.config ]; then rm base/EternalPatcher.exe.config; fi
-if [ -f base/DEternal_loadMods.exe ]; then rm base/DEternal_loadMods.exe; fi
-if [ -f base/idRehash.exe ]; then rm base/idRehash.exe; fi
-if [ -f base/DEternal_patchManifest.py ]; then rm base/DEternal_patchManifest.py; fi
-
-if [ -f EternalPatcher.exe ]; then rm EternalPatcher.exe; fi
-if [ -f EternalPatcher.exe.config ]; then rm EternalPatcher.exe.config; fi
-if [ -f DEternal_loadMods.exe ]; then rm DEternal_loadMods.exe; fi
-if [ -f DEternal_patchManifest.py ]; then rm DEternal_patchManifest.py; fi
-
 #Check for Asset Version
 if [ "$ASSET_VERSION" == "0" ]; then
     read -r -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
@@ -458,13 +446,6 @@ fi
 #Patch Game Executable
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 
-if [ "$GameMD5" == "6f295c4e8ca29d4054dae59b0f3fe3cb" ] || [ "$GameMD5" == "ff3e7af75e8a38165fc69e5302a7a6fc" ]; then
-    printf "%s\n" "
-${red}Patch definitions for the exe have changed. Please verify files through Steam/Bethesda.net, then run this script again.${end}
-"
-    exit 1
-fi
-
 if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then CorruptedGameExecutable; fi
 
 if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ]; then
@@ -474,10 +455,10 @@ ${blu}Patching game executable...${end}
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then \cp EternalPatcher.def EternalPatcher.def.bck; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
-    if [ "$?" == 1 ]; then \cp EternalPatcher.def.bck EternalPatcher.def; fi
+    if [ "$?" != "0" ]; then \cp EternalPatcher.def.bck EternalPatcher.def; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
 
-    if [ "$?" == "1" ]; then
+    if [ "$?" != "0" ]; then
         printf "%s\n" "
 ${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
@@ -621,7 +602,7 @@ ${blu}Getting vanilla resource hash offsets... (idRehash)${end}
     (cd base || return
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash --getoffsets; else ./idRehash --getoffsets > /dev/null; fi)
     
-    if [ "$?" == "1" ]; then
+    if [ "$?" != "0" ]; then
     printf "%s\n" "
 ${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
@@ -637,7 +618,7 @@ ${blu}Loading mods... (DEternal_loadMods)${end}
 "
 base/DEternal_loadMods "."
 
-if [ "$?" == "1" ]; then
+if [ "$?" != "0" ]; then
     printf "%s\n" "
 ${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
@@ -651,7 +632,7 @@ ${blu}Rehashing resource offsets... (idRehash)${end}
 (cd base || return
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash; else ./idRehash > /dev/null; fi)
 
-if [ "$?" == "1" ]; then
+if [ "$?" != "0" ]; then
     printf "%s\n" "
 ${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
@@ -665,7 +646,7 @@ ${blu}Patching build manifest... (DEternal_patchManifest)${end}
 (cd base || return
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9; else ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null; fi)
 
-if [ "$?" == "101" ]; then
+if [ "$?" != "0" ]; then
     printf "%s\n" "
 ${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
 "
