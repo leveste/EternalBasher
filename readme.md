@@ -38,6 +38,10 @@ Tool that patches the DOOM Eternal executable for modding purposes, rewritten on
 
 Meath00k is a dll that allows the user to override "\*.entities" files with your own decompressed and modified files. You don't need to restart the game after editing the file. Loading a checkpoint should be enough. This script converts mods made for the ModLoader to an "overrides" to use with meath00k, and then moves it to the Doom Eternal folder.
 
+**idCryptRust**
+
+Tool that decrypts/encrypts DOOM Eternal's .blang files, rewritten in Rust.
+
 **idFileDeCompressor_Auto**
 
 Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entities files.
@@ -49,6 +53,10 @@ Modified version of infogram and proteh's idRehash (a tool to hash the resource 
 **idSaveDecompressorLinux**
 
 Tool for decompressing DOOM Eternal saved games (game_duration.dat) adapted to work on Linux using Mono.
+
+**linoodle**
+
+Linux wrapper for the Oodle compression library.
 
 **meath00k**
 
