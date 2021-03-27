@@ -231,6 +231,11 @@ System info:
 glibc version:
 "
     ldd --version
+    
+    printf "%s\n" "
+OpenSSL version:
+"
+    openssl version
 fi
 
 #Config File check
@@ -279,6 +284,12 @@ fi
 
 if ! [ -f base/DEternal_patchManifest ]; then MissingDEternalPatchManifest; fi
 
+if ! command -v openssl &> /dev/null; then
+    printf "%s\n" "
+${red}OpenSSL not found! Install OpenSSL using your distro's package manager or install from source, then try again.${end}
+"
+fi
+
 #Give executable permissions to the binaries
 chmod +x base/EternalPatcher
 chmod +x base/DEternal_loadMods
@@ -286,7 +297,7 @@ chmod +x base/idRehash
 chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="59c7b430714fde0b954ac7c68a4ce64b"
+DETERNAL_LOADMODS_MD5="1a79d09ad8ffda71157c97488fdc92b1"
 ETERNALPATCHER_MD5="df04bd35aa8cbd071a2cb6fc81891f05"
 IDREHASH_MD5="2c0f2b828269f8a685a53ba403db7ce4"
 DETERNAL_PATCHMANIFEST_MD5="76214a4d5f73aa8c96ba3713f71296bf"
