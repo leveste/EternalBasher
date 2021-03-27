@@ -16,3 +16,9 @@
 [submodule "idSaveDecompressorLinux"]
 	path = idSaveDecompressorLinux
 	url = https://github.com/PowerBall253/idSaveDecompressorLinux.git
+[submodule "linoodle"]
+	path = linoodle
+	url = https://github.com/PowerBall253/linoodle.git
+[submodule "idCryptRust"]
+	path = idCryptRust
+	url = https://github.com/PowerBall253/idCryptRust.git
