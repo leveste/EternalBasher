@@ -195,7 +195,7 @@ ${blu}Updating script...${end}
 fi
 }
 
-printf "%s\n" "${grn}EternalModInjector Shell Script
+printf "%s\n" "${grn}EternalModInjector Shell Script ${script_version}
 By Leveste and PowerBall253
 Based on original batch file by Zwip-Zwap Zapony${end}
 "
