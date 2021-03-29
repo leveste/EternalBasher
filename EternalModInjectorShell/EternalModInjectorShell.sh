@@ -627,7 +627,7 @@ fi
 printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
-base/DEternal_loadMods "."
+ETERNALMODLOADER_SKIP_ADDCHUNKS=1 base/DEternal_loadMods "."
 
 if [ "$?" != "0" ]; then
     printf "%s\n" "
