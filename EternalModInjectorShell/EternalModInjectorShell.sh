@@ -120,7 +120,9 @@ fi
 }
 
 ResetBackups() {
-read -r -p $'\e[34mReset backups now? [y/N] \e[0m' response
+printf "%s" "
+${blu}Reset backups now? [y/N] ${end}"
+read -r -p '' response
 case "$response" in
     [yY][eE][sS]|[yY]) 
             for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
@@ -153,7 +155,9 @@ exit 1
 }
 
 AskforAutoUpdate() {
-read -r -p $'\e[34mDo you want this script to be automatically updated every time a new version comes out? [Y/n] \e[0m' response
+printf "%s" "
+${blu}Do you want this script to be automatically updated every time a new version comes out? [Y/n]  ${end}"
+read -r -p '' response
 case "$response" in
     [nN][oO]|[nN]) 
         AUTO_UPDATE="0"
@@ -204,7 +208,8 @@ first_time="0"
 
 #Debug mode
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; then
-    read -r -p $'\e[34mETERNALMODINJECTOR_DEBUG variable set to 1. Continue in debug mode? In this mode, full output for all tools will be shown and written to EternalModInjectorShell_log.txt. [y/N] \e[0m' response
+    printf "%s" "${blu}ETERNALMODINJECTOR_DEBUG variable set to 1. Continue in debug mode? In this mode, full output for all tools will be shown and written to EternalModInjectorShell_log.txt. [y/N] ${end}"
+    read -r -p '' response
     case "$response" in
         [yY][eE][sS]|[yY]) 
               export ETERNALMODINJECTOR_DEBUG="1"
@@ -216,10 +221,10 @@ if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; the
           ;;
         *)
      esac
- fi
+fi
 
 #Log system info
- if [ "$skip_debug_check" == "1" ]; then
+if [ "$skip_debug_check" == "1" ]; then
     if [ -n "$(command -v inxi)" ]; then
         printf "%s\n" "
 System info:
@@ -406,8 +411,11 @@ if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then Missi
 
 #Check for Asset Version
 if [ "$ASSET_VERSION" == "0" ]; then
-    read -r -p $'\e[34mOld Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
-If you have already done so, press Enter to continue.\e[0m:'
+
+    printf "%s" "
+${blu}Old Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+If you have already done so, press Enter to continue: ${blu}"
+    read -r -p ''
     ResetBackups
     ASSET_VERSION="5.0"
     HAS_CHECKED_RESOURCES="0"
@@ -417,7 +425,7 @@ fi
 
 #Setup for ModLoader
 if [ "$HAS_READ_FIRST_TIME" == "0" ]; then
-    read -r -p $'\e[34mFirst-time information:
+    printf "%s" "${blu}First-time information:
 
 This batch file automatically...
 - Makes backups of DOOM Eternal .resources archives the first time that they will be modified.
@@ -426,31 +434,40 @@ This batch file automatically...
 - Runs idRehash to rehash the modified resources hashes.
 - Runs EternalPatcher to apply EXE patches to the DOOM Eternal game executable.
 
-Press any key to continue...\e[0m'
-echo	
-    read -r -p $'\e[34mWe take no credit for the tools used in the mod loading, credits go to:
+Press any key to continue...${end}"
+    read -r -p ''
+    echo
+	
+    printf "%s" "${blu}We take no credit for the tools used in the mod loading, credits go to:
 DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), proteh for remaking it in C#, and PowerBall253 for rewriting it on C++ for Linux users.
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio) and PowerBall253 for porting it to work on Linux.
 idRehash: infogram for making it, proteh for updating it, and PowerBall253 for porting it to Linux.
 DEternal_patchManifest: Visual Studio and SutandoTsukai181 for making it on Python, and PowerBall253 for rewriting it on Rust for Linux users.
 DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
 
-Press any key to continue...\e[0m'
-echo
-    read -r -p $'\e[34mIf any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
+Press any key to continue...${end}"
+    read -r -p ''
+    echo
+
+    printf "%s" "${blu}If any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
 Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
 
-Press any key to continue...\e[0m'
-echo
-read -r -p $'\e[34mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
+Press any key to continue...${end}"
+    read -r -p ''
+    echo
 
-Press any key to continue...\e[0m'
+printf "%s" "${blu}mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
+
+Press any key to continue...${end}"
+    read -r -p ''
 HAS_READ_FIRST_TIME="1"
 fi
 
 if [ "$RESET_BACKUPS" == "1" ] && [ "$skip_resetbackups" != "1" ]; then
     ResetBackups
-    read -r -p $'\e[34mPress Enter to continue with mod loading.\e[0m:'
+    printf "%s" "
+${blu}Press enter to continue with mod loading: ${end}"
+    read -r -p ''
     HAS_CHECKED_RESOURCES="0"
 fi
 
@@ -556,7 +573,7 @@ else
 fi
 
 #Check if there are mods in "mods" folder
-if [ -z "$(ls -A "Mods")" ]; then
+if ! [ -f "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
     printf "%s\n" "
 ${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
