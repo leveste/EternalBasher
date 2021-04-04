@@ -573,7 +573,7 @@ else
 fi
 
 #Check if there are mods in "mods" folder
-if ! [ -f "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
+if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
     printf "%s\n" "
 ${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
