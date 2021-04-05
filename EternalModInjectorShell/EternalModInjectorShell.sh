@@ -302,9 +302,9 @@ chmod +x base/idRehash
 chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="b332c6fe688cc765f4b7e01e0943abac"
-ETERNALPATCHER_MD5="f2edfeab627425360b10f280e53f3ea9"
-IDREHASH_MD5="2c0f2b828269f8a685a53ba403db7ce4"
+DETERNAL_LOADMODS_MD5="4215edc752fff13269818749a02317a6"
+ETERNALPATCHER_MD5="ef5518337d3d46b673646bdc917f8b01"
+IDREHASH_MD5="35d3f928fa8e0b70169f6603ffae1eca"
 DETERNAL_PATCHMANIFEST_MD5="76214a4d5f73aa8c96ba3713f71296bf"
 PATCHED_GAME_MD5_A="df4f2b19c111d231160ee806e95f791e"
 PATCHED_GAME_MD5_B="c85289162ff5052a134e29972bf36b78"
@@ -482,9 +482,9 @@ ${blu}Patching game executable...${end}
 "
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then \cp EternalPatcher.def EternalPatcher.def.bck; fi
-    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
+    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
     if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then \cp EternalPatcher.def.bck EternalPatcher.def; fi
-    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
+    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
 
     if [ "$?" != "0" ]; then
         printf "%s\n" "
@@ -573,7 +573,7 @@ else
 fi
 
 #Check if there are mods in "mods" folder
-if ! [ -f "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
+if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
     printf "%s\n" "
 ${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
 "
@@ -644,7 +644,12 @@ fi
 printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
-ETERNALMODLOADER_SKIP_ADDCHUNKS=1 base/DEternal_loadMods "."
+
+if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then
+    ETERNALMODLOADER_NO_COLORS=1 ETERNALMODLOADER_SKIP_ADDCHUNKS=1 base/DEternal_loadMods "."
+else
+    ETERNALMODLOADER_SKIP_ADDCHUNKS=1 base/DEternal_loadMods "."
+fi
 
 if [ "$?" != "0" ]; then
     printf "%s\n" "
