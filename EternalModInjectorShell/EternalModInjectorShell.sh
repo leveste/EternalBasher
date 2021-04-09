@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Script version
-script_version="v5.0.5"
+script_version="v5.0.6"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -302,8 +302,8 @@ chmod +x base/idRehash
 chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="4215edc752fff13269818749a02317a6"
-ETERNALPATCHER_MD5="ef5518337d3d46b673646bdc917f8b01"
+DETERNAL_LOADMODS_MD5="b73aa689cbb62127ad9b694f735c6773"
+ETERNALPATCHER_MD5="0d11e5d74960c71ab247bcfeb468bc6b"
 IDREHASH_MD5="35d3f928fa8e0b70169f6603ffae1eca"
 DETERNAL_PATCHMANIFEST_MD5="76214a4d5f73aa8c96ba3713f71296bf"
 PATCHED_GAME_MD5_A="df4f2b19c111d231160ee806e95f791e"
@@ -456,7 +456,7 @@ Press any key to continue...${end}"
     read -r -p ''
     echo
 
-printf "%s" "${blu}mNow, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
+printf "%s" "${blu}Now, without further ado, press any key to continue one last time, and this batch file will initiate mod-loading mode.
 
 Press any key to continue...${end}"
     read -r -p ''
