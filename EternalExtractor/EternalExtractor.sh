@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # This file is part of EternalBasher (https://github.com/leveste/EternalBasher).
 # Copyright (C) 2021 leveste and PowerBall253
 #
@@ -13,8 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License  
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
-
-#!/usr/bin/env bash
 
 MissingDoomEternal(){
 	printf "'DOOMEternalx64vk.exe' not found!
