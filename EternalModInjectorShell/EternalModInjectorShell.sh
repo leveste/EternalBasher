@@ -141,8 +141,8 @@ ${blu}Reset backups now? [y/N] ${end}"
 read -r -p '' response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-            for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
-            line="${ResourceFilePaths[$i]#*=}"
+        for resource_file_path in "${ResourceFilePaths[@]}"; do
+            line="${resource_file_path#*=}"
             if [ -f "${line}.backup" ]; then rm "${line}.backup"; fi
         done
         ;;
@@ -523,8 +523,8 @@ printf "%s\n" "
 ${blu}Checking resources files...${end}
 "
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
-for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
-    line="${ResourceFilePaths[$i]#*=}"
+for resource_file_path in "${ResourceFilePaths[@]}"; do
+    line="${resource_file_path#*=}"
     if ! [ -f "$line" ]; then
         printf "%s\n" "
 ${red}Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again.${end}
@@ -535,8 +535,8 @@ done
 fi
 
 #Execute each line of ResourceFilePaths
-for (( i = 0; i < ${#ResourceFilePaths[@]} ; i++ )); do
-    eval "${ResourceFilePaths[$i]}"
+for resource_file_path in "${ResourceFilePaths[@]}"; do
+    eval "$resource_file_path"
 done
 
 #Restore Backups
