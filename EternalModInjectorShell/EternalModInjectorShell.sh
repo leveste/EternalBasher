@@ -661,11 +661,7 @@ printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
 
-if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then
-    ETERNALMODLOADER_NO_COLORS=1 ETERNALMODLOADER_SKIP_ADDCHUNKS=1 base/DEternal_loadMods "."
-else
-    ETERNALMODLOADER_SKIP_ADDCHUNKS=1 base/DEternal_loadMods "."
-fi
+if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALMODLOADER_NO_COLORS=1 base/DEternal_loadMods "."; else base/DEternal_loadMods "."; fi
 
 if [ "$?" != "0" ]; then
     printf "%s\n" "
