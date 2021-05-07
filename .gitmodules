@@ -1,9 +1,6 @@
 [submodule "idRehashLinux"]
 	path = idRehashLinux
 	url = https://github.com/PowerBall253/idRehashLinux.git
-[submodule "EternalModLoaderCpp"]
-	path = EternalModLoaderCpp
-	url = https://github.com/PowerBall253/EternalModLoaderCpp.git
 [submodule "EternalPatchManifestRust"]
 	path = EternalPatchManifestRust
 	url = https://github.com/PowerBall253/EternalPatchManifestRust.git
