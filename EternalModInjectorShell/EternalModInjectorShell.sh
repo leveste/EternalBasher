@@ -145,6 +145,11 @@ case "$response" in
             line="${resource_file_path#*=}"
             if [ -f "${line}.backup" ]; then rm "${line}.backup"; fi
         done
+
+        for snd_file_path in "${SndFilePaths[@]}"; do
+            line="${snd_file_path#*=}"
+            if [ -f "${line}.backup" ]; then rm "${line}.backup"; fi
+        done
         ;;
     *)
 sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
