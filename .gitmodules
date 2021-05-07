@@ -19,3 +19,6 @@
 [submodule "idCryptRust"]
 	path = idCryptRust
 	url = https://github.com/PowerBall253/idCryptRust.git
+[submodule "EternalModLoaderCpp"]
+	path = EternalModLoaderCpp
+	url = https://github.com/PowerBall253/EternalModLoaderCpp
