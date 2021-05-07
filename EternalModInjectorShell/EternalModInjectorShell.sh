@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v5.0.7"
+script_version="v5.0.8"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -158,7 +158,7 @@ esac
 
 NoBackupFound() {
 printf "%s\n" "
-${red}Backup not found for some .resources files! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.${end}
+${red}Backup not found for some .resources or .snd files! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.${end}
     "
 exit 1
 }
@@ -205,7 +205,7 @@ ${blu}Updating script...${end}
     mkdir "tmp"
     else mkdir "tmp"; fi
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
-    (\cp -r -f tmp/* .
+    (cp -r -f tmp/* .
     rm -r tmp
     rm EternalModInjectorShell.tar.gz
     chmod +x EternalModInjectorShell.sh
@@ -318,7 +318,7 @@ chmod +x base/idRehash
 chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="b635e1e479ee413163261bbcd6cbac64"
+DETERNAL_LOADMODS_MD5="6b09c1abde4c9fac82f4e3092d4b102a"
 ETERNALPATCHER_MD5="0d11e5d74960c71ab247bcfeb468bc6b"
 IDREHASH_MD5="35d3f928fa8e0b70169f6603ffae1eca"
 DETERNAL_PATCHMANIFEST_MD5="af32a69e6643d247e24b13395a50f30c"
@@ -329,85 +329,113 @@ VANILLA_GAME_MD5_B="b4eef9284826e5ffaedbcd73fe6d2ae6"
 VANILLA_META_MD5="58cc7bf26726fe0cb8cd021e2c34be99"
 
 ResourceFilePaths=(
-hub_path="./base/game/hub/hub.resources"
-hub_patch1_path="./base/game/hub/hub_patch1.resources"
-e1m1_intro_patch2_path="./base/game/sp/e1m1_intro/e1m1_intro_patch2.resources"
-e1m1_intro_patch1_path="./base/game/sp/e1m1_intro/e1m1_intro_patch1.resources"
-e1m1_intro_path="./base/game/sp/e1m1_intro/e1m1_intro.resources"
-e2m2_base_patch1_path="./base/game/sp/e2m2_base/e2m2_base_patch1.resources"
-e2m2_base_path="./base/game/sp/e2m2_base/e2m2_base.resources"
-e2m2_base_patch2_path="./base/game/sp/e2m2_base/e2m2_base_patch2.resources"
-e1m3_cult_patch1_path="./base/game/sp/e1m3_cult/e1m3_cult_patch1.resources"
-e1m3_cult_path="./base/game/sp/e1m3_cult/e1m3_cult.resources"
-e1m3_cult_patch2_path="./base/game/sp/e1m3_cult/e1m3_cult_patch2.resources"
-e1m4_boss_path="./base/game/sp/e1m4_boss/e1m4_boss.resources"
-e1m4_boss_patch1_path="./base/game/sp/e1m4_boss/e1m4_boss_patch1.resources"
-e1m4_boss_patch2_path="./base/game/sp/e1m4_boss/e1m4_boss_patch2.resources"
-e3m2_hell_path="./base/game/sp/e3m2_hell/e3m2_hell.resources"
-e3m2_hell_patch2_path="./base/game/sp/e3m2_hell/e3m2_hell_patch2.resources"
-e3m2_hell_patch1_path="./base/game/sp/e3m2_hell/e3m2_hell_patch1.resources"
-e3m1_slayer_patch1_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch1.resources"
-e3m1_slayer_path="./base/game/sp/e3m1_slayer/e3m1_slayer.resources"
-e3m1_slayer_patch2_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch2.resources"
-e2m3_core_patch2_path="./base/game/sp/e2m3_core/e2m3_core_patch2.resources"
-e2m3_core_path="./base/game/sp/e2m3_core/e2m3_core.resources"
-e2m3_core_patch1_path="./base/game/sp/e2m3_core/e2m3_core_patch1.resources"
-e3m2_hell_b_patch2_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b_patch2.resources"
-e3m2_hell_b_patch1_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b_patch1.resources"
-e3m2_hell_b_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b.resources"
-e3m3_maykr_patch1_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch1.resources"
-e3m3_maykr_patch2_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch2.resources"
-e3m3_maykr_path="./base/game/sp/e3m3_maykr/e3m3_maykr.resources"
-e1m2_battle_patch1_path="./base/game/sp/e1m2_battle/e1m2_battle_patch1.resources"
-e1m2_battle_path="./base/game/sp/e1m2_battle/e1m2_battle.resources"
-e1m2_battle_patch2_path="./base/game/sp/e1m2_battle/e1m2_battle_patch2.resources"
-e3m4_boss_patch1_path="./base/game/sp/e3m4_boss/e3m4_boss_patch1.resources"
-e3m4_boss_path="./base/game/sp/e3m4_boss/e3m4_boss.resources"
-e3m4_boss_patch2_path="./base/game/sp/e3m4_boss/e3m4_boss_patch2.resources"
-e2m1_nest_patch1_path="./base/game/sp/e2m1_nest/e2m1_nest_patch1.resources"
-e2m1_nest_path="./base/game/sp/e2m1_nest/e2m1_nest.resources"
-e2m1_nest_patch2_path="./base/game/sp/e2m1_nest/e2m1_nest_patch2.resources"
-e2m4_boss_path="./base/game/sp/e2m4_boss/e2m4_boss.resources"
-e2m4_boss_patch1_path="./base/game/sp/e2m4_boss/e2m4_boss_patch1.resources"
-e4m1_rig_patch1_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch1.resources"
-e4m1_rig_patch2_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch2.resources"
-e4m1_rig_path="./base/game/dlc/e4m1_rig/e4m1_rig.resources"
-dlc_hub_path="./base/game/dlc/hub/hub.resources"
-dlc_hub_patch1_path="./base/game/dlc/hub/hub_patch1.resources"
-e4m3_mcity_patch1_path="./base/game/dlc/e4m3_mcity/e4m3_mcity_patch1.resources"
-e4m3_mcity_path="./base/game/dlc/e4m3_mcity/e4m3_mcity.resources"
-e4m2_swamp_patch2_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch2.resources"
-e4m2_swamp_patch1_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch1.resources"
-e4m2_swamp_path="./base/game/dlc/e4m2_swamp/e4m2_swamp.resources"
-tutorial_demons_path="./base/game/tutorials/tutorial_demons.resources"
-tutorial_sp_path="./base/game/tutorials/tutorial_sp.resources"
-tutorial_pvp_laser_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser.resources"
-tutorial_pvp_laser_patch1_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser_patch1.resources"
-pvp_bronco_patch1_path="./base/game/pvp/pvp_bronco/pvp_bronco_patch1.resources"
-pvp_bronco_path="./base/game/pvp/pvp_bronco/pvp_bronco.resources"
-pvp_shrapnel_patch1_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel_patch1.resources"
-pvp_shrapnel_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel.resources"
-pvp_zap_patch1_path="./base/game/pvp/pvp_zap/pvp_zap_patch1.resources"
-pvp_zap_path="./base/game/pvp/pvp_zap/pvp_zap.resources"
-pvp_thunder_patch1_path="./base/game/pvp/pvp_thunder/pvp_thunder_patch1.resources"
-pvp_thunder_path="./base/game/pvp/pvp_thunder/pvp_thunder.resources"
-pvp_inferno_patch1_path="./base/game/pvp/pvp_inferno/pvp_inferno_patch1.resources"
-pvp_inferno_path="./base/game/pvp/pvp_inferno/pvp_inferno.resources"
-pvp_deathvalley_patch1_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley_patch1.resources"
-pvp_deathvalley_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley.resources"
-pvp_laser_patch1_path="./base/game/pvp/pvp_laser/pvp_laser_patch1.resources"
-pvp_laser_path="./base/game/pvp/pvp_laser/pvp_laser.resources"
-shell_patch1_path="./base/game/shell/shell_patch1.resources"
-shell_path="./base/game/shell/shell.resources"
-warehouse_path="./base/warehouse.resources"
-gameresources_path="./base/gameresources.resources"
-meta_path="./base/meta.resources"
-gameresources_patch2_path="./base/gameresources_patch2.resources"
-gameresources_patch1_path="./base/gameresources_patch1.resources"
-e5m1_spear_path="./base/game/dlc2/e5m1_spear/e5m1_spear.resources"
-e5m2_earth_path="./base/game/dlc2/e5m2_earth/e5m2_earth.resources"
-e5m3_hell_path="./base/game/dlc2/e5m3_hell/e5m3_hell.resources"
-e5m4_boss_path="./base/game/dlc2/e5m4_boss/e5m4_boss.resources"
+'hub_path="./base/game/hub/hub.resources"'
+'hub_patch1_path="./base/game/hub/hub_patch1.resources"'
+'e1m1_intro_patch2_path="./base/game/sp/e1m1_intro/e1m1_intro_patch2.resources"'
+'e1m1_intro_patch1_path="./base/game/sp/e1m1_intro/e1m1_intro_patch1.resources"'
+'e1m1_intro_path="./base/game/sp/e1m1_intro/e1m1_intro.resources"'
+'e2m2_base_patch1_path="./base/game/sp/e2m2_base/e2m2_base_patch1.resources"'
+'e2m2_base_path="./base/game/sp/e2m2_base/e2m2_base.resources"'
+'e2m2_base_patch2_path="./base/game/sp/e2m2_base/e2m2_base_patch2.resources"'
+'e1m3_cult_patch1_path="./base/game/sp/e1m3_cult/e1m3_cult_patch1.resources"'
+'e1m3_cult_path="./base/game/sp/e1m3_cult/e1m3_cult.resources"'
+'e1m3_cult_patch2_path="./base/game/sp/e1m3_cult/e1m3_cult_patch2.resources"'
+'e1m4_boss_path="./base/game/sp/e1m4_boss/e1m4_boss.resources"'
+'e1m4_boss_patch1_path="./base/game/sp/e1m4_boss/e1m4_boss_patch1.resources"'
+'e1m4_boss_patch2_path="./base/game/sp/e1m4_boss/e1m4_boss_patch2.resources"'
+'e3m2_hell_path="./base/game/sp/e3m2_hell/e3m2_hell.resources"'
+'e3m2_hell_patch2_path="./base/game/sp/e3m2_hell/e3m2_hell_patch2.resources"'
+'e3m2_hell_patch1_path="./base/game/sp/e3m2_hell/e3m2_hell_patch1.resources"'
+'e3m1_slayer_patch1_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch1.resources"'
+'e3m1_slayer_path="./base/game/sp/e3m1_slayer/e3m1_slayer.resources"'
+'e3m1_slayer_patch2_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch2.resources"'
+'e2m3_core_patch2_path="./base/game/sp/e2m3_core/e2m3_core_patch2.resources"'
+'e2m3_core_path="./base/game/sp/e2m3_core/e2m3_core.resources"'
+'e2m3_core_patch1_path="./base/game/sp/e2m3_core/e2m3_core_patch1.resources"'
+'e3m2_hell_b_patch2_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b_patch2.resources"'
+'e3m2_hell_b_patch1_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b_patch1.resources"'
+'e3m2_hell_b_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b.resources"'
+'e3m3_maykr_patch1_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch1.resources"'
+'e3m3_maykr_patch2_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch2.resources"'
+'e3m3_maykr_path="./base/game/sp/e3m3_maykr/e3m3_maykr.resources"'
+'e1m2_battle_patch1_path="./base/game/sp/e1m2_battle/e1m2_battle_patch1.resources"'
+'e1m2_battle_path="./base/game/sp/e1m2_battle/e1m2_battle.resources"'
+'e1m2_battle_patch2_path="./base/game/sp/e1m2_battle/e1m2_battle_patch2.resources"'
+'e3m4_boss_patch1_path="./base/game/sp/e3m4_boss/e3m4_boss_patch1.resources"'
+'e3m4_boss_path="./base/game/sp/e3m4_boss/e3m4_boss.resources"'
+'e3m4_boss_patch2_path="./base/game/sp/e3m4_boss/e3m4_boss_patch2.resources"'
+'e2m1_nest_patch1_path="./base/game/sp/e2m1_nest/e2m1_nest_patch1.resources"'
+'e2m1_nest_path="./base/game/sp/e2m1_nest/e2m1_nest.resources"'
+'e2m1_nest_patch2_path="./base/game/sp/e2m1_nest/e2m1_nest_patch2.resources"'
+'e2m4_boss_path="./base/game/sp/e2m4_boss/e2m4_boss.resources"'
+'e2m4_boss_patch1_path="./base/game/sp/e2m4_boss/e2m4_boss_patch1.resources"'
+'e4m1_rig_patch1_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch1.resources"'
+'e4m1_rig_patch2_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch2.resources"'
+'e4m1_rig_path="./base/game/dlc/e4m1_rig/e4m1_rig.resources"'
+'dlc_hub_path="./base/game/dlc/hub/hub.resources"'
+'dlc_hub_patch1_path="./base/game/dlc/hub/hub_patch1.resources"'
+'e4m3_mcity_patch1_path="./base/game/dlc/e4m3_mcity/e4m3_mcity_patch1.resources"'
+'e4m3_mcity_path="./base/game/dlc/e4m3_mcity/e4m3_mcity.resources"'
+'e4m2_swamp_patch2_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch2.resources"'
+'e4m2_swamp_patch1_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch1.resources"'
+'e4m2_swamp_path="./base/game/dlc/e4m2_swamp/e4m2_swamp.resources"'
+'tutorial_demons_path="./base/game/tutorials/tutorial_demons.resources"'
+'tutorial_sp_path="./base/game/tutorials/tutorial_sp.resources"'
+'tutorial_pvp_laser_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser.resources"'
+'tutorial_pvp_laser_patch1_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser_patch1.resources"'
+'pvp_bronco_patch1_path="./base/game/pvp/pvp_bronco/pvp_bronco_patch1.resources"'
+'pvp_bronco_path="./base/game/pvp/pvp_bronco/pvp_bronco.resources"'
+'pvp_shrapnel_patch1_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel_patch1.resources"'
+'pvp_shrapnel_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel.resources"'
+'pvp_zap_patch1_path="./base/game/pvp/pvp_zap/pvp_zap_patch1.resources"'
+'pvp_zap_path="./base/game/pvp/pvp_zap/pvp_zap.resources"'
+'pvp_thunder_patch1_path="./base/game/pvp/pvp_thunder/pvp_thunder_patch1.resources"'
+'pvp_thunder_path="./base/game/pvp/pvp_thunder/pvp_thunder.resources"'
+'pvp_inferno_patch1_path="./base/game/pvp/pvp_inferno/pvp_inferno_patch1.resources"'
+'pvp_inferno_path="./base/game/pvp/pvp_inferno/pvp_inferno.resources"'
+'pvp_deathvalley_patch1_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley_patch1.resources"'
+'pvp_deathvalley_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley.resources"'
+'pvp_laser_patch1_path="./base/game/pvp/pvp_laser/pvp_laser_patch1.resources"'
+'pvp_laser_path="./base/game/pvp/pvp_laser/pvp_laser.resources"'
+'shell_patch1_path="./base/game/shell/shell_patch1.resources"'
+'shell_path="./base/game/shell/shell.resources"'
+'warehouse_path="./base/warehouse.resources"'
+'gameresources_path="./base/gameresources.resources"'
+'meta_path="./base/meta.resources"'
+'gameresources_patch2_path="./base/gameresources_patch2.resources"'
+'gameresources_patch1_path="./base/gameresources_patch1.resources"'
+'e5m1_spear_path="./base/game/dlc2/e5m1_spear/e5m1_spear.resources"'
+'e5m2_earth_path="./base/game/dlc2/e5m2_earth/e5m2_earth.resources"'
+'e5m3_hell_path="./base/game/dlc2/e5m3_hell/e5m3_hell.resources"'
+'e5m4_boss_path="./base/game/dlc2/e5m4_boss/e5m4_boss.resources"'
+)
+
+SndFilePaths=(
+'music_path="./base/sound/soundbanks/pc/music.snd"'
+'music_patch_1_path="./base/sound/soundbanks/pc/music_patch_1.snd"'
+'sfx_path="./base/sound/soundbanks/pc/sfx.snd"'
+'sfx_patch_1_path="./base/sound/soundbanks/pc/sfx_patch_1.snd"'
+'sfx_patch_2_path="./base/sound/soundbanks/pc/sfx_patch_2.snd"'
+'vo_English_US_path="./base/sound/soundbanks/pc/vo_English(US).snd"'
+'vo_English_US_patch_1_path="./base/sound/soundbanks/pc/vo_English(US)_patch_1.snd"'
+'vo_French_France_path="./base/sound/soundbanks/pc/vo_French(France).snd"'
+'vo_French_France_patch_1_path="./base/sound/soundbanks/pc/vo_French(France)_patch_1.snd"'
+'vo_German_path="./base/sound/soundbanks/pc/vo_German.snd"'
+'vo_German_patch_1_path="./base/sound/soundbanks/pc/vo_German_patch_1.snd"'
+'vo_Italian_path="./base/sound/soundbanks/pc/vo_Italian.snd"'
+'vo_Italian_patch_1_path="./base/sound/soundbanks/pc/vo_Italian_patch_1.snd"'
+'vo_Japanese_path="./base/sound/soundbanks/pc/vo_Japanese.snd"'
+'vo_Japanese_patch_1_path="./base/sound/soundbanks/pc/vo_Japanese_patch_1.snd"'
+'vo_Polish_path="./base/sound/soundbanks/pc/vo_Polish.snd"'
+'vo_Polish_patch_1_path="./base/sound/soundbanks/pc/vo_Polish_patch_1.snd"'
+'vo_Portuguese_Brazil_path="./base/sound/soundbanks/pc/vo_Portuguese(Brazil).snd"'
+'vo_Portuguese_Brazil_patch_1_path="./base/sound/soundbanks/pc/vo_Portuguese(Brazil)_patch_1.snd"'
+'vo_Russian_path="./base/sound/soundbanks/pc/vo_Russian.snd"'
+'vo_Russian_patch_1_path="./base/sound/soundbanks/pc/vo_Russian_patch_1.snd"'
+'vo_Spanish_Mexico_path="./base/sound/soundbanks/pc/vo_Spanish(Mexico).snd"'
+'vo_Spanish_Mexico_patch_1_path="./base/sound/soundbanks/pc/vo_Spanish(Mexico)_patch_1.snd"'
+'vo_Spanish_Spain_path="./base/sound/soundbanks/pc/vo_Spanish(Spain).snd"'
+'vo_Spanish_Spain_patch_1_path="./base/sound/soundbanks/pc/vo_Spanish(Spain)_patch_1.snd"'
 )
 
 #Verify tool hashes
@@ -497,9 +525,9 @@ if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameM
 ${blu}Patching game executable...${end}
 "
     (cd base || return
-    if [ -f "EternalPatcher.def" ]; then \cp EternalPatcher.def EternalPatcher.def.bck; fi
+    if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
-    if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then \cp EternalPatcher.def.bck EternalPatcher.def; fi
+    if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
 
     if [ "$?" != "0" ]; then
@@ -518,25 +546,43 @@ ${red}Game patching failed! Verify the game executable isn't being used by any p
     exit 1
 fi
 
-#Check for all resources files
+#Check for all .resources and .snd files
 printf "%s\n" "
 ${blu}Checking resources files...${end}
 "
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
+
 for resource_file_path in "${ResourceFilePaths[@]}"; do
     line="${resource_file_path#*=}"
     if ! [ -f "$line" ]; then
         printf "%s\n" "
-${red}Some .resources files are missing! Verify game files through Steam/Bethesda.net then try again.${end}
+${red}Some .resources files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}
 "
         exit 1
     fi
 done
+
+for snd_file_path in "${SndFilePaths[@]}"; do
+    line="${snd_file_path#*=}"
+    line="${line//'"'}"
+    if ! [ -f "$line" ]; then
+        printf "%s\n" "
+${red}Some .snd files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}
+"
+        exit 1
+    fi
+done
+
 fi
 
 #Execute each line of ResourceFilePaths
 for resource_file_path in "${ResourceFilePaths[@]}"; do
     eval "$resource_file_path"
+done
+
+#Execute each line of SndFilePaths
+for snd_file_path in "${SndFilePaths[@]}"; do
+    eval "$snd_file_path"
 done
 
 #Restore Backups
@@ -554,16 +600,31 @@ while IFS= read -r filename; do
             printf "%s\n" "
                     ${blu}Restoring ${filename_name}.resources.backup...${end}
                     "
-                if ! [ -f "$path" ]; then NoBackupFound ; fi
-            \cp "${path}.backup" "$path"
+            if ! [ -f "$path" ]; then NoBackupFound; fi
+            cp "${path}.backup" "$path"
         else
             printf "%s\n" "
                     ${blu}Restoring dlc_${filename_name}.resources.backup...${end}
                     "
-            if ! [ -f "$path" ]; then NoBackupFound ; fi
-            \cp "${path}.backup" "$path"
+            if ! [ -f "$path" ]; then NoBackupFound; fi
+            cp "${path}.backup" "$path"
 
         fi		
+    fi
+
+    if [[ "$filename" == *.snd ]] || [[ "$filename" == *.snd* ]]; then
+        filename=${filename//[[:cntrl:]]/}
+        filename_name=${filename%.snd*}
+        filename_name=${filename_name//'('/_}
+        filename_name=${filename_name//')'}
+        path=${filename_name}_path
+        path=${!path}
+
+        printf "%s\n" "
+                    ${blu}Restoring ${filename_name}.snd.backup...${end}
+                "
+        if ! [ -f "$path" ]; then NoBackupFound; fi
+        cp "${path}.backup" "$path"
     fi	
 done < "EternalModInjector Settings.txt"
 fi
@@ -601,6 +662,7 @@ printf "%s\n" "
 ${blu}Backing up .resources...${end}
 "
 sed -i '/.resources$/d' "EternalModInjector Settings.txt"
+sed -i '/.snd$/d' "EternalModInjector Settings.txt"
 sed -i '/.backup$/d' "EternalModInjector Settings.txt"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods "." --list-res )
 for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
@@ -613,7 +675,7 @@ ${grn}No mods found! All .resources files have been restored to their vanilla st
     filename="${modloaderlist[$i]#*=}"
     filename="${filename/$'\r'/}"
     if ! [ -f "${filename}.backup" ]; then
-        \cp "$filename" "${filename}.backup"
+        cp "$filename" "${filename}.backup"
         name=${filename##*/}
         printf "%s\n" "
                     ${blu}Backed up $name${end}
@@ -621,14 +683,17 @@ ${grn}No mods found! All .resources files have been restored to their vanilla st
     else
         name=${filename##*/}
     fi
-    filename=${name%.resources}
+
+    extension="${name##*.}"
+    filename="${name%.*}"
     echo "${filename}.backup" >> "EternalModInjector Settings.txt"
-    echo "${filename}.resources" >> "EternalModInjector Settings.txt"
+    if [ "$extension" == "resources" ]; then echo "${filename}.resources" >> "EternalModInjector Settings.txt"; fi
+    if [ "$extension" == "snd" ]; then echo "${filename}.snd" >> "EternalModInjector Settings.txt"; fi
 done
 
 #Backup meta.resources and add to the list
 if ! [ -f "base/meta.resources.backup" ]; then 
-    \cp "base/meta.resources" "base/meta.resources.backup"
+    cp "base/meta.resources" "base/meta.resources.backup"
     printf "%s\n" "
                     ${blu}Backed up meta.resources${end}
     "
