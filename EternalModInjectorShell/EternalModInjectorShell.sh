@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v5.0.8"
+script_version="v5.0.9"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -323,7 +323,7 @@ chmod +x base/idRehash
 chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="6b09c1abde4c9fac82f4e3092d4b102a"
+DETERNAL_LOADMODS_MD5="85c47565bc901bc365b764415d88bdfa"
 ETERNALPATCHER_MD5="da86c8e4978513a0607ad390a388603b"
 IDREHASH_MD5="35d3f928fa8e0b70169f6603ffae1eca"
 DETERNAL_PATCHMANIFEST_MD5="af32a69e6643d247e24b13395a50f30c"
