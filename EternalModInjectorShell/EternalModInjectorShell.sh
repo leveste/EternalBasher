@@ -206,12 +206,12 @@ ${blu}Updating script...${end}
     | cut -d '"' -f 4 \
     | wget -qi -
     if [ -d "tmp" ]; then
-        rm -r "tmp"
+        rm -rf "tmp"
     mkdir "tmp"
     else mkdir "tmp"; fi
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
-    (cp -r -f tmp/* .
-    rm -r tmp
+    (cp -rf tmp/* .
+    rm -rf tmp
     rm EternalModInjectorShell.tar.gz
     chmod +x EternalModInjectorShell.sh
     clear
