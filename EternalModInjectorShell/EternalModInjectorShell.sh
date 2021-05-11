@@ -143,11 +143,13 @@ case "$response" in
     [yY][eE][sS]|[yY]) 
         for resource_file_path in "${ResourceFilePaths[@]}"; do
             line="${resource_file_path#*=}"
+            line="${line//'"'}"
             if [ -f "${line}.backup" ]; then rm "${line}.backup"; fi
         done
 
         for snd_file_path in "${SndFilePaths[@]}"; do
             line="${snd_file_path#*=}"
+            line="${line//'"'}"
             if [ -f "${line}.backup" ]; then rm "${line}.backup"; fi
         done
         ;;
@@ -559,6 +561,7 @@ if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
 
 for resource_file_path in "${ResourceFilePaths[@]}"; do
     line="${resource_file_path#*=}"
+    line="${line//'"'}"
     if ! [ -f "$line" ]; then
         printf "%s\n" "
 ${red}Some .resources files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}
