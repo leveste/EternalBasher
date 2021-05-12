@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v5.0.9"
+script_version="v5.0.10"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -27,44 +27,32 @@ if [ "$skip_debug_check" != "1" ]; then end=$'\e[0m'; fi
 
 #Functions
 MissingGame() {
-printf "%s\n" "
-${red}Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.${end}
-"
+printf "\n%s\n\n" "${red}Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.${end}"
 exit 1
 }
 
 MissingDEternalLoadMods() {
-printf "%s\n" "
-${red}DEternal_loadMods not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}
-"
+printf "\n%s\n\n" "${red}DEternal_loadMods not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}"
 exit 1
 }
 
 MissingIdRehash() {
-printf "%s\n" "
-${red}idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again.${end}
-"
+printf "\n%s\n\n" "${red}idRehash not found or corrupted! Re-extract the tool to the DOOMEternal/base folder and try again.${end}"
 exit 1
 }
 
 CorruptedGameExecutable() {
-printf "%s\n" "
-${red}The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again.${end}
-    "
+printf "\n%s\n\n" "${red}The game executable is corrupted! Verify game files through Steam/Bethesda.net and try again.${end}"
 exit 1
 }
 
 MissingEternalPatcher() {
-printf "%s\n" "
-${red}EternalPatcher not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}
-"
+printf "\n%s\n\n" "${red}EternalPatcher not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}"
 exit 1
 }
 
 MissingDEternalPatchManifest() {
-printf "%s\n" "
-${red}DEternal_patchManifest not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}
-"
+printf "\n%s\n\n" "${red}DEternal_patchManifest not found or corrupted! Re-extract the tool to the 'base' folder and try again.${end}"
 exit 1
 }
 
@@ -136,8 +124,7 @@ fi
 }
 
 ResetBackups() {
-printf "%s" "
-${blu}Reset backups now? [y/N] ${end}"
+printf "\n%s" "${blu}Reset backups now? [y/N] ${end}"
 read -r -p '' response
 case "$response" in
     [yY][eE][sS]|[yY]) 
@@ -155,31 +142,24 @@ case "$response" in
         ;;
     *)
 sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
-printf "%s\n" "
-${blu}Backups have not been reset.${end}
-"
+printf "\n%s\n\n" "${blu}Backups have not been reset.${end}"
         exit 1
         ;;
 esac
 }
 
 NoBackupFound() {
-printf "%s\n" "
-${red}Backup not found for some .resources or .snd files! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.${end}
-    "
+printf "\n%s\n\n" "${red}Backup not found for some .resources or .snd files! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.${end}"
 exit 1
 }
 
 MissingMeta() {
-printf "%s\n" "
-${red}meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
-"
+printf "\n%s\n\n" "${red}meta.resources not found or corrupted! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
 exit 1
 }
 
 AskforAutoUpdate() {
-printf "%s" "
-${blu}Do you want this script to be automatically updated every time a new version comes out? [Y/n]  ${end}"
+printf "\n%s" "${blu}Do you want this script to be automatically updated every time a new version comes out? [Y/n]  ${end}"
 read -r -p '' response
 case "$response" in
     [nN][oO]|[nN]) 
@@ -192,14 +172,12 @@ esac
 }
 
 SelfUpdate() {
-link=$(curl -L -o /dev/null -w '%{url_effective}' https://github.com/leveste/EternalBasher/releases/latest)
+link=$(curl -L -o /dev/null -w '%{url_effective}' https://github.com/leveste/EternalBasher/releases/latest 2> /dev/null)
 version=$(basename "$link")
 if [ "$version" == "$script_version" ] || [ "$version" == "latest" ]; then OUTDATED="0"; else OUTDATED="1"; fi
 
 if [ "$OUTDATED" == "1" ]; then
-    printf "%s\n" "
-${blu}Updating script...${end}
-"
+    printf "\n%s\n\n" "${blu}Updating script...${end}"
     export skip="1"
     if [ -f EternalModInjectorShell.tar.gz ]; then rm EternalModInjectorShell.tar.gz; fi
     curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
@@ -207,10 +185,8 @@ ${blu}Updating script...${end}
     | grep "EternalModInjectorShell.tar.gz" \
     | cut -d '"' -f 4 \
     | wget -qi -
-    if [ -d "tmp" ]; then
-        rm -rf "tmp"
+    if [ -d "tmp" ]; then rm -rf "tmp"; fi
     mkdir "tmp"
-    else mkdir "tmp"; fi
     tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
     (cp -rf tmp/* .
     rm -rf tmp
@@ -249,27 +225,19 @@ fi
 #Log system info
 if [ "$skip_debug_check" == "1" ]; then
     if [ -n "$(command -v inxi)" ]; then
-        printf "%s\n" "
-System info:
-"
+        printf "\n%s\n\n" "System info:"
         inxi -Fxz
     fi
 
-    printf "%s\n" "
-glibc version:
-"
+    printf "\n%s\n\n" "glibc version:"
     ldd --version
     
-    printf "%s\n" "
-OpenSSL version:
-"
+    printf "\n%s\n\n" "OpenSSL version:"
     openssl version
 fi
 
 #Config File check
-printf "%s\n" "
-${blu}Loading config file...${end}
-"
+printf "\n%s\n\n" "${blu}Loading config file...${end}"
 CONFIG_FILE="EternalModInjector Settings.txt"
 if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
     if grep -q ":ASSET_VERSION=5.0" "$CONFIG_FILE"; then ASSET_VERSION="5.0"; else ASSET_VERSION="0"; fi
@@ -284,45 +252,11 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
 fi
 
 #Check for script updates
+printf "\n%s\n\n" "${blu}Checking for updates...${end}"
 if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
     SelfUpdate
     export skip=""
 fi
-
-#Verify if tools exist
-if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
-
-if ! [ -f base/DEternal_loadMods ]; then MissingDEternalLoadMods; fi
-
-if ! [ -f base/idRehash ]; then MissingIdRehash; fi
-
-if ! [ -f base/EternalPatcher ]; then MissingEternalPatcher; fi
-
-if ! [ -f base/EternalPatcher.config ]; then
-    printf "%s\n" "
-${red}EternalPatcher Config file (EternalPatcher.config) not found! Re-extract the file to the 'base' folder and try again.${end}
-"
-fi
-
-if ! [ -f base/liblinoodle.so ]; then 
-    printf "%s\n" "
-${red}liblinoodle.so not found! Re-extract the file to the 'base' folder and try again.${end}
-"
-fi
-
-if ! [ -f base/DEternal_patchManifest ]; then MissingDEternalPatchManifest; fi
-
-if ! command -v openssl &> /dev/null; then
-    printf "%s\n" "
-${red}OpenSSL not found! Install OpenSSL using your distro's package manager or install from source, then try again.${end}
-"
-fi
-
-#Give executable permissions to the binaries
-chmod +x base/EternalPatcher
-chmod +x base/DEternal_loadMods
-chmod +x base/idRehash
-chmod +x base/DEternal_patchManifest
 
 #Assign game hashes to variables
 DETERNAL_LOADMODS_MD5="ff9020f30c542536181d9fe55cb4bab6"
@@ -334,6 +268,49 @@ PATCHED_GAME_MD5_B="c85289162ff5052a134e29972bf36b78"
 VANILLA_GAME_MD5_A="96556f8b0dfc56111090a6b663969b86"
 VANILLA_GAME_MD5_B="b4eef9284826e5ffaedbcd73fe6d2ae6"
 VANILLA_META_MD5="58cc7bf26726fe0cb8cd021e2c34be99"
+
+#Check tools' status
+printf "\n%s\n\n" "${blu}Checking tools...${end}"
+
+#Verify if tools exist
+if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
+
+if ! [ -f base/DEternal_loadMods ]; then MissingDEternalLoadMods; fi
+
+if ! [ -f base/idRehash ]; then MissingIdRehash; fi
+
+if ! [ -f base/EternalPatcher ]; then MissingEternalPatcher; fi
+
+if ! [ -f base/EternalPatcher.config ]; then
+    printf "\n%s\n\n" "${red}EternalPatcher Config file (EternalPatcher.config) not found! Re-extract the file to the 'base' folder and try again.${end}"
+fi
+
+if ! [ -f base/liblinoodle.so ]; then 
+    printf "\n%s\n\n" "${red}liblinoodle.so not found! Re-extract the file to the 'base' folder and try again.${end}"
+fi
+
+if ! [ -f base/DEternal_patchManifest ]; then MissingDEternalPatchManifest; fi
+
+if ! command -v openssl &> /dev/null; then
+    printf "\n%s\n\n" "${red}OpenSSL not found! Install OpenSSL using your distro's package manager or install from source, then try again.${end}"
+fi
+
+#Check tool hashes
+DEternal_LoadModsMD5=$(md5sum "base/DEternal_loadMods" | awk '{ print $1 }')
+idRehashMD5=$(md5sum "base/idRehash" | awk '{ print $1 }')
+EternalPatcherMD5=$(md5sum "base/EternalPatcher" | awk '{ print $1 }')
+DEternal_patchManifestMD5=$(md5sum "base/DEternal_patchManifest" | awk '{ print $1 }')
+
+if [ "$DETERNAL_LOADMODS_MD5" != "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
+if [ "$IDREHASH_MD5" != "$idRehashMD5" ]; then MissingIdRehash; fi
+if [ "$ETERNALPATCHER_MD5" != "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
+if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then MissingDEternalPatchManifest; fi
+
+#Give executable permissions to the binaries
+chmod +x base/EternalPatcher
+chmod +x base/DEternal_loadMods
+chmod +x base/idRehash
+chmod +x base/DEternal_patchManifest
 
 ResourceFilePaths=(
 'hub_path="./base/game/hub/hub.resources"'
@@ -445,26 +422,10 @@ SndFilePaths=(
 'vo_Spanish_Spain_patch_1_path="./base/sound/soundbanks/pc/vo_Spanish(Spain)_patch_1.snd"'
 )
 
-#Verify tool hashes
-printf "%s\n" "
-${blu}Checking tools...${end}
-"
-
-DEternal_LoadModsMD5=$(md5sum "base/DEternal_loadMods" | awk '{ print $1 }')
-idRehashMD5=$(md5sum "base/idRehash" | awk '{ print $1 }')
-EternalPatcherMD5=$(md5sum "base/EternalPatcher" | awk '{ print $1 }')
-DEternal_patchManifestMD5=$(md5sum "base/DEternal_patchManifest" | awk '{ print $1 }')
-
-if [ "$DETERNAL_LOADMODS_MD5" != "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
-if [ "$IDREHASH_MD5" != "$idRehashMD5" ]; then MissingIdRehash; fi
-if [ "$ETERNALPATCHER_MD5" != "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
-if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then MissingDEternalPatchManifest; fi
-
 #Check for Asset Version
 if [ "$ASSET_VERSION" == "0" ]; then
 
-    printf "%s" "
-${blu}Old Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+    printf "\n%s" "${blu}Old Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
 If you have already done so, press Enter to continue: ${blu}"
     read -r -p ''
     ResetBackups
@@ -516,8 +477,7 @@ fi
 
 if [ "$RESET_BACKUPS" == "1" ] && [ "$skip_resetbackups" != "1" ]; then
     ResetBackups
-    printf "%s" "
-${blu}Press enter to continue with mod loading: ${end}"
+    printf "\n%s" "${blu}Press enter to continue with mod loading: ${end}"
     read -r -p ''
     HAS_CHECKED_RESOURCES="0"
 fi
@@ -528,9 +488,7 @@ GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then CorruptedGameExecutable; fi
 
 if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ]; then
-    printf "%s\n" "
-${blu}Patching game executable...${end}
-"
+    printf "\n%s\n\n" "${blu}Patching game executable...${end}"
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
@@ -538,34 +496,26 @@ ${blu}Patching game executable...${end}
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
 
     if [ "$?" != "0" ]; then
-        printf "%s\n" "
-${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
-"
+        printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
         exit 1
     fi
 fi
 
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 if [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then
-    printf "%s\n" "
-${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.${end}
-"
+    printf "\n%s\n\n" "${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.${end}"
     exit 1
 fi
 
 #Check for all .resources and .snd files
-printf "%s\n" "
-${blu}Checking resources files...${end}
-"
+printf "\n%s\n\n" "${blu}Checking resources files...${end}"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
 
 for resource_file_path in "${ResourceFilePaths[@]}"; do
     line="${resource_file_path#*=}"
     line="${line//'"'}"
     if ! [ -f "$line" ]; then
-        printf "%s\n" "
-${red}Some .resources files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}
-"
+        printf "\n%s\n\n" "${red}Some .resources files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}"
         exit 1
     fi
 done
@@ -574,9 +524,7 @@ for snd_file_path in "${SndFilePaths[@]}"; do
     line="${snd_file_path#*=}"
     line="${line//'"'}"
     if ! [ -f "$line" ]; then
-        printf "%s\n" "
-${red}Some .snd files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}
-"
+        printf "\n%s\n\n" "${red}Some .snd files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}"
         exit 1
     fi
 done
@@ -595,9 +543,7 @@ done
 
 #Restore Backups
 if [ "$RESET_BACKUPS" != "1" ] && [ "$first_time" != "1" ]; then
-printf "%s\n" "
-${blu}Restoring backups...${end}
-"
+printf "\n%s\n\n" "${blu}Restoring backups...${end}"
 while IFS= read -r filename; do
     if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
         filename=${filename//[[:cntrl:]]/}
@@ -605,15 +551,11 @@ while IFS= read -r filename; do
         path=${filename_name}_path
         path=${!path}
         if [[ "$filename" != dlc_* ]]; then
-            printf "%s\n" "
-                    ${blu}Restoring ${filename_name}.resources.backup...${end}
-                    "
+            printf "\n\t\t%s\n\n" "${blu}Restoring ${filename_name}.resources.backup...${end}"
             if ! [ -f "$path" ]; then NoBackupFound; fi
             cp "${path}.backup" "$path"
         else
-            printf "%s\n" "
-                    ${blu}Restoring dlc_${filename_name}.resources.backup...${end}
-                    "
+            printf "\n\t\t%s\n\n" "${blu}Restoring dlc_${filename_name}.resources.backup...${end}"
             if ! [ -f "$path" ]; then NoBackupFound; fi
             cp "${path}.backup" "$path"
 
@@ -628,9 +570,7 @@ while IFS= read -r filename; do
         path=${filename_name}_path
         path=${!path}
 
-        printf "%s\n" "
-                    ${blu}Restoring ${filename_name}.snd.backup...${end}
-                "
+        printf "\n\t\t%s\n\n" "${blu}Restoring ${filename_name}.snd.backup...${end}"
         if ! [ -f "$path" ]; then NoBackupFound; fi
         cp "${path}.backup" "$path"
     fi	
@@ -639,9 +579,7 @@ fi
 RESET_BACKUPS="0"
 
 #Check meta.resources
-printf "%s\n" "
-${blu}Checking meta.resources...${end}
-"
+printf "\n%s\n\n" "${blu}Checking meta.resources...${end}"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     if ! [ -f base/meta.resources ]; then MissingMeta; fi
     MetaMD5=$(md5sum "base/meta.resources" | awk '{ print $1 }')
@@ -659,25 +597,19 @@ fi
 
 #Check if there are mods in "mods" folder
 if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
-    printf "%s\n" "
-${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
-"
+    printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
     exit 1
 fi
 
 #Backup .resources
-printf "%s\n" "
-${blu}Backing up .resources...${end}
-"
+printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
 sed -i '/.resources$/d' "EternalModInjector Settings.txt"
 sed -i '/.snd$/d' "EternalModInjector Settings.txt"
 sed -i '/.backup$/d' "EternalModInjector Settings.txt"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods "." --list-res )
 for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
     if [ "${modloaderlist[$i]}" == "" ]; then 
-            printf "%s\n" "
-${grn}No mods found! All .resources files have been restored to their vanilla state.${end}
-"
+            printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
         break
     fi
     filename="${modloaderlist[$i]#*=}"
@@ -685,9 +617,7 @@ ${grn}No mods found! All .resources files have been restored to their vanilla st
     if ! [ -f "${filename}.backup" ]; then
         cp "$filename" "${filename}.backup"
         name=${filename##*/}
-        printf "%s\n" "
-                    ${blu}Backed up $name${end}
-        "
+        printf "\n\t\t%s\n\n" "${blu}Backed up $name${end}"
     else
         name=${filename##*/}
     fi
@@ -702,9 +632,7 @@ done
 #Backup meta.resources and add to the list
 if ! [ -f "base/meta.resources.backup" ]; then 
     cp "base/meta.resources" "base/meta.resources.backup"
-    printf "%s\n" "
-                    ${blu}Backed up meta.resources${end}
-    "
+    printf "\n\t\t%s\n\n" "${blu}Backed up meta.resources${end}"
 fi
 sed -i '/meta.backup$/d' "EternalModInjector Settings.txt"
 echo meta.backup >> "EternalModInjector Settings.txt"
@@ -713,16 +641,12 @@ echo meta.resources >> "EternalModInjector Settings.txt"
 
 #Get vanilla resource hash offsets (idRehash)
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
-    printf "%s\n" "
-${blu}Getting vanilla resource hash offsets... (idRehash)${end}
-"
+    printf "\n%s\n\n" "${blu}Getting vanilla resource hash offsets... (idRehash)${end}"
     (cd base || return
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash --getoffsets; else ./idRehash --getoffsets > /dev/null; fi)
     
     if [ "$?" != "0" ]; then
-    printf "%s\n" "
-${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
-"
+    printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
     fi
 
@@ -737,41 +661,29 @@ ${blu}Loading mods... (DEternal_loadMods)${end}
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALMODLOADER_NO_COLORS=1 base/DEternal_loadMods "."; else base/DEternal_loadMods "."; fi
 
 if [ "$?" != "0" ]; then
-    printf "%s\n" "
-${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
-"
+    printf "\n%s\n\n" "${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
 fi
 
 #Rehash resource hashes (idRehash)
-printf "%s\n" "
-${blu}Rehashing resource offsets... (idRehash)${end}
-"
+printf "\n%s\n\n" "${blu}Rehashing resource offsets... (idRehash)${end}"
 (cd base || return
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash; else ./idRehash > /dev/null; fi)
 
 if [ "$?" != "0" ]; then
-    printf "%s\n" "
-${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
-"
+    printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
 fi
 
 #Patch build manifest
-printf "%s\n" "
-${blu}Patching build manifest... (DEternal_patchManifest)${end}
-"
+printf "\n%s\n\n" "${blu}Patching build manifest... (DEternal_patchManifest)${end}"
 (cd base || return
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9; else ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null; fi)
 
 if [ "$?" != "0" ]; then
-    printf "%s\n" "
-${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}
-"
+    printf "\n%s\n\n" "${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
 fi
 
-printf "%s\n" "
-${grn}Mods have been loaded! You can now launch the game.${end}
-"
+printf "\n%s\n\n" "${grn}Mods have been loaded! You can now launch the game.${end}"
 exit 0
