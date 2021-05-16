@@ -17,16 +17,17 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 # Check for required tools
-file_arr=( "./tools/nvcompress.exe" "./tools/nvtt.dll" "./tools/DivinityMashine.exe" )
+if [[ ! -f "./tools/DivinityMashine" ]]
+then
+	echo "'./tools/DivinityMashine' not found! Did you extract everything in the tools folder?"
+	exit 1
+fi
 
-for i in "${file_arr[@]}"
-do
-	if [[ ! -f $i ]]
-	then
-		echo "'$i' not found! Did you extract everything in the tools folder?"
-		exit
-	fi
-done
+if ! command -v nvcompress &> /dev/null
+then
+	echo "nvcompress not found! Did you install the Nvidia Texture Tools?"
+	exit 1
+fi
 
 
 # Check for arguments
@@ -46,9 +47,9 @@ do
 	#use subshell for cd operation
 	(
 	cd tools
-	wine nvcompress.exe -bcla -fast "$path" "${path}.dds" > /dev/null
+	nvcompress -bcla -fast "$path" "${path}.dds" > /dev/null
 	)
-	wine ./tools/DivinityMashine.exe "${1}.dds" > /dev/null
+	./tools/DivinityMashine "${1}.dds" > /dev/null
 
 	# remove file extensions
 	filename="${i}"

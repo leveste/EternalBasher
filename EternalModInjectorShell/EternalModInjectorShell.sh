@@ -259,10 +259,10 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="ff9020f30c542536181d9fe55cb4bab6"
-ETERNALPATCHER_MD5="da86c8e4978513a0607ad390a388603b"
-IDREHASH_MD5="35d3f928fa8e0b70169f6603ffae1eca"
-DETERNAL_PATCHMANIFEST_MD5="af32a69e6643d247e24b13395a50f30c"
+DETERNAL_LOADMODS_MD5="e0ba02d0f6d1ee9e76a8cec1fe6626f5"
+ETERNALPATCHER_MD5="0d9b841e5df90744d179b28fc5095937"
+IDREHASH_MD5="e397b5ac724bc29dc38f7029315ae70a"
+DETERNAL_PATCHMANIFEST_MD5="3d95b14dd8d943811bb9939100a3a8eb"
 PATCHED_GAME_MD5_A="df4f2b19c111d231160ee806e95f791e"
 PATCHED_GAME_MD5_B="c85289162ff5052a134e29972bf36b78"
 VANILLA_GAME_MD5_A="96556f8b0dfc56111090a6b663969b86"
@@ -598,6 +598,7 @@ fi
 #Check if there are mods in "mods" folder
 if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
+    sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=0/" "EternalModInjector Settings.txt"
     exit 1
 fi
 

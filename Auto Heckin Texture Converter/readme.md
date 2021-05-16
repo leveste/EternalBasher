@@ -2,11 +2,11 @@
 
 Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine manually.
 
-**Note:** The bash script will currently crash due to an issue with running DivinityMashine through Wine. The issue is being looked into.
+Requires to have the Nvidia Texture Tools installed, you can compile and install them from [here](https://github.com/castano/nvidia-texture-tools). Also requires dotnet 5.0 for DivinityMashine to work.
 
 ## Instructions:
 
-* Download the .zip from [this link](https://discord.com/channels/570112501853978624/693113846688383029/808690468292263986) and extract all files to a folder.
+* Download this script and the 'tools' folder.
 
 * Make the file executable with:
 ```

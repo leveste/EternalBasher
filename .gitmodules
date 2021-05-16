@@ -13,3 +13,12 @@
 [submodule "EternalModLoaderCpp"]
 	path = EternalModLoaderCpp
 	url = https://github.com/PowerBall253/EternalModLoaderCpp
+[submodule "EternalPatcherLinux"]
+	path = EternalPatcherLinux
+	url = https://github.com/PowerBall253/EternalPatcherLinux
+[submodule "idRehashLinux"]
+	path = idRehashLinux
+	url = https://github.com/PowerBall253/idRehashLinux
+[submodule "EternalPatchManifestLinux"]
+	path = EternalPatchManifestLinux
+	url = https://github.com/PowerBall253/EternalPatchManifestLinux

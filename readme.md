@@ -2,9 +2,9 @@ Collection of bash scripts for different aspects of Doom Eternal modding. Furthe
 
 ------------------------
 
-**Auto Heckin' Texture Converter (WIP)**
+**Auto Heckin' Texture Converter**
 
-Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine. manually.
+Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine manually.
 
 **DOOMSaveManagerLinux**
 
@@ -26,13 +26,13 @@ Script that automatically installs mods using the rest of the tools.
 
 Tool to load mods into Doom Eternal's .resources files, rewritten on C++ for Linux.
 
-**EternalPatchManifestRust**
+**EternalPatchManifestLinux**
 
-Tool that patches the build-manifest.bin file for modding purposes, rewritten on Rust for Linux.
+Tool that patches the build-manifest.bin file for modding purposes, rewritten in C for Linux.
 
-**EternalPatcherCpp**
+**EternalPatcherLinux**
 
-Tool that patches the DOOM Eternal executable for modding purposes, rewritten on C++ for Linux.
+Tool that patches the DOOM Eternal executable for modding purposes, rewritten in C for Linux.
 
 **ModLoader_to_MeatHook**
 
@@ -48,7 +48,7 @@ Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entitie
 
 **idRehashLinux**
 
-Modified version of infogram and proteh's idRehash (a tool to hash the resource offsets and store them in meta.resources to allow loading of custom .resources) to work natively on Linux.
+Tool to hash the resource offsets and store them in meta.resources to allow loading of custom .resources, rewritten on C for Linux.
 
 **idSaveDecompressorLinux**
 
