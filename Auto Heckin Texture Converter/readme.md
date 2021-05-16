@@ -2,7 +2,7 @@
 
 Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine manually.
 
-Requires to have the Nvidia Texture Tools installed, you can compile and install them from [here](https://github.com/castano/nvidia-texture-tools). Also requires dotnet 5.0 for DivinityMashine to work.
+Requires to have the Nvidia Texture Tools installed, you can compile and install them from [here](https://github.com/PowerBall253/nvidia-texture-tools). Also requires dotnet 5.0 for DivinityMashine to work.
 
 ## Instructions:
 
