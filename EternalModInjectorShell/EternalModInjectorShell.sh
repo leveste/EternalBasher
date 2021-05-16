@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v5.0.10"
+script_version="v5.0.11"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -283,16 +283,24 @@ if ! [ -f base/EternalPatcher ]; then MissingEternalPatcher; fi
 
 if ! [ -f base/EternalPatcher.config ]; then
     printf "\n%s\n\n" "${red}EternalPatcher Config file (EternalPatcher.config) not found! Re-extract the file to the 'base' folder and try again.${end}"
+    exit 1
 fi
 
 if ! [ -f base/liblinoodle.so ]; then 
     printf "\n%s\n\n" "${red}liblinoodle.so not found! Re-extract the file to the 'base' folder and try again.${end}"
+    exit 1
 fi
 
 if ! [ -f base/DEternal_patchManifest ]; then MissingDEternalPatchManifest; fi
 
 if ! command -v openssl &> /dev/null; then
     printf "\n%s\n\n" "${red}OpenSSL not found! Install OpenSSL using your distro's package manager or install from source, then try again.${end}"
+    exit 1
+fi
+
+if ! command -v opusdec &> /dev/null; then
+    printf "\n%s\n\n" "${red}opusdec not found! Install the opus-tools package from your distro's package manager or install from source, then try again.${end}"
+    exit 1
 fi
 
 #Check tool hashes
@@ -451,10 +459,10 @@ Press any key to continue...${end}"
     echo
 	
     printf "%s" "${blu}We take no credit for the tools used in the mod loading, credits go to:
-DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), proteh for remaking it in C#, and PowerBall253 for rewriting it on C++ for Linux users.
-EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio) and PowerBall253 for porting it to work on Linux.
-idRehash: infogram for making it, proteh for updating it, and PowerBall253 for porting it to Linux.
-DEternal_patchManifest: Visual Studio and SutandoTsukai181 for making it on Python, and PowerBall253 for rewriting it on Rust for Linux users.
+DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), proteh for remaking it in C#, and PowerBall253 for rewriting it in C for Linux.
+EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio) and PowerBall253 for rewriting it in C for Linux.
+idRehash: infogram for making it, proteh for updating it, and PowerBall253 for rewriting it in C for Linux.
+DEternal_patchManifest: Visual Studio and SutandoTsukai181 for making it on Python, and PowerBall253 for rewriting it in C for Linux.
 DOOM Eternal: Bethesda Softworks, id Software, and everyone else involved, for making and updating it.
 
 Press any key to continue...${end}"
