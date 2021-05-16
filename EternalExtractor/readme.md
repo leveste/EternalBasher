@@ -9,7 +9,7 @@ Go into the *src* folder and, from terminal, run the "make" command. You might b
 
 You will also need [this script](https://zenhax.com/viewtopic.php?p=54753#p54753). Simply paste the code into a text file, save it under the name **doometernal.bms** and place the file in your DOOM Eternal folder.
 
-**Note:** The Linux of QuickBMS doesn't work with the current script due to the 'oodle' library not being implemented yet. The Windows version works though Wine, so use it instead. The script will be updated once QuickBMS has implemented the open source alternative to 'oodle.'
+**Note:** The Linux version of QuickBMS doesn't work with the current script due to the 'oodle' library not being implemented yet. The Windows version works though Wine, so use it instead. The script will be updated once QuickBMS has implemented the open source alternative to 'oodle.'
 
 ## Linux binaries
 
