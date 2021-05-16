@@ -1,12 +1,3 @@
-[submodule "idRehashLinux"]
-	path = idRehashLinux
-	url = https://github.com/PowerBall253/idRehashLinux.git
-[submodule "EternalPatchManifestRust"]
-	path = EternalPatchManifestRust
-	url = https://github.com/PowerBall253/EternalPatchManifestRust.git
-[submodule "EternalPatcherCpp"]
-	path = EternalPatcherCpp
-	url = https://github.com/PowerBall253/EternalPatcherCpp.git
 [submodule "DOOMSaveManagerLinux"]
 	path = DOOMSaveManagerLinux
 	url = https://github.com/PowerBall253/DOOMSaveManagerLinux.git
