@@ -1,0 +1,34 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Package the files
+      run: |
+        mkdir package
+        cd package
+        mkdir Mods
+        mkdir base
+        cp ${{github.workspace}}/EternalBins/* base
+        rm base/readme.md
+        cp ${{github.workspace}}/EternalModInjectorShell/EternalModInjectorShell.sh .
+        tar -czvf EternalModInjectorShell.tar.gz EternalModInjectorShell.sh base Mods
+
+    - uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: |
+          **/EternalModInjectorShell.tar.gz
