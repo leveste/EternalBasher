@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v5.0.11"
+script_version="v5.0.12"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -259,10 +259,10 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="e0ba02d0f6d1ee9e76a8cec1fe6626f5"
-ETERNALPATCHER_MD5="0d9b841e5df90744d179b28fc5095937"
-IDREHASH_MD5="e397b5ac724bc29dc38f7029315ae70a"
-DETERNAL_PATCHMANIFEST_MD5="3d95b14dd8d943811bb9939100a3a8eb"
+DETERNAL_LOADMODS_MD5="9a9460ead6511affc8d1c3288eec137f"
+ETERNALPATCHER_MD5="d6f76416d64599ea8e5867bd13f56381"
+IDREHASH_MD5="86e6e8c5f2fc16d9cbae9d60d0433500"
+DETERNAL_PATCHMANIFEST_MD5="ed45fc6a856093b2434920e8149fe083"
 PATCHED_GAME_MD5_A="df4f2b19c111d231160ee806e95f791e"
 PATCHED_GAME_MD5_B="c85289162ff5052a134e29972bf36b78"
 VANILLA_GAME_MD5_A="96556f8b0dfc56111090a6b663969b86"
