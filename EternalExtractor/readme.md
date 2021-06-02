@@ -1,7 +1,14 @@
 # EternalExtractor
-Shell script to automatically extract all Doom Eternal's .resources files using QuickBMS.
 
-## Instructions
+Shell script to automatically extract all Doom Eternal's .resources files using QuickBMS or Powerball523's EternalREsourceExtractor.
+
+## Instructions for EternalREsourceExtractor
+
+Simply download the latest binary from the tool's [release page](https://github.com/PowerBall253/EternalResourceExtractor).
+
+**Note:** Do not download the ".exe" binary as that one is intended for Windows and won't work with this script.
+
+## Instructions for QuickBMS
 
 To install QuickBMS on Linux, you can download the source code. Once downloaded, unzip the file.
 
@@ -11,7 +18,7 @@ You will also need [this script](https://zenhax.com/viewtopic.php?p=54753#p54753
 
 **Note:** The Linux version of QuickBMS doesn't work with the current script due to the 'oodle' library not being implemented yet. The Windows version works though Wine, so use it instead. The script will be updated once QuickBMS has implemented the open source alternative to 'oodle.'
 
-## Linux binaries
+## Linux binaries(for QuickBMS users)
 
 You can download the Linux binaries from [aluigi.altervista.org](https://aluigi.altervista.org/quickbms.htm). [Direct link](https://aluigi.altervista.org/papers/quickbms_linux.zip).
 
@@ -21,7 +28,8 @@ Once downloaded, extract **quickbms** and make it executable:
 
 Depending on your distro or desktop environment, you can also do so by right-clicking on the binary and going into properties.
 
-## Debian systems
+## Debian systems(for QuickBMS users)
+
 
 If you are using Debian or a Debian based distro (Ubuntu, Mint, Pop\_OS, etc), you'll need to install the following packages beforehand:
 
@@ -37,7 +45,8 @@ You should now have in your **src** folder a file named **quickbms** that you ca
 
 The path to the src folder is the one you'll need to type when prompted by the script.
 
-## Arch Linux
+## Arch Linux(for QuickBMS users)
+
 
 If you are using Arch or an Arch-based distro (like Manjaro), you can find quickbms on [AUR.](https://aur.archlinux.org/packages/quickbms/)
 
@@ -59,6 +68,6 @@ The path will be automatically set to:
 
     /usr/bin/quickbms
 
-## WINE
+## WINE(for QuickBMS users)
 
 You can download the [Windows version of QuickBMS](https://aluigi.altervista.org/quickbms.htm) (first link). Simply extract the files from the zip and, when prompted by the script, add the full path to the folder containing **quickbms_4gb_files.exe**
