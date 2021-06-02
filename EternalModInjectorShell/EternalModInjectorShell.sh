@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.0.0"
+script_version="v5.1.0"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -57,8 +57,8 @@ exit 1
 }
 
 CreateConfigFile() {
-ASSET_VERSION="6.0"
-echo ":ASSET_VERSION=6.0" >> "EternalModInjector Settings.txt"
+ASSET_VERSION="5.1"
+echo ":ASSET_VERSION=5.1" >> "EternalModInjector Settings.txt"
 
 echo ":AUTO_LAUNCH_GAME=1" >> "EternalModInjector Settings.txt"
 
@@ -254,7 +254,7 @@ fi
 printf "\n%s\n\n" "${blu}Loading config file...${end}"
 CONFIG_FILE="EternalModInjector Settings.txt"
 if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
-    if grep -q ":ASSET_VERSION=6.0" "$CONFIG_FILE"; then ASSET_VERSION="6.0"; else ASSET_VERSION="0"; fi
+    if grep -q ":ASSET_VERSION=5.1" "$CONFIG_FILE"; then ASSET_VERSION="5.1"; else ASSET_VERSION="0"; fi
     if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
     if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
     if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
@@ -470,7 +470,7 @@ if [ "$ASSET_VERSION" == "0" ]; then
 If you have already done so, press Enter to continue: ${blu}"
     read -r -p ''
     ResetBackups
-    ASSET_VERSION="6.0"
+    ASSET_VERSION="5.1"
     HAS_CHECKED_RESOURCES="0"
     RESET_BACKUPS="1"
     skip_resetbackups="1"
