@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v5.1.0"
+script_version="v5.1.1"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -262,8 +262,8 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
     if grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
         if grep -q ":AUTO_UPDATE=1" "$CONFIG_FILE"; then AUTO_UPDATE="1"; else AUTO_UPDATE="0"; fi
     else AskforAutoUpdate
-    if grep -q ":VERBOSE=1" "$CONFIG_FILE"; then VERBOSE="1"; else VERBOSE="0"; fi
     fi
+    if grep -q ":VERBOSE=1" "$CONFIG_FILE"; then VERBOSE="1"; else VERBOSE="0"; fi
 fi
 
 #Check for script updates
@@ -274,7 +274,7 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="8f6e6bba7f9498011c671936df94fd51"
+DETERNAL_LOADMODS_MD5="80ccd3507cc37d86a5367b0909a115cf"
 ETERNALPATCHER_MD5="d6f76416d64599ea8e5867bd13f56381"
 IDREHASH_MD5="ce105fa4787a5f922ef56827139f3f13"
 DETERNAL_PATCHMANIFEST_MD5="ed45fc6a856093b2434920e8149fe083"
@@ -720,9 +720,9 @@ printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
 
-if [ "$VERBOSE" = "1" ]; then modloader_arguments=". --verbose"; else modloader_arguments="."; fi
+if [ "$VERBOSE" == "1" ]; then modloader_arguments=". --verbose"; else modloader_arguments="."; fi
 
-if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALMODLOADER_NO_COLORS=1 ./base/DEternal_loadMods ${modloader_arguments}; else ./base/DEternal_loadMods ${modloader_arguments}; fi
+if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then time ETERNALMODLOADER_NO_COLORS=1 ./base/DEternal_loadMods ${modloader_arguments}; else time ./base/DEternal_loadMods ${modloader_arguments}; fi
 
 if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
