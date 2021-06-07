@@ -144,9 +144,11 @@ read -r inp
 ___OUTPUT_DIR="$inp"
 
 if ! [[ "$___OUTPUT_DIR" == */ ]]; then ___OUTPUT_DIR="${___OUTPUT_DIR}/";fi
-if [ -n "$(ls -A "$___OUTPUT_DIR")" ] 
+if [ -n "$(ls -A "$___OUTPUT_DIR" &> /dev/null)" ] 
 then  OutputIsntEmpty
 fi
+
+if ! [ -d "$___OUTPUT_DIR" ]; then mkdir "$___OUTPUT_DIR"; fi
 
 
 # Ask for which extractor tool to use
@@ -200,11 +202,11 @@ do
 				___EXTRACTOR_DIR="$inp"
 				if ! [[ "$___EXTRACTOR_DIR" == */ ]]; then ___EXTRACTOR_DIR="${___EXTRACTOR_DIR}/"; fi
 
-				if ! ([ -f "${___EXTRACTOR_DIR}EternalResourceExtractor" ]); then MissingEternalResourceExtractor; fi
+				if ! [[ -f "${___EXTRACTOR_DIR}EternalResourceExtractor" ]]; then MissingEternalResourceExtractor; fi
 
 				cp "${___EXTRACTOR_DIR}EternalResourceExtractor" .
 				chmod +x "EternalResourceExtractor"
-				find "$___GAMEDIR" -name "*.resources" -exec sh -c './EternalResourceExtractor "$1" "$___OUTPUT_DIR"' sh {} \;
+				find "$___GAMEDIR" -name "*.resources" -exec sh -c '___RESOURCE_DIR="$(basename $1)"; ___RESOURCE_DIR=${___RESOURCE_DIR%.*}; ./EternalResourceExtractor "$1" "${___OUTPUT_DIR}${___RESOURCE_DIR}"' sh {} \;
 				rm EternalResourceExtractor
 			fi
 			break
