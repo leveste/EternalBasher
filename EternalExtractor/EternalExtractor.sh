@@ -107,8 +107,8 @@ QuickBMSPath(){
 # Start script
 
 printf "Eternal Extractor Bash script\n
-			by Leveste and PowerBall253\n
-			based on the original file by Zwip-Zwap Zapony\n\n\n"
+by Leveste and PowerBall253\n
+based on the original file by Zwip-Zwap Zapony\n\n\n"
 
 export ___GAMEDIR="$HOME/.local/share/Steam/steamapps/common/DOOMEternal/"
 export ___OUTPUT_DIR=""
