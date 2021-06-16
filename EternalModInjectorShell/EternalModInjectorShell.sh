@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v5.1.3"
+script_version="v5.1.4"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -82,6 +82,9 @@ echo ":VERBOSE=${VERBOSE}" >> "EternalModInjector Settings.txt"
 SLOW="0"
 echo ":SLOW=${SLOW}" >> "EternalModInjector Settings.txt"
 
+COMPRESS_TEXTURES="0"
+echo ":COMPRESS_TEXTURES=${COMPRESS_TEXTURES}" >> "EternalModInjector Settings.txt"
+
 echo >> "EternalModInjector Settings.txt"
 
 first_time="1"
@@ -134,6 +137,12 @@ fi
 
 if ! grep -q ":SLOW=" "$CONFIG_FILE"; then
     echo ":SLOW=0" >> "EternalModInjector Settings.txt"
+    echo >> "EternalModInjector Settings.txt"
+    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if ! grep -q ":COMPRESS_TEXTURES=" "$CONFIG_FILE"; then
+    echo ":COMPRESS_TEXTURES=0" >> "EternalModInjector Settings.txt"
     echo >> "EternalModInjector Settings.txt"
     sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
@@ -274,6 +283,7 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
     fi
     if grep -q ":VERBOSE=1" "$CONFIG_FILE"; then VERBOSE="1"; else VERBOSE="0"; fi
     if grep -q ":SLOW=1" "$CONFIG_FILE"; then SLOW="1"; else SLOW="0"; fi
+    if grep -q ":COMPRESS_TEXTURES=1" "$CONFIG_FILE"; then COMPRESS_TEXTURES="1"; else COMPRESS_TEXTURES="0"; fi
 fi
 
 #Check for script updates
@@ -732,6 +742,7 @@ ${blu}Loading mods... (DEternal_loadMods)${end}
 
 if [ "$VERBOSE" == "1" ]; then modloader_arguments=". --verbose"; else modloader_arguments="."; fi
 if [ "$SLOW" == "1" ]; then modloader_arguments="${modloader_arguments} --slow"; fi
+if [ "$COMPRESS_TEXTURES" == "1" ]; then modloader_arguments="${modloader_arguments} --compress-textures"; fi
 
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALMODLOADER_NO_COLORS=1 ./base/DEternal_loadMods ${modloader_arguments}; else ./base/DEternal_loadMods ${modloader_arguments}; fi
 
