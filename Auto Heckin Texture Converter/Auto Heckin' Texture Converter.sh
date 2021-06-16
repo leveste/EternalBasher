@@ -50,6 +50,7 @@ do
 	nvcompress -bcla -fast "$path" "${path}.dds" > /dev/null
 	)
 	./tools/DivinityMashine "${1}.dds" > /dev/null
+	./tools/EternalTextureCompressor "${1}.dds" > /dev/null
 
 	# remove file extensions
 	filename="${i}"
