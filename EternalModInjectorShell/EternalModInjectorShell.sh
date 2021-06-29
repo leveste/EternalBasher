@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v5.1.4"
+script_version="v6.0.0"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -57,8 +57,8 @@ exit 1
 }
 
 CreateConfigFile() {
-ASSET_VERSION="5.1"
-echo ":ASSET_VERSION=5.1" >> "EternalModInjector Settings.txt"
+ASSET_VERSION="6.0"
+echo ":ASSET_VERSION=6.0" >> "EternalModInjector Settings.txt"
 
 echo ":AUTO_LAUNCH_GAME=1" >> "EternalModInjector Settings.txt"
 
@@ -272,7 +272,7 @@ fi
 printf "\n%s\n\n" "${blu}Loading config file...${end}"
 CONFIG_FILE="EternalModInjector Settings.txt"
 if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
-    if grep -q ":ASSET_VERSION=5.1" "$CONFIG_FILE"; then ASSET_VERSION="5.1"; else ASSET_VERSION="0"; fi
+    if grep -q ":ASSET_VERSION=6.0" "$CONFIG_FILE"; then ASSET_VERSION="6.0"; else ASSET_VERSION="0"; fi
     if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
     if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
     if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
@@ -298,12 +298,12 @@ DETERNAL_LOADMODS_MD5="1aec79002495349e89c9f68e128cf22c"
 ETERNALPATCHER_MD5="d6f76416d64599ea8e5867bd13f56381"
 IDREHASH_MD5="ce105fa4787a5f922ef56827139f3f13"
 DETERNAL_PATCHMANIFEST_MD5="ed45fc6a856093b2434920e8149fe083"
-PATCHED_GAME_MD5_A="6980f0cd111fa463921e461ca4209aae"
-PATCHED_GAME_MD5_B="067d39d6e3d63db3c2ba6f83aa5b8c67"
-VANILLA_GAME_MD5_A="6ae01a116b0683443002f93b7f32ba73"
-VANILLA_GAME_MD5_B="0eee313a618a74b1df9a83b983099d23"
-VANILLA_META_MD5="08c058e04e753d2f45d335e8799d7194"
-VANILLA_PACKAGEMAPSPEC_MD5="3e9db4e4c9e7fbc0dea7c1f8789ace46"
+PATCHED_GAME_MD5_A="40ae67c99549a4c10bf1f43a82a3072b"
+PATCHED_GAME_MD5_B="3fb82e65175e1d3becbfa8ec4b3d27aa"
+VANILLA_GAME_MD5_A="56961731a6d153b133842856ea36edea"
+VANILLA_GAME_MD5_B="10729579afcb4f0f6a5042e92d610067"
+VANILLA_META_MD5="fea15fe0768cde65edb8050539affff3"
+VANILLA_PACKAGEMAPSPEC_MD5="ba0d92f341945cb6a226ff4a118c3638"
 
 #Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
@@ -324,6 +324,11 @@ fi
 
 if ! [ -f base/liblinoodle.so ]; then 
     printf "\n%s\n\n" "${red}liblinoodle.so not found! Re-extract the file to the 'base' folder and try again.${end}"
+    exit 1
+fi
+
+if ! [ -f base/rs_data ]; then 
+    printf "\n%s\n\n" "${red}rs_data not found! Re-extract the file to the 'base' folder and try again.${end}"
     exit 1
 fi
 
@@ -377,6 +382,7 @@ ResourceFilePaths=(
 'pvp_shrapnel_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel.resources"'
 'pvp_zap_path="./base/game/pvp/pvp_zap/pvp_zap.resources"'
 'pvp_zap_patch1_path="./base/game/pvp/pvp_zap/pvp_zap_patch1.resources"'
+'pvp_darkmetal_path = "./base/game/pvp/pvp_darkmetal/pvp_darkmetal.resources"'
 'tutorial_sp_path="./base/game/tutorials/tutorial_sp.resources"'
 'tutorial_pvp_laser_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser.resources"'
 'tutorial_pvp_laser_patch1_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser_patch1.resources"'
@@ -490,7 +496,7 @@ if [ "$ASSET_VERSION" == "0" ]; then
 If you have already done so, press Enter to continue: ${blu}"
     read -r -p ''
     ResetBackups
-    ASSET_VERSION="5.1"
+    ASSET_VERSION="6.0"
     HAS_CHECKED_RESOURCES="0"
     RESET_BACKUPS="1"
     skip_resetbackups="1"
