@@ -12,7 +12,7 @@ steam01122020=DOOMEternalx64vk.exe:88da87233f2b02fb5086de9296ea2440:global
 steam09122020=DOOMEternalx64vk.exe:c2b429b2eb398f836dd10d22944b9c76:global
 steamdlc2=DOOMEternalx64vk.exe:96556f8b0dfc56111090a6b663969b86:global,dlc2
 steam01062021=DOOMEternalx64vk.exe:6ae01a116b0683443002f93b7f32ba73:global,dlc2
-steam29062021=DOOMEternalx64vk.exe:56961731a6d153b133842856ea36edea:global,dlc2
+steam29062021=DOOMEternalx64vk.exe:56961731a6d153b133842856ea36edea:global,update6
 bnetv1=DOOMEternalx64vk.exe:7bb1e931cbbbc3d2d3cea1dd6df05539:global
 bnet14052020=DOOMEternalx64vk.exe:ea273f1400d8975807a9ccb0c9a62bce:global
 bnet16052020=DOOMEternalx64vk.exe:e66341899207dc0f0953c021469789fc:global
@@ -26,10 +26,11 @@ bnet09122020=DOOMEternalx64vk.exe:1ef861b693cdaa45eba891d084e5f3a3:global
 bnetdlc1=DOOMEternalx64vk.exe:7eaf670f3d874810310eca1c3b476327:global
 bnetdlc2=DOOMEternalx64vk.exe:b4eef9284826e5ffaedbcd73fe6d2ae6:global,dlc2
 bnet01062021=DOOMEternalx64vk.exe:0eee313a618a74b1df9a83b983099d23:global,dlc2
-bnet29062021=DOOMEternalx64vk.exe:10729579afcb4f0f6a5042e92d610067:global,dlc2
+bnet29062021=DOOMEternalx64vk.exe:10729579afcb4f0f6a5042e92d610067:global,update6
 drmfreev1=DOOMEternalx64vk.exe:0fdc1a727fb06608d37fa2c5c2926386:global
 uwpdlc2=DOOMEternalx64vk.exe:5535c56445e55f20e6d3b475217def4f:global,dlc2
 uwp01062021=DOOMEternalx64vk.exe:0f1bfdfdd0268489ec868d231169d8fd:global,dlc2
+uwp29062021=DOOMEternalx64vk.exe:a7337b367743699078c41541f3fc7dab:global,update6
 
 # patches
 # for patches with the same id (description), to support multiple game builds for different patterns, position the global patch as the last one
@@ -49,6 +50,7 @@ patch=skip checking against filesizes inside build-manifest:pattern:global:FF506
 patch=unrestrict cvars & console commands:pattern:global:084C8B0EBA01:084C8B0EBA00
 
 # unrestrict binds (by SunBeam, ported by emoose)
+patch=unrestrict binds:pattern:update6:084C8B07BA01:084C8B07BA00
 patch=unrestrict binds:pattern:dlc2:084C8B03BA01:084C8B03BA00
 patch=unrestrict binds:pattern:global:084C8B0FBA01:084C8B0FBA00
 

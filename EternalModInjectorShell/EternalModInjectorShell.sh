@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.0.0"
+script_version="v6.0.1"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -294,12 +294,12 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="1aec79002495349e89c9f68e128cf22c"
+DETERNAL_LOADMODS_MD5="98c0b5e95fde65df3850ac9c8950d150"
 ETERNALPATCHER_MD5="d6f76416d64599ea8e5867bd13f56381"
 IDREHASH_MD5="ce105fa4787a5f922ef56827139f3f13"
 DETERNAL_PATCHMANIFEST_MD5="ed45fc6a856093b2434920e8149fe083"
-PATCHED_GAME_MD5_A="40ae67c99549a4c10bf1f43a82a3072b"
-PATCHED_GAME_MD5_B="3fb82e65175e1d3becbfa8ec4b3d27aa"
+PATCHED_GAME_MD5_A="103b691b1b3fe34fd3f411a9cfb92d7d"
+PATCHED_GAME_MD5_B="db8b70ab3711a965542ba556f9108dcb"
 VANILLA_GAME_MD5_A="56961731a6d153b133842856ea36edea"
 VANILLA_GAME_MD5_B="10729579afcb4f0f6a5042e92d610067"
 VANILLA_META_MD5="fea15fe0768cde65edb8050539affff3"
@@ -552,10 +552,18 @@ fi
 #Patch Game Executable
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 
+if [ "$GameMD5" == "40ae67c99549a4c10bf1f43a82a3072b" ] || [ "$GameMD5" == "3fb82e65175e1d3becbfa8ec4b3d27aa" ]; then
+printf "\n%s\n\n" "${red}WARNING: EternalPatcher definitions have been updated, it is highly recommended for you to verify files through Steam/Bethesda.net before continuing.
+To ignore this warning and continue the mod loading process, press any key...${end}"
+read -r -p ''
+GameMD5="103b691b1b3fe34fd3f411a9cfb92d7d"
+fi
+
 if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then CorruptedGameExecutable; fi
 
 if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ]; then
     printf "\n%s\n\n" "${blu}Patching game executable...${end}"
+    if ! [ -f "DOOMEternalx64vk.exe" ] && [ "$RESET_BACKUPS" == "1" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
