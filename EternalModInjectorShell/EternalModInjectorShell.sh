@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.0.1"
+script_version="v6.0.2"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -153,6 +153,8 @@ printf "\n%s" "${blu}Reset backups now? [y/N] ${end}"
 read -r -p '' response
 case "$response" in
     [yY][eE][sS]|[yY]) 
+        if [ -f "DOOMEternalx64vk.exe" ]; then rm "DOOMEternalx64vk.exe"; fi
+
         for resource_file_path in "${ResourceFilePaths[@]}"; do
             line="${resource_file_path#*=}"
             line="${line//'"'}"
@@ -559,11 +561,13 @@ read -r -p ''
 GameMD5="103b691b1b3fe34fd3f411a9cfb92d7d"
 fi
 
+if [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
+
 if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then CorruptedGameExecutable; fi
 
-if [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ]; then
+if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] ) && ( [ -d "Mods" ] && ! [ -z "$(ls -A "Mods")" ] ); then
     printf "\n%s\n\n" "${blu}Patching game executable...${end}"
-    if ! [ -f "DOOMEternalx64vk.exe" ] && [ "$RESET_BACKUPS" == "1" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
+    if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
     if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
