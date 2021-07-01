@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.0.2"
+script_version="v6.0.3"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -85,6 +85,9 @@ echo ":SLOW=${SLOW}" >> "EternalModInjector Settings.txt"
 COMPRESS_TEXTURES="0"
 echo ":COMPRESS_TEXTURES=${COMPRESS_TEXTURES}" >> "EternalModInjector Settings.txt"
 
+DISABLE_MULTITHREADING="0"
+echo ":DISABLE_MULTITHREADING=${DISABLE_MULTITHREADING}" >> "EternalModInjector Settings.txt"
+
 echo >> "EternalModInjector Settings.txt"
 
 first_time="1"
@@ -143,6 +146,12 @@ fi
 
 if ! grep -q ":COMPRESS_TEXTURES=" "$CONFIG_FILE"; then
     echo ":COMPRESS_TEXTURES=0" >> "EternalModInjector Settings.txt"
+    echo >> "EternalModInjector Settings.txt"
+    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+fi
+
+if ! grep -q ":DISABLE_MULTITHREADING=" "$CONFIG_FILE"; then
+    echo ":DISABLE_MULTITHREADING=0" >> "EternalModInjector Settings.txt"
     echo >> "EternalModInjector Settings.txt"
     sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
 fi
@@ -286,6 +295,7 @@ if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
     if grep -q ":VERBOSE=1" "$CONFIG_FILE"; then VERBOSE="1"; else VERBOSE="0"; fi
     if grep -q ":SLOW=1" "$CONFIG_FILE"; then SLOW="1"; else SLOW="0"; fi
     if grep -q ":COMPRESS_TEXTURES=1" "$CONFIG_FILE"; then COMPRESS_TEXTURES="1"; else COMPRESS_TEXTURES="0"; fi
+    if grep -q ":DISABLE_MULTITHREADING=1" "$CONFIG_FILE"; then DISABLE_MULTITHREADING="1"; else DISABLE_MULTITHREADING="0"; fi
 fi
 
 #Check for script updates
@@ -296,7 +306,7 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="98c0b5e95fde65df3850ac9c8950d150"
+DETERNAL_LOADMODS_MD5="1d8538be28467bd0ce8f65e30fe41a03"
 ETERNALPATCHER_MD5="d6f76416d64599ea8e5867bd13f56381"
 IDREHASH_MD5="ce105fa4787a5f922ef56827139f3f13"
 DETERNAL_PATCHMANIFEST_MD5="ed45fc6a856093b2434920e8149fe083"
@@ -761,6 +771,7 @@ ${blu}Loading mods... (DEternal_loadMods)${end}
 if [ "$VERBOSE" == "1" ]; then modloader_arguments=". --verbose"; else modloader_arguments="."; fi
 if [ "$SLOW" == "1" ]; then modloader_arguments="${modloader_arguments} --slow"; fi
 if [ "$COMPRESS_TEXTURES" == "1" ]; then modloader_arguments="${modloader_arguments} --compress-textures"; fi
+if [ "$DISABLE_MULTITHREADING" == "1" ]; then modloader_arguments="${modloader_arguments} --disable-multithreading"; fi
 
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALMODLOADER_NO_COLORS=1 ./base/DEternal_loadMods ${modloader_arguments}; else ./base/DEternal_loadMods ${modloader_arguments}; fi
 
