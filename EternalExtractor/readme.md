@@ -2,7 +2,7 @@
 
 Shell script to automatically extract all Doom Eternal's .resources files using QuickBMS or Powerball523's EternalREsourceExtractor.
 
-## Instructions for EternalREsourceExtractor
+## Instructions for EternalResourceExtractor
 
 Simply download the latest binary from the tool's [release page](https://github.com/PowerBall253/EternalResourceExtractor).
 
