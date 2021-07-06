@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.0.3"
+script_version="v6.0.4"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -635,6 +635,7 @@ if [ "$RESET_BACKUPS" != "1" ] && [ "$first_time" != "1" ]; then
 printf "\n%s\n\n" "${blu}Restoring backups...${end}"
 while IFS= read -r filename; do
     if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
+        has_backups="1"
         filename=${filename//[[:cntrl:]]/}
         filename_name=${filename%.resources*}
         path=${filename_name}_path
@@ -665,9 +666,11 @@ while IFS= read -r filename; do
     fi	
 done < "EternalModInjector Settings.txt"
 
-printf "\n\t\t%s\n\n" "${blu}Restoring packagemapspec.json.backup...${end}"
-if ! [ -f "base/packagemapspec.json.backup" ]; then NoBackupFound; fi
-cp "base/packagemapspec.json.backup" "base/packagemapspec.json"
+if [ "$has_backups" == "1" ]; then
+    printf "\n\t\t%s\n\n" "${blu}Restoring packagemapspec.json.backup...${end}"
+    if ! [ -f "base/packagemapspec.json.backup" ]; then NoBackupFound; fi
+    cp "base/packagemapspec.json.backup" "base/packagemapspec.json"
+fi
 
 fi
 
