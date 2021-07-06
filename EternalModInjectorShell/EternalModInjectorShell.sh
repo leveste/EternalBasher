@@ -58,102 +58,104 @@ exit 1
 
 CreateConfigFile() {
 ASSET_VERSION="6.0"
-echo ":ASSET_VERSION=6.0" >> "EternalModInjector Settings.txt"
+echo ":ASSET_VERSION=6.0" >> "$CONFIG_FILE"
 
-echo ":AUTO_LAUNCH_GAME=1" >> "EternalModInjector Settings.txt"
+AUTO_LAUNCH_GAME="0"
+echo ":AUTO_LAUNCH_GAME=0" >> "$CONFIG_FILE"
 
-echo ":GAME_PARAMETERS=" >> "EternalModInjector Settings.txt"
+GAME_PARAMETERS=""
+echo ":GAME_PARAMETERS=" >> "$CONFIG_FILE"
 
 HAS_CHECKED_RESOURCES="0"
-echo ":HAS_CHECKED_RESOURCES=0" >> "EternalModInjector Settings.txt"
+echo ":HAS_CHECKED_RESOURCES=0" >> "$CONFIG_FILE"
 
 HAS_READ_FIRST_TIME="0"
-echo ":HAS_READ_FIRST_TIME=0" >> "EternalModInjector Settings.txt"
+echo ":HAS_READ_FIRST_TIME=0" >> "$CONFIG_FILE"
 
 RESET_BACKUPS="0"
-echo ":RESET_BACKUPS=0" >> "EternalModInjector Settings.txt"
+echo ":RESET_BACKUPS=0" >> "$CONFIG_FILE"
 
 AskforAutoUpdate
-echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
+echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "$CONFIG_FILE"
 
 VERBOSE="0"
-echo ":VERBOSE=${VERBOSE}" >> "EternalModInjector Settings.txt"
+echo ":VERBOSE=${VERBOSE}" >> "$CONFIG_FILE"
 
 SLOW="0"
-echo ":SLOW=${SLOW}" >> "EternalModInjector Settings.txt"
+echo ":SLOW=${SLOW}" >> "$CONFIG_FILE"
 
 COMPRESS_TEXTURES="0"
-echo ":COMPRESS_TEXTURES=${COMPRESS_TEXTURES}" >> "EternalModInjector Settings.txt"
+echo ":COMPRESS_TEXTURES=${COMPRESS_TEXTURES}" >> "$CONFIG_FILE"
 
 DISABLE_MULTITHREADING="0"
-echo ":DISABLE_MULTITHREADING=${DISABLE_MULTITHREADING}" >> "EternalModInjector Settings.txt"
+echo ":DISABLE_MULTITHREADING=${DISABLE_MULTITHREADING}" >> "$CONFIG_FILE"
 
-echo >> "EternalModInjector Settings.txt"
+echo >> "$CONFIG_FILE"
 
 first_time="1"
 }
 
 WriteIntoConfig() {
 if grep -q ":ASSET_VERSION=" "$CONFIG_FILE"; then
-    sed -i "s/:ASSET_VERSION=.*/:ASSET_VERSION=${ASSET_VERSION}/" "EternalModInjector Settings.txt"
+    sed -i "s/:ASSET_VERSION=.*/:ASSET_VERSION=${ASSET_VERSION}/" "$CONFIG_FILE"
 else
-    echo ":ASSET_VERSION=${ASSET_VERSION}" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":ASSET_VERSION=${ASSET_VERSION}" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
 if grep -q ":HAS_CHECKED_RESOURCES=" "$CONFIG_FILE"; then
-    sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}/" "EternalModInjector Settings.txt"
+    sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}/" "$CONFIG_FILE"
 else
-    echo ":HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":HAS_CHECKED_RESOURCES=${HAS_CHECKED_RESOURCES}" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
 if grep -q ":HAS_READ_FIRST_TIME=" "$CONFIG_FILE"; then
-    sed -i "s/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}/" "EternalModInjector Settings.txt"
+    sed -i "s/:HAS_READ_FIRST_TIME=.*/:HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}/" "$CONFIG_FILE"
 else
-    echo ":HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":HAS_READ_FIRST_TIME=${HAS_READ_FIRST_TIME}" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
 if grep -q ":RESET_BACKUPS=" "$CONFIG_FILE"; then
-    sed -i "s/:RESET_BACKUPS=.*/:RESET_BACKUPS=${RESET_BACKUPS}/" "EternalModInjector Settings.txt"
+    sed -i "s/:RESET_BACKUPS=.*/:RESET_BACKUPS=${RESET_BACKUPS}/" "$CONFIG_FILE"
 else
-    echo ":RESET_BACKUPS=${RESET_BACKUPS}" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":RESET_BACKUPS=${RESET_BACKUPS}" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
 if ! grep -q ":AUTO_UPDATE" "$CONFIG_FILE"; then
-    echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":AUTO_UPDATE=${AUTO_UPDATE}" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
 if ! grep -q ":VERBOSE=" "$CONFIG_FILE"; then
-    echo ":VERBOSE=0" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":VERBOSE=0" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
 if ! grep -q ":SLOW=" "$CONFIG_FILE"; then
-    echo ":SLOW=0" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":SLOW=0" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
 if ! grep -q ":COMPRESS_TEXTURES=" "$CONFIG_FILE"; then
-    echo ":COMPRESS_TEXTURES=0" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":COMPRESS_TEXTURES=0" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
 if ! grep -q ":DISABLE_MULTITHREADING=" "$CONFIG_FILE"; then
-    echo ":DISABLE_MULTITHREADING=0" >> "EternalModInjector Settings.txt"
-    echo >> "EternalModInjector Settings.txt"
-    sed -i '0,/^[[:space:]]*$/{//d}' "EternalModInjector Settings.txt"
+    echo ":DISABLE_MULTITHREADING=0" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 }
 
@@ -179,7 +181,7 @@ case "$response" in
         if [ -f "base/packagemapspec.json.backup" ]; then rm "base/packagemapspec.json.backup"; fi
         ;;
     *)
-sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "EternalModInjector Settings.txt"
+sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "$CONFIG_FILE"
 printf "\n%s\n\n" "${blu}Backups have not been reset.${end}"
         exit 1
         ;;
@@ -282,8 +284,9 @@ fi
 #Config File check
 printf "\n%s\n\n" "${blu}Loading config file...${end}"
 CONFIG_FILE="EternalModInjector Settings.txt"
-if ! [ -f "EternalModInjector Settings.txt" ]; then CreateConfigFile; else
+if ! [ -f "$CONFIG_FILE" ]; then CreateConfigFile; else
     if grep -q ":ASSET_VERSION=6.0" "$CONFIG_FILE"; then ASSET_VERSION="6.0"; else ASSET_VERSION="0"; fi
+    if grep -q ":AUTO_LAUNCH_GAME=1" "$CONFIG_FILE"; then AUTO_LAUNCH_GAME="1"; else AUTO_LAUNCH_GAME="0"; fi
     if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
     if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
     if grep -q ":HAS_CHECKED_RESOURCES=1" "$CONFIG_FILE"; then HAS_CHECKED_RESOURCES="1"; else HAS_CHECKED_RESOURCES="0"; fi
@@ -664,7 +667,7 @@ while IFS= read -r filename; do
         if ! [ -f "$path" ]; then NoBackupFound; fi
         cp "${path}.backup" "$path"
     fi	
-done < "EternalModInjector Settings.txt"
+done < "$CONFIG_FILE"
 
 if [ "$has_backups" == "1" ]; then
     printf "\n\t\t%s\n\n" "${blu}Restoring packagemapspec.json.backup...${end}"
@@ -704,15 +707,15 @@ fi
 #Check if there are mods in "mods" folder
 if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
-    sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=0/" "EternalModInjector Settings.txt"
+    sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=0/" "$CONFIG_FILE"
     exit 1
 fi
 
 #Backup .resources
 printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
-sed -i '/.resources$/d' "EternalModInjector Settings.txt"
-sed -i '/.snd$/d' "EternalModInjector Settings.txt"
-sed -i '/.backup$/d' "EternalModInjector Settings.txt"
+sed -i '/.resources$/d' "$CONFIG_FILE"
+sed -i '/.snd$/d' "$CONFIG_FILE"
+sed -i '/.backup$/d' "$CONFIG_FILE"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods "." --list-res )
 for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
     if [ "${modloaderlist[$i]}" == "" ]; then 
@@ -731,9 +734,9 @@ for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
 
     extension="${name##*.}"
     filename="${name%.*}"
-    echo "${filename}.backup" >> "EternalModInjector Settings.txt"
-    if [ "$extension" == "resources" ]; then echo "${filename}.resources" >> "EternalModInjector Settings.txt"; fi
-    if [ "$extension" == "snd" ]; then echo "${filename}.snd" >> "EternalModInjector Settings.txt"; fi
+    echo "${filename}.backup" >> "$CONFIG_FILE"
+    if [ "$extension" == "resources" ]; then echo "${filename}.resources" >> "$CONFIG_FILE"; fi
+    if [ "$extension" == "snd" ]; then echo "${filename}.snd" >> "$CONFIG_FILE"; fi
 done
 
 #Backup meta.resources and add to the list
@@ -741,9 +744,9 @@ if ! [ -f "base/meta.resources.backup" ]; then
     cp "base/meta.resources" "base/meta.resources.backup"
     printf "\n\t\t%s\n\n" "${blu}Backed up meta.resources${end}"
 fi
-sed -i '/meta.backup$/d' "EternalModInjector Settings.txt"
-echo meta.backup >> "EternalModInjector Settings.txt"
-echo meta.resources >> "EternalModInjector Settings.txt"
+sed -i '/meta.backup$/d' "$CONFIG_FILE"
+echo meta.backup >> "$CONFIG_FILE"
+echo meta.resources >> "$CONFIG_FILE"
 
 #Backup packagemapspec.json
 if ! [ -f "base/packagemapspec.json.backup" ]; then 
@@ -803,5 +806,16 @@ if [ "$?" != "0" ]; then
     exit 1
 fi
 
-printf "\n%s\n\n" "${grn}Mods have been loaded! You can now launch the game.${end}"
+if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ]; then
+    printf "\n%s\n%s\n\n" "${grn}Mods have been loaded!" "Launching DOOM Eternal...${end}"
+
+    GAME_PARAMETERS=$(grep ":GAME_PARAMETERS=" "$CONFIG_FILE" | awk '{ print $1 }')
+    GAME_PARAMETERS="${GAME_PARAMETERS//':GAME_PARAMETERS='}"
+
+    sleep 5
+    steam -applaunch 782330 ${GAME_PARAMETERS}
+else
+    printf "\n%s\n\n" "${grn}Mods have been loaded! You can now launch the game.${end}"
+fi
+
 exit 0
