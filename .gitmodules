@@ -22,3 +22,6 @@
 [submodule "EternalPatchManifestLinux"]
 	path = EternalPatchManifestLinux
 	url = https://github.com/PowerBall253/EternalPatchManifestLinux
+[submodule "EternalModManager"]
+	path = EternalModManager
+	url = https://github.com/PowerBall253/EternalModManager
