@@ -807,7 +807,7 @@ if [ "$?" != "0" ]; then
 fi
 
 if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ]; then
-    printf "\n%s\n%s\n\n" "${grn}Mods have been loaded!" "Launching DOOM Eternal...${end}"
+    printf "\n%s\n\n%s\n\n" "${grn}Mods have been loaded!" "Launching DOOM Eternal...${end}"
 
     GAME_PARAMETERS=$(grep ":GAME_PARAMETERS=" "$CONFIG_FILE" | awk '{ print $1 }')
     GAME_PARAMETERS="${GAME_PARAMETERS//':GAME_PARAMETERS='}"
