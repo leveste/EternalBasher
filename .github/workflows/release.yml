@@ -15,6 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install zip
+      run: |
+        sudo apt-get update
+        sudo apt-get install zip
+
     - name: Package the files
       run: |
         mkdir package
@@ -24,6 +29,7 @@ jobs:
         cp ${{github.workspace}}/EternalBins/* base
         rm base/readme.md
         cp ${{github.workspace}}/EternalModInjectorShell/EternalModInjectorShell.sh .
+        zip -r EternalModInjectorShell.zip EternalModInjectorShell.sh base Mods
         tar -czvf EternalModInjectorShell.tar.gz EternalModInjectorShell.sh base Mods
 
     - uses: marvinpinto/action-automatic-releases@latest
@@ -32,3 +38,4 @@ jobs:
         prerelease: false
         files: |
           **/EternalModInjectorShell.tar.gz
+          **/EternalModInjectorShell.zip
