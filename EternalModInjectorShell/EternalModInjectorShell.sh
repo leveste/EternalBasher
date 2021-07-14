@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.0.4"
+script_version="v6.0.5"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -90,6 +90,9 @@ echo ":COMPRESS_TEXTURES=${COMPRESS_TEXTURES}" >> "$CONFIG_FILE"
 DISABLE_MULTITHREADING="0"
 echo ":DISABLE_MULTITHREADING=${DISABLE_MULTITHREADING}" >> "$CONFIG_FILE"
 
+ONLINE_SAFE="0"
+echo ":ONLINE_SAFE=${ONLINE_SAFE}" >> "$CONFIG_FILE"
+
 echo >> "$CONFIG_FILE"
 
 first_time="1"
@@ -154,6 +157,12 @@ fi
 
 if ! grep -q ":DISABLE_MULTITHREADING=" "$CONFIG_FILE"; then
     echo ":DISABLE_MULTITHREADING=0" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
+fi
+
+if ! grep -q ":ONLINE_SAFE=" "$CONFIG_FILE"; then
+    echo ":ONLINE_SAFE=0" >> "$CONFIG_FILE"
     echo >> "$CONFIG_FILE"
     sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
@@ -299,7 +308,16 @@ if ! [ -f "$CONFIG_FILE" ]; then CreateConfigFile; else
     if grep -q ":SLOW=1" "$CONFIG_FILE"; then SLOW="1"; else SLOW="0"; fi
     if grep -q ":COMPRESS_TEXTURES=1" "$CONFIG_FILE"; then COMPRESS_TEXTURES="1"; else COMPRESS_TEXTURES="0"; fi
     if grep -q ":DISABLE_MULTITHREADING=1" "$CONFIG_FILE"; then DISABLE_MULTITHREADING="1"; else DISABLE_MULTITHREADING="0"; fi
+    if grep -q ":ONLINE_SAFE=1" "$CONFIG_FILE"; then ONLINE_SAFE="1"; else ONLINE_SAFE="0"; fi
 fi
+
+#Get ModLoader arguments
+modloader_arguments="."
+if [ "$VERBOSE" == "1" ]; then modloader_arguments="${modloader_arguments} --verbose"; fi
+if [ "$SLOW" == "1" ]; then modloader_arguments="${modloader_arguments} --slow"; fi
+if [ "$COMPRESS_TEXTURES" == "1" ]; then modloader_arguments="${modloader_arguments} --compress-textures"; fi
+if [ "$DISABLE_MULTITHREADING" == "1" ]; then modloader_arguments="${modloader_arguments} --disable-multithreading"; fi
+if [ "$ONLINE_SAFE" == "1" ]; then modloader_arguments="${modloader_arguments} --online-safe"; fi
 
 #Check for script updates
 printf "\n%s\n\n" "${blu}Checking for updates...${end}"
@@ -310,9 +328,9 @@ fi
 
 #Assign game hashes to variables
 DETERNAL_LOADMODS_MD5="1d8538be28467bd0ce8f65e30fe41a03"
-ETERNALPATCHER_MD5="d6f76416d64599ea8e5867bd13f56381"
+ETERNALPATCHER_MD5="07799fdd5b7363e183120cb5f1695d94"
 IDREHASH_MD5="ce105fa4787a5f922ef56827139f3f13"
-DETERNAL_PATCHMANIFEST_MD5="ed45fc6a856093b2434920e8149fe083"
+DETERNAL_PATCHMANIFEST_MD5="87639b1b6ea6fd4110e78e2849e54eb6"
 PATCHED_GAME_MD5_A="103b691b1b3fe34fd3f411a9cfb92d7d"
 PATCHED_GAME_MD5_B="db8b70ab3711a965542ba556f9108dcb"
 VANILLA_GAME_MD5_A="56961731a6d153b133842856ea36edea"
@@ -716,7 +734,7 @@ printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
 sed -i '/.resources$/d' "$CONFIG_FILE"
 sed -i '/.snd$/d' "$CONFIG_FILE"
 sed -i '/.backup$/d' "$CONFIG_FILE"
-IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods "." --list-res )
+IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods ${modloader_arguments} --list-res )
 for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
     if [ "${modloaderlist[$i]}" == "" ]; then 
             printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
@@ -773,11 +791,6 @@ fi
 printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
-
-if [ "$VERBOSE" == "1" ]; then modloader_arguments=". --verbose"; else modloader_arguments="."; fi
-if [ "$SLOW" == "1" ]; then modloader_arguments="${modloader_arguments} --slow"; fi
-if [ "$COMPRESS_TEXTURES" == "1" ]; then modloader_arguments="${modloader_arguments} --compress-textures"; fi
-if [ "$DISABLE_MULTITHREADING" == "1" ]; then modloader_arguments="${modloader_arguments} --disable-multithreading"; fi
 
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALMODLOADER_NO_COLORS=1 ./base/DEternal_loadMods ${modloader_arguments}; else ./base/DEternal_loadMods ${modloader_arguments}; fi
 
