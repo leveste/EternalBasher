@@ -23,6 +23,12 @@ then
 	exit 1
 fi
 
+if [[ ! -f "./tools/EternalTextureCompressor" ]]
+then
+	echo "'./tools/EternalTextureCompressor' not found! Did you extract everything in the tools folder?"
+	exit 1
+fi
+
 if ! command -v nvcompress &> /dev/null
 then
 	echo "nvcompress not found! Did you install the Nvidia Texture Tools?"
