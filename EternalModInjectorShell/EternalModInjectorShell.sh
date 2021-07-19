@@ -611,12 +611,6 @@ if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$Gam
     fi
 fi
 
-GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
-if [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then
-    printf "\n%s\n\n" "${red}Game patching failed! Verify the game executable isn't being used by any program, such as Steam, Bethesda.net, or DOOM Eternal itself, then try again.${end}"
-    exit 1
-fi
-
 #Check for all .resources and .snd files
 printf "\n%s\n\n" "${blu}Checking resources files...${end}"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
