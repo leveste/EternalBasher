@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.1.2"
+script_version="v6.1.3"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -250,6 +250,20 @@ if [ "$OUTDATED" == "1" ]; then
     clear
     ./EternalModInjectorShell.sh)
     exit $?
+fi
+}
+
+LaunchGame() {
+if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ]; then
+    printf "\n%s\n\n" "${grn}Launching DOOM Eternal...${end}"
+
+    GAME_PARAMETERS=$(grep ":GAME_PARAMETERS=" "$CONFIG_FILE" | awk '{ print $1 }')
+    GAME_PARAMETERS="${GAME_PARAMETERS//':GAME_PARAMETERS='}"
+
+    sleep 5
+    steam -applaunch 782330 ${GAME_PARAMETERS}
+else
+    printf "\n%s\n\n" "${grn}You can now launch the game.${end}"
 fi
 }
 
@@ -720,7 +734,8 @@ fi
 if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
     sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=0/" "$CONFIG_FILE"
-    exit 1
+    LaunchGame
+    exit 0
 fi
 
 #Backup .resources
@@ -813,16 +828,6 @@ if [ "$?" != "0" ]; then
     exit 1
 fi
 
-if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ]; then
-    printf "\n%s\n\n%s\n\n" "${grn}Mods have been loaded!" "Launching DOOM Eternal...${end}"
-
-    GAME_PARAMETERS=$(grep ":GAME_PARAMETERS=" "$CONFIG_FILE" | awk '{ print $1 }')
-    GAME_PARAMETERS="${GAME_PARAMETERS//':GAME_PARAMETERS='}"
-
-    sleep 5
-    steam -applaunch 782330 ${GAME_PARAMETERS}
-else
-    printf "\n%s\n\n" "${grn}Mods have been loaded! You can now launch the game.${end}"
-fi
-
+printf "\n%s\n" "${grn}Mods have been loaded!${end}"
+LaunchGame
 exit 0
