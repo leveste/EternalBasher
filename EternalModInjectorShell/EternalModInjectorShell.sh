@@ -90,8 +90,8 @@ echo ":COMPRESS_TEXTURES=${COMPRESS_TEXTURES}" >> "$CONFIG_FILE"
 DISABLE_MULTITHREADING="0"
 echo ":DISABLE_MULTITHREADING=${DISABLE_MULTITHREADING}" >> "$CONFIG_FILE"
 
-ONLINE_SAFE="0"
-echo ":ONLINE_SAFE=${ONLINE_SAFE}" >> "$CONFIG_FILE"
+#ONLINE_SAFE="0"
+#echo ":ONLINE_SAFE=${ONLINE_SAFE}" >> "$CONFIG_FILE"
 
 echo >> "$CONFIG_FILE"
 
@@ -161,11 +161,11 @@ if ! grep -q ":DISABLE_MULTITHREADING=" "$CONFIG_FILE"; then
     sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
-if ! grep -q ":ONLINE_SAFE=" "$CONFIG_FILE"; then
-    echo ":ONLINE_SAFE=0" >> "$CONFIG_FILE"
-    echo >> "$CONFIG_FILE"
-    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
-fi
+#if ! grep -q ":ONLINE_SAFE=" "$CONFIG_FILE"; then
+#    echo ":ONLINE_SAFE=0" >> "$CONFIG_FILE"
+#    echo >> "$CONFIG_FILE"
+#    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
+#fi
 }
 
 ResetBackups() {
@@ -309,7 +309,7 @@ if ! [ -f "$CONFIG_FILE" ]; then CreateConfigFile; else
     if grep -q ":SLOW=1" "$CONFIG_FILE"; then SLOW="1"; else SLOW="0"; fi
     if grep -q ":COMPRESS_TEXTURES=1" "$CONFIG_FILE"; then COMPRESS_TEXTURES="1"; else COMPRESS_TEXTURES="0"; fi
     if grep -q ":DISABLE_MULTITHREADING=1" "$CONFIG_FILE"; then DISABLE_MULTITHREADING="1"; else DISABLE_MULTITHREADING="0"; fi
-    if grep -q ":ONLINE_SAFE=1" "$CONFIG_FILE"; then ONLINE_SAFE="1"; else ONLINE_SAFE="0"; fi
+    #if grep -q ":ONLINE_SAFE=1" "$CONFIG_FILE"; then ONLINE_SAFE="1"; else ONLINE_SAFE="0"; fi
 fi
 
 #Get ModLoader arguments
@@ -318,7 +318,7 @@ if [ "$VERBOSE" == "1" ]; then modloader_arguments="${modloader_arguments} --ver
 if [ "$SLOW" == "1" ]; then modloader_arguments="${modloader_arguments} --slow"; fi
 if [ "$COMPRESS_TEXTURES" == "1" ]; then modloader_arguments="${modloader_arguments} --compress-textures"; fi
 if [ "$DISABLE_MULTITHREADING" == "1" ]; then modloader_arguments="${modloader_arguments} --disable-multithreading"; fi
-if [ "$ONLINE_SAFE" == "1" ]; then modloader_arguments="${modloader_arguments} --online-safe"; fi
+#if [ "$ONLINE_SAFE" == "1" ]; then modloader_arguments="${modloader_arguments} --online-safe"; fi
 
 #Check for script updates
 printf "\n%s\n\n" "${blu}Checking for updates...${end}"
