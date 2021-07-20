@@ -173,8 +173,6 @@ printf "\n%s" "${blu}Reset backups now? [y/N] ${end}"
 read -r -p '' response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-        if [ -f "DOOMEternalx64vk.exe" ]; then rm "DOOMEternalx64vk.exe"; fi
-
         for resource_file_path in "${ResourceFilePaths[@]}"; do
             line="${resource_file_path#*=}"
             line="${line//'"'}"
