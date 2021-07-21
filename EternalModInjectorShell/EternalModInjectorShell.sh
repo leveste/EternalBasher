@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.1.3"
+script_version="v6.1.4"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -90,8 +90,8 @@ echo ":COMPRESS_TEXTURES=${COMPRESS_TEXTURES}" >> "$CONFIG_FILE"
 DISABLE_MULTITHREADING="0"
 echo ":DISABLE_MULTITHREADING=${DISABLE_MULTITHREADING}" >> "$CONFIG_FILE"
 
-#ONLINE_SAFE="0"
-#echo ":ONLINE_SAFE=${ONLINE_SAFE}" >> "$CONFIG_FILE"
+ONLINE_SAFE="0"
+echo ":ONLINE_SAFE=${ONLINE_SAFE}" >> "$CONFIG_FILE"
 
 echo >> "$CONFIG_FILE"
 
@@ -161,11 +161,11 @@ if ! grep -q ":DISABLE_MULTITHREADING=" "$CONFIG_FILE"; then
     sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
 fi
 
-#if ! grep -q ":ONLINE_SAFE=" "$CONFIG_FILE"; then
-#    echo ":ONLINE_SAFE=0" >> "$CONFIG_FILE"
-#    echo >> "$CONFIG_FILE"
-#    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
-#fi
+if ! grep -q ":ONLINE_SAFE=" "$CONFIG_FILE"; then
+    echo ":ONLINE_SAFE=0" >> "$CONFIG_FILE"
+    echo >> "$CONFIG_FILE"
+    sed -i '0,/^[[:space:]]*$/{//d}' "$CONFIG_FILE"
+fi
 }
 
 ResetBackups() {
@@ -321,7 +321,7 @@ if ! [ -f "$CONFIG_FILE" ]; then CreateConfigFile; else
     if grep -q ":SLOW=1" "$CONFIG_FILE"; then SLOW="1"; else SLOW="0"; fi
     if grep -q ":COMPRESS_TEXTURES=1" "$CONFIG_FILE"; then COMPRESS_TEXTURES="1"; else COMPRESS_TEXTURES="0"; fi
     if grep -q ":DISABLE_MULTITHREADING=1" "$CONFIG_FILE"; then DISABLE_MULTITHREADING="1"; else DISABLE_MULTITHREADING="0"; fi
-    #if grep -q ":ONLINE_SAFE=1" "$CONFIG_FILE"; then ONLINE_SAFE="1"; else ONLINE_SAFE="0"; fi
+    if grep -q ":ONLINE_SAFE=1" "$CONFIG_FILE"; then ONLINE_SAFE="1"; else ONLINE_SAFE="0"; fi
 fi
 
 #Get ModLoader arguments
@@ -330,7 +330,7 @@ if [ "$VERBOSE" == "1" ]; then modloader_arguments="${modloader_arguments} --ver
 if [ "$SLOW" == "1" ]; then modloader_arguments="${modloader_arguments} --slow"; fi
 if [ "$COMPRESS_TEXTURES" == "1" ]; then modloader_arguments="${modloader_arguments} --compress-textures"; fi
 if [ "$DISABLE_MULTITHREADING" == "1" ]; then modloader_arguments="${modloader_arguments} --disable-multithreading"; fi
-#if [ "$ONLINE_SAFE" == "1" ]; then modloader_arguments="${modloader_arguments} --online-safe"; fi
+if [ "$ONLINE_SAFE" == "1" ]; then modloader_arguments="${modloader_arguments} --online-safe"; fi
 
 #Check for script updates
 printf "\n%s\n\n" "${blu}Checking for updates...${end}"
@@ -341,9 +341,9 @@ fi
 
 #Assign game hashes to variables
 DETERNAL_LOADMODS_MD5="1d8538be28467bd0ce8f65e30fe41a03"
-ETERNALPATCHER_MD5="07799fdd5b7363e183120cb5f1695d94"
-IDREHASH_MD5="ce105fa4787a5f922ef56827139f3f13"
-DETERNAL_PATCHMANIFEST_MD5="87639b1b6ea6fd4110e78e2849e54eb6"
+ETERNALPATCHER_MD5="c8a367057a0d4744015a453bbc559267"
+IDREHASH_MD5="f6e65c39dc8d2940feddf10a37333376"
+DETERNAL_PATCHMANIFEST_MD5="47d8b2f7ca7934b48431217171e42849"
 PATCHED_GAME_MD5_A="957527ae061c89fa4bb327b54bf56bf3"
 PATCHED_GAME_MD5_B="6fe106b37aea4fbea536ad8c178e1603"
 VANILLA_GAME_MD5_A="7ce1b2029a94b7bfe1ec4bd76b9cf6a1"
