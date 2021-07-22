@@ -10,6 +10,10 @@ Automatically converts any texture file(s) to the TGA format required by the gam
 
 A program to make importing and exporting DOOM saves easier, modified to work for Linux using Mono.
 
+**EternalAudioExtractorLinux**
+
+Tool to extract audio files from DOOM Eternal's .snd files, modified for Linux.
+
 **EternalBins**
 
 Collection of compiled native binaries of modding tools.
@@ -37,6 +41,10 @@ Tool that patches the build-manifest.bin file for modding purposes, rewritten in
 **EternalPatcherLinux**
 
 Tool that patches the DOOM Eternal executable for modding purposes, rewritten in C for Linux.
+
+**EternalResourceExtractor**
+
+Small C utility to extract files from a DOOM Eternal .resources file.
 
 **ModLoader_to_MeatHook**
 

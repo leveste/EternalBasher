@@ -25,3 +25,9 @@
 [submodule "EternalModManager"]
 	path = EternalModManager
 	url = https://github.com/PowerBall253/EternalModManager
+[submodule "EternalAudioExtractorLinux"]
+	path = EternalAudioExtractorLinux
+	url = https://github.com/PowerBall253/EternalAudioExtractorLinux.git
+[submodule "EternalResourceExtractor"]
+	path = EternalResourceExtractor
+	url = https://github.com/PowerBall253/EternalResourceExtractor
