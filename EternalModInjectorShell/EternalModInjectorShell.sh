@@ -401,7 +401,7 @@ idRehashMD5=$(md5sum "base/idRehash" | awk '{ print $1 }')
 EternalPatcherMD5=$(md5sum "base/EternalPatcher" | awk '{ print $1 }')
 DEternal_patchManifestMD5=$(md5sum "base/DEternal_patchManifest" | awk '{ print $1 }')
 
-if [ "$DETERNAL_LOADMODS_MD5" != "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
+#if [ "$DETERNAL_LOADMODS_MD5" != "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
 if [ "$IDREHASH_MD5" != "$idRehashMD5" ]; then MissingIdRehash; fi
 if [ "$ETERNALPATCHER_MD5" != "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
 if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then MissingDEternalPatchManifest; fi
@@ -667,16 +667,9 @@ while IFS= read -r filename; do
         filename_name=${filename%.resources*}
         path=${filename_name}_path
         path=${!path}
-        if [[ "$filename" != dlc_* ]]; then
-            printf "\n\t\t%s\n\n" "${blu}Restoring ${filename_name}.resources.backup...${end}"
-            if ! [ -f "$path" ]; then NoBackupFound; fi
-            cp "${path}.backup" "$path"
-        else
-            printf "\n\t\t%s\n\n" "${blu}Restoring dlc_${filename_name}.resources.backup...${end}"
-            if ! [ -f "$path" ]; then NoBackupFound; fi
-            cp "${path}.backup" "$path"
-
-        fi		
+        printf "\n\t\t%s\n\n" "${blu}Restoring ${filename_name}.resources.backup...${end}"
+        if ! [ -f "$path" ]; then NoBackupFound; fi
+        cp "${path}.backup" "$path"	
     fi
 
     if [[ "$filename" == *.snd ]] || [[ "$filename" == *.snd* ]]; then
@@ -751,9 +744,11 @@ for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
     filename="${filename/$'\r'/}"
     if ! [ -f "${filename}.backup" ]; then
         cp "$filename" "${filename}.backup"
+        if [[ "$filename" == */dlc/hub* ]]; then name="dlc_${name}"; fi
         name=${filename##*/}
         printf "\n\t\t%s\n\n" "${blu}Backed up $name${end}"
     else
+        if [[ "$filename" == */dlc/hub* ]]; then name="dlc_${name}"; fi
         name=${filename##*/}
     fi
 
