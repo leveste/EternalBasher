@@ -401,7 +401,7 @@ idRehashMD5=$(md5sum "base/idRehash" | awk '{ print $1 }')
 EternalPatcherMD5=$(md5sum "base/EternalPatcher" | awk '{ print $1 }')
 DEternal_patchManifestMD5=$(md5sum "base/DEternal_patchManifest" | awk '{ print $1 }')
 
-#if [ "$DETERNAL_LOADMODS_MD5" != "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
+if [ "$DETERNAL_LOADMODS_MD5" != "$DEternal_LoadModsMD5" ]; then MissingDEternalLoadMods; fi
 if [ "$IDREHASH_MD5" != "$idRehashMD5" ]; then MissingIdRehash; fi
 if [ "$ETERNALPATCHER_MD5" != "$EternalPatcherMD5" ]; then MissingEternalPatcher; fi
 if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then MissingDEternalPatchManifest; fi
