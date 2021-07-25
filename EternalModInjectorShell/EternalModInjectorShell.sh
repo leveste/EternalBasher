@@ -744,12 +744,12 @@ for (( i = 0; i < ${#modloaderlist[@]}; i++ )); do
     filename="${filename/$'\r'/}"
     if ! [ -f "${filename}.backup" ]; then
         cp "$filename" "${filename}.backup"
-        if [[ "$filename" == */dlc/hub* ]]; then filename="dlc_${name}"; fi
         name=${filename##*/}
+        if [[ "$filename" == */dlc/hub* ]]; then name="dlc_${name}"; fi
         printf "\n\t\t%s\n\n" "${blu}Backed up $name${end}"
     else
-        if [[ "$filename" == */dlc/hub* ]]; then filename="dlc_${name}"; fi
         name=${filename##*/}
+        if [[ "$filename" == */dlc/hub* ]]; then name="dlc_${name}"; fi
     fi
 
     extension="${name##*.}"
