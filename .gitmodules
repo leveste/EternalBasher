@@ -29,3 +29,6 @@
 	path = EternalResourceExtractor
 	url = https://github.com/PowerBall253/EternalResourceExtractor
 
+[submodule "EternalAudioExtractorLinux"]
+	path = EternalAudioExtractorLinux
+	url = https://github.com/PowerBall253/EternalAudioExtractorLinux
