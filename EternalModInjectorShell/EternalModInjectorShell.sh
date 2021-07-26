@@ -694,7 +694,7 @@ if [ "${modloaderlist[0]}" == "" ]; then
 fi
 
 for filename in "${modloaderlist[@]}"; do
-    filename="${modloaderlist[$i]#*=}"
+    filename="${filename#*=}"
     filename="${filename/$'\r'/}"
     if ! [ -f "${filename}.backup" ]; then
         cp "$filename" "${filename}.backup"
