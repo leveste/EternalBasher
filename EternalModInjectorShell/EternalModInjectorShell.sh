@@ -694,7 +694,7 @@ sed -i '/.snd$/d' "$CONFIG_FILE"
 sed -i '/.backup$/d' "$CONFIG_FILE"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods ${modloader_arguments} --list-res )
 
-if [ "${modloaderlist[0]}" == "" ]; then 
+if [ "${#modloaderlist[@]}" == "0" ]; then 
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
     exit 0
 fi
