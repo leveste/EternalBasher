@@ -227,9 +227,12 @@ fi
 }
 
 LaunchGame() {
-if [ -n "$FLATPAK_ID" ]; then printf "\n%s\n" "${grn}Automatic game launching is not supported through flatpak.${end}"; fi
-
 if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ] && [ -z "$FLATPAK_ID" ]; then
+    if [ -n "$FLATPAK_ID" ]; then
+        printf "\n%s\n" "${grn}Automatic game launching is not supported through flatpak.${end}"
+        return
+    fi
+
     printf "\n%s\n\n" "${grn}Launching DOOM Eternal...${end}"
 
     GAME_PARAMETERS=$(grep ":GAME_PARAMETERS=" "$CONFIG_FILE" | awk '{ print $1 }')
