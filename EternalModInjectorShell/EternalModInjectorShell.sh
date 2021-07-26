@@ -227,9 +227,14 @@ fi
 }
 
 LaunchGame() {
-if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ] && [ -z "$FLATPAK_ID" ]; then
+if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ] && [ -z "$FLATPAK_ID" ] && [ -z "$SNAP" ]; then
     if [ -n "$FLATPAK_ID" ]; then
         printf "\n%s\n" "${grn}Automatic game launching is not supported through flatpak.${end}"
+        return
+    fi
+
+    if [ -n "$SNAP" ]; then
+        printf "\n%s\n" "${grn}Automatic game launching is not supported through snap.${end}"
         return
     fi
 
