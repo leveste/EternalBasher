@@ -227,7 +227,7 @@ fi
 }
 
 LaunchGame() {
-if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ]; then
+if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ] && [ -n "$FLATPAK_ID" ]; then
     printf "\n%s\n\n" "${grn}Launching DOOM Eternal...${end}"
 
     GAME_PARAMETERS=$(grep ":GAME_PARAMETERS=" "$CONFIG_FILE" | awk '{ print $1 }')
@@ -561,7 +561,7 @@ GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 
 if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then MissingGameFile "DOOMEternalx64vk.exe"; fi
 
-if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] ) && ( [ -d "Mods" ] && ! [ -z "$(ls -A "Mods")" ] ); then
+if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] ) && ( [ -d "Mods" ] && [ -n "$(ls -A "Mods")" ] ); then
     printf "\n%s\n\n" "${blu}Patching game executable...${end}"
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
