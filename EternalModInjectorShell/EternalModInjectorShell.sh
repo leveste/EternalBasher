@@ -696,6 +696,7 @@ IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods ${modloader
 
 if [ "${modloaderlist[0]}" == "" ]; then 
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
+    exit 0
 fi
 
 for filename in "${modloaderlist[@]}"; do
