@@ -4,7 +4,7 @@ Meath00k is a tool that implements various utilities into the game for modding p
 
 First, you can get meath00k from the latest [EntityHero](https://github.com/nopjne/EntityHero "EntityHero") release. Extract the XINPUT1\_3.dll file in the "meathook_interface" folder to your DOOMEternal folder.
 
-You will need to set the wine prefix to pfx and launch *winecfg*. Simply type the following in the terminal (replace "user" with your username)
+You will need to set the wine prefix to pfx and launch *winecfg*. Simply type the following in the terminal (replace the WINEPREFIX variable with your own path)
 
     WINEPREFIX=/home/user/.local/share/Steam/steamapps/compatdata/782330/pfx/ winecfg
 
