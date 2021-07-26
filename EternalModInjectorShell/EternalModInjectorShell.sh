@@ -315,7 +315,7 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="1d8538be28467bd0ce8f65e30fe41a03"
+DETERNAL_LOADMODS_MD5="282aefd329426e01ec21b80e7537b295"
 ETERNALPATCHER_MD5="560de88e2745d506a6e67590298d9fe3"
 IDREHASH_MD5="f6e65c39dc8d2940feddf10a37333376"
 DETERNAL_PATCHMANIFEST_MD5="47d8b2f7ca7934b48431217171e42849"
@@ -692,8 +692,6 @@ IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods ${modloader
 if [ "${modloaderlist[0]}" == "" ]; then 
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
 fi
-
-"${SndFilePaths[@]}"
 
 for filename in "${modloaderlist[@]}"; do
     filename="${modloaderlist[$i]#*=}"
