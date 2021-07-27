@@ -325,7 +325,7 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="3472ee723ebe9f0115a4b58dcfdec752"
+DETERNAL_LOADMODS_MD5="6833bf77037e960933a152a6f8a281fd"
 ETERNALPATCHER_MD5="560de88e2745d506a6e67590298d9fe3"
 IDREHASH_MD5="f6e65c39dc8d2940feddf10a37333376"
 DETERNAL_PATCHMANIFEST_MD5="47d8b2f7ca7934b48431217171e42849"
@@ -505,6 +505,8 @@ SndFilePaths=(
 'vo_Spanish_Spain__path="./base/sound/soundbanks/pc/vo_Spanish(Spain).snd"'
 )
 
+packagemapspec_path="./base/packagemapspec.json"
+
 #Check for Asset Version
 if [ "$ASSET_VERSION" == "0" ]; then
 
@@ -624,37 +626,19 @@ done
 if [ "$RESET_BACKUPS" != "1" ] && [ "$first_time" != "1" ]; then
 printf "\n%s\n\n" "${blu}Restoring backups...${end}"
 while IFS= read -r filename; do
-    if [[ "$filename" == *.resources ]] || [[ "$filename" == *.resources* ]]; then
-        has_backups="1"
-        filename=${filename//[[:cntrl:]]/}
-        filename_name=${filename%.resources*}
-        path=${filename_name}_path
-        path=${!path}
-        printf "\n\t\t%s\n\n" "${blu}Restoring ${filename_name}.resources.backup...${end}"
-        if ! [ -f "$path" ]; then NoBackupFound; fi
-        cp "${path}.backup" "$path"	
-    fi
+    if [[ "$filename" != *.resources ]] && [[ "$filename" != *.snd ]] && [[ "$filename" != *.json ]]; then continue; fi
+    filename=${filename//[[:cntrl:]]/}
+    filename_name=${filename%.*}
+    filename_name=${filename_name//'('/_}
+    filename_name=${filename_name//')'/_}
+    path=${filename_name}_path
+    path=${!path}
+    extension="${path##*.}"
 
-    if [[ "$filename" == *.snd ]] || [[ "$filename" == *.snd* ]]; then
-        filename=${filename//[[:cntrl:]]/}
-        filename_name=${filename%.snd*}
-        filename_name=${filename_name//'('/_}
-        filename_name=${filename_name//')'/_}
-        path=${filename_name}_path
-        path=${!path}
-
-        printf "\n\t\t%s\n\n" "${blu}Restoring ${filename_name}.snd.backup...${end}"
-        if ! [ -f "$path" ]; then NoBackupFound; fi
-        cp "${path}.backup" "$path"
-    fi	
+    printf "\n\t\t%s\n\n" "${blu}Restoring ${filename_name}.${extension}.backup...${end}"
+    if ! [ -f "$path" ]; then NoBackupFound; fi
+    cp "${path}.backup" "$path"	
 done < "$CONFIG_FILE"
-
-if [ "$has_backups" == "1" ]; then
-    printf "\n\t\t%s\n\n" "${blu}Restoring packagemapspec.json.backup...${end}"
-    if ! [ -f "base/packagemapspec.json.backup" ]; then NoBackupFound; fi
-    cp "base/packagemapspec.json.backup" "base/packagemapspec.json"
-fi
-
 fi
 
 RESET_BACKUPS="0"
@@ -717,11 +701,9 @@ for filename in "${modloaderlist[@]}"; do
         if [[ "$filename" == */dlc/hub* ]]; then name="dlc_${name}"; fi
     fi
 
-    extension="${name##*.}"
     filename="${name%.*}"
     echo "${filename}.backup" >> "$CONFIG_FILE"
-    if [ "$extension" == "resources" ]; then echo "${filename}.resources" >> "$CONFIG_FILE"; fi
-    if [ "$extension" == "snd" ]; then echo "${filename}.snd" >> "$CONFIG_FILE"; fi
+    echo "$name" >> "$CONFIG_FILE"
 done
 
 #Backup meta.resources and add to the list
@@ -732,13 +714,6 @@ fi
 sed -i '/meta.backup$/d' "$CONFIG_FILE"
 echo meta.backup >> "$CONFIG_FILE"
 echo meta.resources >> "$CONFIG_FILE"
-
-#Backup packagemapspec.json
-if ! [ -f "base/packagemapspec.json.backup" ]; then 
-    cp "base/packagemapspec.json" "base/packagemapspec.json.backup"
-    printf "\n\t\t%s\n\n" "${blu}Backed up packagemapspec.json${end}"
-fi
-
 
 #Get vanilla resource hash offsets (idRehash)
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
