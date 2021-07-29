@@ -4,7 +4,7 @@ Shell script to automatically extract all Doom Eternal's .resources files using 
 
 ## Instructions for EternalResourceExtractor (recommended)
 
-Simply download the latest binary from the tool's [release page](https://github.com/PowerBall253/EternalResourceExtractor), and linoodle from the [EternalBins folder](https://github.com/leveste/EternalBasher/blob/master/EternalBins/liblinoodle.so), and copy `oo2core_8_win64.dll` from your game's directory to your extractor directory.
+Simply download the latest binary from the tool's [release page](https://github.com/PowerBall253/EternalResourceExtractor) and place it alongside the script.
 
 **Note:** Do not download the ".exe" binary as that one is intended for Windows and won't work with this script.
 
