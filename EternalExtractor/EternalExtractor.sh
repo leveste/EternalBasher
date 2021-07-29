@@ -204,7 +204,6 @@ do
 				if ! [[ "$___EXTRACTOR_DIR" == */ ]]; then ___EXTRACTOR_DIR="${___EXTRACTOR_DIR}/"; fi
 
 				if ! [[ -f "${___EXTRACTOR_DIR}EternalResourceExtractor" ]]; then MissingEternalResourceExtractor; fi
-				chmod +x "${___EXTRACTOR_DIR}EternalResourceExtractor"
 
 				cp "${___EXTRACTOR_DIR}EternalResourceExtractor" .
 				chmod +x "EternalResourceExtractor"
