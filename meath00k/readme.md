@@ -24,7 +24,7 @@ if [ $openEntityHero == "1" ]; then
 "${protonPath}" run EntityHero\ v0.7.exe &>/dev/null &
 fi
 
-[your env variables] "${protonPath}" run DOOMEternalx64vk.exe "${gameArguments}" &>/dev/null &
+[your env variables] "${protonPath}" run DOOMEternalx64vk.exe ${gameArguments} &>/dev/null &
 ```
 
 Change the protonPath variable to match the proton binary you are using. Make sure to make the script executable by running 
