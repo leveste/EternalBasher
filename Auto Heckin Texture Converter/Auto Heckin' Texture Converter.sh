@@ -35,6 +35,10 @@ then
 	exit 1
 fi
 
+# Give executable permissions to tools
+chmod +x tools/DivinityMashine
+chmod +x tools/EternalTextureCompressor
+
 
 # Check for arguments
 if [ "$#" -eq 0 ]
@@ -49,24 +53,29 @@ while [ $# -ne 0 ]
 do
 	echo "Converting '$1'..."
 
-	path=$(readlink -f "$1")
-	#use subshell for cd operation
-	(
-	cd tools
-	nvcompress -bcla -fast "$path" "${path}.dds" > /dev/null
-	)
-	./tools/DivinityMashine "${1}.dds" > /dev/null
-	./tools/EternalTextureCompressor "${1}.dds" > /dev/null
+	filepath="$(readlink -f "$1")"
+	if [[ ! -f "$filepath" ]]
+	then
+		echo "'$1' not found!"
+		shift
+		continue
+	fi
+
+	nvcompress -bc1a -fast "$filepath" "${filepath}.dds" > /dev/null
+	./tools/DivinityMashine "${filepath}.dds" > /dev/null
 
 	# remove file extensions
-	filename="${i}"
-	filename="${filename%%.*}" > /dev/null
+	filename="${filepath}"
+	filename="${filename%%.*}"
 
-	name="${1}.dds"
+	name="${filepath}.dds"
 	tga_name="${name//dds/tga}"
 
-	mv "$tga_name" "${filename}.tga" > /dev/null
-	rm "${1}.dds" > /dev/null
+	mv "$tga_name" "${filename}.tga"
+	rm -f "${filepath}.dds"
+
+	(cd tools
+	./EternalTextureCompressor "${filename}.tga" > /dev/null)
 
 	shift
 done
