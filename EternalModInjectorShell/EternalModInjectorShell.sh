@@ -227,7 +227,12 @@ fi
 }
 
 LaunchGame() {
-if [ "$AUTO_LAUNCH_GAME" == "1" ] && [ -f "steam_api64.dll" ] && [ -z "$FLATPAK_ID" ] && [ -z "$SNAP" ]; then
+if [ "$AUTO_LAUNCH_GAME" == "1" ]; then
+    if ! [ -f "steam_api64.dll" ]; then
+        printf "\n%s\n" "${grn}Automatic game launching is not supported in the Bethesda.net version of the game.${end}"
+        return
+    fi
+
     if [ -n "$FLATPAK_ID" ]; then
         printf "\n%s\n" "${grn}Automatic game launching is not supported through flatpak.${end}"
         return
@@ -325,7 +330,7 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="6833bf77037e960933a152a6f8a281fd"
+DETERNAL_LOADMODS_MD5="914fa95b1a5a20e8168fe2c06a56bbd1"
 ETERNALPATCHER_MD5="560de88e2745d506a6e67590298d9fe3"
 IDREHASH_MD5="f6e65c39dc8d2940feddf10a37333376"
 DETERNAL_PATCHMANIFEST_MD5="47d8b2f7ca7934b48431217171e42849"
