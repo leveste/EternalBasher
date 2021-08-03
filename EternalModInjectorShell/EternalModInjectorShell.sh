@@ -17,7 +17,10 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.1.4"
+script_version="v6.2.0"
+
+#Game version
+game_version="6.2"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -47,8 +50,8 @@ exit 1
 }
 
 CreateConfigFile() {
-ASSET_VERSION="6.1"
-echo ":ASSET_VERSION=6.1" >> "$CONFIG_FILE"
+ASSET_VERSION="$game_version"
+echo ":ASSET_VERSION=${game_version}" >> "$CONFIG_FILE"
 
 AUTO_LAUNCH_GAME="0"
 echo ":AUTO_LAUNCH_GAME=0" >> "$CONFIG_FILE"
@@ -297,7 +300,7 @@ fi
 printf "\n%s\n\n" "${blu}Loading config file...${end}"
 CONFIG_FILE="EternalModInjector Settings.txt"
 if ! [ -f "$CONFIG_FILE" ]; then CreateConfigFile; else
-    if grep -q ":ASSET_VERSION=6.1" "$CONFIG_FILE"; then ASSET_VERSION="6.1"; else ASSET_VERSION="0"; fi
+    if grep -q ":ASSET_VERSION=${game_version}" "$CONFIG_FILE"; then ASSET_VERSION="$game_version"; else ASSET_VERSION="0"; fi
     if grep -q ":AUTO_LAUNCH_GAME=1" "$CONFIG_FILE"; then AUTO_LAUNCH_GAME="1"; else AUTO_LAUNCH_GAME="0"; fi
     if grep -q ":RESET_BACKUPS=1" "$CONFIG_FILE"; then RESET_BACKUPS="1"; else RESET_BACKUPS="0"; fi
     if grep -q ":HAS_READ_FIRST_TIME=1" "$CONFIG_FILE"; then HAS_READ_FIRST_TIME="1"; else HAS_READ_FIRST_TIME="0"; fi
@@ -330,16 +333,16 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="914fa95b1a5a20e8168fe2c06a56bbd1"
+DETERNAL_LOADMODS_MD5="271f338096b4516c7c101507b289a37b"
 ETERNALPATCHER_MD5="560de88e2745d506a6e67590298d9fe3"
 IDREHASH_MD5="f6e65c39dc8d2940feddf10a37333376"
 DETERNAL_PATCHMANIFEST_MD5="47d8b2f7ca7934b48431217171e42849"
-PATCHED_GAME_MD5_A="957527ae061c89fa4bb327b54bf56bf3"
-PATCHED_GAME_MD5_B="6fe106b37aea4fbea536ad8c178e1603"
-VANILLA_GAME_MD5_A="7ce1b2029a94b7bfe1ec4bd76b9cf6a1"
-VANILLA_GAME_MD5_B="9ef432d40dfb4a891d8e64b8564605d8"
-VANILLA_META_MD5="eb9c724db87ed45ff53e05b25b1e38d1"
-VANILLA_PACKAGEMAPSPEC_MD5="c9aa578dfb5337f2eb58158ffc739a68"
+VANILLA_GAME_MD5_A="dd75e40d9dba5a95708a0e4f625a96af"
+VANILLA_GAME_MD5_B="009f89905a32fe80823f66319ecbd439"
+PATCHED_GAME_MD5_A="5805bdb39b87b30521067209c0bf2c54"
+PATCHED_GAME_MD5_B="62f33a12790dca2aede754a0404a5f50"
+VANILLA_META_MD5="8f4d07ad0dc60420a910eafb02cca0aa"
+VANILLA_PACKAGEMAPSPEC_MD5="2f00437185f5d775d4e09d587b9e2702"
 
 #Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
@@ -519,7 +522,7 @@ if [ "$ASSET_VERSION" == "0" ]; then
 If you have already done so, press Enter to continue: ${blu}"
     read -r -p ''
     ResetBackups
-    ASSET_VERSION="6.1"
+    ASSET_VERSION="$game_version"
     HAS_CHECKED_RESOURCES="0"
     RESET_BACKUPS="1"
     skip_resetbackups="1"
