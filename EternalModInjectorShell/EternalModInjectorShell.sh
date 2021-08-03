@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.2.0"
+script_version="v6.2.1"
 
 #Game version
 game_version="6.2"
@@ -677,6 +677,7 @@ fi
 printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
 sed -i '/.resources$/d' "$CONFIG_FILE"
 sed -i '/.snd$/d' "$CONFIG_FILE"
+sed -i '/.json$/d' "$CONFIG_FILE"
 sed -i '/.backup$/d' "$CONFIG_FILE"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods ${modloader_arguments} --list-res )
 
