@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.2.4"
+script_version="v6.2.5"
 
 #Game version
 game_version="6.2"
