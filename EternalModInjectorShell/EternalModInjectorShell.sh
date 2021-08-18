@@ -17,10 +17,10 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.2.5"
+script_version="v6.3.0"
 
 #Game version
-game_version="6.2"
+game_version="6.3"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -333,14 +333,14 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="b0de36e3829bab40cd3433c001058d41"
+DETERNAL_LOADMODS_MD5="ed6cb347ea423700c071c6dc83ef26db"
 ETERNALPATCHER_MD5="560de88e2745d506a6e67590298d9fe3"
 IDREHASH_MD5="f6e65c39dc8d2940feddf10a37333376"
 DETERNAL_PATCHMANIFEST_MD5="47d8b2f7ca7934b48431217171e42849"
-VANILLA_GAME_MD5_A="dd75e40d9dba5a95708a0e4f625a96af"
-VANILLA_GAME_MD5_B="009f89905a32fe80823f66319ecbd439"
-PATCHED_GAME_MD5_A="5805bdb39b87b30521067209c0bf2c54"
-PATCHED_GAME_MD5_B="62f33a12790dca2aede754a0404a5f50"
+VANILLA_GAME_MD5_A="9e9013ae3481e963a5fc3a049a8a1542"
+VANILLA_GAME_MD5_B="55905384e20063dee08ff83de55afc41"
+PATCHED_GAME_MD5_A="ef3e157cfa090d31b17f2e4337129923"
+PATCHED_GAME_MD5_B="91781fbcaf1e63b114f4db1b0d571ce8"
 VANILLA_META_MD5="8f4d07ad0dc60420a910eafb02cca0aa"
 VANILLA_PACKAGEMAPSPEC_MD5="2f00437185f5d775d4e09d587b9e2702"
 
