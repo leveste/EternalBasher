@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.3.0"
+script_version="v6.3.1"
 
 #Game version
 game_version="6.3"
@@ -335,7 +335,7 @@ fi
 #Assign game hashes to variables
 DETERNAL_LOADMODS_MD5="ed6cb347ea423700c071c6dc83ef26db"
 ETERNALPATCHER_MD5="560de88e2745d506a6e67590298d9fe3"
-IDREHASH_MD5="f6e65c39dc8d2940feddf10a37333376"
+IDREHASH_MD5="2054abcd052e78881f80635ccd39870e"
 DETERNAL_PATCHMANIFEST_MD5="47d8b2f7ca7934b48431217171e42849"
 VANILLA_GAME_MD5_A="9e9013ae3481e963a5fc3a049a8a1542"
 VANILLA_GAME_MD5_B="55905384e20063dee08ff83de55afc41"
