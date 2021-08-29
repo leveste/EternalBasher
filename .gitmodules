@@ -1,9 +1,6 @@
 [submodule "DOOMSaveManagerLinux"]
 	path = DOOMSaveManagerLinux
 	url = https://github.com/PowerBall253/DOOMSaveManagerLinux.git
-[submodule "idSaveDecompressorLinux"]
-	path = idSaveDecompressorLinux
-	url = https://github.com/PowerBall253/idSaveDecompressorLinux.git
 [submodule "linoodle"]
 	path = linoodle
 	url = https://github.com/PowerBall253/linoodle.git

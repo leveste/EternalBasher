@@ -62,10 +62,6 @@ Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entitie
 
 Tool to hash the resource offsets and store them in meta.resources to allow loading of custom .resources, rewritten on C for Linux.
 
-**idSaveDecompressorLinux**
-
-Tool for decompressing DOOM Eternal saved games (game_duration.dat) adapted to work on Linux using Mono.
-
 **linoodle**
 
 Linux wrapper for the Oodle compression library.
