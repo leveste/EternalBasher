@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.3.1"
+script_version="v6.3.2"
 
 #Game version
 game_version="6.3"
@@ -333,7 +333,7 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 #Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="3e7ac2b112adefbec333f1303ec41b4a"
+DETERNAL_LOADMODS_MD5="36279de455a298a777fb28cdf83ca5e1"
 ETERNALPATCHER_MD5="560de88e2745d506a6e67590298d9fe3"
 IDREHASH_MD5="2054abcd052e78881f80635ccd39870e"
 DETERNAL_PATCHMANIFEST_MD5="47d8b2f7ca7934b48431217171e42849"
