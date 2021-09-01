@@ -39,6 +39,7 @@ uwp01062021=DOOMEternalx64vk.exe:0f1bfdfdd0268489ec868d231169d8fd:global,dlc2
 uwp29062021=DOOMEternalx64vk.exe:a7337b367743699078c41541f3fc7dab:global,update6
 uwp14072021=DOOMEternalx64vk.exe:cfddc0f58ad5ba4fb68f1de7998791d4:global,update6
 uwp03082021=DOOMEternalx64vk.exe:c538b499a1a08408df5fa284db5935a6:global,update6
+uwp18082021=DOOMEternalx64vk.exe:238c54ccf32fd2d570983321b2a3dafd:global,update6
 
 # patches
 # for patches with the same id (description), to support multiple game builds for different patterns, position the global patch as the last one
