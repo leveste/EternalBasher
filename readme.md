@@ -1,5 +1,7 @@
 Collection of bash scripts for different aspects of Doom Eternal modding. Further instructions can be found in the readme file of each one.
 
+Join the DOOM Eternal Modding Hub to find more mods and tools: <https://discord.gg/FCdjqYDr5B>
+
 ------------------------
 
 **Auto Heckin' Texture Converter**
