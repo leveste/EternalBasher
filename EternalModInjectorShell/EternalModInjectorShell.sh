@@ -17,10 +17,10 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.3.5"
+script_version="v6.4.0"
 
 #Game version
-game_version="6.3"
+game_version="6.4"
 
 #Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -337,12 +337,13 @@ DETERNAL_LOADMODS_MD5="36279de455a298a777fb28cdf83ca5e1"
 ETERNALPATCHER_MD5="3b86b9d7721a72cd4effb89b86c6cd59"
 IDREHASH_MD5="db1804824c0e89656f2e79e7446fa56c"
 DETERNAL_PATCHMANIFEST_MD5="a44b3054caae2dc983526d744633b6c4"
-VANILLA_GAME_MD5_A="9e9013ae3481e963a5fc3a049a8a1542"
-VANILLA_GAME_MD5_B="55905384e20063dee08ff83de55afc41"
-PATCHED_GAME_MD5_A="ef3e157cfa090d31b17f2e4337129923"
-PATCHED_GAME_MD5_B="91781fbcaf1e63b114f4db1b0d571ce8"
-VANILLA_META_MD5="8f4d07ad0dc60420a910eafb02cca0aa"
-VANILLA_PACKAGEMAPSPEC_MD5="2f00437185f5d775d4e09d587b9e2702"
+VANILLA_GAME_MD5_A="8829459d8270a69e78b1797eb8785227"
+VANILLA_GAME_MD5_B="186428ea3d56c3b6cfa375f749b383d4"
+PATCHED_GAME_MD5_A="ea5d74090a01059d4d7fe97713fec264"
+PATCHED_GAME_MD5_B="e6e6bdc6789f0938c0d7491b7eb8b45b"
+VANILLA_META_MD5="cf16c0a9b4068202670d65639735b038"
+VANILLA_PACKAGEMAPSPEC_MD5="3d6f54c0bc2b56ec86e1a6c2dffe11ca"
+RS_DATA_MD5="c4a31a7120eff6f55038794d82ff9077"
 
 #Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
@@ -369,11 +370,13 @@ DEternal_LoadModsMD5=$(md5sum "base/DEternal_loadMods" | awk '{ print $1 }')
 idRehashMD5=$(md5sum "base/idRehash" | awk '{ print $1 }')
 EternalPatcherMD5=$(md5sum "base/EternalPatcher" | awk '{ print $1 }')
 DEternal_patchManifestMD5=$(md5sum "base/DEternal_patchManifest" | awk '{ print $1 }')
+rsDataMD5=$(md5sum "base/rs_data" | awk '{ print $1 }')
 
 if [ "$DETERNAL_LOADMODS_MD5" != "$DEternal_LoadModsMD5" ]; then MissingTool "DEternal_loadMods"; fi
 if [ "$IDREHASH_MD5" != "$idRehashMD5" ]; then MissingTool "idRehash"; fi
 if [ "$ETERNALPATCHER_MD5" != "$EternalPatcherMD5" ]; then MissingTool "EternalPatcher"; fi
 if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then MissingTool "DEternal_patchManifest"; fi
+if [ "$RS_DATA_MD5" != "$rsDataMD5" ]; then MissingTool "rs_data"; fi
 
 #Give executable permissions to the binaries
 chmod +x base/EternalPatcher
