@@ -61,18 +61,15 @@ do
 		continue
 	fi
 
-	nvcompress -bc1a -fast "$filepath" "${filepath}.dds" > /dev/null
-	./tools/DivinityMachine "${filepath}.dds" > /dev/null
+	nvcompress -bc1a -fast "$filepath" "${filepath}.tmp" > /dev/null
+	./tools/DivinityMachine "${filepath}.tmp" > /dev/null
 
 	# remove file extensions
 	filename="${filepath}"
 	filename="${filename%%.*}"
 
-	name="${filepath}.dds"
-	tga_name="${name//dds/tga}"
-
-	mv "$tga_name" "${filename}.tga"
-	rm -f "${filepath}.dds"
+	mv "${filepath}.tga" "${filename}.tga"
+	rm -f "${filepath}.tmp"
 
 	(cd tools
 	./EternalTextureCompressor "${filename}.tga" > /dev/null)
