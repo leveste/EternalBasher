@@ -17,9 +17,9 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 # Check for required tools
-if [[ ! -f "./tools/DivinityMashine" ]]
+if [[ ! -f "./tools/DivinityMachine" ]]
 then
-	echo "'./tools/DivinityMashine' not found! Did you extract everything in the tools folder?"
+	echo "'./tools/DivinityMachine' not found! Did you extract everything in the tools folder?"
 	exit 1
 fi
 
@@ -36,7 +36,7 @@ then
 fi
 
 # Give executable permissions to tools
-chmod +x tools/DivinityMashine
+chmod +x tools/DivinityMachine
 chmod +x tools/EternalTextureCompressor
 
 
@@ -62,7 +62,7 @@ do
 	fi
 
 	nvcompress -bc1a -fast "$filepath" "${filepath}.dds" > /dev/null
-	./tools/DivinityMashine "${filepath}.dds" > /dev/null
+	./tools/DivinityMachine "${filepath}.dds" > /dev/null
 
 	# remove file extensions
 	filename="${filepath}"
