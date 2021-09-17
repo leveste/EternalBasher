@@ -1,8 +1,6 @@
 # Auto Heckin' Texture Converter
 
-Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine manually.
-
-Requires to have the Nvidia Texture Tools installed, you can compile and install them from [here](https://github.com/castano/nvidia-texture-tools).
+Automatically converts any texture file(s) to the TGA format required by the game.
 
 ## Instructions:
 

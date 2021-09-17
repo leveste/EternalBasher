@@ -29,15 +29,16 @@ then
 	exit 1
 fi
 
-if ! command -v nvcompress &> /dev/null
+if [[ ! -f "./tools/nvcompress" ]]
 then
-	echo "nvcompress not found! Did you install the Nvidia Texture Tools?"
+	echo "'./tools/nvcompress' not found! Did you extract everything in the tools folder?"
 	exit 1
 fi
 
 # Give executable permissions to tools
-chmod +x tools/DivinityMachine
-chmod +x tools/EternalTextureCompressor
+chmod +x "tools/nvcompress"
+chmod +x "tools/DivinityMachine"
+chmod +x "tools/EternalTextureCompressor"
 
 
 # Check for arguments
@@ -54,6 +55,7 @@ do
 	echo "Converting '$1'..."
 
 	filepath="$(readlink -f "$1")"
+
 	if [[ ! -f "$filepath" ]]
 	then
 		echo "'$1' not found!"
@@ -61,18 +63,24 @@ do
 		continue
 	fi
 
-	nvcompress -bc1a -fast "$filepath" "${filepath}.tmp" > /dev/null
+	filename="$(basename "${filepath}")"
+	dirpath="$(dirname "${filepath}")"
+
+	stem="${filename%%.*}"
+	stem="${stem%%\$*}"
+
+	if [[ "$stem" == *_n ]]; then
+		./tools/nvcompress -bc1a -fast -srgb "$filepath" "${filepath}.tmp" > /dev/null
+	else
+		./tools/nvcompress -bc5 -fast "$filepath" "${filepath}.tmp" > /dev/null
+	fi
+
+	./tools/nvcompress -bc1a -fast "$filepath" "${filepath}.tmp" > /dev/null
 	./tools/DivinityMachine "${filepath}.tmp" > /dev/null
+	./tools/EternalTextureCompressor "${filepath}.tga" > /dev/null
 
-	# remove file extensions
-	filename="${filepath}"
-	filename="${filename%%.*}"
-
-	mv "${filepath}.tga" "${filename}.tga"
-	rm -f "${filepath}.tmp"
-
-	(cd tools
-	./EternalTextureCompressor "${filename}.tga" > /dev/null)
+	mv "${filepath}.tga" "${dirpath}/${filename%.*}.tga"
+	rm "${filepath}.tmp"
 
 	shift
 done
