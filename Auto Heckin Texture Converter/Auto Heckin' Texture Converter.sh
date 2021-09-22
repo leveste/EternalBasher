@@ -69,13 +69,12 @@ do
 	stem="${filename%%.*}"
 	stem="${stem%%\$*}"
 
-	if [[ "$stem" == *_n ]]; then
-		./tools/nvcompress -bc1a -fast -srgb "$filepath" "${filepath}.tmp" > /dev/null
-	else
+	if [[ "$stem" == *_n ]] || [[ "$stem" == *_Normal ]]; then
 		./tools/nvcompress -bc5 -fast "$filepath" "${filepath}.tmp" > /dev/null
+	else
+		./tools/nvcompress -bc1a -fast -srgb "$filepath" "${filepath}.tmp" > /dev/null
 	fi
 
-	./tools/nvcompress -bc1a -fast "$filepath" "${filepath}.tmp" > /dev/null
 	./tools/DivinityMachine "${filepath}.tmp" > /dev/null
 	./tools/EternalTextureCompressor "${filepath}.tga" > /dev/null
 
