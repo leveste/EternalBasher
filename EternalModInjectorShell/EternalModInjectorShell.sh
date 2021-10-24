@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 #Script version
-script_version="v6.4.2"
+script_version="v6.4.3"
 
 #Game version
 game_version="6.4"
@@ -391,6 +391,7 @@ ResourceFilePaths=(
 'dlc_hub_path="./base/game/dlc/hub/hub.resources"'
 'e1m1_intro_patch1_path="./base/game/sp/e1m1_intro/e1m1_intro_patch1.resources"'
 'e1m1_intro_patch2_path="./base/game/sp/e1m1_intro/e1m1_intro_patch2.resources"'
+'e1m1_intro_patch3_path="./base/game/sp/e1m1_intro/e1m1_intro_patch3.resources"'
 'e1m1_intro_path="./base/game/sp/e1m1_intro/e1m1_intro.resources"'
 'e1m2_battle_patch1_path="./base/game/sp/e1m2_battle/e1m2_battle_patch1.resources"'
 'e1m2_battle_patch2_path="./base/game/sp/e1m2_battle/e1m2_battle_patch2.resources"'
@@ -407,6 +408,7 @@ ResourceFilePaths=(
 'e2m1_nest_path="./base/game/sp/e2m1_nest/e2m1_nest.resources"'
 'e2m2_base_patch1_path="./base/game/sp/e2m2_base/e2m2_base_patch1.resources"'
 'e2m2_base_patch2_path="./base/game/sp/e2m2_base/e2m2_base_patch2.resources"'
+'e2m2_base_patch3_path="./base/game/sp/e2m2_base/e2m2_base_patch3.resources"'
 'e2m2_base_path="./base/game/sp/e2m2_base/e2m2_base.resources"'
 'e2m3_core_patch1_path="./base/game/sp/e2m3_core/e2m3_core_patch1.resources"'
 'e2m3_core_patch2_path="./base/game/sp/e2m3_core/e2m3_core_patch2.resources"'
@@ -417,6 +419,7 @@ ResourceFilePaths=(
 'e2m4_boss_path="./base/game/sp/e2m4_boss/e2m4_boss.resources"'
 'e3m1_slayer_patch1_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch1.resources"'
 'e3m1_slayer_patch2_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch2.resources"'
+'e3m1_slayer_patch3_path="./base/game/sp/e3m1_slayer/e3m1_slayer_patch3.resources"'
 'e3m1_slayer_path="./base/game/sp/e3m1_slayer/e3m1_slayer.resources"'
 'e3m2_hell_b_patch1_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b_patch1.resources"'
 'e3m2_hell_b_patch2_path="./base/game/sp/e3m2_hell_b/e3m2_hell_b_patch2.resources"'
@@ -426,6 +429,7 @@ ResourceFilePaths=(
 'e3m2_hell_path="./base/game/sp/e3m2_hell/e3m2_hell.resources"'
 'e3m3_maykr_patch1_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch1.resources"'
 'e3m3_maykr_patch2_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch2.resources"'
+'e3m3_maykr_patch3_path="./base/game/sp/e3m3_maykr/e3m3_maykr_patch3.resources"'
 'e3m3_maykr_path="./base/game/sp/e3m3_maykr/e3m3_maykr.resources"'
 'e3m4_boss_patch1_path="./base/game/sp/e3m4_boss/e3m4_boss_patch1.resources"'
 'e3m4_boss_patch2_path="./base/game/sp/e3m4_boss/e3m4_boss_patch2.resources"'
@@ -450,10 +454,12 @@ ResourceFilePaths=(
 'gameresources_patch2_path="./base/gameresources_patch2.resources"'
 'gameresources_path="./base/gameresources.resources"'
 'hub_patch1_path="./base/game/hub/hub_patch1.resources"'
+'hub_patch2_path="./base/game/hub/hub_patch2.resources"'
 'hub_path="./base/game/hub/hub.resources"'
 'meta_path="./base/meta.resources"'
 'pvp_bronco_patch1_path="./base/game/pvp/pvp_bronco/pvp_bronco_patch1.resources"'
 'pvp_bronco_path="./base/game/pvp/pvp_bronco/pvp_bronco.resources"'
+'pvp_darkmetal_patch1_path="./base/game/pvp/pvp_darkmetal/pvp_darkmetal_patch1.resources"'
 'pvp_darkmetal_path="./base/game/pvp/pvp_darkmetal/pvp_darkmetal.resources"'
 'pvp_deathvalley_patch1_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley_patch1.resources"'
 'pvp_deathvalley_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley.resources"'
