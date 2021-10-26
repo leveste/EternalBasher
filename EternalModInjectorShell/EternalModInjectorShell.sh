@@ -16,19 +16,19 @@
 # You should have received a copy of the GNU General Public License  
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
-#Script version
-script_version="v6.4.3"
+# Script version
+script_version="v6.66.0"
 
-#Game version
-game_version="6.4"
+# Game version
+game_version="6.66"
 
-#Colors
+# Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
 if [ "$skip_debug_check" != "1" ]; then grn=$'\e[1;32m'; fi
 if [ "$skip_debug_check" != "1" ]; then blu=$'\e[1;34m'; fi
 if [ "$skip_debug_check" != "1" ]; then end=$'\e[0m'; fi
 
-#Functions
+# Functions
 MissingGame() {
 printf "\n%s\n\n" "${red}Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.${end}"
 exit 1
@@ -265,7 +265,7 @@ Based on original batch file by Zwip-Zwap Zapony${end}
 
 first_time="0"
 
-#Debug mode
+# Debug mode
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; then
     printf "%s" "${blu}ETERNALMODINJECTOR_DEBUG variable set to 1. Continue in debug mode? In this mode, full output for all tools will be shown and written to EternalModInjectorShell_log.txt. [y/N] ${end}"
     read -r -p '' response
@@ -282,7 +282,7 @@ if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; the
      esac
 fi
 
-#Log system info
+# Log system info
 if [ "$skip_debug_check" == "1" ]; then
     if [ -n "$(command -v inxi)" ]; then
         printf "\n%s\n\n" "System info:"
@@ -296,7 +296,7 @@ if [ "$skip_debug_check" == "1" ]; then
     openssl version
 fi
 
-#Config File check
+# Config File check
 printf "\n%s\n\n" "${blu}Loading config file...${end}"
 CONFIG_FILE="EternalModInjector Settings.txt"
 if ! [ -f "$CONFIG_FILE" ]; then CreateConfigFile; else
@@ -317,7 +317,7 @@ if ! [ -f "$CONFIG_FILE" ]; then CreateConfigFile; else
     if grep -q ":ONLINE_SAFE=1" "$CONFIG_FILE"; then ONLINE_SAFE="1"; else ONLINE_SAFE="0"; fi
 fi
 
-#Get ModLoader arguments
+# Get ModLoader arguments
 modloader_arguments="."
 if [ "$VERBOSE" == "1" ]; then modloader_arguments="${modloader_arguments} --verbose"; fi
 if [ "$SLOW" == "1" ]; then modloader_arguments="${modloader_arguments} --slow"; fi
@@ -325,30 +325,30 @@ if [ "$COMPRESS_TEXTURES" == "1" ]; then modloader_arguments="${modloader_argume
 if [ "$DISABLE_MULTITHREADING" == "1" ]; then modloader_arguments="${modloader_arguments} --disable-multithreading"; fi
 if [ "$ONLINE_SAFE" == "1" ]; then modloader_arguments="${modloader_arguments} --online-safe"; fi
 
-#Check for script updates
+# Check for script updates
 printf "\n%s\n\n" "${blu}Checking for updates...${end}"
 if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
     SelfUpdate
     export skip=""
 fi
 
-#Assign game hashes to variables
+# Assign game hashes to variables
 DETERNAL_LOADMODS_MD5="7de79add5a417e5849d04155c77eb36f"
 ETERNALPATCHER_MD5="3b86b9d7721a72cd4effb89b86c6cd59"
 IDREHASH_MD5="db1804824c0e89656f2e79e7446fa56c"
 DETERNAL_PATCHMANIFEST_MD5="a44b3054caae2dc983526d744633b6c4"
-VANILLA_GAME_MD5_A="8829459d8270a69e78b1797eb8785227"
-VANILLA_GAME_MD5_B="186428ea3d56c3b6cfa375f749b383d4"
-PATCHED_GAME_MD5_A="ea5d74090a01059d4d7fe97713fec264"
-PATCHED_GAME_MD5_B="e6e6bdc6789f0938c0d7491b7eb8b45b"
-VANILLA_META_MD5="cf16c0a9b4068202670d65639735b038"
-VANILLA_PACKAGEMAPSPEC_MD5="3d6f54c0bc2b56ec86e1a6c2dffe11ca"
-RS_DATA_MD5="c4a31a7120eff6f55038794d82ff9077"
+VANILLA_GAME_MD5_A="8e4462adcc44dc89287f687939a96af3"
+PATCHED_GAME_MD5_A="baf7d74ef7170cd75382658deac5e9df"
+VANILLA_GAME_MD5_B="0705fb7ebb25dc934602f362a37cca35"
+PATCHED_GAME_MD5_B="" # needs to be updated
+VANILLA_META_MD5="190f640745998a246dda5a66ee7d4207"
+VANILLA_PACKAGEMAPSPEC_MD5="576429a62729dbc8e23d93df33d7f88c"
+RS_DATA_MD5="c05eac7a41b1f41fd907f5dbd7df43a5"
 
-#Check tools' status
+# Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
 
-#Verify if tools exist
+# Verify if tools exist
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
 if ! [ -f base/DEternal_loadMods ]; then MissingTool "DEternal_loadMods"; fi
 if ! [ -f base/idRehash ]; then MissingTool "idRehash"; fi
@@ -365,7 +365,7 @@ if ! command -v openssl &> /dev/null; then
     exit 1
 fi
 
-#Check tool hashes
+# Check tool hashes
 DEternal_LoadModsMD5=$(md5sum "base/DEternal_loadMods" | awk '{ print $1 }')
 idRehashMD5=$(md5sum "base/idRehash" | awk '{ print $1 }')
 EternalPatcherMD5=$(md5sum "base/EternalPatcher" | awk '{ print $1 }')
@@ -378,7 +378,7 @@ if [ "$ETERNALPATCHER_MD5" != "$EternalPatcherMD5" ]; then MissingTool "EternalP
 if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then MissingTool "DEternal_patchManifest"; fi
 if [ "$RS_DATA_MD5" != "$rsDataMD5" ]; then MissingTool "rs_data"; fi
 
-#Give executable permissions to the binaries
+# Give executable permissions to the binaries
 chmod +x base/EternalPatcher
 chmod +x base/DEternal_loadMods
 chmod +x base/idRehash
@@ -387,8 +387,56 @@ chmod +x base/opusdec
 chmod +x base/opusenc
 
 ResourceFilePaths=(
-'dlc_hub_patch1_path="./base/game/dlc/hub/hub_patch1.resources"'
-'dlc_hub_path="./base/game/dlc/hub/hub.resources"'
+'e5m1_spear_patch1_path="./base/game/dlc2/e5m1_spear/e5m1_spear_patch1.resources"'
+'e5m1_spear_patch2_path="./base/game/dlc2/e5m1_spear/e5m1_spear_patch2.resources"'
+'e5m1_spear_path="./base/game/dlc2/e5m1_spear/e5m1_spear.resources"'
+'e5m2_earth_patch1_path="./base/game/dlc2/e5m2_earth/e5m2_earth_patch1.resources"'
+'e5m2_earth_patch2_path="./base/game/dlc2/e5m2_earth/e5m2_earth_patch2.resources"'
+'e5m2_earth_path="./base/game/dlc2/e5m2_earth/e5m2_earth.resources"'
+'e5m3_hell_patch1_path="./base/game/dlc2/e5m3_hell/e5m3_hell_patch1.resources"'
+'e5m3_hell_patch2_path="./base/game/dlc2/e5m3_hell/e5m3_hell_patch2.resources"'
+'e5m3_hell_path="./base/game/dlc2/e5m3_hell/e5m3_hell.resources"'
+'e5m4_boss_patch1_path="./base/game/dlc2/e5m4_boss/e5m4_boss_patch1.resources"'
+'e5m4_boss_path="./base/game/dlc2/e5m4_boss/e5m4_boss.resources"'
+'e4m1_rig_patch1_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch1.resources"'
+'e4m1_rig_patch2_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch2.resources"'
+'e4m1_rig_path="./base/game/dlc/e4m1_rig/e4m1_rig.resources"'
+'e4m2_swamp_patch1_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch1.resources"'
+'e4m2_swamp_patch2_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch2.resources"'
+'e4m2_swamp_path="./base/game/dlc/e4m2_swamp/e4m2_swamp.resources"'
+'e4m3_mcity_patch1_path="./base/game/dlc/e4m3_mcity/e4m3_mcity_patch1.resources"'
+'e4m3_mcity_patch2_path="./base/game/dlc/e4m3_mcity/e4m3_mcity_patch2.resources"'
+'e4m3_mcity_path="./base/game/dlc/e4m3_mcity/e4m3_mcity.resources"'
+'hub_patch1_path="./base/game/dlc/hub/hub_patch1.resources"'
+'hub_path="./base/game/dlc/hub/hub.resources"'
+'e6m1_cult_horde_path="./base/game/horde/e6m1_cult_horde/e6m1_cult_horde.resources"'
+'e6m2_earth_horde_path="./base/game/horde/e6m2_earth_horde/e6m2_earth_horde.resources"'
+'e6m3_mcity_horde_path="./base/game/horde/e6m3_mcity_horde/e6m3_mcity_horde.resources"'
+'hub_patch1_path="./base/game/hub/hub_patch1.resources"'
+'hub_patch2_path="./base/game/hub/hub_patch2.resources"'
+'hub_path="./base/game/hub/hub.resources"'
+'pvp_bronco_patch1_path="./base/game/pvp/pvp_bronco/pvp_bronco_patch1.resources"'
+'pvp_bronco_path="./base/game/pvp/pvp_bronco/pvp_bronco.resources"'
+'pvp_darkmetal_patch1_path="./base/game/pvp/pvp_darkmetal/pvp_darkmetal_patch1.resources"'
+'pvp_darkmetal_path="./base/game/pvp/pvp_darkmetal/pvp_darkmetal.resources"'
+'pvp_deathvalley_patch1_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley_patch1.resources"'
+'pvp_deathvalley_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley.resources"'
+'pvp_inferno_patch1_path="./base/game/pvp/pvp_inferno/pvp_inferno_patch1.resources"'
+'pvp_inferno_path="./base/game/pvp/pvp_inferno/pvp_inferno.resources"'
+'pvp_laser_patch1_path="./base/game/pvp/pvp_laser/pvp_laser_patch1.resources"'
+'pvp_laser_path="./base/game/pvp/pvp_laser/pvp_laser.resources"'
+'pvp_shrapnel_patch1_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel_patch1.resources"'
+'pvp_shrapnel_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel.resources"'
+'pvp_sideswipe_path="./base/game/pvp/pvp_sideswipe/pvp_sideswipe.resources"'
+'pvp_thunder_patch1_path="./base/game/pvp/pvp_thunder/pvp_thunder_patch1.resources"'
+'pvp_thunder_path="./base/game/pvp/pvp_thunder/pvp_thunder.resources"'
+'pvp_zap_patch1_path="./base/game/pvp/pvp_zap/pvp_zap_patch1.resources"'
+'pvp_zap_path="./base/game/pvp/pvp_zap/pvp_zap.resources"'
+'gameresources_patch1_path="./base/gameresources_patch1.resources"'
+'gameresources_patch2_path="./base/gameresources_patch2.resources"'
+'gameresources_path="./base/gameresources.resources"'
+'shell_patch1_path="./base/game/shell/shell_patch1.resources"'
+'shell_path="./base/game/shell/shell.resources"'
 'e1m1_intro_patch1_path="./base/game/sp/e1m1_intro/e1m1_intro_patch1.resources"'
 'e1m1_intro_patch2_path="./base/game/sp/e1m1_intro/e1m1_intro_patch2.resources"'
 'e1m1_intro_patch3_path="./base/game/sp/e1m1_intro/e1m1_intro_patch3.resources"'
@@ -433,57 +481,20 @@ ResourceFilePaths=(
 'e3m3_maykr_path="./base/game/sp/e3m3_maykr/e3m3_maykr.resources"'
 'e3m4_boss_patch1_path="./base/game/sp/e3m4_boss/e3m4_boss_patch1.resources"'
 'e3m4_boss_patch2_path="./base/game/sp/e3m4_boss/e3m4_boss_patch2.resources"'
+'e3m4_boss_patch3_path="./base/game/sp/e3m4_boss/e3m4_boss_patch3.resources"'
 'e3m4_boss_path="./base/game/sp/e3m4_boss/e3m4_boss.resources"'
-'e4m1_rig_patch1_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch1.resources"'
-'e4m1_rig_patch2_path="./base/game/dlc/e4m1_rig/e4m1_rig_patch2.resources"'
-'e4m1_rig_path="./base/game/dlc/e4m1_rig/e4m1_rig.resources"'
-'e4m2_swamp_patch1_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch1.resources"'
-'e4m2_swamp_patch2_path="./base/game/dlc/e4m2_swamp/e4m2_swamp_patch2.resources"'
-'e4m2_swamp_path="./base/game/dlc/e4m2_swamp/e4m2_swamp.resources"'
-'e4m3_mcity_patch1_path="./base/game/dlc/e4m3_mcity/e4m3_mcity_patch1.resources"'
-'e4m3_mcity_path="./base/game/dlc/e4m3_mcity/e4m3_mcity.resources"'
-'e5m1_spear_patch1_path="./base/game/dlc2/e5m1_spear/e5m1_spear_patch1.resources"'
-'e5m1_spear_path="./base/game/dlc2/e5m1_spear/e5m1_spear.resources"'
-'e5m2_earth_patch1_path="./base/game/dlc2/e5m2_earth/e5m2_earth_patch1.resources"'
-'e5m2_earth_path="./base/game/dlc2/e5m2_earth/e5m2_earth.resources"'
-'e5m3_hell_patch1_path="./base/game/dlc2/e5m3_hell/e5m3_hell_patch1.resources"'
-'e5m3_hell_path="./base/game/dlc2/e5m3_hell/e5m3_hell.resources"'
-'e5m4_boss_patch1_path="./base/game/dlc2/e5m4_boss/e5m4_boss_patch1.resources"'
-'e5m4_boss_path="./base/game/dlc2/e5m4_boss/e5m4_boss.resources"'
-'gameresources_patch1_path="./base/gameresources_patch1.resources"'
-'gameresources_patch2_path="./base/gameresources_patch2.resources"'
-'gameresources_path="./base/gameresources.resources"'
-'hub_patch1_path="./base/game/hub/hub_patch1.resources"'
-'hub_patch2_path="./base/game/hub/hub_patch2.resources"'
-'hub_path="./base/game/hub/hub.resources"'
-'meta_path="./base/meta.resources"'
-'pvp_bronco_patch1_path="./base/game/pvp/pvp_bronco/pvp_bronco_patch1.resources"'
-'pvp_bronco_path="./base/game/pvp/pvp_bronco/pvp_bronco.resources"'
-'pvp_darkmetal_patch1_path="./base/game/pvp/pvp_darkmetal/pvp_darkmetal_patch1.resources"'
-'pvp_darkmetal_path="./base/game/pvp/pvp_darkmetal/pvp_darkmetal.resources"'
-'pvp_deathvalley_patch1_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley_patch1.resources"'
-'pvp_deathvalley_path="./base/game/pvp/pvp_deathvalley/pvp_deathvalley.resources"'
-'pvp_inferno_patch1_path="./base/game/pvp/pvp_inferno/pvp_inferno_patch1.resources"'
-'pvp_inferno_path="./base/game/pvp/pvp_inferno/pvp_inferno.resources"'
-'pvp_laser_patch1_path="./base/game/pvp/pvp_laser/pvp_laser_patch1.resources"'
-'pvp_laser_path="./base/game/pvp/pvp_laser/pvp_laser.resources"'
-'pvp_shrapnel_patch1_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel_patch1.resources"'
-'pvp_shrapnel_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel.resources"'
-'pvp_thunder_patch1_path="./base/game/pvp/pvp_thunder/pvp_thunder_patch1.resources"'
-'pvp_thunder_path="./base/game/pvp/pvp_thunder/pvp_thunder.resources"'
-'pvp_zap_patch1_path="./base/game/pvp/pvp_zap/pvp_zap_patch1.resources"'
-'pvp_zap_path="./base/game/pvp/pvp_zap/pvp_zap.resources"'
-'shell_patch1_path="./base/game/shell/shell_patch1.resources"'
-'shell_path="./base/game/shell/shell.resources"'
 'tutorial_demons_path="./base/game/tutorials/tutorial_demons.resources"'
 'tutorial_pvp_laser_patch1_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser_patch1.resources"'
 'tutorial_pvp_laser_path="./base/game/tutorials/tutorial_pvp_laser/tutorial_pvp_laser.resources"'
 'tutorial_sp_path="./base/game/tutorials/tutorial_sp.resources"'
+'meta_path="./base/meta.resources"'
+'warehouse_patch1_path="./base/warehouse_patch1.resources"'
 'warehouse_path="./base/warehouse.resources"'
 )
 
 SndFilePaths=(
 'music_patch_1_path="./base/sound/soundbanks/pc/music_patch_1.snd"'
+'music_patch_2_path="./base/sound/soundbanks/pc/music_patch_2.snd"'
 'music_path="./base/sound/soundbanks/pc/music.snd"'
 'sfx_patch_1_path="./base/sound/soundbanks/pc/sfx_patch_1.snd"'
 'sfx_patch_2_path="./base/sound/soundbanks/pc/sfx_patch_2.snd"'
@@ -513,7 +524,7 @@ SndFilePaths=(
 
 packagemapspec_path="./base/packagemapspec.json"
 
-#Check for Asset Version
+# Check for Asset Version
 if [ "$ASSET_VERSION" == "0" ]; then
 
     printf "\n%s" "${blu}Old Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
@@ -526,7 +537,7 @@ If you have already done so, press Enter to continue: ${blu}"
     skip_resetbackups="1"
 fi
 
-#Setup for ModLoader
+# Setup for ModLoader
 if [ "$HAS_READ_FIRST_TIME" == "0" ]; then
     printf "%s" "${blu}First-time information:
 
@@ -573,7 +584,7 @@ if [ "$RESET_BACKUPS" == "1" ] && [ "$skip_resetbackups" != "1" ]; then
     HAS_CHECKED_RESOURCES="0"
 fi
 
-#Patch Game Executable
+# Patch Game Executable
 if [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe.backup" "DOOMEternalx64vk.exe"; fi
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 
@@ -594,7 +605,7 @@ if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$Gam
     fi
 fi
 
-#Check for all .resources and .snd files
+# Check for all .resources and .snd files
 printf "\n%s\n\n" "${blu}Checking resources files...${end}"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
 
@@ -618,17 +629,17 @@ done
 
 fi
 
-#Execute each line of ResourceFilePaths
+# Execute each line of ResourceFilePaths
 for resource_file_path in "${ResourceFilePaths[@]}"; do
     eval "$resource_file_path"
 done
 
-#Execute each line of SndFilePaths
+# Execute each line of SndFilePaths
 for snd_file_path in "${SndFilePaths[@]}"; do
     eval "$snd_file_path"
 done
 
-#Restore Backups
+# Restore Backups
 if [ "$RESET_BACKUPS" != "1" ] && [ "$first_time" != "1" ]; then
 printf "\n%s\n\n" "${blu}Restoring backups...${end}"
 while IFS= read -r filename; do
@@ -649,7 +660,7 @@ fi
 
 RESET_BACKUPS="0"
 
-#Check meta.resources
+# Check meta.resources
 printf "\n%s\n\n" "${blu}Checking meta.resources...${end}"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     if ! [ -f "base/meta.resources" ]; then MissingGameFile "meta.resources"; fi
@@ -657,7 +668,7 @@ if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     if [ "$VANILLA_META_MD5" != "$MetaMD5" ]; then MissingGameFile "meta.resources"; fi
 fi
 
-#Check packagemapspec.json
+# Check packagemapspec.json
 printf "\n%s\n\n" "${blu}Checking packagemapspec.json...${end}"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     if ! [ -f "base/packagemapspec.json" ]; then MissingGameFile "packagemapspec.json"; fi
@@ -665,7 +676,7 @@ if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     if [ "$VANILLA_PACKAGEMAPSPEC_MD5" != "$PackageMapSpecMD5" ]; then MissingGameFile "packagemapspec.json"; fi
 fi
 
-#Set new values in config file
+# Set new values in config file
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     HAS_CHECKED_RESOURCES="1"
     WriteIntoConfig
@@ -674,7 +685,7 @@ else
     WriteIntoConfig
 fi
 
-#Check if there are mods in "mods" folder
+# Check if there are mods in "mods" folder
 if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
     sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=0/" "$CONFIG_FILE"
@@ -682,7 +693,7 @@ if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
     exit 0
 fi
 
-#Backup .resources
+# Backup .resources
 printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
 sed -i '/.resources$/d' "$CONFIG_FILE"
 sed -i '/.snd$/d' "$CONFIG_FILE"
@@ -713,7 +724,7 @@ for filename in "${modloaderlist[@]}"; do
     echo "$name" >> "$CONFIG_FILE"
 done
 
-#Backup meta.resources and add to the list
+# Backup meta.resources and add to the list
 if ! [ -f "base/meta.resources.backup" ]; then 
     cp "base/meta.resources" "base/meta.resources.backup"
     printf "\n\t\t%s\n\n" "${blu}Backed up meta.resources${end}"
@@ -722,7 +733,7 @@ sed -i '/meta.backup$/d' "$CONFIG_FILE"
 echo meta.backup >> "$CONFIG_FILE"
 echo meta.resources >> "$CONFIG_FILE"
 
-#Get vanilla resource hash offsets (idRehash)
+# Get vanilla resource hash offsets (idRehash)
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     printf "\n%s\n\n" "${blu}Getting vanilla resource hash offsets... (idRehash)${end}"
     (cd base || return
@@ -736,7 +747,7 @@ if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     HAS_CHECKED_RESOURCES="1"
 fi
 
-#Load Mods (DEternal_loadMods)
+# Load Mods (DEternal_loadMods)
 printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
@@ -748,7 +759,7 @@ if [ "$?" != "0" ]; then
     exit 1
 fi
 
-#Rehash resource hashes (idRehash)
+# Rehash resource hashes (idRehash)
 printf "\n%s\n\n" "${blu}Rehashing resource offsets... (idRehash)${end}"
 (cd base || return
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash; else ./idRehash > /dev/null; fi)
@@ -758,7 +769,7 @@ if [ "$?" != "0" ]; then
     exit 1
 fi
 
-#Patch build manifest
+# Patch build manifest
 printf "\n%s\n\n" "${blu}Patching build manifest... (DEternal_patchManifest)${end}"
 (cd base || return
 if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9; else ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null; fi)
