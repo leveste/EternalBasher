@@ -17,10 +17,10 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 # Script version
-script_version="v6.66.3"
+script_version="v6.66-rev1.0"
 
 # Game version
-game_version="6.66"
+game_version="6.66 Rev 1"
 
 # Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -333,17 +333,17 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 # Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="17ddc037d839da5a229e5e53d066568c"
+DETERNAL_LOADMODS_MD5="3c34f59ae31d691b89851cc0010f45b3"
 ETERNALPATCHER_MD5="1273f9937f1cc03b01dd362205d68ee4"
 IDREHASH_MD5="6d3762470434753ca051629d8ebc4211"
 DETERNAL_PATCHMANIFEST_MD5="9e2b83e5f916f68e38bf0107f3eb7199"
-VANILLA_GAME_MD5_A="8e4462adcc44dc89287f687939a96af3"
-PATCHED_GAME_MD5_A="baf7d74ef7170cd75382658deac5e9df"
-VANILLA_GAME_MD5_B="0705fb7ebb25dc934602f362a37cca35"
-PATCHED_GAME_MD5_B="1369c854e865a47fa0337e343d621de6"
-VANILLA_META_MD5="190f640745998a246dda5a66ee7d4207"
-VANILLA_PACKAGEMAPSPEC_MD5="576429a62729dbc8e23d93df33d7f88c"
-RS_DATA_MD5="c05eac7a41b1f41fd907f5dbd7df43a5"
+VANILLA_GAME_MD5_A="c7b3d11cd57e8312cf24c945fc9647ce"
+PATCHED_GAME_MD5_A="1a488e58a1e8b54b78ca07a63a005245"
+VANILLA_GAME_MD5_B="5f92a3821d61a23641e8a104557332ea"
+PATCHED_GAME_MD5_B="d40395775bc288dec50db0bd2ac45563"
+VANILLA_META_MD5="cabb967dda84bc301254980bcd573e8e"
+VANILLA_PACKAGEMAPSPEC_MD5="76dba8aa883df5e7c2359013a1407ab4"
+RS_DATA_MD5="86a743d4ed8c3163dd6e1e1c8364b980"
 
 # Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
@@ -409,8 +409,11 @@ ResourceFilePaths=(
 'e4m3_mcity_path="./base/game/dlc/e4m3_mcity/e4m3_mcity.resources"'
 'hub_patch1_path="./base/game/dlc/hub/hub_patch1.resources"'
 'hub_path="./base/game/dlc/hub/hub.resources"'
+'e6m1_cult_horde_patch1_path="./base/game/horde/e6m1_cult_horde/e6m1_cult_horde_patch1.resources"'
 'e6m1_cult_horde_path="./base/game/horde/e6m1_cult_horde/e6m1_cult_horde.resources"'
+'e6m2_earth_horde_patch1_path="./base/game/horde/e6m2_earth_horde/e6m2_earth_horde_patch1.resources"'
 'e6m2_earth_horde_path="./base/game/horde/e6m2_earth_horde/e6m2_earth_horde.resources"'
+'e6m3_mcity_horde_patch1_path="./base/game/horde/e6m3_mcity_horde/e6m3_mcity_horde_patch1.resources"'
 'e6m3_mcity_horde_path="./base/game/horde/e6m3_mcity_horde/e6m3_mcity_horde.resources"'
 'hub_patch1_path="./base/game/hub/hub_patch1.resources"'
 'hub_patch2_path="./base/game/hub/hub_patch2.resources"'
@@ -427,6 +430,7 @@ ResourceFilePaths=(
 'pvp_laser_path="./base/game/pvp/pvp_laser/pvp_laser.resources"'
 'pvp_shrapnel_patch1_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel_patch1.resources"'
 'pvp_shrapnel_path="./base/game/pvp/pvp_shrapnel/pvp_shrapnel.resources"'
+'pvp_sideswipe_patch1_path="./base/game/pvp/pvp_sideswipe/pvp_sideswipe_patch1.resources"'
 'pvp_sideswipe_path="./base/game/pvp/pvp_sideswipe/pvp_sideswipe.resources"'
 'pvp_thunder_patch1_path="./base/game/pvp/pvp_thunder/pvp_thunder_patch1.resources"'
 'pvp_thunder_path="./base/game/pvp/pvp_thunder/pvp_thunder.resources"'
@@ -443,6 +447,7 @@ ResourceFilePaths=(
 'e1m1_intro_path="./base/game/sp/e1m1_intro/e1m1_intro.resources"'
 'e1m2_battle_patch1_path="./base/game/sp/e1m2_battle/e1m2_battle_patch1.resources"'
 'e1m2_battle_patch2_path="./base/game/sp/e1m2_battle/e1m2_battle_patch2.resources"'
+'e1m2_battle_patch3_path="./base/game/sp/e1m2_battle/e1m2_battle_patch3.resources"'
 'e1m2_battle_path="./base/game/sp/e1m2_battle/e1m2_battle.resources"'
 'e1m3_cult_patch1_path="./base/game/sp/e1m3_cult/e1m3_cult_patch1.resources"'
 'e1m3_cult_patch2_path="./base/game/sp/e1m3_cult/e1m3_cult_patch2.resources"'
