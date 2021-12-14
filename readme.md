@@ -6,7 +6,7 @@ Join the DOOM Eternal Modding Hub to find more mods and tools: <https://discord.
 
 **Auto Heckin' Texture Converter**
 
-Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMashine manually.
+Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMachine manually.
 
 **DivinityMachine**
 

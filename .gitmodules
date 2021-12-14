@@ -31,3 +31,6 @@
 [submodule "DivinityMachine"]
 	path = DivinityMachine
 	url = https://github.com/PowerBall253/DivinityMachine.git
+[submodule "AutoHeckinTextureConverter"]
+	path = AutoHeckinTextureConverter
+	url = https://github.com/PowerBall253/AutoHeckinTextureConverter.git
