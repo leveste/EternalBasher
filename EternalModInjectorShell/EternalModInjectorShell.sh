@@ -333,7 +333,7 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 # Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="3c34f59ae31d691b89851cc0010f45b3"
+DETERNAL_LOADMODS_MD5="781b552353268a6740a48d058ba8748a"
 ETERNALPATCHER_MD5="1273f9937f1cc03b01dd362205d68ee4"
 IDREHASH_MD5="6d3762470434753ca051629d8ebc4211"
 DETERNAL_PATCHMANIFEST_MD5="9e2b83e5f916f68e38bf0107f3eb7199"
@@ -663,6 +663,12 @@ while IFS= read -r filename; do
 done < "$CONFIG_FILE"
 fi
 
+# Remove modified files from settings file
+sed -i '/.resources$/d' "$CONFIG_FILE"
+sed -i '/.snd$/d' "$CONFIG_FILE"
+sed -i '/.json$/d' "$CONFIG_FILE"
+
+# Clear reset backups flag
 RESET_BACKUPS="0"
 
 # Check meta.resources
@@ -700,9 +706,6 @@ fi
 
 # Backup .resources
 printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
-sed -i '/.resources$/d' "$CONFIG_FILE"
-sed -i '/.snd$/d' "$CONFIG_FILE"
-sed -i '/.json$/d' "$CONFIG_FILE"
 sed -i '/.backup$/d' "$CONFIG_FILE"
 IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods ${modloader_arguments} --list-res )
 
