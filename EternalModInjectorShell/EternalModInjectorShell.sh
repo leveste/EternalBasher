@@ -258,6 +258,17 @@ else
 fi
 }
 
+PatchBuildManifest() {
+printf "\n%s\n\n" "${blu}Patching build manifest... (DEternal_patchManifest)${end}"
+(cd base || return
+if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9; else ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null; fi)
+
+if [ "$?" != "0" ]; then
+    printf "\n%s\n\n" "${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
+    exit 1
+fi
+}
+
 printf "%s\n" "${grn}EternalModInjector Shell Script ${script_version}
 By Leveste and PowerBall253
 Based on original batch file by Zwip-Zwap Zapony${end}
@@ -698,6 +709,10 @@ fi
 
 # Check if there are mods in "mods" folder
 if ! [ -d "Mods" ] || [ -z "$(ls -A "Mods")" ]; then
+    # Patch build manifest
+    PatchBuildManifest
+
+    # Exit
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
     sed -i "s/:HAS_CHECKED_RESOURCES=.*/:HAS_CHECKED_RESOURCES=0/" "$CONFIG_FILE"
     LaunchGame
@@ -778,14 +793,7 @@ if [ "$?" != "0" ]; then
 fi
 
 # Patch build manifest
-printf "\n%s\n\n" "${blu}Patching build manifest... (DEternal_patchManifest)${end}"
-(cd base || return
-if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9; else ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null; fi)
-
-if [ "$?" != "0" ]; then
-    printf "\n%s\n\n" "${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
-    exit 1
-fi
+PatchBuildManifest
 
 printf "\n%s\n" "${grn}Mods have been loaded!${end}"
 LaunchGame
