@@ -19,6 +19,7 @@ steam18082021=DOOMEternalx64vk.exe:9e9013ae3481e963a5fc3a049a8a1542:global,updat
 steam14092021=DOOMEternalx64vk.exe:8829459d8270a69e78b1797eb8785227:global,update6
 steam666=DOOMEternalx64vk.exe:8e4462adcc44dc89287f687939a96af3:global,update6
 steam18112021=DOOMEternalx64vk.exe:c7b3d11cd57e8312cf24c945fc9647ce:global,update6
+steam25012022=DOOMEternalx64vk.exe:eeb62f46eddbab27809b82d94f9f4927:global,update6
 bnetv1=DOOMEternalx64vk.exe:7bb1e931cbbbc3d2d3cea1dd6df05539:global
 bnet14052020=DOOMEternalx64vk.exe:ea273f1400d8975807a9ccb0c9a62bce:global
 bnet16052020=DOOMEternalx64vk.exe:e66341899207dc0f0953c021469789fc:global
@@ -39,6 +40,7 @@ bnet18082021=DOOMEternalx64vk.exe:55905384e20063dee08ff83de55afc41:global,update
 bnet14092021=DOOMEternalx64vk.exe:186428ea3d56c3b6cfa375f749b383d4:global,update6
 bnetv666=DOOMEternalx64vk.exe:0705fb7ebb25dc934602f362a37cca35:global,update6
 bnet18112021=DOOMEternalx64vk.exe:5f92a3821d61a23641e8a104557332ea:global,update6
+bnet25012022=DOOMEternalx64vk.exe:28ea04cfc56c2e74117e437812e8d0a2:global,update6
 drmfreev1=DOOMEternalx64vk.exe:0fdc1a727fb06608d37fa2c5c2926386:global
 uwpdlc2=DOOMEternalx64vk.exe:5535c56445e55f20e6d3b475217def4f:global,dlc2
 uwp01062021=DOOMEternalx64vk.exe:0f1bfdfdd0268489ec868d231169d8fd:global,dlc2
@@ -48,6 +50,8 @@ uwp03082021=DOOMEternalx64vk.exe:c538b499a1a08408df5fa284db5935a6:global,update6
 uwp18082021=DOOMEternalx64vk.exe:238c54ccf32fd2d570983321b2a3dafd:global,update6
 uwp14092021=DOOMEternalx64vk.exe:404a9b416d3331b73bd87e25a2b24e65:global,update6
 uwpv666=DOOMEternalx64vk.exe:f36a0352806e7934e8714ded5c52847a:global,update6
+uwp18112021=DOOMEternalx64vk.exe:0a97940452cb59bf75e77831b01fa6fa:global,update6
+uwp20122021=DOOMEternalx64vk.exe:37ca9b7fad426e93552dd8f8f72989e2:global,update6
 
 # patches
 # for patches with the same id (description), to support multiple game builds for different patterns, position the global patch as the last one
