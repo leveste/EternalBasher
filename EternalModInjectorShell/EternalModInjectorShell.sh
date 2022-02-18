@@ -674,6 +674,9 @@ while IFS= read -r filename; do
 done < "$CONFIG_FILE"
 fi
 
+# Remove EternalMod.streamdb
+if [ -f "base/EternalMod.streamdb" ]; then rm "base/EternalMod.streamdb"; fi
+
 # Remove modified files from settings file
 sed -i '/.resources$/d' "$CONFIG_FILE"
 sed -i '/.snd$/d' "$CONFIG_FILE"
@@ -730,6 +733,8 @@ if [ "${#modloaderlist[@]}" == "0" ]; then
 fi
 
 for filename in "${modloaderlist[@]}"; do
+    if [[ "$filename" == *EternalMod.streamdb ]]; then continue; fi
+
     filename="${filename#*=}"
     filename="${filename/$'\r'/}"
     if ! [ -f "${filename}.backup" ]; then
