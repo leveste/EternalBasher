@@ -8,10 +8,6 @@ Join the DOOM Eternal Modding Hub to find more mods and tools: <https://discord.
 
 Automatically converts any texture file(s) to the TGA format required by the game, eliminating the need of using Nvidia's tool to convert to BC1a and then DivinityMachine manually.
 
-**DivinityMachine**
-
-Cross-platform texture converter from DDS to DOOM Eternal's TGA format.
-
 **DOOMSaveManagerLinux**
 
 A program to make importing and exporting DOOM saves easier, modified to work for Linux using Mono.
