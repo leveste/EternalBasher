@@ -32,9 +32,9 @@ Script that automatically installs mods using the rest of the tools.
 
 Tool to load mods into Doom Eternal's .resources files, rewritten on C++ for Linux.
 
-**EternalModManager**
+**EternalModManager-Avalonia**
 
-Mod manager GUI for DOOM Eternal, built with Electron.
+Mod manager GUI for DOOM Eternal, written in C# using Avalonia.
 
 **EternalPatchManifestLinux**
 

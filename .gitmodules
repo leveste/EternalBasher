@@ -28,3 +28,6 @@
 [submodule "AutoHeckinTextureConverter"]
 	path = AutoHeckinTextureConverter
 	url = https://github.com/PowerBall253/AutoHeckinTextureConverter.git
+[submodule "EternalModManager-Avalonia"]
+	path = EternalModManager-Avalonia
+	url = https://github.com/PowerBall253/EternalModManager-Avalonia
