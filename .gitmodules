@@ -25,9 +25,6 @@
 [submodule "EternalAudioExtractorLinux"]
 	path = EternalAudioExtractorLinux
 	url = https://github.com/PowerBall253/EternalAudioExtractorLinux.git
-[submodule "EternalModManager"]
-	path = EternalModManager
-	url = https://github.com/PowerBall253/EternalModManager.git
 [submodule "AutoHeckinTextureConverter"]
 	path = AutoHeckinTextureConverter
 	url = https://github.com/PowerBall253/AutoHeckinTextureConverter.git
