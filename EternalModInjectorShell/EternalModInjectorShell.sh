@@ -28,6 +28,12 @@ if [ "$skip_debug_check" != "1" ]; then grn=$'\e[1;32m'; fi
 if [ "$skip_debug_check" != "1" ]; then blu=$'\e[1;34m'; fi
 if [ "$skip_debug_check" != "1" ]; then end=$'\e[0m'; fi
 
+# Prompt before exit when running from EternalModManager
+if [ -n "$ETERNALMODMANAGER" ]; then
+    shopt -s expand_aliases
+    alias exit="read; exit"
+fi
+
 # Functions
 MissingGame() {
 printf "\n%s\n\n" "${red}Game Executable not found! Make sure you put this shell script in the DOOMEternal folder and try again.${end}"
