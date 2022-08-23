@@ -267,7 +267,7 @@ fi
 PatchBuildManifest() {
 printf "\n%s\n\n" "${blu}Patching build manifest... (DEternal_patchManifest)${end}"
 (cd base || return
-if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9; else ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > /dev/null; fi)
+LD_PRELOAD=./libcrypto.so ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > "$OUTPUT_FILE")
 
 if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
@@ -299,8 +299,8 @@ if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ] && [ "$skip_debug_check" != "1" ]; the
      esac
 fi
 
-# Log system info
 if [ "$skip_debug_check" == "1" ]; then
+    # Log system info
     if [ -n "$(command -v inxi)" ]; then
         printf "\n%s\n\n" "System info:"
         inxi -Fxz
@@ -311,6 +311,14 @@ if [ "$skip_debug_check" == "1" ]; then
     
     printf "\n%s\n\n" "OpenSSL version:"
     openssl version
+    
+    # Set output variables
+    export OUTPUT_FILE=/dev/stdout
+    export ETERNALPATCHER_NO_COLORS=1
+    export ETERNALMODLOADER_NO_COLORS=1
+else
+    # Set output variables
+    export OUTPUT_FILE=/dev/null
 fi
 
 # Config File check
@@ -350,10 +358,10 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 # Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="b17b8da521cc240ff0da7c92cd3b4c98"
-ETERNALPATCHER_MD5="1273f9937f1cc03b01dd362205d68ee4"
+DETERNAL_LOADMODS_MD5="2c1e17dc7280de46c4d10553298c439e"
+ETERNALPATCHER_MD5="4ac700387eaf8bcf37257bedeb15b93b"
 IDREHASH_MD5="6d3762470434753ca051629d8ebc4211"
-DETERNAL_PATCHMANIFEST_MD5="9e2b83e5f916f68e38bf0107f3eb7199"
+DETERNAL_PATCHMANIFEST_MD5="d9197a7928a087d2f9529ec80222580b"
 VANILLA_GAME_MD5_A="b2d372b0a193bd6d7712630850d4bad3"
 PATCHED_GAME_MD5_A="fc7f454e36aff343660b089e6d401b93"
 VANILLA_GAME_MD5_B="328f040a2d2e8155c3f9cf5d05dbe571"
@@ -617,9 +625,9 @@ if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$Gam
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
-    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --update; else ./EternalPatcher --update > /dev/null; fi
+    LD_PRELOAD=./libcrypto.so ./EternalPatcher --update > "$OUTPUT_FILE"
     if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
-    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALPATCHER_NO_COLORS=1 ./EternalPatcher --patch "../DOOMEternalx64vk.exe"; else ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > /dev/null; fi)
+    LD_PRELOAD=./libcrypto.so ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
 
     if [ "$?" != "0" ]; then
         printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
@@ -731,7 +739,7 @@ fi
 # Backup .resources
 printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
 sed -i '/.backup$/d' "$CONFIG_FILE"
-IFS=$'\n' read -r -d '' -a modloaderlist < <( base/DEternal_loadMods ${modloader_arguments} --list-res )
+IFS=$'\n' read -r -d '' -a modloaderlist < <( LD_PRELOAD=./base/libcrypto.so ./base/DEternal_loadMods ${modloader_arguments} --list-res )
 
 if [ "${#modloaderlist[@]}" == "0" ]; then 
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
@@ -771,7 +779,7 @@ echo meta.resources >> "$CONFIG_FILE"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     printf "\n%s\n\n" "${blu}Getting vanilla resource hash offsets... (idRehash)${end}"
     (cd base || return
-    if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash --getoffsets; else ./idRehash --getoffsets > /dev/null; fi)
+    ./idRehash --getoffsets > "$OUTPUT_FILE")
     
     if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
@@ -786,7 +794,7 @@ printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
 
-if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ETERNALMODLOADER_NO_COLORS=1 ./base/DEternal_loadMods ${modloader_arguments}; else ./base/DEternal_loadMods ${modloader_arguments}; fi
+LD_PRELOAD=./base/libcrypto.so ./base/DEternal_loadMods ${modloader_arguments}
 
 if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
@@ -796,7 +804,7 @@ fi
 # Rehash resource hashes (idRehash)
 printf "\n%s\n\n" "${blu}Rehashing resource offsets... (idRehash)${end}"
 (cd base || return
-if [ "$ETERNALMODINJECTOR_DEBUG" == "1" ]; then ./idRehash; else ./idRehash > /dev/null; fi)
+./idRehash > "$OUTPUT_FILE")
 
 if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
