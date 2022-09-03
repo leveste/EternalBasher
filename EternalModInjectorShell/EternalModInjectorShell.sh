@@ -373,17 +373,31 @@ RS_DATA_MD5="31bedff0ab6c9617661f433acedcb8bd"
 # Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
 
-# Verify if tools exist
+# Verify if game EXE exists
 if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
-if ! [ -f base/DEternal_loadMods ]; then MissingTool "DEternal_loadMods"; fi
-if ! [ -f base/idRehash ]; then MissingTool "idRehash"; fi
-if ! [ -f base/EternalPatcher ]; then MissingTool "EternalPatcher"; fi
-if ! [ -f base/DEternal_patchManifest ]; then MissingTool "DEternal_patchManifest"; fi
-if ! [ -f base/EternalPatcher.config ]; then MissingTool "EternalPatcher.config"; fi
-if ! [ -f base/liblinoodle.so ]; then MissingTool "liblinoodle.so"; fi
-if ! [ -f base/rs_data ]; then MissingTool "rs_data"; fi
-if ! [ -f base/opusdec ]; then MissingTool "opusdec"; fi
-if ! [ -f base/opusenc ]; then MissingTool "opusenc"; fi
+
+# Verify if tools exist
+Binaries=(
+base/DEternal_loadMods
+base/idRehash
+base/EternalPatcher
+base/DEternal_patchManifest
+base/opusdec
+base/opusenc
+)
+
+Tools=(
+${Binaries[@]}
+base/EternalPatcher.config
+base/liblinoodle.so
+base/libssl.so
+base/libcrypto.so
+base/rs_data
+)
+
+for tool in "${Tools[@]}"; do
+    if ! [ -f "$tool" ]; then MissingTool "$(basename "$tool")"; fi
+done
 
 if ! command -v openssl &> /dev/null; then
     printf "\n%s\n\n" "${red}OpenSSL not found! Install OpenSSL using your distro's package manager or install from source, then try again.${end}"
@@ -404,12 +418,9 @@ if [ "$DETERNAL_PATCHMANIFEST_MD5" != "$DEternal_patchManifestMD5" ]; then Missi
 if [ "$RS_DATA_MD5" != "$rsDataMD5" ]; then MissingTool "rs_data"; fi
 
 # Give executable permissions to the binaries
-chmod +x base/EternalPatcher
-chmod +x base/DEternal_loadMods
-chmod +x base/idRehash
-chmod +x base/DEternal_patchManifest
-chmod +x base/opusdec
-chmod +x base/opusenc
+for binary in "${Binaries[@]}"; do
+    chmod +x "$binary"
+done
 
 ResourceFilePaths=(
 'e5m1_spear_patch1_path="./base/game/dlc2/e5m1_spear/e5m1_spear_patch1.resources"'
@@ -625,9 +636,9 @@ if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$Gam
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
-    LD_PRELOAD=./libcrypto.so ./EternalPatcher --update > "$OUTPUT_FILE"
+    LD_PRELOAD="./libssl.so ./libcrypto.so" ./EternalPatcher --update > "$OUTPUT_FILE"
     if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
-    LD_PRELOAD=./libcrypto.so ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
+    LD_PRELOAD="./libssl.so ./libcrypto.so" ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
 
     if [ "$?" != "0" ]; then
         printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
