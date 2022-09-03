@@ -389,9 +389,8 @@ base/opusenc
 Tools=(
 ${Binaries[@]}
 base/EternalPatcher.config
-base/liblinoodle.so
-base/libssl.so
 base/libcrypto.so
+base/liblinoodle.so
 base/rs_data
 )
 
@@ -636,9 +635,9 @@ if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$Gam
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
-    LD_PRELOAD="./libssl.so ./libcrypto.so" ./EternalPatcher --update > "$OUTPUT_FILE"
+    LD_PRELOAD=./libcrypto.so ./EternalPatcher --update > "$OUTPUT_FILE"
     if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
-    LD_PRELOAD="./libssl.so ./libcrypto.so" ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
+    LD_PRELOAD=./libcrypto.so ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
 
     if [ "$?" != "0" ]; then
         printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
