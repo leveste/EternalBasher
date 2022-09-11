@@ -267,7 +267,7 @@ fi
 PatchBuildManifest() {
 printf "\n%s\n\n" "${blu}Patching build manifest... (DEternal_patchManifest)${end}"
 (cd base || return
-LD_PRELOAD=./libcrypto.so ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > "$OUTPUT_FILE")
+LD_PRELOAD="./libssl.so ./libcrypto.so" ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > "$OUTPUT_FILE")
 
 if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
@@ -389,6 +389,7 @@ base/opusenc
 Tools=(
 ${Binaries[@]}
 base/EternalPatcher.config
+base/libssl.so
 base/libcrypto.so
 base/liblinoodle.so
 base/rs_data
@@ -635,9 +636,9 @@ if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$Gam
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
-    LD_PRELOAD=./libcrypto.so ./EternalPatcher --update > "$OUTPUT_FILE"
+    LD_PRELOAD="./libssl.so ./libcrypto.so" ./EternalPatcher --update > "$OUTPUT_FILE"
     if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
-    LD_PRELOAD=./libcrypto.so ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
+    LD_PRELOAD="./libssl.so ./libcrypto.so" ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
 
     if [ "$?" != "0" ]; then
         printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
@@ -749,7 +750,7 @@ fi
 # Backup .resources
 printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
 sed -i '/.backup$/d' "$CONFIG_FILE"
-IFS=$'\n' read -r -d '' -a modloaderlist < <( LD_PRELOAD=./base/libcrypto.so ./base/DEternal_loadMods ${modloader_arguments} --list-res )
+IFS=$'\n' read -r -d '' -a modloaderlist < <( LD_PRELOAD="./base/libssl.so ./base/libcrypto.so" ./base/DEternal_loadMods ${modloader_arguments} --list-res )
 
 if [ "${#modloaderlist[@]}" == "0" ]; then 
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
@@ -804,7 +805,7 @@ printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
 
-LD_PRELOAD=./base/libcrypto.so ./base/DEternal_loadMods ${modloader_arguments}
+LD_PRELOAD="./base/libssl.so ./base/libcrypto.so" ./base/DEternal_loadMods ${modloader_arguments}
 
 if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
