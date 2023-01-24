@@ -32,7 +32,8 @@ if [ "$skip_debug_check" != "1" ]; then end=$'\e[0m'; fi
 cd $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 
 # Prompt before exit when running from EternalModManager
-if [ -n "$ETERNALMODMANAGER" ]; then
+if [ -f "ETERNALMODMANAGER" ]; then
+    rm "ETERNALMODMANAGER"
     shopt -s expand_aliases
     alias exit="read; exit"
 fi
