@@ -29,7 +29,7 @@ if [ "$skip_debug_check" != "1" ]; then blu=$'\e[1;34m'; fi
 if [ "$skip_debug_check" != "1" ]; then end=$'\e[0m'; fi
 
 # Set cwd to script dir
-cd $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 # Prompt before exit when running from EternalModManager
 if [ -f "ETERNALMODMANAGER" ]; then
