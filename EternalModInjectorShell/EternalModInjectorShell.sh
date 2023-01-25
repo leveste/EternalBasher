@@ -312,10 +312,10 @@ if [ "$skip_debug_check" == "1" ]; then
 
     printf "\n%s\n\n" "glibc version:"
     ldd --version
-    
+
     printf "\n%s\n\n" "OpenSSL version:"
     openssl version
-    
+
     # Set output variables
     export OUTPUT_FILE=/dev/stdout
     export ETERNALPATCHER_NO_COLORS=1
@@ -596,7 +596,7 @@ This batch file automatically...
 Press any key to continue...${end}"
     read -r -p ''
     echo
-	
+
     printf "%s" "${blu}We take no credit for the tools used in the mod loading, credits go to:
 DEternal_loadMods: SutandoTsukai181 for making it in Python (based on a QuickBMS-based unpacker made for Wolfenstein II: The New Colossus by aluigi and edited for DOOM Eternal by one of infograms friends), proteh for remaking it in C#, and PowerBall253 for rewriting it in C for Linux.
 EternalPatcher: proteh for making it (based on EXE patches made by infogram that were based on Cheat Engine patches made by SunBeam, as well as based on EXE patches made by Visual Studio) and PowerBall253 for rewriting it in C for Linux.
@@ -795,7 +795,7 @@ if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     printf "\n%s\n\n" "${blu}Getting vanilla resource hash offsets... (idRehash)${end}"
     (cd base || return
     ./idRehash --getoffsets > "$OUTPUT_FILE")
-    
+
     if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
