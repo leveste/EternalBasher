@@ -271,7 +271,7 @@ fi
 PatchBuildManifest() {
 printf "\n%s\n\n" "${blu}Patching build manifest... (DEternal_patchManifest)${end}"
 (cd base || return
-LD_PRELOAD="./libssl.so ./libcrypto.so" ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > "$OUTPUT_FILE")
+./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > "$OUTPUT_FILE")
 
 if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
@@ -362,10 +362,10 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 # Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="f1f23b84382edb713b15d5dd9cb922f5"
-ETERNALPATCHER_MD5="0318b497975b12e01817a35103366688"
-IDREHASH_MD5="6d3762470434753ca051629d8ebc4211"
-DETERNAL_PATCHMANIFEST_MD5="e990ea15edf0cc4dfad6d63a1888e343"
+DETERNAL_LOADMODS_MD5="890d0397605f443836e9f5878836872a"
+ETERNALPATCHER_MD5="80624317a6fa684bd926e99d488419c2"
+IDREHASH_MD5="f6c6c679d8b7b59530ded23df9fda9f7"
+DETERNAL_PATCHMANIFEST_MD5="c7bbb0fb83fc7a21ff4d0ca12afa3841"
 VANILLA_GAME_MD5_A="b2d372b0a193bd6d7712630850d4bad3"
 PATCHED_GAME_MD5_A="fc7f454e36aff343660b089e6d401b93"
 VANILLA_GAME_MD5_B="328f040a2d2e8155c3f9cf5d05dbe571"
@@ -393,9 +393,7 @@ base/opusenc
 Tools=(
 ${Binaries[@]}
 base/EternalPatcher.config
-base/libssl.so
-base/libcrypto.so
-base/liblinoodle.so
+base/libooz.so
 base/rs_data
 )
 
@@ -640,9 +638,9 @@ if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$Gam
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
     if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
-    LD_PRELOAD="./libssl.so ./libcrypto.so" ./EternalPatcher --update > "$OUTPUT_FILE"
+    ./EternalPatcher --update > "$OUTPUT_FILE"
     if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
-    LD_PRELOAD="./libssl.so ./libcrypto.so" ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
+    ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
 
     if [ "$?" != "0" ]; then
         printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
@@ -754,7 +752,7 @@ fi
 # Backup .resources
 printf "\n%s\n\n" "${blu}Backing up .resources...${end}"
 sed -i '/.backup$/d' "$CONFIG_FILE"
-IFS=$'\n' read -r -d '' -a modloaderlist < <( LD_PRELOAD="./base/libssl.so ./base/libcrypto.so" ./base/DEternal_loadMods ${modloader_arguments} --list-res )
+IFS=$'\n' read -r -d '' -a modloaderlist < <( ./base/DEternal_loadMods ${modloader_arguments} --list-res )
 
 if [ "${#modloaderlist[@]}" == "0" ]; then 
     printf "\n%s\n\n" "${grn}No mods found! All .resources files have been restored to their vanilla state.${end}"
@@ -809,7 +807,7 @@ printf "%s\n" "
 ${blu}Loading mods... (DEternal_loadMods)${end}
 "
 
-LD_PRELOAD="./base/libssl.so ./base/libcrypto.so" ./base/DEternal_loadMods ${modloader_arguments}
+./base/DEternal_loadMods ${modloader_arguments}
 
 if [ "$?" != "0" ]; then
     printf "\n%s\n\n" "${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
