@@ -1,9 +1,6 @@
 [submodule "DOOMSaveManagerLinux"]
 	path = DOOMSaveManagerLinux
 	url = https://github.com/PowerBall253/DOOMSaveManagerLinux.git
-[submodule "linoodle"]
-	path = linoodle
-	url = https://github.com/PowerBall253/linoodle.git
 [submodule "idCryptRust"]
 	path = idCryptRust
 	url = https://github.com/PowerBall253/idCryptRust.git
@@ -30,4 +27,7 @@
 	url = https://github.com/PowerBall253/AutoHeckinTextureConverter.git
 [submodule "EternalModManager-Avalonia"]
 	path = EternalModManager-Avalonia
-	url = https://github.com/PowerBall253/EternalModManager-Avalonia
+	url = https://github.com/PowerBall253/EternalModManager-Avalonia.git
+[submodule "ooz"]
+	path = ooz
+	url = https://github.com/PowerBall253/ooz.git

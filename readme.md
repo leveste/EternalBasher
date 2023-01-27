@@ -64,10 +64,10 @@ Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entitie
 
 Tool to hash the resource offsets and store them in meta.resources to allow loading of custom .resources, rewritten on C for Linux.
 
-**linoodle**
-
-Linux wrapper for the Oodle compression library.
-
 **meath00k**
 
 Readme explaining how to use chrispy's meath00k and Scorp's EntityHero on Linux.
+
+**ooz**
+
+Open source Oodle format decompressor.
