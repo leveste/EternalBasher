@@ -34,6 +34,7 @@ cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 # Prompt before exit when running from EternalModManager
 if [ -f "ETERNALMODMANAGER" ]; then
     rm "ETERNALMODMANAGER"
+    ETERNALMODMANAGER=1
     shopt -s expand_aliases
     alias exit="read; exit"
 fi
@@ -265,6 +266,10 @@ if [ "$AUTO_LAUNCH_GAME" == "1" ]; then
     steam -applaunch 782330 ${GAME_PARAMETERS}
 else
     printf "\n%s\n\n" "${grn}You can now launch the game.${end}"
+
+    if [ "$ETERNALMODMANAGER" == "1" ]; then
+        printf "\n%s\n\n" "${grn}Press any key to exit...${end}"
+    fi
 fi
 }
 
