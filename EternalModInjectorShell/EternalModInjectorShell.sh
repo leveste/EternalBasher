@@ -635,7 +635,7 @@ GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 
 if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then MissingGameFile "DOOMEternalx64vk.exe"; fi
 
-if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] ) && ( [ -d "Mods" ] && [ -n "$(ls -A "Mods")" ] ); then
+if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] ) && [ -d "Mods" ]; then
     printf "\n%s\n\n" "${blu}Patching game executable...${end}"
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
