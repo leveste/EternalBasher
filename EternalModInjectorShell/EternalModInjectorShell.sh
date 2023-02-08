@@ -312,14 +312,8 @@ if [ "$skip_debug_check" == "1" ]; then
     # Log system info
     if [ -n "$(command -v inxi)" ]; then
         printf "\n%s\n\n" "System info:"
-        inxi -Fxz
+        inxi -SMCxI
     fi
-
-    printf "\n%s\n\n" "glibc version:"
-    ldd --version
-
-    printf "\n%s\n\n" "OpenSSL version:"
-    openssl version
 
     printf "\n%s\n\n" "curl version:"
     curl --version
