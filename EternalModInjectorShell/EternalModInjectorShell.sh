@@ -321,6 +321,9 @@ if [ "$skip_debug_check" == "1" ]; then
     printf "\n%s\n\n" "OpenSSL version:"
     openssl version
 
+    printf "\n%s\n\n" "curl version:"
+    curl --version
+
     # Set output variables
     export OUTPUT_FILE=/dev/stdout
     export ETERNALPATCHER_NO_COLORS=1
@@ -367,10 +370,10 @@ if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
 fi
 
 # Assign game hashes to variables
-DETERNAL_LOADMODS_MD5="890d0397605f443836e9f5878836872a"
-ETERNALPATCHER_MD5="80624317a6fa684bd926e99d488419c2"
-IDREHASH_MD5="f6c6c679d8b7b59530ded23df9fda9f7"
-DETERNAL_PATCHMANIFEST_MD5="c7bbb0fb83fc7a21ff4d0ca12afa3841"
+DETERNAL_LOADMODS_MD5="6ce90c8c424a18acb059b6bcba2741b9"
+ETERNALPATCHER_MD5="a6117b74b6e6d0b4f0096b26f9f8794b"
+IDREHASH_MD5="61acf0462c07d98e3369734bef091ea4"
+DETERNAL_PATCHMANIFEST_MD5="37bf1ff4b480222edea35a1cea7196a8"
 VANILLA_GAME_MD5_A="b2d372b0a193bd6d7712630850d4bad3"
 PATCHED_GAME_MD5_A="fc7f454e36aff343660b089e6d401b93"
 VANILLA_GAME_MD5_B="328f040a2d2e8155c3f9cf5d05dbe571"
@@ -398,18 +401,12 @@ base/opusenc
 Tools=(
 ${Binaries[@]}
 base/EternalPatcher.config
-base/libooz.so
 base/rs_data
 )
 
 for tool in "${Tools[@]}"; do
     if ! [ -f "$tool" ]; then MissingTool "$(basename "$tool")"; fi
 done
-
-if ! command -v openssl &> /dev/null; then
-    printf "\n%s\n\n" "${red}OpenSSL not found! Install OpenSSL using your distro's package manager or install from source, then try again.${end}"
-    exit 1
-fi
 
 # Check tool hashes
 DEternal_LoadModsMD5=$(md5sum "base/DEternal_loadMods" | awk '{ print $1 }')
