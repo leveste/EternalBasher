@@ -7,15 +7,6 @@
 [submodule "EternalModLoaderCpp"]
 	path = EternalModLoaderCpp
 	url = https://github.com/PowerBall253/EternalModLoaderCpp.git
-[submodule "EternalPatcherLinux"]
-	path = EternalPatcherLinux
-	url = https://github.com/PowerBall253/EternalPatcherLinux.git
-[submodule "idRehashLinux"]
-	path = idRehashLinux
-	url = https://github.com/PowerBall253/idRehashLinux.git
-[submodule "EternalPatchManifestLinux"]
-	path = EternalPatchManifestLinux
-	url = https://github.com/PowerBall253/EternalPatchManifestLinux.git
 [submodule "EternalResourceExtractor"]
 	path = EternalResourceExtractor
 	url = https://github.com/PowerBall253/EternalResourceExtractor.git
