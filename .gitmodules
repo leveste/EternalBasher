@@ -22,3 +22,12 @@
 [submodule "ooz"]
 	path = ooz
 	url = https://github.com/PowerBall253/ooz.git
+[submodule "idRehashGo"]
+	path = idRehashGo
+	url = https://github.com/PowerBall253/idRehashGo.git
+[submodule "EternalPatcherGo"]
+	path = EternalPatcherGo
+	url = https://github.com/PowerBall253/EternalPatcherGo.git
+[submodule "EternalPatchManifestGo"]
+	path = EternalPatchManifestGo
+	url = https://github.com/PowerBall253/EternalPatchManifestGo.git

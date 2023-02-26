@@ -36,13 +36,13 @@ Tool to load mods into Doom Eternal's .resources files, rewritten on C++ for Lin
 
 Mod manager GUI for DOOM Eternal, written in C# using Avalonia.
 
-**EternalPatchManifestLinux**
+**EternalPatchManifestGo**
 
-Tool that patches the build-manifest.bin file for modding purposes, rewritten in C for Linux.
+Tool that patches the build-manifest.bin file for modding purposes, rewritten in Go.
 
-**EternalPatcherLinux**
+**EternalPatcherGo**
 
-Tool that patches the DOOM Eternal executable for modding purposes, rewritten in C for Linux.
+Tool that patches the DOOM Eternal executable for modding purposes, rewritten in Go.
 
 **EternalResourceExtractor**
 
@@ -60,9 +60,9 @@ Tool that decrypts/encrypts DOOM Eternal's .blang files, rewritten in Rust.
 
 Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entities files.
 
-**idRehashLinux**
+**idRehashGo**
 
-Tool to hash the resource offsets and store them in meta.resources to allow loading of custom .resources, rewritten on C for Linux.
+Tool to hash the resource offsets and store them in meta.resources to allow loading of custom .resources, rewritten in Go.
 
 **meath00k**
 
