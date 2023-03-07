@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 # Script version
-script_version="v6.66-rev2.11"
+script_version="v6.66-rev2.12"
 
 # Game version
 game_version="6.66 Rev 2"
@@ -25,6 +25,7 @@ game_version="6.66 Rev 2"
 # Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
 if [ "$skip_debug_check" != "1" ]; then grn=$'\e[1;32m'; fi
+if [ "$skip_debug_check" != "1" ]; then ylw=$'\e[1;33m'; fi
 if [ "$skip_debug_check" != "1" ]; then blu=$'\e[1;34m'; fi
 if [ "$skip_debug_check" != "1" ]; then end=$'\e[0m'; fi
 
@@ -284,10 +285,13 @@ if [ "$?" != "0" ]; then
 fi
 }
 
-printf "%s\n" "${grn}EternalModInjector Shell Script ${script_version}
+printf "%s\n\n" "${grn}EternalModInjector Shell Script ${script_version}
 By Leveste and PowerBall253
-Based on original batch file by Zwip-Zwap Zapony${end}
-"
+Based on original batch file by Zwip-Zwap Zapony${end}"
+
+# Highlighted mods
+printf "\n%s\n\n" "${ylw}Check out some hightlighted mods: https://www.github.com/leveste/EternalBasher/mods.md${end}"
+sleep 1
 
 first_time="0"
 
