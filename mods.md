@@ -15,3 +15,9 @@ Not sure which mod to play next? Here are some of the most popular mods:
 * [**Custom Master Levels**](https://www.nexusmods.com/doometernal/search/?BH=0) Custom Master Levels are the best way to test your DOOM Eternal skills.
 * [**Viewmodel FOV Mod:**](https://www.nexusmods.com/doometernal/mods/49) Increases the viewmodel FOV of each weapon.
 * [**Keep the Dead:**](https://www.nexusmods.com/doometernal/mods/1) Keeps the blood, gibs, and kills much longer.
+
+## other mods
+Visit the following links to find mods:
+* [DOOM Eternal Modding Hub](https://discord.com/invite/FCdjqYDr5B)
+* [Doom 2016+ Modding Discord](https://discord.com/channels/570112501853978624/614488711572357120)
+* [Nexus Mods](https://www.nexusmods.com/doometernal)
