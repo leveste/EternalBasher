@@ -32,6 +32,10 @@ Script that automatically installs mods using the rest of the tools.
 
 Tool to load mods into Doom Eternal's .resources files, rewritten on C++ for Linux.
 
+**EternalModManager**
+
+Mod manager GUI for DOOM Eternal, written in Rust using GTK4 & libadwaita.
+
 **EternalPatchManifestGo**
 
 Tool that patches the build-manifest.bin file for modding purposes, rewritten in Go.
