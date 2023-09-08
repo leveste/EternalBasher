@@ -17,10 +17,10 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 # Script version
-script_version="v6.66-rev2.13"
+script_version="v6.66-rev2.14"
 
 # Game version
-game_version="6.66 Rev 2"
+game_version="6.66 Rev 2.2"
 
 # Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -376,15 +376,21 @@ VANILLA_GAME_MD5_A="b2d372b0a193bd6d7712630850d4bad3"
 PATCHED_GAME_MD5_A="fc7f454e36aff343660b089e6d401b93"
 VANILLA_GAME_MD5_B="328f040a2d2e8155c3f9cf5d05dbe571"
 PATCHED_GAME_MD5_B="9d92247e209407f6f70fccddc7140d9a"
-VANILLA_META_MD5="ab982b70614b444af5316280665b8576"
-VANILLA_PACKAGEMAPSPEC_MD5="e49831876ea3ae735df0e07a4bed0629"
+VANILLA_GAME_MD5_C="d393f99a3bddce792234db163dfe6035"
+PATCHED_GAME_MD5_C="45bf267f7bf414b6a268476772ca2ff1"
+VANILLA_META_MD5_A="ab982b70614b444af5316280665b8576"
+VANILLA_META_MD5_B="ab982b70614b444af5316280665b8576"
+VANILLA_META_MD5_C="c74bcb6331ee9bcae3ec0b28a779f769"
+VANILLA_PACKAGEMAPSPEC_MD5_A="e49831876ea3ae735df0e07a4bed0629"
+VANILLA_PACKAGEMAPSPEC_MD5_B="e49831876ea3ae735df0e07a4bed0629"
+VANILLA_PACKAGEMAPSPEC_MD5_C="421d09aab114b07c5b67c10451c59828"
 RS_DATA_MD5="31bedff0ab6c9617661f433acedcb8bd"
 
 # Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
 
 # Verify if game EXE exists
-if ! [ -f DOOMEternalx64vk.exe ]; then MissingGame; fi
+if ! [ -f "DOOMEternalx64vk.exe" ]; then MissingGame; fi
 
 # Verify if tools exist
 Binaries=(
@@ -631,9 +637,9 @@ fi
 if [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe.backup" "DOOMEternalx64vk.exe"; fi
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 
-if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then MissingGameFile "DOOMEternalx64vk.exe"; fi
+if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_C" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_C" != "$GameMD5" ]; then MissingGameFile "DOOMEternalx64vk.exe"; fi
 
-if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] ) && [ -d "Mods" ]; then
+if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_C" == "$GameMD5" ] ) && [ -d "Mods" ]; then
     printf "\n%s\n\n" "${blu}Patching game executable...${end}"
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
@@ -717,7 +723,7 @@ printf "\n%s\n\n" "${blu}Checking meta.resources...${end}"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     if ! [ -f "base/meta.resources" ]; then MissingGameFile "meta.resources"; fi
     MetaMD5=$(md5sum "base/meta.resources" | awk '{ print $1 }')
-    if [ "$VANILLA_META_MD5" != "$MetaMD5" ]; then MissingGameFile "meta.resources"; fi
+    if [ "$VANILLA_META_MD5_A" != "$MetaMD5" ] && [ "$VANILLA_META_MD5_B" != "$MetaMD5" ] && [ "$VANILLA_META_MD5_C" != "$MetaMD5" ]; then MissingGameFile "meta.resources"; fi
 fi
 
 # Check packagemapspec.json
@@ -725,7 +731,7 @@ printf "\n%s\n\n" "${blu}Checking packagemapspec.json...${end}"
 if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     if ! [ -f "base/packagemapspec.json" ]; then MissingGameFile "packagemapspec.json"; fi
     PackageMapSpecMD5=$(md5sum "base/packagemapspec.json" | awk '{ print $1 }')
-    if [ "$VANILLA_PACKAGEMAPSPEC_MD5" != "$PackageMapSpecMD5" ]; then MissingGameFile "packagemapspec.json"; fi
+    if [ "$VANILLA_PACKAGEMAPSPEC_MD5_A" != "$PackageMapSpecMD5" ] && [ "$VANILLA_PACKAGEMAPSPEC_MD5_B" != "$PackageMapSpecMD5" ] && [ "$VANILLA_PACKAGEMAPSPEC_MD5_C" != "$PackageMapSpecMD5" ]; then MissingGameFile "packagemapspec.json"; fi
 fi
 
 # Set new values in config file
