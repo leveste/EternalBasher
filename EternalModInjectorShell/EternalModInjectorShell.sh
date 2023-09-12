@@ -353,7 +353,7 @@ if ! [ -f "$CONFIG_FILE" ]; then CreateConfigFile; else
 fi
 
 # Get ModLoader arguments
-modloader_arguments="."
+modloader_arguments=". --redirectBlangContainer gameresources_patch3"
 if [ "$VERBOSE" == "1" ]; then modloader_arguments="${modloader_arguments} --verbose"; fi
 if [ "$SLOW" == "1" ]; then modloader_arguments="${modloader_arguments} --slow"; fi
 if [ "$COMPRESS_TEXTURES" == "1" ]; then modloader_arguments="${modloader_arguments} --compress-textures"; fi
