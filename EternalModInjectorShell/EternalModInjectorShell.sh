@@ -476,6 +476,7 @@ ResourceFilePaths=(
 'pvp_zap_path="./base/game/pvp/pvp_zap/pvp_zap.resources"'
 'gameresources_patch1_path="./base/gameresources_patch1.resources"'
 'gameresources_patch2_path="./base/gameresources_patch2.resources"'
+'gameresources_patch3_path="./base/gameresources_patch3.resources"'
 'gameresources_path="./base/gameresources.resources"'
 'shell_patch1_path="./base/game/shell/shell_patch1.resources"'
 'shell_path="./base/game/shell/shell.resources"'
