@@ -31,3 +31,6 @@
 [submodule "EternalModManager"]
 	path = EternalModManager
 	url = https://github.com/brunoanc/EternalModManager.git
+[submodule "idFileDeCompressorGo"]
+	path = idFileDeCompressorGo
+	url = https://github.com/brunoanc/idFileDeCompressorGo.git

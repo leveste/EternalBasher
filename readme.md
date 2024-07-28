@@ -56,9 +56,9 @@ Meath00k is a dll that allows the user to override "\*.entities" files with your
 
 Tool that decrypts/encrypts DOOM Eternal's .blang files, rewritten in Rust.
 
-**idFileDeCompressor_Auto**
+**idFileDeCompressorGo**
 
-Simplifies the use of proteh's idFileDecompressore tool. Used to modify .entities files.
+ Tool to decompress and recompress .entities files, allowing level editing.
 
 **idRehashGo**
 
