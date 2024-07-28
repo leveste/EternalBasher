@@ -1,33 +1,33 @@
 [submodule "DOOMSaveManagerLinux"]
 	path = DOOMSaveManagerLinux
-	url = https://github.com/PowerBall253/DOOMSaveManagerLinux.git
+	url = https://github.com/brunoanc/DOOMSaveManagerLinux.git
 [submodule "idCryptRust"]
 	path = idCryptRust
-	url = https://github.com/PowerBall253/idCryptRust.git
+	url = https://github.com/brunoanc/idCryptRust.git
 [submodule "EternalModLoaderCpp"]
 	path = EternalModLoaderCpp
-	url = https://github.com/PowerBall253/EternalModLoaderCpp.git
+	url = https://github.com/brunoanc/EternalModLoaderCpp.git
 [submodule "EternalResourceExtractor"]
 	path = EternalResourceExtractor
-	url = https://github.com/PowerBall253/EternalResourceExtractor.git
+	url = https://github.com/brunoanc/EternalResourceExtractor.git
 [submodule "EternalAudioExtractorLinux"]
 	path = EternalAudioExtractorLinux
-	url = https://github.com/PowerBall253/EternalAudioExtractorLinux.git
+	url = https://github.com/brunoanc/EternalAudioExtractorLinux.git
 [submodule "AutoHeckinTextureConverter"]
 	path = AutoHeckinTextureConverter
-	url = https://github.com/PowerBall253/AutoHeckinTextureConverter.git
+	url = https://github.com/brunoanc/AutoHeckinTextureConverter.git
 [submodule "ooz"]
 	path = ooz
-	url = https://github.com/PowerBall253/ooz.git
+	url = https://github.com/brunoanc/ooz.git
 [submodule "idRehashGo"]
 	path = idRehashGo
-	url = https://github.com/PowerBall253/idRehashGo.git
+	url = https://github.com/brunoanc/idRehashGo.git
 [submodule "EternalPatcherGo"]
 	path = EternalPatcherGo
-	url = https://github.com/PowerBall253/EternalPatcherGo.git
+	url = https://github.com/brunoanc/EternalPatcherGo.git
 [submodule "EternalPatchManifestGo"]
 	path = EternalPatchManifestGo
-	url = https://github.com/PowerBall253/EternalPatchManifestGo.git
+	url = https://github.com/brunoanc/EternalPatchManifestGo.git
 [submodule "EternalModManager"]
 	path = EternalModManager
-	url = https://github.com/PowerBall253/EternalModManager.git
+	url = https://github.com/brunoanc/EternalModManager.git
