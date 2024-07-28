@@ -289,10 +289,6 @@ printf "%s\n\n" "${grn}EternalModInjector Shell Script ${script_version}
 By Leveste and PowerBall253
 Based on original batch file by Zwip-Zwap Zapony${end}"
 
-# Highlighted mods
-printf "\n%s\n\n" "${ylw}Check out some hightlighted mods: https://www.github.com/leveste/EternalBasher/mods.md${end}"
-sleep 1
-
 first_time="0"
 
 # Debug mode
