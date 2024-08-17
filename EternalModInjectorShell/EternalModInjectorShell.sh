@@ -20,7 +20,7 @@
 script_version="v6.66-rev2.2.4"
 
 # Game version
-game_version="6.66 Rev 2.2"
+game_version="6.66 Rev 3"
 
 # Colors
 if [ "$skip_debug_check" != "1" ]; then red=$'\e[1;31m'; fi
@@ -192,6 +192,7 @@ case "$response" in
 
         if [ -f "base/packagemapspec.json.backup" ]; then rm "base/packagemapspec.json.backup"; fi
         if [ -f "DOOMEternalx64vk.exe.backup" ]; then rm "DOOMEternalx64vk.exe.backup"; fi
+        if [ -f "doomSandBox/DOOMSandBox64vk.exe.backup" ]; then rm "doomSandBox/DOOMSandBox64vk.exe.backup"; fi
         ;;
     *)
 sed -i 's/:RESET_BACKUPS=.*/:RESET_BACKUPS=0/' "$CONFIG_FILE"
@@ -368,12 +369,14 @@ DETERNAL_LOADMODS_MD5="53baee98bd1984ab72032a5921ab882c"
 ETERNALPATCHER_MD5="e39490ff74d2d1a4d1ad3fa5a3a21ed8"
 IDREHASH_MD5="f88987de8b373a5ebf86ca5b53b8185a"
 DETERNAL_PATCHMANIFEST_MD5="c3cb46ca75edc8280e3387147be06148"
-VANILLA_GAME_MD5_A="d393f99a3bddce792234db163dfe6035"
-PATCHED_GAME_MD5_A="45bf267f7bf414b6a268476772ca2ff1"
-VANILLA_GAME_MD5_B="8263012f097049d80eb52749ef4672c8"
-PATCHED_GAME_MD5_B="a69df2e83427f7d372c10f5d7ddd2498"
-VANILLA_META_MD5="c74bcb6331ee9bcae3ec0b28a779f769"
+VANILLA_GAME_MD5_A="0c3f5a94244023ae2c55d6ff0b62e1ab"
+PATCHED_GAME_MD5_A="c4fc036fb6b53bd620b45e97cf450dcb"
+VANILLA_GAME_MD5_B="a35a88708e3524b7cf5961e44c0bf83d"
+PATCHED_GAME_MD5_B="5255c83d4d23d3bd1a6535f6715bac51"
+VANILLA_META_MD5="9ce35acab43e5f366b0453ed9d6c035c"
 VANILLA_PACKAGEMAPSPEC_MD5="421d09aab114b07c5b67c10451c59828"
+VANILLA_SANDBOX_MD5="2a5d4f06340708091a1153c55ee08b9a"
+PATCHED_SANDBOX_MD5="285d7c25958e77f7943649bff01a782d"
 RS_DATA_MD5="bc9cce3cdf17e026175867d2e7c4bb3f"
 
 # Check tools' status
@@ -625,12 +628,13 @@ if [ "$RESET_BACKUPS" == "1" ] && [ "$skip_resetbackups" != "1" ]; then
 fi
 
 # Patch Game Executable
-if [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe.backup" "DOOMEternalx64vk.exe"; fi
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
+if [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then
+    if [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe.backup" "DOOMEternalx64vk.exe"; fi
+    GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
 
-if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_A" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_B" != "$GameMD5" ]; then MissingGameFile "DOOMEternalx64vk.exe"; fi
+    if [ "$VANILLA_GAME_MD5_A" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_B" != "$GameMD5" ]; then MissingGameFile "DOOMEternalx64vk.exe"; fi
 
-if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$GameMD5" ] ) && [ -d "Mods" ]; then
     printf "\n%s\n\n" "${blu}Patching game executable...${end}"
     if ! [ -f "DOOMEternalx64vk.exe.backup" ]; then cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"; fi
     (cd base || return
@@ -638,10 +642,39 @@ if ( [ "$VANILLA_GAME_MD5_A" == "$GameMD5" ] || [ "$VANILLA_GAME_MD5_B" == "$Gam
     ./EternalPatcher --update > "$OUTPUT_FILE"
     if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
     ./EternalPatcher --patch "../DOOMEternalx64vk.exe" > "$OUTPUT_FILE")
+    PatchedGame=1
 
     if [ "$?" != "0" ]; then
         printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
         exit 1
+    fi
+fi
+
+# Patch Sandbox Executable
+if [ -f "doomSandBox/DOOMSandBox64vk.exe" ]; then
+    GameMD5=$(md5sum "doomSandBox/DOOMSandBox64vk.exe" | awk '{ print $1 }')
+    if [ "$PATCHED_SANDBOX_MD5" != "$GameMD5" ]; then
+        if [ -f "doomSandBox/DOOMSandBox64vk.exe.backup" ]; then cp "doomSandBox/DOOMSandBox64vk.exe.backup" "doomSandBox/DOOMSandBox64vk.exe"; fi
+        GameMD5=$(md5sum "doomSandBox/DOOMSandBox64vk.exe" | awk '{ print $1 }')
+
+        if [ "$VANILLA_SANDBOX_MD5" != "$GameMD5" ]; then MissingGameFile "doomSandBox/DOOMSandBox64vk.exe"; fi
+
+        if [ "$PatchedGame" != "1" ]; then printf "\n%s\n\n" "${blu}Patching game executable...${end}"; fi
+        if ! [ -f "doomSandBox/DOOMSandBox64vk.exe.backup" ]; then cp "doomSandBox/DOOMSandBox64vk.exe" "doomSandBox/DOOMSandBox64vk.exe.backup"; fi
+        (cd base || return
+        if [ "$PatchedGame" != "1" ]; then
+            if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
+            ./EternalPatcher --update > "$OUTPUT_FILE"
+            if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
+        fi
+        ./EternalPatcher --patch "../doomSandBox/DOOMSandBox64vk.exe" > "$OUTPUT_FILE")
+
+        # For the sandbox, check the MD5 hash instead of the exit code
+        GameMD5=$(md5sum "doomSandBox/DOOMSandBox64vk.exe" | awk '{ print $1 }')
+        if [ "$PATCHED_SANDBOX_MD5" != "$GameMD5" ]; then
+            printf "\n%s\n\n" "${red}EternalPatcher has failed! Delete doomSandBox/DOOMSandBox64vk.exe and verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
+            exit 1
+        fi
     fi
 fi
 
@@ -694,7 +727,7 @@ while IFS= read -r filename; do
 
     printf "\n\t\t%s\n\n" "${blu}Restoring ${filename_name}.${extension}.backup...${end}"
     if ! [ -f "$path" ]; then NoBackupFound; fi
-    cp "${path}.backup" "$path"	
+    cp "${path}.backup" "$path"
 done < "$CONFIG_FILE"
 fi
 
