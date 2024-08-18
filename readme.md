@@ -1,6 +1,6 @@
 Collection of bash scripts for different aspects of Doom Eternal modding. Further instructions can be found in the readme file of each one.
 
-Join the DOOM Eternal Modding Hub to find more mods and tools: <https://discord.gg/FCdjqYDr5B>
+Join the [DOOM 2016+ Modding Discord](https://discord.gg/ymRvQaU) and the [DOOM Eternal Modding Hub](https://discord.gg/FCdjqYDr5B) to find more mods and tools. You can also find modding on the [wiki](https://wiki.eternalmods.com/).
 
 ------------------------
 
