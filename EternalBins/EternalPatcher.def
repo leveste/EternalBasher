@@ -26,6 +26,7 @@ steam08082024=DOOMEternalx64vk.exe:0c3f5a94244023ae2c55d6ff0b62e1ab:global,updat
 steam-pcmodpreview08082024=DOOMEternalx64vk.exe:a35a88708e3524b7cf5961e44c0bf83d:global,update6
 steam-sandbox08082024=DOOMSandBox64vk.exe:2a5d4f06340708091a1153c55ee08b9a:global,update6
 steam-sandbox27082024=DOOMSandBox64vk.exe:cacb33b44ab04eb4c0532c8dd890f36c:global,update6
+steam-sandbox22112024=DOOMSandBox64vk.exe:f47daeae8038570711b9d4de98af94db:global,update6
 bnetv1=DOOMEternalx64vk.exe:7bb1e931cbbbc3d2d3cea1dd6df05539:global
 bnet14052020=DOOMEternalx64vk.exe:ea273f1400d8975807a9ccb0c9a62bce:global
 bnet16052020=DOOMEternalx64vk.exe:e66341899207dc0f0953c021469789fc:global
@@ -62,6 +63,8 @@ uwp20122021=DOOMEternalx64vk.exe:37ca9b7fad426e93552dd8f8f72989e2:global,update6
 uwp25012022=DOOMEternalx64vk.exe:0f416df537bf693f1842241f7d8d2c4c:global,update6
 uwp26042022=DOOMEternalx64vk.exe:c0d3e753d0e53ccd9b47e1617b8de462:global,update6
 uwp05092023=DOOMEternalx64vk.exe:8263012f097049d80eb52749ef4672c8:global,update6
+uwp08082024=DOOMEternalx64vk.exe:64f0dbb306a5ad4c9fb38c2b78c44ab0:global,update6
+uwp-sandbox27082024=DOOMSandBox64vk.exe:18b27bacf87ef88f555ee6eafe63b7f6:global,update6
 
 # patches
 # for patches with the same id (description), to support multiple game builds for different patterns, position the global patch as the last one
