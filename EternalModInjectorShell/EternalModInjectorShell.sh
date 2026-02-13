@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 # Script version
-script_version="v6.66-rev3.6"
+script_version="v6.66-rev3.7"
 
 # Game version
 game_version="6.66 Rev 3"
@@ -378,8 +378,8 @@ VANILLA_GAME_MD5="a35a88708e3524b7cf5961e44c0bf83d"
 PATCHED_GAME_MD5="5255c83d4d23d3bd1a6535f6715bac51"
 VANILLA_META_MD5="9ce35acab43e5f366b0453ed9d6c035c"
 VANILLA_PACKAGEMAPSPEC_MD5="421d09aab114b07c5b67c10451c59828"
-VANILLA_SANDBOX_MD5="45210d47d5adbf93584d23f9e334359a"
-PATCHED_SANDBOX_MD5="031a7439144714c61fd8322d55ace1c1"
+VANILLA_SANDBOX_MD5="0d518d07bfb8a3767c64eea5c82fcd93"
+PATCHED_SANDBOX_MD5="9481ea62b44e3ea5cf2a45a66de76642"
 RS_DATA_MD5="bc9cce3cdf17e026175867d2e7c4bb3f"
 
 # Check tools' status
