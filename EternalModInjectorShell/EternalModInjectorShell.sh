@@ -17,7 +17,7 @@
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
 # Script version
-script_version="v6.66-rev3.8"
+script_version="v6.66-rev3.9"
 
 # Game version
 game_version="2026-04-03"
@@ -52,17 +52,17 @@ exit 1
 }
 
 MissingGameFile() {
-printf "\n%s\n\n" "${red}${1} not found or corrupted! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
+printf "\n%s\n\n" "${red}${1} not found or corrupted! Verify game files through Steam/GOG Galaxy, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
 exit 1
 }
 
 CorruptedGame() {
-printf "\n%s\n\n" "${red}${1} is corrupted! Verify game files through Steam/Bethesda.net, then try again.${end}"
+printf "\n%s\n\n" "${red}${1} is corrupted! Verify game files through Steam/GOG Galaxy, then try again.${end}"
 exit 1
 }
 
 NoBackupFound() {
-printf "\n%s\n\n" "${red}Backup not found for some .resources or .snd files! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.${end}"
+printf "\n%s\n\n" "${red}Backup not found for some .resources or .snd files! Verify game files through Steam/GOG Galaxy, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1 and try again.${end}"
 exit 1
 }
 
@@ -250,7 +250,7 @@ fi
 LaunchGame() {
 if [ "$AUTO_LAUNCH_GAME" == "1" ]; then
     if ! [ -f "steam_api64.dll" ]; then
-        printf "\n%s\n" "${grn}Automatic game launching is not supported in the Bethesda.net version of the game.${end}"
+        printf "\n%s\n" "${grn}Automatic game launching is not supported in the GOG version of the game.${end}"
         return
     fi
 
@@ -286,7 +286,7 @@ printf "\n%s\n\n" "${blu}Patching build manifest... (DEternal_patchManifest)${en
 ./DEternal_patchManifest 8B031F6A24C5C4F3950130C57EF660E9 > "$OUTPUT_FILE")
 
 if [ "$?" != "0" ]; then
-    printf "\n%s\n\n" "${red}DEternal_patchManifest has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
+    printf "\n%s\n\n" "${red}DEternal_patchManifest has failed! Verify game files through Steam/GOG Galaxy, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
 fi
 }
@@ -374,19 +374,21 @@ DETERNAL_LOADMODS_MD5="c8a7e2476b8c94aaa8820634f5ee12c2"
 ETERNALPATCHER_MD5="e39490ff74d2d1a4d1ad3fa5a3a21ed8"
 IDREHASH_MD5="f88987de8b373a5ebf86ca5b53b8185a"
 DETERNAL_PATCHMANIFEST_MD5="c3cb46ca75edc8280e3387147be06148"
-VANILLA_GAME_MD5="baa2815a445bfdc8784c7bd62f78d291"
-PATCHED_GAME_MD5="6d12e4973061ccd3bba8463e5777cd2d"
+VANILLA_GAME_MD5_GOG="97879a878c4063e8ca5f38761b42eaba"
+VANILLA_GAME_MD5_STEAM="baa2815a445bfdc8784c7bd62f78d291"
+PATCHED_GAME_MD5_GOG="b89dca904caa7ea203f88b2c7b015583"
+PATCHED_GAME_MD5_STEAM="6d12e4973061ccd3bba8463e5777cd2d"
 VANILLA_META_MD5="01d29a39725e426a87e805f4a9a0e0e5"
 VANILLA_PACKAGEMAPSPEC_MD5="d1f84156e81b2e524430746943ff2b26"
-VANILLA_SANDBOX_MD5="0d518d07bfb8a3767c64eea5c82fcd93"
-PATCHED_SANDBOX_MD5="9481ea62b44e3ea5cf2a45a66de76642"
+VANILLA_SANDBOX_MD5_STEAM="0d518d07bfb8a3767c64eea5c82fcd93"
+PATCHED_SANDBOX_MD5_STEAM="9481ea62b44e3ea5cf2a45a66de76642"
 RS_DATA_MD5="bc9cce3cdf17e026175867d2e7c4bb3f"
 
 # Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
 
-# Verify if game EXEs exist
-if ! [ -f "DOOMEternalx64vk.exe" ] || ! [ -f "doomSandBox/DOOMSandBox64vk.exe" ]; then MissingGame; fi
+# Verify if game EXE exists. The GOG version doesn't have "doomSandBox/DOOMSandBox64vk.exe"
+if ! [ -f "DOOMEternalx64vk.exe" ]; then MissingGame; fi
 
 # Verify if tools exist
 Binaries=(
@@ -573,7 +575,7 @@ packagemapspec_path="./base/packagemapspec.json"
 # Check for Asset Version
 if [ "$ASSET_VERSION" == "0" ]; then
 
-    printf "\n%s" "${blu}Old Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/Bethesda.net then run this batch again to reset your backups.
+    printf "\n%s" "${blu}Old Doom Eternal backups detected! Make sure the game is updated to the latest version, then verify the game files through Steam/GOG Galaxy then run this batch again to reset your backups.
 If you have already done so, press Enter to continue: ${blu}"
     read -r -p ''
     ResetBackups
@@ -610,7 +612,7 @@ Press any key to continue...${end}"
     echo
 
     printf "%s" "${blu}If any mods are currently installed and/or you have some outdated files when EternalModInjector makes .resources backups, the subsequent backups will contain those mods and/or be outdated.
-Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or the Bethesda.net Launcher, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
+Dont worry, though; If you ever mess up in a way that results in an already-modified/outdated backup, simply verify/repair DOOM Eternal installation through Steam or GOG Galaxy, open EternalModInjector Settings.txt in Notepad, change the :RESET_BACKUPS=0 line to :RESET_BACKUPS=1, and save the file.
 
 Press any key to continue...${end}"
     read -r -p ''
@@ -633,11 +635,11 @@ fi
 # Patch Game Executable
 PatchedGame="0"
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
-if [ "$PATCHED_GAME_MD5" != "$GameMD5" ]; then
+if [ "$PATCHED_GAME_MD5_STEAM" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_GOG" != "$GameMD5" ]; then
     # Don't restore the backup; if the hash doesn't match, it's usually because the script
     # hasn't been updated for a new game update yet, so we'd end up replacing the new vanilla file
     # with an old backup, forcing the user to verify game files once the script is updated
-    if [ "$VANILLA_GAME_MD5" != "$GameMD5" ]; then CorruptedGame "DOOMEternalx64vk.exe"; fi
+    if [ "$VANILLA_GAME_MD5_STEAM" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_GOG" != "$GameMD5" ]; then CorruptedGame "DOOMEternalx64vk.exe"; fi
 
     printf "\n%s\n\n" "${blu}Patching game executable...${end}"
     cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"
@@ -649,31 +651,33 @@ if [ "$PATCHED_GAME_MD5" != "$GameMD5" ]; then
     PatchedGame="1"
 
     GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
-    if [ "$PATCHED_GAME_MD5" != "$GameMD5" ]; then
-        printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then try again.${end}"
+    if [ "$PATCHED_GAME_MD5_STEAM" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_GOG" != "$GameMD5" ]; then
+        printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/GOG Galaxy, then try again.${end}"
         exit 1
     fi
 fi
 
 # Patch Sandbox Executable
-GameMD5=$(md5sum "doomSandBox/DOOMSandBox64vk.exe" | awk '{ print $1 }')
-if [ "$PATCHED_SANDBOX_MD5" != "$GameMD5" ]; then
-    if [ "$VANILLA_SANDBOX_MD5" != "$GameMD5" ]; then CorruptedGame "doomSandBox/DOOMSandBox64vk.exe"; fi
-
-    if [ "$PatchedGame" != "1" ]; then printf "\n%s\n\n" "${blu}Patching game executable...${end}"; fi
-    cp "doomSandBox/DOOMSandBox64vk.exe" "doomSandBox/DOOMSandBox64vk.exe.backup"
-    (cd base || return
-    if [ "$PatchedGame" != "1" ]; then
-        if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
-        ./EternalPatcher --update > "$OUTPUT_FILE"
-        if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
-    fi
-    ./EternalPatcher --patch "../doomSandBox/DOOMSandBox64vk.exe" > "$OUTPUT_FILE")
-
+if [ -f "doomSandBox/DOOMSandBox64vk.exe" ]; then
     GameMD5=$(md5sum "doomSandBox/DOOMSandBox64vk.exe" | awk '{ print $1 }')
-    if [ "$PATCHED_SANDBOX_MD5" != "$GameMD5" ]; then
-        printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/Bethesda.net, then try again.${end}"
-        exit 1
+    if [ "$PATCHED_SANDBOX_MD5_STEAM" != "$GameMD5" ]; then
+        if [ "$VANILLA_SANDBOX_MD5_STEAM" != "$GameMD5" ]; then CorruptedGame "doomSandBox/DOOMSandBox64vk.exe"; fi
+
+        if [ "$PatchedGame" != "1" ]; then printf "\n%s\n\n" "${blu}Patching game executable...${end}"; fi
+        cp "doomSandBox/DOOMSandBox64vk.exe" "doomSandBox/DOOMSandBox64vk.exe.backup"
+        (cd base || return
+        if [ "$PatchedGame" != "1" ]; then
+            if [ -f "EternalPatcher.def" ]; then cp EternalPatcher.def EternalPatcher.def.bck; fi
+            ./EternalPatcher --update > "$OUTPUT_FILE"
+            if [ "$?" != "0" ] && [ -f "EternalPatcher.def.bck" ]; then cp EternalPatcher.def.bck EternalPatcher.def; fi
+        fi
+        ./EternalPatcher --patch "../doomSandBox/DOOMSandBox64vk.exe" > "$OUTPUT_FILE")
+
+        GameMD5=$(md5sum "doomSandBox/DOOMSandBox64vk.exe" | awk '{ print $1 }')
+        if [ "$PATCHED_SANDBOX_MD5_STEAM" != "$GameMD5" ]; then
+            printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/GOG Galaxy, then try again.${end}"
+            exit 1
+        fi
     fi
 fi
 
@@ -685,7 +689,7 @@ for resource_file_path in "${ResourceFilePaths[@]}"; do
     line="${resource_file_path#*=}"
     line="${line//'"'}"
     if ! [ -f "$line" ]; then
-        printf "\n%s\n\n" "${red}Some .resources files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}"
+        printf "\n%s\n\n" "${red}Some .resources files are missing! Verify game files through Steam/GOG Galaxy, then try again.${end}"
         exit 1
     fi
 done
@@ -694,7 +698,7 @@ for snd_file_path in "${SndFilePaths[@]}"; do
     line="${snd_file_path#*=}"
     line="${line//'"'}"
     if ! [ -f "$line" ]; then
-        printf "\n%s\n\n" "${red}Some .snd files are missing! Verify game files through Steam/Bethesda.net, then try again.${end}"
+        printf "\n%s\n\n" "${red}Some .snd files are missing! Verify game files through Steam/GOG Galaxy, then try again.${end}"
         exit 1
     fi
 done
@@ -824,7 +828,7 @@ if [ "$HAS_CHECKED_RESOURCES" == "0" ]; then
     ./idRehash --getoffsets > "$OUTPUT_FILE")
 
     if [ "$?" != "0" ]; then
-    printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
+    printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/GOG Galaxy, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
     fi
 
@@ -839,7 +843,7 @@ ${blu}Loading mods... (DEternal_loadMods)${end}
 ./base/DEternal_loadMods ${modloader_arguments}
 
 if [ "$?" != "0" ]; then
-    printf "\n%s\n\n" "${red}DEternal_loadMods has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
+    printf "\n%s\n\n" "${red}DEternal_loadMods has failed! Verify game files through Steam/GOG Galaxy, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
 fi
 
@@ -849,7 +853,7 @@ printf "\n%s\n\n" "${blu}Rehashing resource offsets... (idRehash)${end}"
 ./idRehash > "$OUTPUT_FILE")
 
 if [ "$?" != "0" ]; then
-    printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/Bethesda.net, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
+    printf "\n%s\n\n" "${red}idRehash has failed! Verify game files through Steam/GOG Galaxy, then open 'EternalModInjector Settings.txt' with a text editor and change RESET_BACKUPS value to 1, then try again.${end}"
     exit 1
 fi
 
