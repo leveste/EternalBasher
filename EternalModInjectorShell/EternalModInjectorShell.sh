@@ -221,30 +221,35 @@ esac
 }
 
 SelfUpdate() {
-link=$(curl -L -o /dev/null -w '%{url_effective}' https://github.com/leveste/EternalBasher/releases/latest 2> /dev/null)
-version=$(basename "$link")
-if [ "$version" == "$script_version" ] || [ "$version" == "latest" ]; then OUTDATED="0"; else OUTDATED="1"; fi
+printf "\n%s" "${blu}Checking for updates...${end}"
 
-if [ "$OUTDATED" == "1" ]; then
-    printf "\n%s\n\n" "${blu}Updating script...${end}"
-    export skip="1"
-    if [ -f EternalModInjectorShell.tar.gz ]; then rm EternalModInjectorShell.tar.gz; fi
-    curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
-    | grep browser_download_url \
-    | grep "EternalModInjectorShell.tar.gz" \
-    | cut -d '"' -f 4 \
-    | wget -qi -
-    if [ -d "tmp" ]; then rm -rf "tmp"; fi
-    mkdir "tmp"
-    tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
-    (cp -rf tmp/* .
-    rm -rf tmp
-    rm EternalModInjectorShell.tar.gz
-    chmod +x EternalModInjectorShell.sh
-    clear
-    ./EternalModInjectorShell.sh)
-    exit $?
+latest="https://github.com/leveste/EternalBasher/releases/latest"
+version="$(curl --head -s -o /dev/null -w '%{redirect_url}' "$latest")"
+version="$(basename "$version")"
+if [ "$version" == "$script_version" ]; then
+    printf "%s\n\n" "${blu} Already up-to-date.${end}"
+    return 0
+elif [ -z "$version" ]; then
+    printf "\n%s\n\n" "${ylw}Failed to check for updates!${end}"
+    return 1
 fi
+
+printf "\n\n\n%s\n\n" "${blu}Updating script...${end}"
+if [ -d "tmp" ]; then rm -rf "tmp"; fi
+mkdir "tmp"
+curl --location -s "${latest}/download/EternalModInjectorShell.tar.gz" | tar -xz --file "-" --directory "tmp"
+if [ "$?" != "0" ]; then
+    rm -rf tmp
+    printf "\n%s\n" "${red}Failed to update script! You can download the latest version manually:"
+    printf "%s\n\n" "${latest}${end}"
+    exit 1
+fi
+(cp -rf tmp/* .
+rm -rf tmp
+chmod +x EternalModInjectorShell.sh
+clear
+skip="1" ./EternalModInjectorShell.sh)
+exit $?
 }
 
 LaunchGame() {
@@ -363,11 +368,7 @@ if [ "$DISABLE_MULTITHREADING" == "1" ]; then modloader_arguments="${modloader_a
 if [ "$ONLINE_SAFE" == "1" ]; then modloader_arguments="${modloader_arguments} --online-safe"; fi
 
 # Check for script updates
-printf "\n%s\n\n" "${blu}Checking for updates...${end}"
-if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
-    SelfUpdate
-    export skip=""
-fi
+if [ "$AUTO_UPDATE" == "1" ] && [ "$skip" != "1" ]; then SelfUpdate; fi
 
 # Assign game hashes to variables
 DETERNAL_LOADMODS_MD5="c8a7e2476b8c94aaa8820634f5ee12c2"
