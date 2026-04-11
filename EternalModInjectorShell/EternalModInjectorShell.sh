@@ -226,12 +226,12 @@ SelfUpdate() {
 printf "\n%s" "${blu}Checking for updates...${end}"
 
 latest="https://github.com/leveste/EternalBasher/releases/latest"
-version="$(curl -Ls -o /dev/null -w '%{url_effective}' "$latest")"
+version="$(curl -ILs -o /dev/null -w '%{url_effective}' "$latest")"
 version="$(basename "$version")"
 if [ "$version" == "$script_version" ]; then
     printf "%s\n\n" "${blu} Already up-to-date.${end}"
     return 0
-elif [ -z "$version" ]; then
+elif [ "$version" == "latest" ]; then
     printf "\n%s\n\n" "${ylw}Failed to check for updates!${end}"
     return 1
 fi
@@ -239,7 +239,7 @@ fi
 printf "\n\n\n%s\n\n" "${blu}Updating script...${end}"
 if [ -d "tmp" ]; then rm -rf "tmp"; fi
 mkdir "tmp"
-curl --location -s "${latest}/download/EternalModInjectorShell.tar.gz" | tar -xz --file "-" --directory "tmp"
+curl -Ls "${latest}/download/EternalModInjectorShell.tar.gz" | tar -xz --file "-" --directory "tmp"
 if [ "$?" != "0" ]; then
     rm -rf tmp
     printf "\n%s\n" "${red}Failed to update script! You can download the latest version manually:"
