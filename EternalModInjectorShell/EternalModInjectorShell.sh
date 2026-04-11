@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License  
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
+set -o pipefail
+
 # Script version
 script_version="v6.66-rev3.10"
 
@@ -224,7 +226,7 @@ SelfUpdate() {
 printf "\n%s" "${blu}Checking for updates...${end}"
 
 latest="https://github.com/leveste/EternalBasher/releases/latest"
-version="$(curl --head -s -o /dev/null -w '%{redirect_url}' "$latest")"
+version="$(curl -Ls -o /dev/null -w '%{url_effective}' "$latest")"
 version="$(basename "$version")"
 if [ "$version" == "$script_version" ]; then
     printf "%s\n\n" "${blu} Already up-to-date.${end}"
