@@ -16,8 +16,10 @@
 # You should have received a copy of the GNU General Public License  
 # along with EternalBasher. If not, see <https://www.gnu.org/licenses/>.
 
+set -o pipefail
+
 # Script version
-script_version="v6.66-rev3.9"
+script_version="v6.66-rev3.10"
 
 # Game version
 game_version="2026-04-03"
@@ -221,30 +223,35 @@ esac
 }
 
 SelfUpdate() {
-link=$(curl -L -o /dev/null -w '%{url_effective}' https://github.com/leveste/EternalBasher/releases/latest 2> /dev/null)
-version=$(basename "$link")
-if [ "$version" == "$script_version" ] || [ "$version" == "latest" ]; then OUTDATED="0"; else OUTDATED="1"; fi
+printf "\n%s" "${blu}Checking for updates...${end}"
 
-if [ "$OUTDATED" == "1" ]; then
-    printf "\n%s\n\n" "${blu}Updating script...${end}"
-    export skip="1"
-    if [ -f EternalModInjectorShell.tar.gz ]; then rm EternalModInjectorShell.tar.gz; fi
-    curl -s https://api.github.com/repos/leveste/EternalBasher/releases/latest \
-    | grep browser_download_url \
-    | grep "EternalModInjectorShell.tar.gz" \
-    | cut -d '"' -f 4 \
-    | wget -qi -
-    if [ -d "tmp" ]; then rm -rf "tmp"; fi
-    mkdir "tmp"
-    tar -xf "EternalModInjectorShell.tar.gz" --directory "tmp"
-    (cp -rf tmp/* .
-    rm -rf tmp
-    rm EternalModInjectorShell.tar.gz
-    chmod +x EternalModInjectorShell.sh
-    clear
-    ./EternalModInjectorShell.sh)
-    exit $?
+latest="https://github.com/leveste/EternalBasher/releases/latest"
+version="$(curl -ILs -o /dev/null -w '%{url_effective}' "$latest")"
+version="$(basename "$version")"
+if [ "$version" == "$script_version" ]; then
+    printf "%s\n\n" "${blu} Already up-to-date.${end}"
+    return 0
+elif [ "$version" == "latest" ]; then
+    printf "\n%s\n\n" "${ylw}Failed to check for updates!${end}"
+    return 1
 fi
+
+printf "\n\n\n%s\n\n" "${blu}Updating script...${end}"
+if [ -d "tmp" ]; then rm -rf "tmp"; fi
+mkdir "tmp"
+curl -Ls "${latest}/download/EternalModInjectorShell.tar.gz" | tar -xz --file "-" --directory "tmp"
+if [ "$?" != "0" ]; then
+    rm -rf tmp
+    printf "\n%s\n" "${red}Failed to update script! You can download the latest version manually:"
+    printf "%s\n\n" "${latest}${end}"
+    exit 1
+fi
+(cp -rf tmp/* .
+rm -rf tmp
+chmod +x EternalModInjectorShell.sh
+clear
+skip="1" ./EternalModInjectorShell.sh)
+exit $?
 }
 
 LaunchGame() {
@@ -363,20 +370,16 @@ if [ "$DISABLE_MULTITHREADING" == "1" ]; then modloader_arguments="${modloader_a
 if [ "$ONLINE_SAFE" == "1" ]; then modloader_arguments="${modloader_arguments} --online-safe"; fi
 
 # Check for script updates
-printf "\n%s\n\n" "${blu}Checking for updates...${end}"
-if [ "$skip" != "1" ] && [ "$AUTO_UPDATE" == "1" ]; then
-    SelfUpdate
-    export skip=""
-fi
+if [ "$AUTO_UPDATE" == "1" ] && [ "$skip" != "1" ]; then SelfUpdate; fi
 
 # Assign game hashes to variables
 DETERNAL_LOADMODS_MD5="c8a7e2476b8c94aaa8820634f5ee12c2"
 ETERNALPATCHER_MD5="e39490ff74d2d1a4d1ad3fa5a3a21ed8"
 IDREHASH_MD5="f88987de8b373a5ebf86ca5b53b8185a"
 DETERNAL_PATCHMANIFEST_MD5="c3cb46ca75edc8280e3387147be06148"
-VANILLA_GAME_MD5_GOG="97879a878c4063e8ca5f38761b42eaba"
+VANILLA_GAME_MD5_GOG="e5c2bfcf6edcff998cd6e332aea839e0"
 VANILLA_GAME_MD5_STEAM="baa2815a445bfdc8784c7bd62f78d291"
-PATCHED_GAME_MD5_GOG="b89dca904caa7ea203f88b2c7b015583"
+PATCHED_GAME_MD5_GOG="49fd10899d2e60c7104cc6b19d15f416"
 PATCHED_GAME_MD5_STEAM="6d12e4973061ccd3bba8463e5777cd2d"
 VANILLA_META_MD5="01d29a39725e426a87e805f4a9a0e0e5"
 VANILLA_PACKAGEMAPSPEC_MD5="d1f84156e81b2e524430746943ff2b26"
