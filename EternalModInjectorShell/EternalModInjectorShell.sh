@@ -19,7 +19,7 @@
 set -o pipefail
 
 # Script version
-script_version="v6.66-rev3.10"
+script_version="v6.66-rev3.11"
 
 # Game version
 game_version="2026-04-03"
@@ -33,6 +33,12 @@ if [ "$skip_debug_check" != "1" ]; then end=$'\e[0m'; fi
 
 # Set cwd to script dir
 cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+if [ -f "Galaxy64.dll" ] && ! [ -f "steam_api64.dll" ]; then
+    game_version="2026-04-16"
+    gog="1"
+else
+    gog="0"
+fi
 
 # Prompt before exit when running from EternalModManager
 if [ -f "ETERNALMODMANAGER" ]; then
@@ -256,7 +262,7 @@ exit $?
 
 LaunchGame() {
 if [ "$AUTO_LAUNCH_GAME" == "1" ]; then
-    if ! [ -f "steam_api64.dll" ]; then
+    if ! [ -f "steam_api64.dll" ]; then # Don't check "$gog" here. GOG and Steam aren't the only versions
         printf "\n%s\n" "${grn}Automatic game launching is not supported in the GOG version of the game.${end}"
         return
     fi
@@ -377,15 +383,18 @@ DETERNAL_LOADMODS_MD5="c8a7e2476b8c94aaa8820634f5ee12c2"
 ETERNALPATCHER_MD5="e39490ff74d2d1a4d1ad3fa5a3a21ed8"
 IDREHASH_MD5="f88987de8b373a5ebf86ca5b53b8185a"
 DETERNAL_PATCHMANIFEST_MD5="c3cb46ca75edc8280e3387147be06148"
-VANILLA_GAME_MD5_GOG="e5c2bfcf6edcff998cd6e332aea839e0"
-VANILLA_GAME_MD5_STEAM="baa2815a445bfdc8784c7bd62f78d291"
-PATCHED_GAME_MD5_GOG="49fd10899d2e60c7104cc6b19d15f416"
-PATCHED_GAME_MD5_STEAM="6d12e4973061ccd3bba8463e5777cd2d"
+VANILLA_GAME_MD5="baa2815a445bfdc8784c7bd62f78d291"
+PATCHED_GAME_MD5="6d12e4973061ccd3bba8463e5777cd2d"
 VANILLA_META_MD5="01d29a39725e426a87e805f4a9a0e0e5"
 VANILLA_PACKAGEMAPSPEC_MD5="d1f84156e81b2e524430746943ff2b26"
-VANILLA_SANDBOX_MD5_STEAM="0d518d07bfb8a3767c64eea5c82fcd93"
-PATCHED_SANDBOX_MD5_STEAM="9481ea62b44e3ea5cf2a45a66de76642"
+VANILLA_SANDBOX_MD5="0d518d07bfb8a3767c64eea5c82fcd93"
+PATCHED_SANDBOX_MD5="9481ea62b44e3ea5cf2a45a66de76642"
 RS_DATA_MD5="bc9cce3cdf17e026175867d2e7c4bb3f"
+if [ "$gog" == "1" ]; then
+    VANILLA_GAME_MD5="2779176f10354f0d5b6399bbaf31325d"
+    PATCHED_GAME_MD5="6434df9ef87702604b537f941e4765bb"
+    VANILLA_META_MD5="dcd02d4db19829a949309d35ce69367f"
+fi
 
 # Check tools' status
 printf "\n%s\n\n" "${blu}Checking tools...${end}"
@@ -638,11 +647,11 @@ fi
 # Patch Game Executable
 PatchedGame="0"
 GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
-if [ "$PATCHED_GAME_MD5_STEAM" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_GOG" != "$GameMD5" ]; then
+if [ "$PATCHED_GAME_MD5" != "$GameMD5" ]; then
     # Don't restore the backup; if the hash doesn't match, it's usually because the script
     # hasn't been updated for a new game update yet, so we'd end up replacing the new vanilla file
     # with an old backup, forcing the user to verify game files once the script is updated
-    if [ "$VANILLA_GAME_MD5_STEAM" != "$GameMD5" ] && [ "$VANILLA_GAME_MD5_GOG" != "$GameMD5" ]; then CorruptedGame "DOOMEternalx64vk.exe"; fi
+    if [ "$VANILLA_GAME_MD5" != "$GameMD5" ]; then CorruptedGame "DOOMEternalx64vk.exe"; fi
 
     printf "\n%s\n\n" "${blu}Patching game executable...${end}"
     cp "DOOMEternalx64vk.exe" "DOOMEternalx64vk.exe.backup"
@@ -654,7 +663,7 @@ if [ "$PATCHED_GAME_MD5_STEAM" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_GOG" != "
     PatchedGame="1"
 
     GameMD5=$(md5sum "DOOMEternalx64vk.exe" | awk '{ print $1 }')
-    if [ "$PATCHED_GAME_MD5_STEAM" != "$GameMD5" ] && [ "$PATCHED_GAME_MD5_GOG" != "$GameMD5" ]; then
+    if [ "$PATCHED_GAME_MD5" != "$GameMD5" ]; then
         printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/GOG Galaxy, then try again.${end}"
         exit 1
     fi
@@ -663,8 +672,8 @@ fi
 # Patch Sandbox Executable
 if [ -f "doomSandBox/DOOMSandBox64vk.exe" ]; then
     GameMD5=$(md5sum "doomSandBox/DOOMSandBox64vk.exe" | awk '{ print $1 }')
-    if [ "$PATCHED_SANDBOX_MD5_STEAM" != "$GameMD5" ]; then
-        if [ "$VANILLA_SANDBOX_MD5_STEAM" != "$GameMD5" ]; then CorruptedGame "doomSandBox/DOOMSandBox64vk.exe"; fi
+    if [ "$PATCHED_SANDBOX_MD5" != "$GameMD5" ]; then
+        if [ "$VANILLA_SANDBOX_MD5" != "$GameMD5" ]; then CorruptedGame "doomSandBox/DOOMSandBox64vk.exe"; fi
 
         if [ "$PatchedGame" != "1" ]; then printf "\n%s\n\n" "${blu}Patching game executable...${end}"; fi
         cp "doomSandBox/DOOMSandBox64vk.exe" "doomSandBox/DOOMSandBox64vk.exe.backup"
@@ -677,7 +686,7 @@ if [ -f "doomSandBox/DOOMSandBox64vk.exe" ]; then
         ./EternalPatcher --patch "../doomSandBox/DOOMSandBox64vk.exe" > "$OUTPUT_FILE")
 
         GameMD5=$(md5sum "doomSandBox/DOOMSandBox64vk.exe" | awk '{ print $1 }')
-        if [ "$PATCHED_SANDBOX_MD5_STEAM" != "$GameMD5" ]; then
+        if [ "$PATCHED_SANDBOX_MD5" != "$GameMD5" ]; then
             printf "\n%s\n\n" "${red}EternalPatcher has failed! Verify game files through Steam/GOG Galaxy, then try again.${end}"
             exit 1
         fi
