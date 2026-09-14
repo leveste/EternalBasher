@@ -19,7 +19,7 @@
 set -o pipefail
 
 # Script version
-script_version="v6.66-rev3.14"
+script_version="v6.66-rev3.15"
 
 # Game version
 game_version="2026-04-03"
