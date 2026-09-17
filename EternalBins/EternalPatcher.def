@@ -81,6 +81,7 @@ uwp19032026=DOOMEternalx64vk.exe:a50d12f0b104036df67086e9f6367acc:global,update6
 uwp-sandbox07052026=DOOMSandBox64vk.exe:12a140aa2dd58d1bdd5e52b665259e9b:global,update6
 steam11082026=DOOMEternalx64vk.exe:382a4d5bb648b56f9cd9194b5e0be348:global,update6
 steam-sandbox17082026=DOOMSandBox64vk.exe:b6968cefb4e9c601c26e7b15e31f8992:global,update6
+steam-sandbox09092026=DOOMSandBox64vk.exe:8386336fc43266b5a148f16757828763:global,update6
 
 # DOOM: The Dark Ages
 dasteam22052025=DOOMTheDarkAges.exe:bf5b4b7e3f28c169b957d4e50f8b4cbb:da
@@ -96,6 +97,7 @@ dasteam18112025=DOOMTheDarkAges.exe:1667b9193d878e8305513a07cbb34ecf:da
 dasteam07072026=DOOMTheDarkAges.exe:877457d2d8bdf091211027b1b0e272e5:da
 dasteam07092026=DOOMTheDarkAges.exe:0349c41bcab5b19a9b435d73a80958db:da
 dasteam07292026=DOOMTheDarkAges.exe:367e13fe5cbc971a4babdb249f58f72b:da
+dasteam09142026=DOOMTheDarkAges.exe:80058c89e213b3aa34364985ef070570:da
 
 # patches
 # for patches with the same id (description), to support multiple game builds for different patterns, position the global patch as the last one
